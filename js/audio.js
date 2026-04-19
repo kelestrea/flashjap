@@ -20,6 +20,7 @@ function scoreVoice(v) {
 
 function pickBestVoice() {
   const voices = speechSynthesis.getVoices().filter(v => v.lang.startsWith('ja'));
+  console.log(voices.map(v => v.name + ' | ' + v.voiceURI).join('\n'));
   if (!voices.length) return null;
   voices.sort((a, b) => scoreVoice(b) - scoreVoice(a));
   return voices[0];
