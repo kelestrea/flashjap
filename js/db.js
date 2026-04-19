@@ -9,14 +9,12 @@ export function openDB() {
     const req = indexedDB.open(DB_NAME, DB_VER);
     req.onupgradeneeded = e => {
       const db = e.target.result;
-      // Store vocab
       if (!db.objectStoreNames.contains('vocab')) {
         const vs = db.createObjectStore('vocab', { keyPath: 'mot' });
         vs.createIndex('hiragana', 'hiragana', { unique: false });
         vs.createIndex('romaji',   'romaji',   { unique: false });
         vs.createIndex('listes',   'listes',   { unique: false, multiEntry: true });
       }
-      // Store kanji
       if (!db.objectStoreNames.contains('kanji')) {
         const ks = db.createObjectStore('kanji', { keyPath: 'kanji' });
         ks.createIndex('listes', 'listes', { unique: false, multiEntry: true });
@@ -30,7 +28,6 @@ export function openDB() {
 function tx(store, mode = 'readonly') {
   return _db.transaction(store, mode).objectStore(store);
 }
-
 function all(store) {
   return new Promise((res, rej) => {
     const req = tx(store).getAll();
@@ -38,7 +35,6 @@ function all(store) {
     req.onerror   = () => rej(req.error);
   });
 }
-
 function get(store, key) {
   return new Promise((res, rej) => {
     const req = tx(store).get(key);
@@ -46,7 +42,6 @@ function get(store, key) {
     req.onerror   = () => rej(req.error);
   });
 }
-
 function put(store, obj) {
   return new Promise((res, rej) => {
     const req = tx(store, 'readwrite').put(obj);
@@ -54,7 +49,6 @@ function put(store, obj) {
     req.onerror   = () => rej(req.error);
   });
 }
-
 function del(store, key) {
   return new Promise((res, rej) => {
     const req = tx(store, 'readwrite').delete(key);
@@ -62,7 +56,6 @@ function del(store, key) {
     req.onerror   = () => rej(req.error);
   });
 }
-
 function clear(store) {
   return new Promise((res, rej) => {
     const req = tx(store, 'readwrite').clear();
@@ -73,22 +66,42 @@ function clear(store) {
 
 // ── STATS ──────────────────────────────────────────────────────────────
 export function getStatut(score) {
+  if (score === null || score === undefined) return null;
   if (score === 0) return 'etudie';
   if (score < 5)  return 'encours';
   return 'maitrise';
 }
 
-// mode 'display' (accueil) = maximum des deux sens
-// mode 'quiz' (filtrage moins maîtrisés) = minimum des deux sens
+// mode 'display' (accueil) = maximum des scores testés
+// mode 'quiz' (filtrage moins maîtrisés) = minimum des scores testés
 export function getStatutGlobal(entry, mode = 'display') {
   const order = ['noncommence', 'etudie', 'encours', 'maitrise'];
-  function sensStatut(score, vue) {
-    if (score === null || score === undefined) return vue ? 'etudie' : 'noncommence';
-    return getStatut(score);
+
+  // Collecter tous les scores disponibles selon le type
+  const scores = [];
+  if (entry.type === 'kanji') {
+    if (entry.score_comprehension_jpfr !== null && entry.score_comprehension_jpfr !== undefined)
+      scores.push(getStatut(entry.score_comprehension_jpfr));
+    if (entry.score_comprehension_frjp !== null && entry.score_comprehension_frjp !== undefined)
+      scores.push(getStatut(entry.score_comprehension_frjp));
+    if (entry.score_lecture_on !== null && entry.score_lecture_on !== undefined)
+      scores.push(getStatut(entry.score_lecture_on));
+    if (entry.score_lecture_kun !== null && entry.score_lecture_kun !== undefined)
+      scores.push(getStatut(entry.score_lecture_kun));
+  } else {
+    if (entry.score_jpfr !== null && entry.score_jpfr !== undefined)
+      scores.push(getStatut(entry.score_jpfr));
+    if (entry.score_frjp !== null && entry.score_frjp !== undefined)
+      scores.push(getStatut(entry.score_frjp));
   }
-  const i1 = order.indexOf(sensStatut(entry.score_jpfr, entry.derniere_vue_jpfr));
-  const i2 = order.indexOf(sensStatut(entry.score_frjp, entry.derniere_vue_frjp));
-  return mode === 'display' ? order[Math.max(i1, i2)] : order[Math.min(i1, i2)];
+
+  // Aucun score testé → non commencé
+  if (!scores.length) return 'noncommence';
+
+  const indices = scores.map(s => order.indexOf(s));
+  return mode === 'display'
+    ? order[Math.max(...indices)]
+    : order[Math.min(...indices)];
 }
 
 export const STATUT_COLOR = {
@@ -101,7 +114,6 @@ export const STATUT_COLOR = {
 // ── LECTURE / ÉCRITURE ──────────────────────────────────────────────────
 export async function getAllVocab() { return all('vocab'); }
 export async function getAllKanji() { return all('kanji'); }
-
 export async function getVocab(mot)   { return get('vocab', mot); }
 export async function getKanji(kanji) { return get('kanji', kanji); }
 
@@ -110,25 +122,49 @@ export async function saveEntry(entry) {
   const key   = entry.type === 'kanji' ? entry.kanji : entry.mot;
   const existing = await get(store, key);
   if (existing) {
-    // Fusionner les listes, garder les scores
     const listes = [...new Set([...existing.listes, ...(entry.listes || [])])];
     await put(store, { ...existing, listes });
     return 'doublon';
   }
-  // Initialiser les scores
-  const now = Date.now();
-  await put(store, {
-    ...entry,
-    score_jpfr: null,
-    score_frjp: null,
-    consec_jpfr: 0,
-    consec_frjp: 0,
-    derniere_vue_jpfr: null,
-    derniere_vue_frjp: null,
-  });
+  if (entry.type === 'kanji') {
+    await put(store, {
+      ...entry,
+      score_comprehension_jpfr: null,
+      score_comprehension_frjp: null,
+      score_lecture_on:  null,
+      score_lecture_kun: null,
+      consec_comprehension_jpfr: 0,
+      consec_comprehension_frjp: 0,
+      consec_lecture_on:  0,
+      consec_lecture_kun: 0,
+      err_consec_comprehension_jpfr: 0,
+      err_consec_comprehension_frjp: 0,
+      err_consec_lecture_on:  0,
+      err_consec_lecture_kun: 0,
+      derniere_vue_jpfr: null,
+      derniere_vue_frjp: null,
+      created_at: Date.now(),
+    });
+  } else {
+    await put(store, {
+      ...entry,
+      score_jpfr: null,
+      score_frjp: null,
+      consec_jpfr: 0,
+      consec_frjp: 0,
+      err_consec_jpfr: 0,
+      err_consec_frjp: 0,
+      derniere_vue_jpfr: null,
+      derniere_vue_frjp: null,
+      created_at: Date.now(),
+    });
+  }
   return 'ok';
 }
 
+// ── UPDATE SCORE ────────────────────────────────────────────────────────
+// Pour vocab : sens = 'jpfr' | 'frjp'
+// Pour kanji : sens = 'comprehension_jpfr' | 'comprehension_frjp' | 'lecture_on' | 'lecture_kun'
 export async function updateScore(type, key, sens, correct) {
   const store = type === 'kanji' ? 'kanji' : 'vocab';
   const entry = await get(store, key);
@@ -136,39 +172,43 @@ export async function updateScore(type, key, sens, correct) {
 
   const scoreKey  = `score_${sens}`;
   const consecKey = `consec_${sens}`;
-  const vueKey    = `derniere_vue_${sens}`;
+  const errKey    = `err_consec_${sens}`;
+  const vueKey    = sens.includes('frjp') ? 'derniere_vue_frjp' : 'derniere_vue_jpfr';
 
-  const prev  = entry[scoreKey] ?? 0;
+  const prev   = entry[scoreKey] ?? 0;
   const consec = entry[consecKey] ?? 0;
-
-  let newScore  = prev;
-  let newConsec = consec;
+  const err    = entry[errKey] ?? 0;
 
   if (correct) {
-    newConsec = consec + 1;
-    if (newConsec >= 5) { newScore = 5; newConsec = 5; }
-    else newScore = newConsec;
+    const newConsec = Math.min(consec + 1, 5);
+    const newScore  = newConsec >= 5 ? 5 : newConsec;
+    await put(store, {
+      ...entry,
+      [scoreKey]:  newScore,
+      [consecKey]: newConsec,
+      [errKey]:    0,
+      [vueKey]:    Date.now(),
+    });
   } else {
-    newConsec = 0;
-    // Rétrograder d'un cran après 2 erreurs consécutives (géré côté quiz)
-    const errKey = `err_consec_${sens}`;
-    const errCount = (entry[errKey] ?? 0) + 1;
-    if (errCount >= 2) {
-      newScore = Math.max(0, prev - 1);
-      await put(store, { ...entry, [scoreKey]: newScore, [consecKey]: 0, [errKey]: 0, [vueKey]: Date.now() });
-      return;
+    const newErr = err + 1;
+    if (newErr >= 2) {
+      const newScore = Math.max(0, prev - 1);
+      await put(store, {
+        ...entry,
+        [scoreKey]:  newScore,
+        [consecKey]: 0,
+        [errKey]:    0,
+        [vueKey]:    Date.now(),
+      });
+    } else {
+      await put(store, {
+        ...entry,
+        [consecKey]: 0,
+        [errKey]:    newErr,
+        [vueKey]:    Date.now(),
+      });
     }
-    await put(store, { ...entry, [`err_consec_${sens}`]: errCount, [vueKey]: Date.now() });
-    return;
   }
-
-  await put(store, {
-    ...entry,
-    [scoreKey]:  newScore,
-    [consecKey]: newConsec,
-    [vueKey]:    Date.now(),
-    [`err_consec_${sens}`]: 0,
-  });
 }
 
 // ── LISTES DISPONIBLES ──────────────────────────────────────────────────
@@ -192,7 +232,7 @@ export async function getCardsForQuiz({ type, listes, critere, sens, count }) {
     entries = entries.filter(e => listes.some(l => (e.listes || []).includes(l)));
   }
 
-  // En mode Lecture : seulement les mots avec au moins un kanji
+  // En mode Lecture : seulement les entrées avec au moins un kanji
   if (sens === 'lecture') {
     entries = entries.filter(e => {
       const mot = e.mot || e.kanji || '';
@@ -200,32 +240,33 @@ export async function getCardsForQuiz({ type, listes, critere, sens, count }) {
     });
   }
 
-  const scoreKey = `score_${sens === 'lecture' ? 'jpfr' : sens}`;
-  const vueKey   = `derniere_vue_${sens === 'lecture' ? 'jpfr' : sens}`;
-  const THREE_WEEKS = 21 * 24 * 3600 * 1000;
   const now = Date.now();
+  const THREE_WEEKS = 21 * 24 * 3600 * 1000;
 
-  // Filtre critère
+  // Filtre + tri selon critère
   if (critere === 'faibles') {
     entries = entries.filter(e => getStatutGlobal(e, 'quiz') !== 'maitrise');
   } else if (critere === 'anciens') {
     entries = entries.filter(e => {
-      const vue = e[vueKey];
-      return !vue || (now - vue) >= THREE_WEEKS;
+      const vue = Math.min(e.derniere_vue_jpfr || Infinity, e.derniere_vue_frjp || Infinity);
+      return vue === Infinity || (now - vue) >= THREE_WEEKS;
     });
-    // Trier du plus ancien au plus récent
     entries.sort((a, b) => {
-      const va = a[vueKey] ?? 0;
-      const vb = b[vueKey] ?? 0;
+      const va = Math.min(a.derniere_vue_jpfr || 0, a.derniere_vue_frjp || 0);
+      const vb = Math.min(b.derniere_vue_jpfr || 0, b.derniere_vue_frjp || 0);
       return va - vb;
     });
+  } else if (critere === 'jamais') {
+    entries = entries.filter(e => getStatutGlobal(e) === 'noncommence');
+    // Plus récents en premier (created_at décroissant)
+    entries.sort((a, b) => (b.created_at || 0) - (a.created_at || 0));
   }
 
-  // Limiter au count demandé (0 = tous)
+  // Limiter au count avant mélange
   if (count > 0) entries = entries.slice(0, count);
 
-  // Mélanger sauf pour "anciens" (déjà trié)
-  if (critere !== 'anciens') shuffle(entries);
+  // Mélanger pour le quiz (tous critères)
+  shuffle(entries);
 
   return entries;
 }
@@ -245,9 +286,15 @@ export async function exportAll() {
 }
 
 export async function importAll(data, keepScores) {
-  const SCORE_FIELDS = ['score_jpfr','score_frjp','consec_jpfr','consec_frjp',
-                        'derniere_vue_jpfr','derniere_vue_frjp','err_consec_jpfr','err_consec_frjp'];
-  const restore = async (store, entries, keyFn) => {
+  const VOCAB_SCORE_FIELDS = ['score_jpfr','score_frjp','consec_jpfr','consec_frjp',
+    'err_consec_jpfr','err_consec_frjp','derniere_vue_jpfr','derniere_vue_frjp'];
+  const KANJI_SCORE_FIELDS = ['score_comprehension_jpfr','score_comprehension_frjp',
+    'score_lecture_on','score_lecture_kun','consec_comprehension_jpfr','consec_comprehension_frjp',
+    'consec_lecture_on','consec_lecture_kun','err_consec_comprehension_jpfr',
+    'err_consec_comprehension_frjp','err_consec_lecture_on','err_consec_lecture_kun',
+    'derniere_vue_jpfr','derniere_vue_frjp'];
+
+  const restore = async (store, entries, keyFn, scoreFields) => {
     if (!keepScores) {
       await clear(store);
       for (const e of entries) await put(store, e);
@@ -255,13 +302,13 @@ export async function importAll(data, keepScores) {
       for (const e of entries) {
         const existing = await get(store, keyFn(e));
         const scores = {};
-        if (existing) SCORE_FIELDS.forEach(f => { scores[f] = existing[f]; });
+        if (existing) scoreFields.forEach(f => { scores[f] = existing[f]; });
         await put(store, { ...e, ...scores });
       }
     }
   };
-  if (data.vocab) await restore('vocab', data.vocab, e => e.mot);
-  if (data.kanji) await restore('kanji', data.kanji, e => e.kanji);
+  if (data.vocab) await restore('vocab', data.vocab, e => e.mot, VOCAB_SCORE_FIELDS);
+  if (data.kanji) await restore('kanji', data.kanji, e => e.kanji, KANJI_SCORE_FIELDS);
 }
 
 // ── VALIDATION IMPORT ───────────────────────────────────────────────────
@@ -293,17 +340,18 @@ export async function buildSearchIndex() {
 export function search(query, type) {
   if (!_searchIndex) return [];
   const q = query.toLowerCase().trim().replace(/\s/g, '');
-  if (!q) return _searchIndex.filter(e => type === 'les2' || e.type === type || (type === 'vocab' && e.type !== 'kanji') || (type === 'kanji' && e.type === 'kanji'));
-
+  if (!q) return _searchIndex.filter(e =>
+    type === 'les2' || (type === 'kanji' && e.type === 'kanji') || (type === 'vocab' && e.type !== 'kanji')
+  );
   return _searchIndex.filter(e => {
     if (type !== 'les2') {
       if (type === 'kanji' && e.type !== 'kanji') return false;
       if (type === 'vocab' && e.type === 'kanji') return false;
     }
-    const mot   = (e.mot || e.kanji || '').toLowerCase().replace(/\s/g, '');
-    const hira  = (e.hiragana || '').replace(/\s/g, '');
-    const roma  = (e.romaji || '').toLowerCase().replace(/\s/g, '');
-    const sens  = (e.traductions || e.sens || []).join(' ').toLowerCase();
+    const mot  = (e.mot || e.kanji || '').toLowerCase().replace(/\s/g, '');
+    const hira = (e.hiragana || '').replace(/\s/g, '');
+    const roma = (e.romaji || '').toLowerCase().replace(/\s/g, '');
+    const sens = (e.traductions || e.sens || []).join(' ').toLowerCase();
     return mot.includes(q) || hira.includes(q) || roma.includes(q) || sens.includes(q);
   });
 }

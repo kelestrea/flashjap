@@ -1,6 +1,6 @@
 // screens/import.js
 import { saveEntry, validateEntry } from '../db.js';
-import { goBack, registerScreen } from '../router.js';
+import { goBack, navigate, registerScreen } from '../router.js';
 
 const PROMPT_FULL = `Tu es un assistant de structuration de données pour une application de révision de japonais.
 
@@ -66,11 +66,13 @@ export function initImport() {
   document.getElementById('import-file').onchange  = e => fileSelected(e.target.files[0]);
   document.getElementById('import-clear').onclick  = () => clearFile();
   document.getElementById('import-go').onclick     = () => doImport();
+  document.getElementById('import-done-btn').onclick = () => navigate('screen-home');
 }
 
 function enterImport() {
   clearFile();
   document.getElementById('import-summary').style.display = 'none';
+  document.getElementById('import-done').style.display = 'none';
 }
 
 async function copyPrompt() {
@@ -146,5 +148,6 @@ function showSummary(imported, doublons, failures, total) {
       </div>
     `).join('');
   }
+  document.getElementById('import-done').style.display = 'block';
   s.scrollIntoView({ behavior: 'smooth' });
 }

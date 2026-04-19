@@ -1,5 +1,5 @@
 // screens/fiche.js — écran plein (push depuis recherche)
-import { getVocab, getKanji } from '../db.js';
+import { getVocab, getKanji, getStatut, getStatutGlobal, STATUT_COLOR } from '../db.js';
 import { goBack, registerScreen } from '../router.js';
 import { speak } from '../audio.js';
 import { buildKanjiContent } from '../components/card-vocab.js';
@@ -14,18 +14,24 @@ async function enterFiche({ key, ktype }) {
   const entry = ktype === 'kanji' ? await getKanji(key) : await getVocab(key);
   if (!entry) { goBack(); return; }
 
+  document.getElementById('fiche-title').textContent = ktype === 'kanji' ? 'Fiche kanji' : 'Fiche vocabulaire';
   const container = document.getElementById('fiche-content');
 
   if (ktype === 'kanji') {
-    // buildKanjiContent en mode écran plein : pas de header interne
     container.innerHTML = await buildKanjiContent(entry, false, true);
-    // Le header vient de screen-fiche, pas du composant
-    const kpClose = container.querySelector('#kp-close');
-    if (kpClose) kpClose.remove();
     const kpPlay = container.querySelector('#kp-play');
     if (kpPlay) kpPlay.onclick = () => speak(entry.kanji);
+    // Kanji composant → push
+    container.querySelectorAll('.kanji-chip:not(.disabled)').forEach(btn => {
+      btn.onclick = async () => {
+        const kData = await getKanji(btn.dataset.kanji);
+        if (kData) {
+          const { navigate } = await import('../router.js');
+          navigate('screen-fiche', { key: btn.dataset.kanji, ktype: 'kanji' });
+        }
+      };
+    });
   } else {
-    // Vocab — version inline (pas overlay)
     const kanjis = entry.kanjis_composants || [];
     container.innerHTML = `
       <div class="entry-hero">
@@ -53,23 +59,22 @@ async function enterFiche({ key, ktype }) {
             </div>`).join('')}
         </div>
       </div>` : ''}
-      <div class="section" style="border-bottom:none;">
+      <div class="section">
         <a class="jisho-link" href="https://jisho.org/word/${encodeURIComponent(entry.mot)}" target="_blank" rel="noopener">
           ${ICONS.jisho}<span>Voir sur Jisho</span>${ICONS.linkOut}
         </a>
       </div>
+      ${buildVocabStats(entry)}
     `;
 
     document.getElementById('f-play').onclick = () => speak(entry.mot);
 
-    // Charger sens kanjis
     kanjis.forEach(async k => {
       const kData = await getKanji(k);
       const el = document.getElementById(`fkc-${k}`);
       if (el && kData) el.textContent = (kData.sens || []).slice(0,2).join(', ');
     });
 
-    // Clic kanji → push vers fiche kanji
     container.querySelectorAll('.kanji-chip').forEach(btn => {
       btn.onclick = async () => {
         const kData = await getKanji(btn.dataset.kanji);
@@ -80,4 +85,31 @@ async function enterFiche({ key, ktype }) {
       };
     });
   }
+}
+
+function buildVocabStats(entry) {
+  const sg = getStatutGlobal(entry);
+  const color = STATUT_COLOR[sg] || STATUT_COLOR.noncommence;
+  const labels = { maitrise: 'Maîtrisé', encours: 'En cours', etudie: 'Étudié', noncommence: 'Non commencé' };
+  const s1 = entry.score_jpfr === null || entry.score_jpfr === undefined ? null : getStatut(entry.score_jpfr);
+  const s2 = entry.score_frjp === null || entry.score_frjp === undefined ? null : getStatut(entry.score_frjp);
+  const sd = v => v === null || v === undefined ? 'null' : String(v);
+  return `
+    <div class="section">
+      <div class="section-label">PROGRESSION</div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+        <span style="width:10px;height:10px;border-radius:50%;background:${color};flex-shrink:0;"></span>
+        <span style="font-size:14px;font-weight:500;">${labels[sg] || '—'}</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:5px;">
+        <div style="display:flex;justify-content:space-between;font-size:13px;">
+          <span style="color:var(--gray);">JP → FR</span>
+          <span>${sd(entry.score_jpfr)} / 5${s1 ? ' · ' + labels[s1] : ''}</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;">
+          <span style="color:var(--gray);">FR → JP</span>
+          <span>${sd(entry.score_frjp)} / 5${s2 ? ' · ' + labels[s2] : ''}</span>
+        </div>
+      </div>
+    </div>`;
 }

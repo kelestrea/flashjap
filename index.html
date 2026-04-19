@@ -132,6 +132,7 @@
       <label class="radio-item"><input type="radio" name="qp-critere" value="tous" checked> <span>Tous</span></label>
       <label class="radio-item"><input type="radio" name="qp-critere" value="faibles"> <span>Moins maîtrisés</span></label>
       <label class="radio-item"><input type="radio" name="qp-critere" value="anciens"> <span>Revus il y a longtemps</span></label>
+      <label class="radio-item"><input type="radio" name="qp-critere" value="jamais"> <span>Jamais étudié</span></label>
     </div>
   </div>
 
@@ -305,13 +306,13 @@
      DONNÉES
 ══════════════════════════════════════════════════════════ -->
 <div id="screen-data" class="screen">
-  <div class="topbar" style="flex-direction:column;align-items:flex-start;">
-    <div class="topbar-sub" style="margin-bottom:4px;">漢字 · 語彙</div>
-    <div style="display:flex;justify-content:space-between;align-items:center;width:100%;">
+  <div class="topbar">
+    <button class="back-btn" id="data-back" style="color:var(--blue)">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M13 4l-6 6 6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div style="flex:1;margin-left:10px;">
+      <div class="topbar-sub">漢字 · 語彙</div>
       <div class="topbar-title">Données</div>
-      <button class="back-btn" id="data-back" style="color:var(--blue)">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M13 4l-6 6 6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
     </div>
   </div>
 
@@ -396,6 +397,9 @@ de révision de japonais.
     <button class="btn btn-primary" id="import-go">Importer</button>
   </div>
 
+  <div id="import-done" style="display:none;padding:0 20px 24px;">
+    <button class="btn btn-primary" id="import-done-btn" style="background:var(--green);">Terminé</button>
+  </div>
   <div id="import-summary" style="display:none;">
     <div class="section">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
