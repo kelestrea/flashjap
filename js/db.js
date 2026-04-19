@@ -78,18 +78,17 @@ export function getStatut(score) {
   return 'maitrise';
 }
 
-export function getStatutGlobal(entry) {
-  const s1 = entry.score_jpfr === null || entry.score_jpfr === undefined ? 'noncommence' : getStatut(entry.score_jpfr);
-  const s2 = entry.score_frjp === null || entry.score_frjp === undefined ? 'noncommence' : getStatut(entry.score_frjp);
-  // Si les deux sont non commencé ET derniere_vue est null → non commencé
-  if (s1 === 'noncommence' && s2 === 'noncommence' &&
-      !entry.derniere_vue_jpfr && !entry.derniere_vue_frjp) return 'noncommence';
-  // Si vu au moins une fois → étudié au minimum
+// mode 'display' (accueil) = maximum des deux sens
+// mode 'quiz' (filtrage moins maîtrisés) = minimum des deux sens
+export function getStatutGlobal(entry, mode = 'display') {
   const order = ['noncommence', 'etudie', 'encours', 'maitrise'];
-  const minStatut = order[Math.min(order.indexOf(s1), order.indexOf(s2))];
-  // Un mot vu mais score null → étudié
-  if (minStatut === 'noncommence' && (entry.derniere_vue_jpfr || entry.derniere_vue_frjp)) return 'etudie';
-  return minStatut;
+  function sensStatut(score, vue) {
+    if (score === null || score === undefined) return vue ? 'etudie' : 'noncommence';
+    return getStatut(score);
+  }
+  const i1 = order.indexOf(sensStatut(entry.score_jpfr, entry.derniere_vue_jpfr));
+  const i2 = order.indexOf(sensStatut(entry.score_frjp, entry.derniere_vue_frjp));
+  return mode === 'display' ? order[Math.max(i1, i2)] : order[Math.min(i1, i2)];
 }
 
 export const STATUT_COLOR = {
@@ -208,7 +207,7 @@ export async function getCardsForQuiz({ type, listes, critere, sens, count }) {
 
   // Filtre critère
   if (critere === 'faibles') {
-    entries = entries.filter(e => (e[scoreKey] ?? 0) < 5);
+    entries = entries.filter(e => getStatutGlobal(e, 'quiz') !== 'maitrise');
   } else if (critere === 'anciens') {
     entries = entries.filter(e => {
       const vue = e[vueKey];
