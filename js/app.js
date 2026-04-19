@@ -11,6 +11,7 @@ import { initFiche }      from './screens/fiche.js';
 import { initData }       from './screens/data.js';
 import { initImport }     from './screens/import.js';
 import { initRestore }    from './screens/restore.js';
+import { initEditListes } from './screens/edit-listes.js';
 
 async function boot() {
   await openDB();
@@ -25,6 +26,7 @@ async function boot() {
   initData();
   initImport();
   initRestore();
+  initEditListes();
 
   navigate('screen-home');
 

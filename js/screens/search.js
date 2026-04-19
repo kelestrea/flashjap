@@ -1,13 +1,15 @@
 // screens/search.js
-import { search, getStatutGlobal, STATUT_COLOR, buildSearchIndex } from '../db.js';
+import { search, getStatutGlobal, STATUT_COLOR, buildSearchIndex, esc } from '../db.js';
 import { navigate, goBack, registerScreen } from '../router.js';
 import { getHomeType } from './home.js';
-import { renderVocabCard } from '../components/card-vocab.js';
-import { renderKanjiCard }  from '../components/card-kanji.js';
 import { ICONS } from '../icons.js';
 
-let _type = 'vocab';
-let _debounce = null;
+let _type       = 'vocab';
+let _excludeAuto = true;
+let _debounce   = null;
+const PAGE_SIZE = 50;
+let _allResults = [];
+let _page       = 0;
 
 export function initSearch() {
   registerScreen('screen-search', { enter: enterSearch });
@@ -18,12 +20,25 @@ export function initSearch() {
     clearTimeout(_debounce);
     _debounce = setTimeout(doSearch, 200);
   };
+  document.getElementById('search-auto-toggle').onclick = () => {
+    _excludeAuto = !_excludeAuto;
+    const btn = document.getElementById('search-auto-toggle');
+    btn.textContent = _excludeAuto ? 'A' : 'A̶';
+    btn.title = _excludeAuto ? 'Automatique exclus' : 'Automatique inclus';
+    btn.style.opacity = _excludeAuto ? '0.4' : '1';
+    doSearch();
+  };
+  document.getElementById('search-more').onclick = () => { _page++; renderPage(_page); };
 }
 
 async function enterSearch(state, isBack) {
   await buildSearchIndex();
-  if (!isBack) setType(getHomeType());
-  else doSearch();
+  if (!isBack) {
+    _type = getHomeType();
+    document.getElementById('search-toggle-vocab').classList.toggle('active', _type === 'vocab');
+    document.getElementById('search-toggle-kanji').classList.toggle('active', _type === 'kanji');
+  }
+  doSearch();
 }
 
 function setType(t) {
@@ -35,46 +50,45 @@ function setType(t) {
 
 function doSearch() {
   const q = document.getElementById('search-input').value;
-  const results = search(q, _type);
-  renderResults(results, q);
+  _allResults = search(q, _type, _excludeAuto);
+  _page = 0;
+  renderPage(0);
 }
 
-function renderResults(results, q) {
-  const list = document.getElementById('search-list');
-  const hint = document.getElementById('search-hint');
-  hint.textContent = q
-    ? `${results.length} résultat${results.length !== 1 ? 's' : ''}`
-    : `${results.length} entrée${results.length !== 1 ? 's' : ''} · kanji, sens, romaji, hiragana`;
+function renderPage(page) {
+  const list  = document.getElementById('search-list');
+  const hint  = document.getElementById('search-hint');
+  const total = _allResults.length;
+  const slice = _allResults.slice(0, (page + 1) * PAGE_SIZE);
 
-  if (!results.length) {
-    list.innerHTML = '<p style="padding:16px 20px;font-size:13px;color:var(--gray)">Aucun résultat</p>';
-    return;
-  }
+  hint.textContent = `${total} résultat${total !== 1 ? 's' : ''}`;
 
-  list.innerHTML = results.slice(0, 100).map(e => {
+  const items = slice.map(e => {
     const sg    = getStatutGlobal(e);
     const color = STATUT_COLOR[sg] || STATUT_COLOR.noncommence;
     const mot   = e.mot || e.kanji || '';
     const sens  = (e.traductions || e.sens || [])[0] || '';
     const hira  = [e.hiragana, e.romaji].filter(Boolean).join(' · ');
     return `
-      <div class="list-item" data-key="${mot}" data-ktype="${e.type || 'vocab'}">
-        <span class="kanji">${mot}</span>
+      <div class="list-item" data-key="${esc(mot)}" data-ktype="${esc(e.type || 'vocab')}">
+        <span class="kanji">${esc(mot)}</span>
         <div class="info">
-          <div class="main">${sens}</div>
-          <div class="sub">${hira}</div>
+          <div class="main">${esc(sens)}</div>
+          <div class="sub">${esc(hira)}</div>
         </div>
         <span class="dot" style="background:${color}"></span>
-      </div>
-    `;
+      </div>`;
   }).join('');
 
+  if (page === 0) {
+    list.innerHTML = items || '<p style="padding:16px 20px;font-size:13px;color:var(--gray)">Aucun résultat</p>';
+  } else {
+    list.insertAdjacentHTML('beforeend', items);
+  }
+
+  document.getElementById('search-more-wrap').style.display = slice.length < total ? 'block' : 'none';
+
   list.querySelectorAll('.list-item').forEach(item => {
-    item.onclick = () => {
-      const key = item.dataset.key;
-      const ktype = item.dataset.ktype;
-      // Push transition depuis la recherche
-      navigate('screen-fiche', { key, ktype });
-    };
+    item.onclick = () => navigate('screen-fiche', { key: item.dataset.key, ktype: item.dataset.ktype });
   });
 }

@@ -162,8 +162,12 @@ async function validate() {
     if (result.correctKun !== null) await updateScore('kanji', card.kanji, 'lecture_kun', result.correctKun ?? false);
     if (result.correctOn  !== null) await updateScore('kanji', card.kanji, 'lecture_on',  result.correctOn  ?? false);
   } else {
-    const sensKey = _state.type === 'lecture' ? 'jpfr'
-      : card.type === 'kanji' ? `comprehension_${_state.sens}` : _state.sens;
+    let sensKey;
+    if (_state.type === 'lecture') {
+      sensKey = 'lecture'; // vocab lecture → score_lecture
+    } else {
+      sensKey = card.type === 'kanji' ? `comprehension_${_state.sens}` : _state.sens;
+    }
     await updateScore(card.type || 'vocab', card.mot || card.kanji, sensKey, result.correct);
   }
 
@@ -171,18 +175,25 @@ async function validate() {
   showFeedback(result.correct, card, result);
 }
 
-function buildReponseStr(card) {
+function buildReponseLines(card) {
   if (card.type === 'kanji') {
-    const kuns = (card.lectures_kun || []).join(', ');
-    const romKuns = (card.romaji_kun || []).join(', ');
-    const ons  = (card.lectures_on  || []).join(', ');
-    const romOns = (card.romaji_on || []).join(', ');
-    const kunPart = [kuns, romKuns].filter(Boolean).join(' · ');
-    const onPart  = [ons,  romOns].filter(Boolean).join(' · ');
-    return [kunPart, onPart].filter(Boolean).join(' / ') + (card.sens ? ' — ' + card.sens.slice(0,2).join(', ') : '');
+    const lines = [];
+    const kuns    = (card.lectures_kun || []).join(', ');
+    const romKuns = (card.romaji_kun   || []).join(', ');
+    const ons     = (card.lectures_on  || []).join(', ');
+    const romOns  = (card.romaji_on    || []).join(', ');
+    if (kuns) lines.push(`kun : ${[kuns, romKuns].filter(Boolean).join(' · ')}`);
+    if (ons)  lines.push(`on : ${[ons, romOns].filter(Boolean).join(' · ')}`);
+    const trad = (card.sens || []).slice(0,2).join(', ');
+    if (trad) lines.push(trad);
+    return lines;
   }
-  return [card.hiragana, card.romaji].filter(Boolean).join(' · ')
-    + ' · ' + (card.traductions || []).slice(0,2).join(', ');
+  const lines = [];
+  const reading = [card.hiragana, card.romaji].filter(Boolean).join(' · ');
+  if (reading) lines.push(reading);
+  const trad = (card.traductions || []).slice(0,2).join(', ');
+  if (trad) lines.push(trad);
+  return lines;
 }
 
 function showFeedback(correct, card, result) {
@@ -219,12 +230,14 @@ function setFeedbackUI(correct, card, result) {
     if (onOk  === false) detail += `<span style="color:#A32D2D">on : ${(card.lectures_on||[]).join('/')} · ${(card.romaji_on||[]).join('/')}</span>`;
   }
 
-  const reponse = buildReponseStr(card);
+  // reponse handled via buildReponseLines
+  const lines = buildReponseLines(card);
+  const linesHtml = lines.map(l => `<p class="fb-sub" style="margin:1px 0;">${l}</p>`).join('');
   fb.innerHTML = `
     ${correct ? ICONS.check : ICONS.cross}
     <div>
       <p class="fb-title">${correct ? 'Correct' : 'Incorrect'}</p>
-      <p class="fb-sub">${correct ? reponse : (detail || 'La réponse était : ' + reponse)}</p>
+      ${detail ? `<p class="fb-sub">${detail}</p>` : linesHtml}
     </div>
   `;
 }
@@ -241,8 +254,12 @@ async function toggleCorrection() {
     if ((card.lectures_kun || []).length) await updateScore('kanji', card.kanji, 'lecture_kun', nowCorrect);
     if ((card.lectures_on  || []).length) await updateScore('kanji', card.kanji, 'lecture_on',  nowCorrect);
   } else {
-    const sensKey = _state.type === 'lecture' ? 'jpfr'
-      : card.type === 'kanji' ? `comprehension_${_state.sens}` : _state.sens;
+    let sensKey;
+    if (_state.type === 'lecture') {
+      sensKey = 'lecture';
+    } else {
+      sensKey = card.type === 'kanji' ? `comprehension_${_state.sens}` : _state.sens;
+    }
     await updateScore(card.type || 'vocab', card.mot || card.kanji, sensKey, nowCorrect);
   }
 

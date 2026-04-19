@@ -2,15 +2,26 @@
 let _voice = null;
 let _available = false;
 
+function scoreVoice(v) {
+  if (!v.lang.startsWith('ja')) return -1;
+  let score = 0;
+  const name = (v.name || '').toLowerCase();
+  const uri  = (v.voiceURI || '').toLowerCase();
+  if (name.includes('siri'))    score += 100;
+  if (uri.includes('premium'))  score += 50;
+  if (uri.includes('enhanced')) score += 30;
+  if (name.includes('kyoko') || name.includes('o-ren')) score += 20;
+  if (v.lang === 'ja-JP') score += 10;
+  return score;
+}
+
 export function initAudio() {
   if (!('speechSynthesis' in window)) return;
   const load = () => {
-    const voices = speechSynthesis.getVoices();
-    _voice = voices.find(v => v.lang === 'ja-JP')
-          || voices.find(v => v.lang.startsWith('ja'))
-          || null;
+    const voices = speechSynthesis.getVoices().filter(v => v.lang.startsWith('ja'));
+    voices.sort((a, b) => scoreVoice(b) - scoreVoice(a));
+    _voice     = voices[0] || null;
     _available = !!_voice;
-    // Mettre à jour l'UI si pas de voix
     document.querySelectorAll('.play-btn').forEach(btn => {
       btn.style.opacity = _available ? '1' : '0.3';
       btn.title = _available ? 'Écouter' : 'Voix japonaise non disponible';
@@ -23,10 +34,10 @@ export function initAudio() {
 export function speak(text) {
   if (!_available || !text) return;
   speechSynthesis.cancel();
-  const utt = new SpeechSynthesisUtterance(text);
-  utt.voice = _voice;
-  utt.lang  = 'ja-JP';
-  utt.rate  = 0.9;
+  const utt   = new SpeechSynthesisUtterance(text);
+  utt.voice   = _voice;
+  utt.lang    = 'ja-JP';
+  utt.rate    = 0.9;
   speechSynthesis.speak(utt);
 }
 

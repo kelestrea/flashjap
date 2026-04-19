@@ -1,5 +1,5 @@
 // components/card-vocab.js
-import { getKanji, getStatut, getStatutGlobal, STATUT_COLOR } from '../db.js';
+import { getKanji, getStatut, getStatutGlobal, STATUT_COLOR, esc, getAllListes, putVocab, putKanji } from '../db.js';
 import { speak } from '../audio.js';
 import { ICONS } from '../icons.js';
 import { openOverlay, closeOverlay } from '../router.js';
@@ -23,7 +23,9 @@ function buildVocabStats(entry) {
   const sg    = getStatutGlobal(entry);
   const color = STATUT_COLOR[sg] || STATUT_COLOR.noncommence;
   const labels = { maitrise:'Maîtrisé', encours:'En cours', etudie:'Étudié', noncommence:'Non commencé' };
-  const listesStr = (entry.listes || []).join(' · ');
+  const listesStr = esc((entry.listes || []).join(' · '));
+  const key = entry.mot || entry.kanji;
+  const ktype = entry.type || 'vocab';
   return `
     <div class="section">
       <div class="section-label">PROGRESSION</div>
@@ -32,6 +34,10 @@ function buildVocabStats(entry) {
         <span style="font-size:14px;font-weight:500;">${labels[sg]||'—'}</span>
       </div>
       <div style="display:flex;flex-direction:column;gap:5px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;">
+          <span style="color:var(--gray);">Lecture</span>
+          <span style="display:flex;align-items:center;gap:6px;">${scoreVal(entry.score_lecture)} / 5 ${statutDot(entry.score_lecture)}</span>
+        </div>
         <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;">
           <span style="color:var(--gray);">JP → FR</span>
           <span style="display:flex;align-items:center;gap:6px;">${scoreVal(entry.score_jpfr)} / 5 ${statutDot(entry.score_jpfr)}</span>
@@ -43,8 +49,12 @@ function buildVocabStats(entry) {
       </div>
     </div>
     <div class="section" style="border-bottom:none;">
-      <div class="section-label">LISTES</div>
-      <p style="font-size:13px;color:var(--gray);margin:0;">${listesStr || '—'}</p>
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div class="section-label" style="margin:0;">LISTES</div>
+        <button class="edit-listes-btn" data-key="${esc(key)}" data-ktype="${esc(ktype)}"
+          style="background:none;border:none;cursor:pointer;color:var(--green);font-size:13px;padding:0;">✏️</button>
+      </div>
+      <p style="font-size:13px;color:var(--gray);margin:6px 0 0;">${listesStr || '—'}</p>
     </div>`;
 }
 
@@ -143,6 +153,16 @@ export async function renderVocabCard(entry, returnCb) {
   });
 
   openOverlay(sheet, bg);
+
+  // Délégation pour le bouton édition listes
+  sheet.addEventListener('click', e => {
+    const btn = e.target.closest('.edit-listes-btn');
+    if (!btn) return;
+    closeOverlay();
+    import('../router.js').then(({ navigate }) => {
+      navigate('screen-edit-listes', { key: btn.dataset.key, ktype: btn.dataset.ktype });
+    });
+  }, { once: true });
 }
 
 async function showKanjiPush(entry) {

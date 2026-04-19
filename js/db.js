@@ -3,6 +3,16 @@ const DB_NAME = 'flashjap';
 const DB_VER  = 1;
 let _db = null;
 
+// ── HELPERS XSS ────────────────────────────────────────────────────────
+export function esc(str) {
+  return String(str || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 export function openDB() {
   if (_db) return Promise.resolve(_db);
   return new Promise((resolve, reject) => {
@@ -73,8 +83,10 @@ export function getStatutGlobal(entry, mode = 'display') {
       if (entry[k] !== null && entry[k] !== undefined) scores.push(getStatut(entry[k]));
     });
   } else {
-    if (entry.score_jpfr !== null && entry.score_jpfr !== undefined) scores.push(getStatut(entry.score_jpfr));
-    if (entry.score_frjp !== null && entry.score_frjp !== undefined) scores.push(getStatut(entry.score_frjp));
+    // vocab : 3 scores
+    ['score_lecture','score_jpfr','score_frjp'].forEach(k => {
+      if (entry[k] !== null && entry[k] !== undefined) scores.push(getStatut(entry[k]));
+    });
   }
   if (!scores.length) return 'noncommence';
   const indices = scores.map(s => order.indexOf(s));
@@ -93,8 +105,9 @@ export async function getAllVocab() { return all('vocab'); }
 export async function getAllKanji() { return all('kanji'); }
 export async function getVocab(mot)   { return get('vocab', mot); }
 export async function getKanji(kanji) { return get('kanji', kanji); }
+export async function putVocab(entry) { return put('vocab', entry); }
+export async function putKanji(entry) { return put('kanji', entry); }
 
-// Nettoyer la liste "automatique" si d'autres listes existent
 function cleanListes(listes) {
   const autres = listes.filter(l => l !== 'automatique');
   return autres.length > 0 ? autres : listes;
@@ -106,8 +119,7 @@ export async function saveEntry(entry) {
   const existing = await get(store, key);
   if (existing) {
     const merged = [...new Set([...existing.listes, ...(entry.listes || [])])];
-    const listes = cleanListes(merged);
-    await put(store, { ...existing, listes });
+    await put(store, { ...existing, listes: cleanListes(merged) });
     return 'doublon';
   }
   const listes = cleanListes(entry.listes || []);
@@ -126,36 +138,46 @@ export async function saveEntry(entry) {
   } else {
     await put(store, {
       ...entry, listes,
-      score_jpfr: null, score_frjp: null,
-      consec_jpfr: 0, consec_frjp: 0,
-      err_consec_jpfr: 0, err_consec_frjp: 0,
-      derniere_vue_jpfr: null, derniere_vue_frjp: null,
+      score_lecture: null, score_jpfr: null, score_frjp: null,
+      consec_lecture: 0, consec_jpfr: 0, consec_frjp: 0,
+      err_consec_lecture: 0, err_consec_jpfr: 0, err_consec_frjp: 0,
+      derniere_vue_lecture: null, derniere_vue_jpfr: null, derniere_vue_frjp: null,
       created_at: Date.now(),
     });
   }
   return 'ok';
 }
 
+// sens pour vocab : 'lecture' | 'jpfr' | 'frjp'
+// sens pour kanji : 'comprehension_jpfr' | 'comprehension_frjp' | 'lecture_on' | 'lecture_kun'
 export async function updateScore(type, key, sens, correct) {
   const store = type === 'kanji' ? 'kanji' : 'vocab';
   const entry = await get(store, key);
   if (!entry) return;
+
   const scoreKey  = `score_${sens}`;
   const consecKey = `consec_${sens}`;
   const errKey    = `err_consec_${sens}`;
-  const vueKey    = sens.includes('frjp') ? 'derniere_vue_frjp' : 'derniere_vue_jpfr';
+  let vueKey;
+  if (sens === 'lecture') vueKey = 'derniere_vue_lecture';
+  else if (sens.includes('frjp')) vueKey = 'derniere_vue_frjp';
+  else vueKey = 'derniere_vue_jpfr';
+
   const prev   = entry[scoreKey] ?? 0;
   const consec = entry[consecKey] ?? 0;
   const err    = entry[errKey] ?? 0;
+
   if (correct) {
     const newConsec = Math.min(consec + 1, 5);
     await put(store, { ...entry, [scoreKey]: newConsec >= 5 ? 5 : newConsec, [consecKey]: newConsec, [errKey]: 0, [vueKey]: Date.now() });
   } else {
+    // Si score null → passe à 0
+    const baseScore = entry[scoreKey] === null || entry[scoreKey] === undefined ? 0 : prev;
     const newErr = err + 1;
     if (newErr >= 2) {
-      await put(store, { ...entry, [scoreKey]: Math.max(0, prev - 1), [consecKey]: 0, [errKey]: 0, [vueKey]: Date.now() });
+      await put(store, { ...entry, [scoreKey]: Math.max(0, baseScore - 1), [consecKey]: 0, [errKey]: 0, [vueKey]: Date.now() });
     } else {
-      await put(store, { ...entry, [consecKey]: 0, [errKey]: newErr, [vueKey]: Date.now() });
+      await put(store, { ...entry, [scoreKey]: baseScore, [consecKey]: 0, [errKey]: newErr, [vueKey]: Date.now() });
     }
   }
 }
@@ -170,6 +192,14 @@ export async function getListes(type) {
   return [...set].sort();
 }
 
+export async function getAllListes() {
+  const vocab = await getAllVocab();
+  const kanji = await getAllKanji();
+  const set = new Set();
+  [...vocab, ...kanji].forEach(e => (e.listes || []).forEach(l => set.add(l)));
+  return [...set].sort();
+}
+
 // ── SÉLECTION DE CARTES POUR QUIZ ──────────────────────────────────────
 export async function getCardsForQuiz({ type, listes, critere, sens, count }) {
   let entries = [];
@@ -179,7 +209,6 @@ export async function getCardsForQuiz({ type, listes, critere, sens, count }) {
   if (listes && listes.length) {
     entries = entries.filter(e => listes.some(l => (e.listes || []).includes(l)));
   }
-
   if (sens === 'lecture') {
     entries = entries.filter(e => /[\u4e00-\u9faf\u3400-\u4dbf]/.test(e.mot || e.kanji || ''));
   }
@@ -212,13 +241,14 @@ function shuffle(arr) {
   }
 }
 
-// ── EXPORT / IMPORT COMPLET ─────────────────────────────────────────────
+// ── EXPORT / IMPORT ─────────────────────────────────────────────────────
 export async function exportAll() {
   return JSON.stringify({ vocab: await getAllVocab(), kanji: await getAllKanji() }, null, 2);
 }
 
 export async function importAll(data, keepScores) {
-  const VOCAB_SCORES = ['score_jpfr','score_frjp','consec_jpfr','consec_frjp','err_consec_jpfr','err_consec_frjp','derniere_vue_jpfr','derniere_vue_frjp'];
+  const VOCAB_SCORES = ['score_lecture','score_jpfr','score_frjp','consec_lecture','consec_jpfr','consec_frjp',
+    'err_consec_lecture','err_consec_jpfr','err_consec_frjp','derniere_vue_lecture','derniere_vue_jpfr','derniere_vue_frjp'];
   const KANJI_SCORES = ['score_comprehension_jpfr','score_comprehension_frjp','score_lecture_on','score_lecture_kun',
     'consec_comprehension_jpfr','consec_comprehension_frjp','consec_lecture_on','consec_lecture_kun',
     'err_consec_comprehension_jpfr','err_consec_comprehension_frjp','err_consec_lecture_on','err_consec_lecture_kun',
@@ -240,7 +270,7 @@ export async function importAll(data, keepScores) {
   if (data.kanji) await restore('kanji', data.kanji, e => e.kanji, KANJI_SCORES);
 }
 
-// ── VALIDATION IMPORT ───────────────────────────────────────────────────
+// ── VALIDATION ──────────────────────────────────────────────────────────
 export function validateEntry(e) {
   const errors = [];
   if (!e || typeof e !== 'object') { errors.push('Format invalide'); return errors; }
@@ -249,10 +279,10 @@ export function validateEntry(e) {
     if (!e.listes?.length) errors.push('Champ "listes" manquant');
     if (!e.sens?.length)   errors.push('Champ "sens" manquant');
   } else {
-    if (!e.mot)                     errors.push('Champ "mot" manquant');
-    if (!e.hiragana)                errors.push('Champ "hiragana" manquant');
-    if (!e.traductions?.length)     errors.push('Champ "traductions" manquant');
-    if (!e.listes?.length)          errors.push('Champ "listes" manquant');
+    if (!e.mot)                 errors.push('Champ "mot" manquant');
+    if (!e.hiragana)            errors.push('Champ "hiragana" manquant');
+    if (!e.traductions?.length) errors.push('Champ "traductions" manquant');
+    if (!e.listes?.length)      errors.push('Champ "listes" manquant');
   }
   return errors;
 }
@@ -266,17 +296,22 @@ export async function buildSearchIndex() {
   _searchIndex = [...vocab, ...kanji];
 }
 
-export function search(query, type) {
+export function search(query, type, excludeAuto = true) {
   if (!_searchIndex) return [];
   const q = query.toLowerCase().trim().replace(/\s/g, '');
-  if (!q) return _searchIndex.filter(e =>
-    type === 'les2' || (type === 'kanji' && e.type === 'kanji') || (type === 'vocab' && e.type !== 'kanji')
-  );
-  return _searchIndex.filter(e => {
+
+  let entries = _searchIndex.filter(e => {
     if (type !== 'les2') {
       if (type === 'kanji' && e.type !== 'kanji') return false;
       if (type === 'vocab' && e.type === 'kanji') return false;
     }
+    if (excludeAuto && (e.listes || []).every(l => l === 'automatique')) return false;
+    return true;
+  });
+
+  if (!q) return entries;
+
+  return entries.filter(e => {
     const mot    = (e.mot || e.kanji || '').toLowerCase().replace(/\s/g, '');
     const hira   = (e.hiragana || '').replace(/\s/g, '');
     const roma   = (e.romaji || '').toLowerCase().replace(/\s/g, '');

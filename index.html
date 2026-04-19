@@ -73,6 +73,13 @@
     </div>
   </div>
 
+  <div style="padding:0 20px 12px;display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+    <div id="home-sub-0" style="display:flex;flex-direction:column;align-items:center;gap:2px;"></div>
+    <div id="home-sub-1" style="display:flex;flex-direction:column;align-items:center;gap:2px;"></div>
+    <div id="home-sub-2" style="display:flex;flex-direction:column;align-items:center;gap:2px;"></div>
+    <div id="home-sub-3" style="display:flex;flex-direction:column;align-items:center;gap:2px;"></div>
+  </div>
+
   <div class="home-actions">
     <button class="action-btn" id="home-quiz-btn">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="color:var(--blue)">
@@ -117,7 +124,6 @@
     <div class="radio-group">
       <label class="radio-item"><input type="radio" name="qp-cat" value="vocab" checked> <span>Vocabulaire</span></label>
       <label class="radio-item"><input type="radio" name="qp-cat" value="kanji"> <span>Kanjis</span></label>
-      <label class="radio-item"><input type="radio" name="qp-cat" value="les2"> <span>Les deux</span></label>
     </div>
   </div>
 
@@ -279,14 +285,21 @@
       <button class="toggle-btn active" id="search-toggle-vocab">Vocab</button>
       <button class="toggle-btn" id="search-toggle-kanji">Kanjis</button>
     </div>
-    <div class="search-wrap">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="color:var(--gray)"><circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.3"/><path d="M11 11l3 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-      <input type="search" class="search-input" id="search-input" placeholder="kanji, sens, romaji, hiragana…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div class="search-wrap" style="flex:1;">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="color:var(--gray)"><circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.3"/><path d="M11 11l3 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        <input type="search" class="search-input" id="search-input" placeholder="kanji, sens, romaji, hiragana, listes…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      </div>
+      <button id="search-auto-toggle" title="Automatique exclus"
+        style="flex-shrink:0;background:none;border:0.5px solid var(--border);border-radius:6px;padding:6px 8px;font-size:12px;color:var(--blue);opacity:0.4;cursor:pointer;">A</button>
     </div>
-    <div class="search-hint" id="search-hint"></div>
+    <div class="search-hint" id="search-hint" style="margin-top:6px;"></div>
   </div>
 
   <div id="search-list"></div>
+  <div style="padding:12px 20px;display:none;" id="search-more-wrap">
+    <button class="btn btn-ghost" id="search-more" style="font-size:13px;">Voir plus</button>
+  </div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════════
@@ -468,6 +481,28 @@ de révision de japonais.
 
   <div id="restore-btn-section" style="display:none;padding:0 20px 24px;">
     <button class="btn btn-danger" id="restore-go">Restaurer la base</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     ÉCRAN ÉDITION LISTES
+══════════════════════════════════════════════════════════ -->
+<div id="screen-edit-listes" class="screen">
+  <div class="topbar">
+    <button class="back-btn" id="edit-listes-back" style="color:var(--blue)">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M13 4l-6 6 6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="topbar-title" style="flex:1;margin-left:10px;">Modifier les listes</div>
+    <button id="edit-listes-save" style="background:var(--green);border:none;border-radius:8px;padding:6px 14px;color:#fff;font-size:14px;font-weight:500;cursor:pointer;">✓</button>
+  </div>
+  <div class="section">
+    <div class="check-group" id="edit-listes-list"></div>
+  </div>
+  <div class="section" style="border:none;">
+    <div style="display:flex;gap:8px;">
+      <input type="text" id="edit-listes-new" class="input-field" placeholder="Nouvelle liste…" style="flex:1;font-size:14px;padding:10px 12px;">
+      <button id="edit-listes-add" class="btn btn-ghost" style="flex-shrink:0;width:auto;padding:10px 16px;font-size:13px;">Ajouter</button>
+    </div>
   </div>
 </div>
 

@@ -1,6 +1,7 @@
 // screens/quiz-params.js
 import { getListes, getCardsForQuiz } from '../db.js';
 import { navigate, goBack, registerScreen } from '../router.js';
+import { getHomeType } from './home.js';
 
 export function initQuizParams() {
   registerScreen('screen-quiz-params', { enter: enterParams });
@@ -19,13 +20,18 @@ export function initQuizParams() {
 }
 
 async function enterParams() {
+  // Pré-cocher selon toggle accueil
+  const homeType = getHomeType();
+  document.querySelectorAll('[name="qp-cat"]').forEach(r => {
+    r.checked = r.value === homeType;
+  });
   await loadListes();
   toggleSens();
 }
 
 async function loadListes() {
   const type = document.querySelector('[name="qp-cat"]:checked')?.value || 'vocab';
-  const listes = await getListes(type === 'les2' ? null : type);
+  const listes = await getListes(type);
   const container = document.getElementById('qp-listes');
   container.innerHTML = listes.map(l => `
     <label class="check-item">
@@ -46,12 +52,11 @@ async function refreshSlider() {
   const sensType = document.querySelector('[name="qp-type"]:checked')?.value || 'lecture';
   const sens    = sensType === 'lecture' ? 'lecture' : (document.querySelector('[name="qp-sens"]:checked')?.value || 'jpfr');
   const listes  = [...document.querySelectorAll('[name="qp-liste"]:checked')].map(c => c.value);
-
-  const cards = await getCardsForQuiz({ type, listes, critere, sens, count: 0 });
-  const slider = document.getElementById('qp-slider');
-  const prev = parseInt(slider.value) || 20;
-  slider.max = cards.length;
-  slider.value = Math.min(prev, cards.length);
+  const cards   = await getCardsForQuiz({ type, listes, critere, sens, count: 0 });
+  const slider  = document.getElementById('qp-slider');
+  const prev    = parseInt(slider.value) || 20;
+  slider.max    = cards.length;
+  slider.value  = Math.min(prev, cards.length);
   document.getElementById('qp-slider-val').textContent = slider.value;
   document.getElementById('qp-slider-max').textContent = `${cards.length} disponibles`;
 }
@@ -65,12 +70,11 @@ function toggleSens() {
 async function startQuiz() {
   const cat     = document.querySelector('[name="qp-cat"]:checked')?.value || 'vocab';
   const type    = document.querySelector('[name="qp-type"]:checked')?.value || 'lecture';
-  const sens    = type === 'lecture' ? 'jpfr' : (document.querySelector('[name="qp-sens"]:checked')?.value || 'jpfr');
+  const sens    = type === 'lecture' ? 'lecture' : (document.querySelector('[name="qp-sens"]:checked')?.value || 'jpfr');
   const critere = document.querySelector('[name="qp-critere"]:checked')?.value || 'tous';
   const count   = parseInt(document.getElementById('qp-slider').value) || 0;
   const listes  = [...document.querySelectorAll('[name="qp-liste"]:checked')].map(c => c.value);
-
-  const cards = await getCardsForQuiz({ type: cat, listes, critere, sens: type === 'lecture' ? 'lecture' : sens, count });
+  const cards   = await getCardsForQuiz({ type: cat, listes, critere, sens, count });
   if (!cards.length) { alert('Aucune carte disponible avec ces critères.'); return; }
   navigate('screen-quiz', { cards, type, sens, cat, critere, listes });
 }
