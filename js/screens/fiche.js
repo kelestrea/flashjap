@@ -1,6 +1,6 @@
 // screens/fiche.js — écran plein (push depuis recherche)
-import { getVocab, getKanji, getStatut, getStatutGlobal, STATUT_COLOR } from '../db.js';
-import { goBack, registerScreen } from '../router.js';
+import { getVocab, getKanji, getStatut, getStatutGlobal, STATUT_COLOR, esc } from '../db.js';
+import { goBack, navigate, registerScreen } from '../router.js';
 import { speak } from '../audio.js';
 import { buildKanjiContent } from '../components/card-vocab.js';
 import { ICONS } from '../icons.js';
@@ -21,40 +21,43 @@ async function enterFiche({ key, ktype }) {
     container.innerHTML = await buildKanjiContent(entry, false, true);
     const kpPlay = container.querySelector('#kp-play');
     if (kpPlay) kpPlay.onclick = () => speak(entry.kanji);
-    // Kanji composant → push
+
+    // Bouton édition listes kanji
+    container.addEventListener('click', e => {
+      const btn = e.target.closest('.edit-listes-btn');
+      if (btn) navigate('screen-edit-listes', { key: btn.dataset.key, ktype: btn.dataset.ktype });
+    });
+
     container.querySelectorAll('.kanji-chip:not(.disabled)').forEach(btn => {
       btn.onclick = async () => {
         const kData = await getKanji(btn.dataset.kanji);
-        if (kData) {
-          const { navigate } = await import('../router.js');
-          navigate('screen-fiche', { key: btn.dataset.kanji, ktype: 'kanji' });
-        }
+        if (kData) navigate('screen-fiche', { key: btn.dataset.kanji, ktype: 'kanji' });
       };
     });
   } else {
     const kanjis = entry.kanjis_composants || [];
     container.innerHTML = `
       <div class="entry-hero">
-        <span class="entry-kanji">${entry.mot}</span>
+        <span class="entry-kanji">${esc(entry.mot)}</span>
         <button class="icon-btn play-btn" id="f-play" style="color:var(--blue)">${ICONS.play}</button>
       </div>
       <div class="section">
         <div class="section-label">LECTURE</div>
-        <p style="font-size:15px;margin-bottom:2px;">${entry.hiragana || '—'}</p>
-        <p style="font-size:13px;color:var(--gray);">${entry.romaji || '—'}</p>
+        <p style="font-size:15px;margin-bottom:2px;">${esc(entry.hiragana || '—')}</p>
+        <p style="font-size:13px;color:var(--gray);">${esc(entry.romaji || '—')}</p>
       </div>
       <div class="section">
         <div class="section-label">TRADUCTIONS</div>
-        ${(entry.traductions || []).map(t => `<p style="font-size:14px;margin-bottom:3px;">${t}</p>`).join('')}
+        ${(entry.traductions || []).map(t => `<p style="font-size:14px;margin-bottom:3px;">${esc(t)}</p>`).join('')}
       </div>
       ${kanjis.length ? `
       <div class="section">
         <div class="section-label">KANJIS COMPOSANTS</div>
         <div style="display:flex;flex-direction:column;gap:8px;">
           ${kanjis.map(k => `
-            <div class="kanji-chip" data-kanji="${k}">
-              <span class="kc-char">${k}</span>
-              <span class="kc-sens" id="fkc-${k}">…</span>
+            <div class="kanji-chip" data-kanji="${esc(k)}">
+              <span class="kc-char">${esc(k)}</span>
+              <span class="kc-sens" id="fkc-${esc(k)}">…</span>
               ${ICONS.chevron}
             </div>`).join('')}
         </div>
@@ -69,37 +72,45 @@ async function enterFiche({ key, ktype }) {
 
     document.getElementById('f-play').onclick = () => speak(entry.mot);
 
+    // Bouton édition listes vocab
+    container.addEventListener('click', e => {
+      const btn = e.target.closest('.edit-listes-btn');
+      if (btn) navigate('screen-edit-listes', { key: btn.dataset.key, ktype: btn.dataset.ktype });
+    });
+
     kanjis.forEach(async k => {
       const kData = await getKanji(k);
       const el = document.getElementById(`fkc-${k}`);
-      if (el && kData) el.textContent = (kData.sens || []).slice(0,2).join(', ');
+      if (el && kData) el.textContent = (kData.sens || []).slice(0, 2).join(', ');
     });
 
     container.querySelectorAll('.kanji-chip').forEach(btn => {
       btn.onclick = async () => {
         const kData = await getKanji(btn.dataset.kanji);
-        if (kData) {
-          const { navigate } = await import('../router.js');
-          navigate('screen-fiche', { key: btn.dataset.kanji, ktype: 'kanji' });
-        }
+        if (kData) navigate('screen-fiche', { key: btn.dataset.kanji, ktype: 'kanji' });
       };
     });
   }
 }
 
 function statutDot(score) {
-  const STATUT_COLOR = { maitrise:'#1D9E75', encours:'#7F77DD', etudie:'#FAC775', noncommence:'#C8C4BC' };
-  if (score === null || score === undefined) return `<span style="width:8px;height:8px;border-radius:50%;background:${STATUT_COLOR.noncommence};display:inline-block;"></span>`;
+  if (score === null || score === undefined)
+    return `<span style="width:8px;height:8px;border-radius:50%;background:${STATUT_COLOR.noncommence};display:inline-block;"></span>`;
   const s = getStatut(score);
   return `<span style="width:8px;height:8px;border-radius:50%;background:${STATUT_COLOR[s]||STATUT_COLOR.noncommence};display:inline-block;"></span>`;
 }
-function scoreVal(score) { return (score === null || score === undefined) ? '-' : String(score); }
+
+function scoreVal(score) {
+  return (score === null || score === undefined) ? '-' : String(score);
+}
 
 function buildVocabStats(entry) {
   const sg    = getStatutGlobal(entry);
   const color = STATUT_COLOR[sg] || STATUT_COLOR.noncommence;
   const labels = { maitrise:'Maîtrisé', encours:'En cours', etudie:'Étudié', noncommence:'Non commencé' };
-  const listesStr = (entry.listes||[]).join(' · ');
+  const listesStr = esc((entry.listes || []).join(' · '));
+  const key   = esc(entry.mot || entry.kanji);
+  const ktype = esc(entry.type || 'vocab');
   return `
     <div class="section">
       <div class="section-label">PROGRESSION</div>
@@ -108,6 +119,10 @@ function buildVocabStats(entry) {
         <span style="font-size:14px;font-weight:500;">${labels[sg]||'—'}</span>
       </div>
       <div style="display:flex;flex-direction:column;gap:5px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;">
+          <span style="color:var(--gray);">Lecture</span>
+          <span style="display:flex;align-items:center;gap:6px;">${scoreVal(entry.score_lecture)} / 5 ${statutDot(entry.score_lecture)}</span>
+        </div>
         <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;">
           <span style="color:var(--gray);">JP → FR</span>
           <span style="display:flex;align-items:center;gap:6px;">${scoreVal(entry.score_jpfr)} / 5 ${statutDot(entry.score_jpfr)}</span>
@@ -119,7 +134,11 @@ function buildVocabStats(entry) {
       </div>
     </div>
     <div class="section" style="border-bottom:none;">
-      <div class="section-label">LISTES</div>
-      <p style="font-size:13px;color:var(--gray);margin:0;">${listesStr||'—'}</p>
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div class="section-label" style="margin:0;">LISTES</div>
+        <button class="edit-listes-btn" data-key="${key}" data-ktype="${ktype}"
+          style="background:none;border:none;cursor:pointer;color:var(--green);font-size:16px;padding:0;">✏️</button>
+      </div>
+      <p style="font-size:13px;color:var(--gray);margin:6px 0 0;">${listesStr || '—'}</p>
     </div>`;
 }

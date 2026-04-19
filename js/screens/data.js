@@ -11,7 +11,13 @@ export function initData() {
 }
 
 async function doExport() {
-  const json = await exportAll();
+  let json;
+  try {
+    json = await exportAll();
+  } catch (err) {
+    alert('Erreur lors de l'export : ' + err.message);
+    return;
+  }
   const blob = new Blob([json], { type: 'application/json' });
   const url  = URL.createObjectURL(blob);
   const date = new Date().toISOString().slice(0,10);

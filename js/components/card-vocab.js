@@ -62,7 +62,8 @@ function buildKanjiStats(entry) {
   const sg    = getStatutGlobal(entry);
   const color = STATUT_COLOR[sg] || STATUT_COLOR.noncommence;
   const labels = { maitrise:'Maîtrisé', encours:'En cours', etudie:'Étudié', noncommence:'Non commencé' };
-  const listesStr = (entry.listes || []).join(' · ');
+  const listesStr = esc((entry.listes || []).join(' · '));
+  const key   = esc(entry.kanji);
   const fields = [
     { key: 'score_comprehension_jpfr', label: 'Compréhension JP→FR' },
     { key: 'score_comprehension_frjp', label: 'Compréhension FR→JP' },
@@ -85,8 +86,12 @@ function buildKanjiStats(entry) {
       </div>
     </div>
     <div class="section" style="border-bottom:none;">
-      <div class="section-label">LISTES</div>
-      <p style="font-size:13px;color:var(--gray);margin:0;">${listesStr || '—'}</p>
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <div class="section-label" style="margin:0;">LISTES</div>
+        <button class="edit-listes-btn" data-key="${key}" data-ktype="kanji"
+          style="background:none;border:none;cursor:pointer;color:var(--green);font-size:16px;padding:0;">✏️</button>
+      </div>
+      <p style="font-size:13px;color:var(--gray);margin:6px 0 0;">${listesStr || '—'}</p>
     </div>`;
 }
 

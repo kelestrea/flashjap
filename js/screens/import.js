@@ -108,11 +108,19 @@ function clearFile() {
 
 async function doImport() {
   if (!_file) return;
-  const text = await _file.text();
-  let data;
+  const btn = document.getElementById('import-go');
+  btn.disabled = true;
+  btn.textContent = 'Import en cours…';
+  let text, data;
+  try {
+    text = await _file.text();
+  } catch (err) {
+    showSummary(0, 0, [{ label: 'Erreur de lecture', msg: String(err) }], 0);
+    btn.disabled = false; btn.textContent = 'Importer'; return;
+  }
   try { data = JSON.parse(text); } catch {
-    showSummary(0, 0, [{ label: 'Fichier invalide', msg: 'JSON malformé' }], 0);
-    return;
+    showSummary(0, 0, [{ label: 'Fichier invalide', msg: 'JSON malformé — vérifie le contenu du fichier' }], 0);
+    btn.disabled = false; btn.textContent = 'Importer'; return;
   }
 
   const entries = Array.isArray(data) ? data : (data.vocab || []).concat(data.kanji || []);
@@ -156,5 +164,7 @@ function showSummary(imported, doublons, failures, total) {
     `).join('');
   }
   document.getElementById('import-done').style.display = 'block';
+  document.getElementById('import-go').disabled = false;
+  document.getElementById('import-go').textContent = 'Importer';
   s.scrollIntoView({ behavior: 'smooth' });
 }

@@ -34,13 +34,24 @@ function confirmRestore() {
 
 async function doRestore() {
   if (!_file) return;
+  const btn = document.getElementById('restore-go');
+  btn.disabled = true;
+  btn.textContent = 'Restauration…';
   const keepScores = document.querySelector('[name="restore-scores"]:checked')?.value === 'garder';
-  const text = await _file.text();
-  let data;
-  try { data = JSON.parse(text); } catch {
-    alert('Fichier JSON invalide.');
-    return;
+  let text, data;
+  try { text = await _file.text(); } catch (err) {
+    alert('Erreur de lecture : ' + err.message);
+    btn.disabled = false; btn.textContent = 'Restaurer la base'; return;
   }
-  await importAll(data, keepScores);
+  try { data = JSON.parse(text); } catch {
+    alert('Fichier JSON invalide — vérifie le contenu du fichier.');
+    btn.disabled = false; btn.textContent = 'Restaurer la base'; return;
+  }
+  try {
+    await importAll(data, keepScores);
+  } catch (err) {
+    alert('Erreur lors de la restauration : ' + err.message);
+    btn.disabled = false; btn.textContent = 'Restaurer la base'; return;
+  }
   navigate('screen-home');
 }
