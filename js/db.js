@@ -79,12 +79,17 @@ export function getStatut(score) {
 }
 
 export function getStatutGlobal(entry) {
-  // Jamais vu dans aucun sens
-  if (entry.score_jpfr === null && entry.score_frjp === null) return 'noncommence';
-  const s1 = entry.score_jpfr === null ? 'noncommence' : getStatut(entry.score_jpfr);
-  const s2 = entry.score_frjp === null ? 'noncommence' : getStatut(entry.score_frjp);
-  const order = ['noncommence','etudie','encours','maitrise'];
-  return order[Math.min(order.indexOf(s1), order.indexOf(s2))];
+  const s1 = entry.score_jpfr === null || entry.score_jpfr === undefined ? 'noncommence' : getStatut(entry.score_jpfr);
+  const s2 = entry.score_frjp === null || entry.score_frjp === undefined ? 'noncommence' : getStatut(entry.score_frjp);
+  // Si les deux sont non commencé ET derniere_vue est null → non commencé
+  if (s1 === 'noncommence' && s2 === 'noncommence' &&
+      !entry.derniere_vue_jpfr && !entry.derniere_vue_frjp) return 'noncommence';
+  // Si vu au moins une fois → étudié au minimum
+  const order = ['noncommence', 'etudie', 'encours', 'maitrise'];
+  const minStatut = order[Math.min(order.indexOf(s1), order.indexOf(s2))];
+  // Un mot vu mais score null → étudié
+  if (minStatut === 'noncommence' && (entry.derniere_vue_jpfr || entry.derniere_vue_frjp)) return 'etudie';
+  return minStatut;
 }
 
 export const STATUT_COLOR = {

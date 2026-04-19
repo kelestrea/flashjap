@@ -15,7 +15,7 @@ export function initHome() {
   document.getElementById('home-toggle-kanji').onclick = () => setType('kanji');
 }
 
-async function enterHome() {
+async function enterHome(state, isBack) {
   await buildSearchIndex();
   await renderStats();
 }

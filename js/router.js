@@ -7,24 +7,25 @@ export function registerScreen(id, { enter, leave } = {}) {
   screens[id] = { enter, leave };
 }
 
-export function navigate(id, state = {}, transition = 'push') {
+export function navigate(id, state = {}) {
   const prev = stack[stack.length - 1];
 
-  // Désactiver l'écran précédent
-  if (prev) {
-    const el = document.getElementById(prev.id);
-    if (el) {
-      el.classList.remove('active');
-      if (transition === 'push') el.classList.add('prev');
-    }
-    if (screens[prev.id]?.leave) screens[prev.id].leave();
+  // Désactiver TOUS les écrans actifs d'abord
+  document.querySelectorAll('.screen.active, .screen.prev').forEach(el => {
+    el.classList.remove('active', 'prev');
+  });
+
+  if (prev && screens[prev.id]?.leave) screens[prev.id].leave();
+
+  // Vider la pile si on navigue vers l'accueil
+  if (id === 'screen-home') {
+    stack.length = 0;
   }
 
   stack.push({ id, state });
 
   const el = document.getElementById(id);
   if (el) {
-    el.classList.remove('prev');
     requestAnimationFrame(() => el.classList.add('active'));
   }
   if (screens[id]?.enter) screens[id].enter(state);
@@ -44,11 +45,7 @@ export function goBack() {
   const elCurrent = document.getElementById(current.id);
   const elPrev    = document.getElementById(prev.id);
 
-  if (elCurrent) {
-    elCurrent.classList.remove('active');
-    // Retirer après animation
-    setTimeout(() => elCurrent.classList.remove('prev'), 300);
-  }
+  if (elCurrent) elCurrent.classList.remove('active', 'prev');
   if (elPrev) {
     elPrev.classList.remove('prev');
     requestAnimationFrame(() => elPrev.classList.add('active'));
