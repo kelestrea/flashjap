@@ -1,0 +1,13 @@
+{
+  "name": "FlashJap",
+  "short_name": "FlashJap",
+  "display": "standalone",
+  "start_url": "/flashjap/",
+  "scope": "/flashjap/",
+  "theme_color": "#FEFCF7",
+  "background_color": "#FEFCF7",
+  "icons": [
+    { "src": "icons/192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
