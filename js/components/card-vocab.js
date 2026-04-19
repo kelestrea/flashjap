@@ -100,11 +100,11 @@ async function showKanjiPush(entry) {
   };
 }
 
-export async function buildKanjiContent(entry, isPush = false) {
+export async function buildKanjiContent(entry, isPush = false, isScreen = false) {
   const exemples = (entry.exemples || []).slice(0, 3);
   return `
     <div style="display:flex;align-items:center;gap:10px;padding:16px 20px 12px;border-bottom:0.5px solid var(--border);position:sticky;top:0;background:var(--bg);z-index:1;">
-      ${isPush ? `<button id="kp-back" class="back-btn" style="color:var(--blue)">${ICONS.back}</button>` : `<button id="kp-close" class="back-btn" style="color:var(--blue)">${ICONS.close}</button>`}
+      ${isScreen ? '' : isPush ? `<button id="kp-back" class="back-btn" style="color:var(--blue)">${ICONS.back}</button>` : `<button id="kp-close" class="back-btn" style="color:var(--blue)">${ICONS.close}</button>`}
       <p style="font-size:15px;font-weight:500;">Fiche kanji</p>
     </div>
     <div class="entry-hero">
