@@ -19,9 +19,11 @@ export function initSearch() {
   };
 }
 
-async function enterSearch() {
+async function enterSearch(state, isBack) {
   await buildSearchIndex();
-  setType('vocab');
+  // Ne réinitialiser le type qu'à la première entrée, pas au retour
+  if (!isBack) setType('vocab');
+  else doSearch();
 }
 
 function setType(t) {

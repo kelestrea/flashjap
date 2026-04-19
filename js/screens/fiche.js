@@ -17,10 +17,11 @@ async function enterFiche({ key, ktype }) {
   const container = document.getElementById('fiche-content');
 
   if (ktype === 'kanji') {
-    container.innerHTML = await buildKanjiContent(entry, true);
-    // Remplacer le bouton back généré par le composant
-    const kpBack = container.querySelector('#kp-back');
-    if (kpBack) kpBack.onclick = () => goBack();
+    // buildKanjiContent en mode écran plein : pas de header interne
+    container.innerHTML = await buildKanjiContent(entry, false, true);
+    // Le header vient de screen-fiche, pas du composant
+    const kpClose = container.querySelector('#kp-close');
+    if (kpClose) kpClose.remove();
     const kpPlay = container.querySelector('#kp-play');
     if (kpPlay) kpPlay.onclick = () => speak(entry.kanji);
   } else {
