@@ -15,7 +15,7 @@ async function doExport() {
   try {
     json = await exportAll();
   } catch (err) {
-    alert('Erreur lors de l'export : ' + err.message);
+    alert('Erreur export : ' + err.message);
     return;
   }
   const blob = new Blob([json], { type: 'application/json' });
