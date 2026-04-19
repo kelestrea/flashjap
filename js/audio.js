@@ -7,7 +7,10 @@ function scoreVoice(v) {
   let score = 0;
   const name = (v.name || '').toLowerCase();
   const uri  = (v.voiceURI || '').toLowerCase();
-  if (name.includes('siri'))    score += 100;
+  // Priorité absolue : Siri Voix 2
+  if (name.includes('siri') && (name.includes('2') || uri.includes('2'))) score += 200;
+  // Autres voix Siri
+  else if (name.includes('siri')) score += 100;
   if (uri.includes('premium'))  score += 50;
   if (uri.includes('enhanced')) score += 30;
   if (name.includes('kyoko') || name.includes('o-ren')) score += 20;
