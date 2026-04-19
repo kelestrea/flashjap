@@ -4,50 +4,58 @@ import { speak } from '../audio.js';
 import { ICONS } from '../icons.js';
 import { openOverlay, closeOverlay } from '../router.js';
 
-const bg      = document.getElementById('overlay-bg');
-const sheet   = document.getElementById('overlay-sheet');
-const pushBg  = document.getElementById('push-bg');
+const bg        = document.getElementById('overlay-bg');
+const sheet     = document.getElementById('overlay-sheet');
+const pushBg    = document.getElementById('push-bg');
 const pushSheet = document.getElementById('push-sheet');
 
-function statutLabel(s) {
-  return { maitrise: 'Maîtrisé', encours: 'En cours', etudie: 'Étudié', noncommence: 'Non commencé' }[s] || '—';
+function statutDot(score) {
+  if (score === null || score === undefined) return `<span style="width:8px;height:8px;border-radius:50%;background:${STATUT_COLOR.noncommence};display:inline-block;"></span>`;
+  const s = getStatut(score);
+  return `<span style="width:8px;height:8px;border-radius:50%;background:${STATUT_COLOR[s]||STATUT_COLOR.noncommence};display:inline-block;"></span>`;
 }
 
-function scoreDisplay(score) {
-  return score === null || score === undefined ? 'null' : String(score);
+function scoreVal(score) {
+  return (score === null || score === undefined) ? '-' : String(score);
 }
 
 function buildVocabStats(entry) {
-  const sg = getStatutGlobal(entry);
+  const sg    = getStatutGlobal(entry);
   const color = STATUT_COLOR[sg] || STATUT_COLOR.noncommence;
-  const s1 = entry.score_jpfr === null || entry.score_jpfr === undefined ? null : getStatut(entry.score_jpfr);
-  const s2 = entry.score_frjp === null || entry.score_frjp === undefined ? null : getStatut(entry.score_frjp);
+  const labels = { maitrise:'Maîtrisé', encours:'En cours', etudie:'Étudié', noncommence:'Non commencé' };
+  const listesStr = (entry.listes || []).join(' · ');
   return `
     <div class="section">
       <div class="section-label">PROGRESSION</div>
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
         <span style="width:10px;height:10px;border-radius:50%;background:${color};flex-shrink:0;"></span>
-        <span style="font-size:14px;font-weight:500;">${statutLabel(sg)}</span>
+        <span style="font-size:14px;font-weight:500;">${labels[sg]||'—'}</span>
       </div>
       <div style="display:flex;flex-direction:column;gap:5px;">
-        <div style="display:flex;justify-content:space-between;font-size:13px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;">
           <span style="color:var(--gray);">JP → FR</span>
-          <span>${scoreDisplay(entry.score_jpfr)} / 5 ${s1 ? '· ' + statutLabel(s1) : ''}</span>
+          <span style="display:flex;align-items:center;gap:6px;">${scoreVal(entry.score_jpfr)} / 5 ${statutDot(entry.score_jpfr)}</span>
         </div>
-        <div style="display:flex;justify-content:space-between;font-size:13px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;">
           <span style="color:var(--gray);">FR → JP</span>
-          <span>${scoreDisplay(entry.score_frjp)} / 5 ${s2 ? '· ' + statutLabel(s2) : ''}</span>
+          <span style="display:flex;align-items:center;gap:6px;">${scoreVal(entry.score_frjp)} / 5 ${statutDot(entry.score_frjp)}</span>
         </div>
       </div>
+    </div>
+    <div class="section" style="border-bottom:none;">
+      <div class="section-label">LISTES</div>
+      <p style="font-size:13px;color:var(--gray);margin:0;">${listesStr || '—'}</p>
     </div>`;
 }
 
 function buildKanjiStats(entry) {
-  const sg = getStatutGlobal(entry);
+  const sg    = getStatutGlobal(entry);
   const color = STATUT_COLOR[sg] || STATUT_COLOR.noncommence;
+  const labels = { maitrise:'Maîtrisé', encours:'En cours', etudie:'Étudié', noncommence:'Non commencé' };
+  const listesStr = (entry.listes || []).join(' · ');
   const fields = [
-    { key: 'score_comprehension_jpfr', label: 'Compréhension JP → FR' },
-    { key: 'score_comprehension_frjp', label: 'Compréhension FR → JP' },
+    { key: 'score_comprehension_jpfr', label: 'Compréhension JP→FR' },
+    { key: 'score_comprehension_frjp', label: 'Compréhension FR→JP' },
     { key: 'score_lecture_kun',        label: 'Lecture kun' },
     { key: 'score_lecture_on',         label: 'Lecture on' },
   ];
@@ -56,18 +64,19 @@ function buildKanjiStats(entry) {
       <div class="section-label">PROGRESSION</div>
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
         <span style="width:10px;height:10px;border-radius:50%;background:${color};flex-shrink:0;"></span>
-        <span style="font-size:14px;font-weight:500;">${statutLabel(sg)}</span>
+        <span style="font-size:14px;font-weight:500;">${labels[sg]||'—'}</span>
       </div>
       <div style="display:flex;flex-direction:column;gap:5px;">
-        ${fields.map(f => {
-          const score = entry[f.key];
-          const s = score === null || score === undefined ? null : getStatut(score);
-          return `<div style="display:flex;justify-content:space-between;font-size:13px;">
+        ${fields.map(f => `
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;">
             <span style="color:var(--gray);">${f.label}</span>
-            <span>${scoreDisplay(score)} / 5 ${s ? '· ' + statutLabel(s) : ''}</span>
-          </div>`;
-        }).join('')}
+            <span style="display:flex;align-items:center;gap:6px;">${scoreVal(entry[f.key])} / 5 ${statutDot(entry[f.key])}</span>
+          </div>`).join('')}
       </div>
+    </div>
+    <div class="section" style="border-bottom:none;">
+      <div class="section-label">LISTES</div>
+      <p style="font-size:13px;color:var(--gray);margin:0;">${listesStr || '—'}</p>
     </div>`;
 }
 
@@ -89,22 +98,22 @@ export async function renderVocabCard(entry, returnCb) {
     </div>
     <div class="section">
       <div class="section-label">LECTURE</div>
-      <p style="font-size:15px;margin-bottom:2px;">${entry.hiragana || '—'}</p>
-      <p style="font-size:13px;color:var(--gray);">${entry.romaji || '—'}</p>
+      <p style="font-size:15px;margin-bottom:2px;">${entry.hiragana||'—'}</p>
+      <p style="font-size:13px;color:var(--gray);">${entry.romaji||'—'}</p>
     </div>
     <div class="section">
       <div class="section-label">TRADUCTIONS</div>
-      ${(entry.traductions || []).map(t => `<p style="font-size:14px;margin-bottom:3px;">${t}</p>`).join('')}
+      ${(entry.traductions||[]).map(t=>`<p style="font-size:14px;margin-bottom:3px;">${t}</p>`).join('')}
     </div>
     ${kanjiItems.length ? `
     <div class="section">
       <div class="section-label">KANJIS COMPOSANTS</div>
       <div style="display:flex;flex-direction:column;gap:8px;">
-        ${kanjiItems.map(({ k, exists }) => `
-          <button class="kanji-chip${exists ? '' : ' disabled'}" data-kanji="${k}" ${exists ? '' : 'disabled'}>
+        ${kanjiItems.map(({k,exists})=>`
+          <button class="kanji-chip${exists?'':' disabled'}" data-kanji="${k}" ${exists?'':'disabled'}>
             <span class="kc-char">${k}</span>
             <span class="kc-sens" id="kc-sens-${k}">…</span>
-            ${exists ? ICONS.chevron : '<span style="font-size:11px;color:var(--gray)">Non disponible</span>'}
+            ${exists?ICONS.chevron:'<span style="font-size:11px;color:var(--gray)">Non disponible</span>'}
           </button>`).join('')}
       </div>
     </div>` : ''}
@@ -116,14 +125,14 @@ export async function renderVocabCard(entry, returnCb) {
     ${buildVocabStats(entry)}
   `;
 
-  kanjiItems.forEach(async ({ k, exists }) => {
+  kanjiItems.forEach(async ({k,exists}) => {
     if (!exists) return;
     const kData = await getKanji(k);
     const el = document.getElementById(`kc-sens-${k}`);
-    if (el && kData) el.textContent = (kData.sens || []).slice(0, 2).join(', ');
+    if (el && kData) el.textContent = (kData.sens||[]).slice(0,2).join(', ');
   });
 
-  document.getElementById('vc-play').onclick = () => speak(entry.mot);
+  document.getElementById('vc-play').onclick  = () => speak(entry.mot);
   document.getElementById('vc-close').onclick = () => { closeOverlay(); if (returnCb) returnCb(); };
 
   sheet.querySelectorAll('.kanji-chip:not(.disabled)').forEach(btn => {
@@ -148,7 +157,7 @@ async function showKanjiPush(entry) {
 }
 
 export async function buildKanjiContent(entry, isPush = false, isScreen = false) {
-  const exemples = (entry.exemples || []).slice(0, 3);
+  const exemples = (entry.exemples||[]).slice(0,3);
   return `
     ${isScreen ? '' : `
     <div style="display:flex;align-items:center;gap:10px;padding:16px 20px 12px;border-bottom:0.5px solid var(--border);position:sticky;top:0;background:var(--bg);z-index:1;">
@@ -163,27 +172,27 @@ export async function buildKanjiContent(entry, isPush = false, isScreen = false)
     </div>
     <div class="section">
       <div class="section-label">LECTURES</div>
-      ${(entry.lectures_kun || []).map((r, i) => `
+      ${(entry.lectures_kun||[]).map((r,i)=>`
         <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:5px;">
           <span style="font-size:11px;color:var(--gray);width:28px;">kun</span>
           <span style="font-size:15px;">${r}</span>
-          <span style="font-size:13px;color:var(--gray);">· ${(entry.romaji_kun || [])[i] || ''} · ${(entry.sens || []).slice(0,2).join(', ')}</span>
+          <span style="font-size:13px;color:var(--gray);">· ${(entry.romaji_kun||[])[i]||''}</span>
         </div>`).join('')}
-      ${(entry.lectures_on || []).map((r, i) => `
+      ${(entry.lectures_on||[]).map((r,i)=>`
         <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:5px;">
           <span style="font-size:11px;color:var(--gray);width:28px;">on</span>
           <span style="font-size:15px;">${r}</span>
-          <span style="font-size:13px;color:var(--gray);">· ${(entry.romaji_on || [])[i] || ''} · ${(entry.sens || []).slice(0,2).join(', ')}</span>
+          <span style="font-size:13px;color:var(--gray);">· ${(entry.romaji_on||[])[i]||''}</span>
         </div>`).join('')}
     </div>
     <div class="section">
       <div class="section-label">SENS</div>
-      ${(entry.sens || []).map(s => `<p style="font-size:14px;margin-bottom:3px;">${s}</p>`).join('')}
+      ${(entry.sens||[]).map(s=>`<p style="font-size:14px;margin-bottom:3px;">${s}</p>`).join('')}
     </div>
     ${exemples.length ? `
     <div class="section">
       <div class="section-label">EXEMPLES</div>
-      ${exemples.map(ex => `
+      ${exemples.map(ex=>`
         <div style="margin-bottom:10px;">
           <div style="display:flex;align-items:baseline;gap:8px;">
             <span style="font-size:16px;">${ex.mot}</span>

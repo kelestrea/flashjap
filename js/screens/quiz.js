@@ -20,6 +20,9 @@ export function initQuiz() {
   document.getElementById('quiz-input').addEventListener('keydown', e => {
     if (e.key === 'Enter') validate();
   });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && _state.answered) nextCard();
+  });
 }
 
 function currentWord() {
@@ -171,9 +174,12 @@ async function validate() {
 function buildReponseStr(card) {
   if (card.type === 'kanji') {
     const kuns = (card.lectures_kun || []).join(', ');
+    const romKuns = (card.romaji_kun || []).join(', ');
     const ons  = (card.lectures_on  || []).join(', ');
-    const parts = [kuns, ons].filter(Boolean);
-    return parts.join(' · ') + (card.sens ? ' — ' + card.sens.slice(0,2).join(', ') : '');
+    const romOns = (card.romaji_on || []).join(', ');
+    const kunPart = [kuns, romKuns].filter(Boolean).join(' · ');
+    const onPart  = [ons,  romOns].filter(Boolean).join(' · ');
+    return [kunPart, onPart].filter(Boolean).join(' / ') + (card.sens ? ' — ' + card.sens.slice(0,2).join(', ') : '');
   }
   return [card.hiragana, card.romaji].filter(Boolean).join(' · ')
     + ' · ' + (card.traductions || []).slice(0,2).join(', ');

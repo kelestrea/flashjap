@@ -11,6 +11,8 @@ export function initQuizParams() {
     r.addEventListener('change', () => loadListes()));
   document.querySelectorAll('[name="qp-type"]').forEach(r =>
     r.addEventListener('change', () => toggleSens()));
+  document.querySelectorAll('[name="qp-critere"]').forEach(r =>
+    r.addEventListener('change', () => refreshSlider()));
 
   const slider = document.getElementById('qp-slider');
   slider.oninput = () => document.getElementById('qp-slider-val').textContent = slider.value;
@@ -27,23 +29,29 @@ async function loadListes() {
   const container = document.getElementById('qp-listes');
   container.innerHTML = listes.map(l => `
     <label class="check-item">
-      <input type="checkbox" name="qp-liste" value="${l}" checked style="accent-color:var(--blue);width:16px;height:16px;margin-top:2px;">
+      <input type="checkbox" name="qp-liste" value="${l}" checked
+        style="accent-color:var(--blue);width:16px;height:16px;margin-top:2px;"
+        onchange="document.dispatchEvent(new Event('qp-liste-change'))">
       <span>${l}</span>
     </label>
   `).join('') || '<p style="font-size:13px;color:var(--gray)">Aucune liste disponible</p>';
 
-  await updateSlider(type, listes);
+  document.addEventListener('qp-liste-change', refreshSlider, { once: false });
+  await refreshSlider();
 }
 
-async function updateSlider(type, listes) {
+async function refreshSlider() {
+  const type    = document.querySelector('[name="qp-cat"]:checked')?.value || 'vocab';
   const critere = document.querySelector('[name="qp-critere"]:checked')?.value || 'tous';
   const sensType = document.querySelector('[name="qp-type"]:checked')?.value || 'lecture';
-  const sens = sensType === 'lecture' ? 'lecture'
-    : (document.querySelector('[name="qp-sens"]:checked')?.value || 'jpfr');
+  const sens    = sensType === 'lecture' ? 'lecture' : (document.querySelector('[name="qp-sens"]:checked')?.value || 'jpfr');
+  const listes  = [...document.querySelectorAll('[name="qp-liste"]:checked')].map(c => c.value);
+
   const cards = await getCardsForQuiz({ type, listes, critere, sens, count: 0 });
   const slider = document.getElementById('qp-slider');
+  const prev = parseInt(slider.value) || 20;
   slider.max = cards.length;
-  slider.value = Math.min(parseInt(slider.value) || 20, cards.length);
+  slider.value = Math.min(prev, cards.length);
   document.getElementById('qp-slider-val').textContent = slider.value;
   document.getElementById('qp-slider-max').textContent = `${cards.length} disponibles`;
 }
@@ -57,18 +65,12 @@ function toggleSens() {
 async function startQuiz() {
   const cat     = document.querySelector('[name="qp-cat"]:checked')?.value || 'vocab';
   const type    = document.querySelector('[name="qp-type"]:checked')?.value || 'lecture';
-  const sens    = type === 'lecture' ? 'jpfr'
-    : (document.querySelector('[name="qp-sens"]:checked')?.value || 'jpfr');
+  const sens    = type === 'lecture' ? 'jpfr' : (document.querySelector('[name="qp-sens"]:checked')?.value || 'jpfr');
   const critere = document.querySelector('[name="qp-critere"]:checked')?.value || 'tous';
   const count   = parseInt(document.getElementById('qp-slider').value) || 0;
   const listes  = [...document.querySelectorAll('[name="qp-liste"]:checked')].map(c => c.value);
 
-  const cards = await getCardsForQuiz({
-    type: cat, listes, critere,
-    sens: type === 'lecture' ? 'lecture' : sens,
-    count
-  });
+  const cards = await getCardsForQuiz({ type: cat, listes, critere, sens: type === 'lecture' ? 'lecture' : sens, count });
   if (!cards.length) { alert('Aucune carte disponible avec ces critères.'); return; }
-
   navigate('screen-quiz', { cards, type, sens, cat, critere, listes });
 }

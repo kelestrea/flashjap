@@ -1,6 +1,7 @@
 // screens/search.js
 import { search, getStatutGlobal, STATUT_COLOR, buildSearchIndex } from '../db.js';
 import { navigate, goBack, registerScreen } from '../router.js';
+import { getHomeType } from './home.js';
 import { renderVocabCard } from '../components/card-vocab.js';
 import { renderKanjiCard }  from '../components/card-kanji.js';
 import { ICONS } from '../icons.js';
@@ -21,8 +22,7 @@ export function initSearch() {
 
 async function enterSearch(state, isBack) {
   await buildSearchIndex();
-  // Ne réinitialiser le type qu'à la première entrée, pas au retour
-  if (!isBack) setType('vocab');
+  if (!isBack) setType(getHomeType());
   else doSearch();
 }
 

@@ -4,6 +4,7 @@ import { navigate, registerScreen } from '../router.js';
 import { ICONS } from '../icons.js';
 
 let _type = 'vocab';
+export function getHomeType() { return _type; }
 
 export function initHome() {
   registerScreen('screen-home', { enter: enterHome });

@@ -87,29 +87,39 @@ async function enterFiche({ key, ktype }) {
   }
 }
 
+function statutDot(score) {
+  const STATUT_COLOR = { maitrise:'#1D9E75', encours:'#7F77DD', etudie:'#FAC775', noncommence:'#C8C4BC' };
+  if (score === null || score === undefined) return `<span style="width:8px;height:8px;border-radius:50%;background:${STATUT_COLOR.noncommence};display:inline-block;"></span>`;
+  const s = getStatut(score);
+  return `<span style="width:8px;height:8px;border-radius:50%;background:${STATUT_COLOR[s]||STATUT_COLOR.noncommence};display:inline-block;"></span>`;
+}
+function scoreVal(score) { return (score === null || score === undefined) ? '-' : String(score); }
+
 function buildVocabStats(entry) {
-  const sg = getStatutGlobal(entry);
+  const sg    = getStatutGlobal(entry);
   const color = STATUT_COLOR[sg] || STATUT_COLOR.noncommence;
-  const labels = { maitrise: 'Maîtrisé', encours: 'En cours', etudie: 'Étudié', noncommence: 'Non commencé' };
-  const s1 = entry.score_jpfr === null || entry.score_jpfr === undefined ? null : getStatut(entry.score_jpfr);
-  const s2 = entry.score_frjp === null || entry.score_frjp === undefined ? null : getStatut(entry.score_frjp);
-  const sd = v => v === null || v === undefined ? 'null' : String(v);
+  const labels = { maitrise:'Maîtrisé', encours:'En cours', etudie:'Étudié', noncommence:'Non commencé' };
+  const listesStr = (entry.listes||[]).join(' · ');
   return `
     <div class="section">
       <div class="section-label">PROGRESSION</div>
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
         <span style="width:10px;height:10px;border-radius:50%;background:${color};flex-shrink:0;"></span>
-        <span style="font-size:14px;font-weight:500;">${labels[sg] || '—'}</span>
+        <span style="font-size:14px;font-weight:500;">${labels[sg]||'—'}</span>
       </div>
       <div style="display:flex;flex-direction:column;gap:5px;">
-        <div style="display:flex;justify-content:space-between;font-size:13px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;">
           <span style="color:var(--gray);">JP → FR</span>
-          <span>${sd(entry.score_jpfr)} / 5${s1 ? ' · ' + labels[s1] : ''}</span>
+          <span style="display:flex;align-items:center;gap:6px;">${scoreVal(entry.score_jpfr)} / 5 ${statutDot(entry.score_jpfr)}</span>
         </div>
-        <div style="display:flex;justify-content:space-between;font-size:13px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;">
           <span style="color:var(--gray);">FR → JP</span>
-          <span>${sd(entry.score_frjp)} / 5${s2 ? ' · ' + labels[s2] : ''}</span>
+          <span style="display:flex;align-items:center;gap:6px;">${scoreVal(entry.score_frjp)} / 5 ${statutDot(entry.score_frjp)}</span>
         </div>
       </div>
+    </div>
+    <div class="section" style="border-bottom:none;">
+      <div class="section-label">LISTES</div>
+      <p style="font-size:13px;color:var(--gray);margin:0;">${listesStr||'—'}</p>
     </div>`;
 }
