@@ -562,8 +562,8 @@ req.onsuccess = e => {
 - Validation : minimum 1 liste sélectionnée obligatoire
 
 #### Affichage sur quiz-params
-- Affiche uniquement listes sélectionnées (liste texte simple, séparées par `;`)
-- Bouton "Gérer les listes" avec icone positionné haut droite section Listes
+- Affiche uniquement listes sélectionnées (liste texte simple, séparées par `·`)
+- Bouton "éditer" positionné en bas de la section Listes
 - Navigation vers `screen-list-selection` au clic
 
 #### Nouvel écran: screen-list-selection
@@ -573,7 +573,7 @@ req.onsuccess = e => {
 - Extraction: premier mot de chaque nom de liste (jusqu'au espace) = catégorie
   - Ex: "leçon 1.1" → "leçon" | "ML 08042026" → "ML" | "JPLT N5" → "JPLT"
 - Tri alphabétique des catégories
-- Catégories fermées par défaut (collapsible)
+- Catégories ouvertes par défaut (collapsible)
 
 **Interactions:**
 - Checkbox par liste (cocher/décocher), état préservé même catégorie fermée
