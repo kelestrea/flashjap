@@ -41,6 +41,21 @@ async function enterParams() {
   toggleSens();
 }
 
+function extractCategory(listeName) {
+  const match = listeName.match(/^(\S+)/);
+  return match ? match[1] : listeName;
+}
+
+function groupListesByCategory(listes) {
+  const groups = {};
+  listes.forEach(liste => {
+    const cat = extractCategory(liste);
+    if (!groups[cat]) groups[cat] = [];
+    groups[cat].push(liste);
+  });
+  return groups;
+}
+
 async function loadListes() {
   const selectedListes = listsState.getSelectedListes();
   const container = document.getElementById('qp-listes');
@@ -48,8 +63,12 @@ async function loadListes() {
   if (selectedListes.length === 0) {
     container.innerHTML = '<p style="font-size:13px;color:var(--gray)">Aucune liste sélectionnée</p>';
   } else {
-    const listesText = selectedListes.join('; ');
-    container.innerHTML = `<p style="font-size:14px;color:var(--blue);">${esc(listesText)}</p>`;
+    const groups = groupListesByCategory(selectedListes);
+    const categories = Object.keys(groups).sort();
+    const html = categories
+      .map(cat => `<div style="margin-bottom:8px;">${esc(groups[cat].join(' · '))}</div>`)
+      .join('');
+    container.innerHTML = `<div style="font-size:14px;color:var(--blue);">${html}</div>`;
   }
 
   await refreshSlider();
