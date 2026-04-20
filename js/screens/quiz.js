@@ -1,5 +1,5 @@
 // screens/quiz.js
-import { updateScore, getStatutGlobal, STATUT_COLOR } from '../db.js';
+import { updateScore, updateKanjiLectureScores, getStatutGlobal, STATUT_COLOR } from '../db.js';
 import { navigate, goBack, registerScreen } from '../router.js';
 import { speak } from '../audio.js';
 import { renderVocabCard } from '../components/card-vocab.js';
@@ -159,8 +159,7 @@ async function validate() {
 
   // Mettre à jour les scores
   if (_state.type === 'lecture' && card.type === 'kanji') {
-    if (result.correctKun !== null) await updateScore('kanji', card.kanji, 'lecture_kun', result.correctKun ?? false);
-    if (result.correctOn  !== null) await updateScore('kanji', card.kanji, 'lecture_on',  result.correctOn  ?? false);
+    await updateKanjiLectureScores(card.kanji, result.correctKun ?? null, result.correctOn ?? null);
   } else {
     let sensKey;
     if (_state.type === 'lecture') {
@@ -251,8 +250,9 @@ async function toggleCorrection() {
 
   // Recorriger tous les scores concernés
   if (_state.type === 'lecture' && card.type === 'kanji') {
-    if ((card.lectures_kun || []).length) await updateScore('kanji', card.kanji, 'lecture_kun', nowCorrect);
-    if ((card.lectures_on  || []).length) await updateScore('kanji', card.kanji, 'lecture_on',  nowCorrect);
+    const correctKun = (card.lectures_kun || []).length ? nowCorrect : null;
+    const correctOn  = (card.lectures_on  || []).length ? nowCorrect : null;
+    await updateKanjiLectureScores(card.kanji, correctKun, correctOn);
   } else {
     let sensKey;
     if (_state.type === 'lecture') {
