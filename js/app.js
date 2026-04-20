@@ -12,6 +12,7 @@ import { initData }       from './screens/data.js';
 import { initImport }     from './screens/import.js';
 import { initRestore }    from './screens/restore.js';
 import { initEditListes } from './screens/edit-listes.js';
+import * as listSelection from './screens/list-selection.js';
 
 async function boot() {
   await openDB();
@@ -39,6 +40,7 @@ async function boot() {
   initImport();
   initRestore();
   initEditListes();
+  listSelection.init();
 
   navigate('screen-home');
 

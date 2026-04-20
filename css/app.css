@@ -460,6 +460,83 @@ input[type=range] { width: 100%; accent-color: var(--blue); }
   color: var(--gray);
 }
 
+/* ── LIST SELECTION SCREEN ── */
+.list-category { border-bottom: 1px solid var(--border); }
+
+.list-category-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  gap: 8px;
+}
+
+.category-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  text-align: left;
+}
+
+.category-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--blue);
+}
+
+.category-chevron {
+  font-size: 12px;
+  color: var(--gray);
+  display: inline-block;
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+
+.category-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.select-all, .deselect-all {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 6px;
+  font-size: 12px;
+  color: var(--blue);
+  font-weight: 500;
+}
+
+.select-all span, .deselect-all span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+}
+
+.list-category-content {
+  display: none;
+  padding: 8px 0 12px 0;
+  transition: all 0.2s;
+}
+
+.list-category-content .check-item {
+  padding: 8px 0;
+}
+
+.listes-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
 /* ── RESPONSIVE SAFE AREA iOS ── */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
   .screen { padding-bottom: env(safe-area-inset-bottom); }

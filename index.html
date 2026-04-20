@@ -183,6 +183,36 @@
   <div class="section" style="border:none;">
     <button class="btn btn-primary" id="qp-start">Démarrer</button>
   </div>
+
+  <div class="section" style="padding-bottom:0;border-top:1px solid var(--border);margin-top:20px;">
+    <div class="listes-header">
+      <div class="section-label">Listes sélectionnées</div>
+      <button class="icon-btn" id="qp-manage-listes" title="Gérer les listes" style="color:var(--blue);padding:4px;margin-right:-4px;">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M17 4H3M17 10h-3M17 16H8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          <circle cx="7" cy="4" r="1.5" stroke="currentColor" stroke-width="1.2" fill="currentColor"/>
+          <circle cx="4" cy="10" r="1.5" stroke="currentColor" stroke-width="1.2" fill="currentColor"/>
+          <circle cx="11" cy="16" r="1.5" stroke="currentColor" stroke-width="1.2" fill="currentColor"/>
+        </svg>
+      </button>
+    </div>
+    <div class="check-group" id="qp-listes"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     SÉLECTION DES LISTES
+══════════════════════════════════════════════════════════ -->
+<div id="screen-list-selection" class="screen">
+  <div class="topbar">
+    <div class="topbar-title" style="flex:1;">Sélectionner les listes</div>
+    <button class="icon-btn" id="ls-validate" style="color:var(--blue);">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M5 13l3 3 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+  <div id="ls-categories" style="padding:20px 10px;overflow-y:auto;flex:1;"></div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════════
