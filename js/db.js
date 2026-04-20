@@ -108,6 +108,16 @@ export async function getKanji(kanji) { return get('kanji', kanji); }
 export async function putVocab(entry) { return put('vocab', entry); }
 export async function putKanji(entry) { return put('kanji', entry); }
 
+function del(store, key) {
+  return new Promise((res, rej) => {
+    const req = tx(store, 'readwrite').delete(key);
+    req.onsuccess = () => res();
+    req.onerror   = () => rej(req.error);
+  });
+}
+export async function deleteVocab(mot)   { _searchIndex = null; return del('vocab', mot); }
+export async function deleteKanji(kanji) { _searchIndex = null; return del('kanji', kanji); }
+
 function cleanListes(listes) {
   const autres = listes.filter(l => l !== 'automatique');
   return autres.length > 0 ? autres : listes;
