@@ -10,8 +10,8 @@
 
 ### Affichage sur quiz-params
 
-- Affiche uniquement les listes sélectionnées (liste texte simple, séparées par `;`)
-- Bouton "Gérer les listes" avec icone positionné en haut à droite de la section Listes
+- Affiche uniquement les listes sélectionnées (liste texte simple, séparées par `·`)
+- Bouton "éditer" positionné en bas de la section Listes
 - Navigation vers `screen-list-selection` au clic
 
 ### Nouvel écran: screen-list-selection
@@ -22,7 +22,7 @@
 - Extraction: Premier mot de chaque nom de liste (jusqu'au premier espace) = catégorie
   - Exemples: "leçon 1.1" → "leçon" | "ML 08042026" → "ML" | "JPLT N5" → "JPLT"
 - Tri alphabétique des catégories
-- Catégories fermées par défaut (collapsible)
+- Catégories ouvertes par défaut (collapsible)
 
 **Interactions:**
 - Checkbox par liste (cocher/décocher)
@@ -54,22 +54,22 @@ Nouvel écran de sélection:
 ### Fichiers à Modifier
 
 #### `js/screens/quiz-params.js`
-- Affiche listes sélectionnées depuis `selectedListes` (localStorage) en texte simple
-- Ajoute bouton "Gérer les listes" → navigate vers screen-list-selection
-- `enter()` recharge depuis localStorage (synchronise après retour de list-selection)
+- Affiche listes sélectionnées depuis `selectedListes` (localStorage) en texte simple ✓
+- Ajoute bouton "éditer" → navigate vers screen-list-selection ✓
+- `enter()` recharge depuis localStorage (synchronise après retour de list-selection) ✓
 
 #### `js/app.js`
-- Import: `import * as listSelection from './screens/list-selection.js'`
-- Initialisation: `listSelection.init()` (ou équivalent selon pattern)
+- Import: `import * as listSelection from './screens/list-selection.js'` ✓
+- Initialisation: `listSelection.init()` ✓
 
 #### `index.html`
-- Ajoute `<div id="screen-list-selection" class="screen">` après `#screen-quiz-params`
-- Structure HTML: en-têtes catégories + listes avec checkboxes + bouton Valider
+- Ajoute `<div id="screen-list-selection" class="screen">` après `#screen-quiz-params` ✓
+- Structure HTML: topbar avec back/validate buttons + conteneur catégories avec checkboxes ✓
 
 #### `css/app.css`
-- Styles pour `.list-category-header` (boutons "Tout cocher/décocher")
-- Styles pour `.list-category-content` (listes de la catégorie)
-- Animation toggle catégorie
+- Styles pour `.list-category-header` (boutons "Tout cocher/décocher") ✓
+- Styles pour `.list-category-content` (listes de la catégorie) ✓
+- Animation toggle catégorie ✓
 
 ---
 
