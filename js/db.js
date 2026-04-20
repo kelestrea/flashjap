@@ -333,7 +333,7 @@ export async function buildSearchIndex() {
 
 export function search(query, type, excludeAuto = true) {
   if (!_searchIndex) return [];
-  const q = query.toLowerCase().trim().replace(/\s/g, '');
+  const q = query.toLowerCase().trim().replace(/\s/g, '').normalize('NFC');
 
   let entries = _searchIndex.filter(e => {
     if (type !== 'les2') {
@@ -347,11 +347,11 @@ export function search(query, type, excludeAuto = true) {
   if (!q) return entries;
 
   return entries.filter(e => {
-    const mot    = (e.mot || e.kanji || '').toLowerCase().replace(/\s/g, '');
-    const hira   = (e.hiragana || '').replace(/\s/g, '');
-    const roma   = (e.romaji || '').toLowerCase().replace(/\s/g, '');
-    const sens   = (e.traductions || e.sens || []).join(' ').toLowerCase();
-    const listes = (e.listes || []).join(' ').toLowerCase().replace(/\s/g, '');
+    const mot    = (e.mot || e.kanji || '').toLowerCase().replace(/\s/g, '').normalize('NFC');
+    const hira   = (e.hiragana || '').replace(/\s/g, '').normalize('NFC');
+    const roma   = (e.romaji || '').toLowerCase().replace(/\s/g, '').normalize('NFC');
+    const sens   = (e.traductions || e.sens || []).join(' ').toLowerCase().normalize('NFC');
+    const listes = (e.listes || []).join(' ').toLowerCase().replace(/\s/g, '').normalize('NFC');
     return mot.includes(q) || hira.includes(q) || roma.includes(q) || sens.includes(q) || listes.includes(q);
   });
 }
