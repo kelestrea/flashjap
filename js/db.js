@@ -350,8 +350,10 @@ export function search(query, type, excludeAuto = true) {
     const mot    = (e.mot || e.kanji || '').toLowerCase().replace(/\s/g, '').normalize('NFC');
     const hira   = (e.hiragana || '').replace(/\s/g, '').normalize('NFC');
     const roma   = (e.romaji || '').toLowerCase().replace(/\s/g, '').normalize('NFC');
+    const romaOn = (e.romaji_on || []).join(' ').toLowerCase().replace(/\s/g, '').normalize('NFC');
+    const romaKun = (e.romaji_kun || []).join(' ').toLowerCase().replace(/\s/g, '').normalize('NFC');
     const sens   = (e.traductions || e.sens || []).join(' ').toLowerCase().normalize('NFC');
     const listes = (e.listes || []).join(' ').toLowerCase().replace(/\s/g, '').normalize('NFC');
-    return mot.includes(q) || hira.includes(q) || roma.includes(q) || sens.includes(q) || listes.includes(q);
+    return mot.includes(q) || hira.includes(q) || roma.includes(q) || romaOn.includes(q) || romaKun.includes(q) || sens.includes(q) || listes.includes(q);
   });
 }
