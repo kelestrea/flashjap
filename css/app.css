@@ -82,20 +82,22 @@ html, body {
 /* ── PUSH SHEET (kanji push depuis overlay vocab) ── */
 #push-sheet {
   position: fixed;
+  top: 0;
   bottom: 0;
   left: 50%;
-  transform: translateX(calc(-50% + 100%)) translateY(0);
+  transform: translateX(calc(-50% + 100%));
   width: 100%;
   max-width: 430px;
   background: var(--bg);
   border-radius: var(--r) var(--r) 0 0;
   z-index: 102;
   transition: transform 0.3s cubic-bezier(.4,0,.2,1);
-  max-height: 92vh;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
 }
-#push-sheet.visible { transform: translateX(-50%) translateY(0); }
+#push-sheet.visible { transform: translateX(-50%); }
 
 /* ── COMPOSANTS DE BASE ── */
 .topbar {
