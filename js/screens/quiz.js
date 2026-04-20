@@ -256,7 +256,7 @@ async function toggleCorrection() {
   const nowCorrect = !wasCorrect;
   _state.forcedResult = nowCorrect;
 
-  // Recorriger tous les scores concernés
+  // Mettre à jour les scores en base de données
   if (_state.type === 'lecture' && card.type === 'kanji') {
     const correctKun = (card.lectures_kun || []).length ? nowCorrect : null;
     const correctOn  = (card.lectures_on  || []).length ? nowCorrect : null;
