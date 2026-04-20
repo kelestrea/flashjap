@@ -4,10 +4,8 @@ import { speak } from '../audio.js';
 import { ICONS } from '../icons.js';
 import { openOverlay, closeOverlay } from '../router.js';
 
-const bg        = document.getElementById('overlay-bg');
-const sheet     = document.getElementById('overlay-sheet');
-const pushBg    = document.getElementById('push-bg');
-const pushSheet = document.getElementById('push-sheet');
+const bg    = document.getElementById('overlay-bg');
+const sheet = document.getElementById('overlay-sheet');
 
 function statutDot(score) {
   if (score === null || score === undefined) return `<span style="width:8px;height:8px;border-radius:50%;background:${STATUT_COLOR.noncommence};display:inline-block;"></span>`;
@@ -150,7 +148,12 @@ export async function renderVocabCard(entry, returnCb) {
   sheet.querySelectorAll('.kanji-chip:not(.disabled)').forEach(btn => {
     btn.onclick = async () => {
       const kData = await getKanji(btn.dataset.kanji);
-      if (kData) showKanjiPush(kData);
+      if (kData) {
+        closeOverlay();
+        import('../router.js').then(({ navigate }) => {
+          navigate('screen-fiche', { key: btn.dataset.kanji, ktype: 'kanji' });
+        });
+      }
     };
   });
 
@@ -165,17 +168,6 @@ export async function renderVocabCard(entry, returnCb) {
       navigate('screen-edit-listes', { key: btn.dataset.key, ktype: btn.dataset.ktype });
     });
   }, { once: true });
-}
-
-async function showKanjiPush(entry) {
-  pushSheet.innerHTML = await buildKanjiContent(entry, true);
-  pushBg.classList.add('visible');
-  requestAnimationFrame(() => pushSheet.classList.add('visible'));
-  pushSheet.querySelector('#kp-play').onclick = () => speak(entry.kanji);
-  pushSheet.querySelector('#kp-back').onclick = () => {
-    pushSheet.classList.remove('visible');
-    pushBg.classList.remove('visible');
-  };
 }
 
 export async function buildKanjiContent(entry, isPush = false, isScreen = false) {
