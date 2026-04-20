@@ -222,22 +222,28 @@ function setFeedbackUI(correct, card, result) {
   const fb = document.getElementById('quiz-feedback');
   fb.className = `feedback ${correct ? 'correct' : 'incorrect'}`;
 
-  let detail = '';
+  let linesHtml = '';
   if (!correct && _state.type === 'lecture' && card.type === 'kanji' && result) {
     const kunOk = result.correctKun;
     const onOk  = result.correctOn;
-    if (kunOk === false) detail += `<span style="color:#A32D2D">kun : ${(card.lectures_kun||[]).join('/')} · ${(card.romaji_kun||[]).join('/')}</span><br>`;
-    if (onOk  === false) detail += `<span style="color:#A32D2D">on : ${(card.lectures_on||[]).join('/')} · ${(card.romaji_on||[]).join('/')}</span>`;
+    const lines = [];
+    if (kunOk === false) lines.push(`<span style="color:#A32D2D">kun : ${(card.lectures_kun||[]).join(', ')} · ${(card.romaji_kun||[]).join(', ')}</span>`);
+    else if ((card.lectures_kun || []).length) lines.push(`kun : ${(card.lectures_kun||[]).join(', ')} · ${(card.romaji_kun||[]).join(', ')}`);
+    if (onOk === false) lines.push(`<span style="color:#A32D2D">on : ${(card.lectures_on||[]).join(', ')} · ${(card.romaji_on||[]).join(', ')}</span>`);
+    else if ((card.lectures_on || []).length) lines.push(`on : ${(card.lectures_on||[]).join(', ')} · ${(card.romaji_on||[]).join(', ')}`);
+    const trad = (card.sens || []).slice(0,2).join(', ');
+    if (trad) lines.push(trad);
+    linesHtml = lines.map(l => `<p class="fb-sub" style="margin:1px 0;">${l}</p>`).join('');
+  } else {
+    const lines = buildReponseLines(card);
+    linesHtml = lines.map(l => `<p class="fb-sub" style="margin:1px 0;">${l}</p>`).join('');
   }
 
-  // reponse handled via buildReponseLines
-  const lines = buildReponseLines(card);
-  const linesHtml = lines.map(l => `<p class="fb-sub" style="margin:1px 0;">${l}</p>`).join('');
   fb.innerHTML = `
     ${correct ? ICONS.check : ICONS.cross}
     <div>
       <p class="fb-title">${correct ? 'Correct' : 'Incorrect'}</p>
-      ${detail ? `<p class="fb-sub">${detail}</p>` : linesHtml}
+      ${linesHtml}
     </div>
   `;
 }
