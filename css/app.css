@@ -464,3 +464,13 @@ input[type=range] { width: 100%; accent-color: var(--blue); }
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
   .screen { padding-bottom: env(safe-area-inset-bottom); }
 }
+
+/* ── VERSION FOOTER ── */
+.version-footer {
+  font-size: 11px;
+  color: var(--border);
+  opacity: 0.6;
+  text-align: right;
+  padding: 12px 16px 0 0;
+  margin-top: auto;
+}
