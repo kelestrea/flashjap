@@ -96,6 +96,7 @@ function buildKanjiStats(entry) {
 
 async function showKanjiPush(entry) {
   _overlayStack.push(sheet.innerHTML);
+  sheet.style.visibility = 'hidden';
 
   pushSheet.innerHTML = await buildKanjiContent(entry, true);
   requestAnimationFrame(() => pushSheet.classList.add('visible'));
@@ -108,6 +109,7 @@ async function showKanjiPush(entry) {
     pushSheet.classList.remove('visible');
     setTimeout(() => {
       pushSheet.innerHTML = '';
+      sheet.style.visibility = 'visible';
       const prev = _overlayStack.pop();
       if (prev) {
         sheet.innerHTML = prev;
