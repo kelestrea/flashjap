@@ -261,17 +261,16 @@ Le prompt complet est stocké dans `js/screens/import.js` dans la constante `PRO
 
 `js/audio.js` — Web Speech API.
 
-**Sélection de la voix** : scoring automatique au boot (`initAudio()`) des voix japonaises disponibles avec priorité :
-1. "Siri Voix 2" (score 200) — **voix par défaut sélectionnée (v3.2)**
-2. Autres voix Siri (score 100)
-3. Voix "premium" (score 50)
-4. Voix "enhanced" (score 30)
-5. Kyoko / O-ren (score 20)
-6. lang === 'ja-JP' (score 10)
+**Sélection de la voix** : sélection simple de la première voix japonaise disponible au boot (`initAudio()`).
+- Critère : `voice.lang.startsWith('ja')`
+- Pas de priorité/scoring implémenté actuellement
+- Voix sélectionnée : quelle que soit la première trouvée par le navigateur (ordre non garanti)
 
 **Polling robuste iOS** : `setInterval` toutes les 100ms, max 30 tentatives (3 secondes).
 - Si polling échoue → fallback `onvoiceschanged` attendra les voix du navigateur
-- Garantit l'utilisation de Siri Voix 2 dès que disponible
+- Récherche relancée à chaque `speak()` si la voix n'a pas pu être sélectionnée au boot
+
+**Note** : l'idée d'une sélection avec priorité Siri/premium/enhanced n'est pas implémentée. À implémenter si besoin de contrôle de la qualité vocale.
 
 ---
 
