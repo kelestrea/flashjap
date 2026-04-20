@@ -81,7 +81,7 @@ export function closeOverlay() {
 }
 
 // ── POPUP CONFIRMATION ───────────────────────────────────────────────────
-export function showPopup(msg, onConfirm) {
+export function showPopup(msg, onConfirm, onCancel) {
   const popup  = document.getElementById('popup');
   const pmsg   = document.getElementById('popup-msg');
   const pok    = document.getElementById('popup-ok');
@@ -89,7 +89,7 @@ export function showPopup(msg, onConfirm) {
   pmsg.textContent = msg;
   popup.classList.add('visible');
   pok.onclick = () => { popup.classList.remove('visible'); onConfirm(); };
-  pcancel.onclick = () => popup.classList.remove('visible');
+  pcancel.onclick = () => { popup.classList.remove('visible'); onCancel?.(); };
 }
 
 // ── BACK BUTTON HARDWARE / SWIPE iOS ────────────────────────────────────
