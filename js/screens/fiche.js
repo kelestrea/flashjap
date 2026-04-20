@@ -76,7 +76,7 @@ async function enterFiche({ key, ktype }) {
         </a>
       </div>
       ${buildVocabStats(entry)}
-      <div style="padding:16px 20px 32px;">
+      <div style="padding:16px 20px 32px;border-top:0.5px solid var(--border);">
         <button class="btn btn-danger" id="f-delete" style="width:100%;">Supprimer</button>
       </div>
     `;

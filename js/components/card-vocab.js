@@ -170,7 +170,7 @@ export async function renderVocabCard(entry, returnCb) {
       </a>
     </div>
     ${buildVocabStats(entry)}
-    <div style="padding:16px 20px 32px;">
+    <div style="padding:16px 20px 32px;border-top:0.5px solid var(--border);">
       <button class="btn btn-danger" id="vc-delete" style="width:100%;">Supprimer</button>
     </div>
   `;
@@ -263,7 +263,7 @@ export async function buildKanjiContent(entry, isPush = false, isScreen = false)
     </div>
     ${buildKanjiStats(entry)}
     ${!isPush ? `
-    <div style="padding:16px 20px 32px;">
+    <div style="padding:16px 20px 32px;border-top:0.5px solid var(--border);">
       <button class="btn btn-danger kp-delete" data-kanji="${esc(entry.kanji)}" style="width:100%;">Supprimer</button>
     </div>` : ''}
   `;
