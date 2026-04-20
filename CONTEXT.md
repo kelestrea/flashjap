@@ -147,14 +147,23 @@ Bouton audio : triangle play plein dans un rond.
 | Maîtrisé | #1D9E75 | Score = 5 |
 
 **Règles de score :**
+
+*Initialisation (quand score est null) :*
+- Première réponse correcte → score = 1 (en cours)
+- Première erreur → score = 0 (étudié)
+
+*Évolution (quand score ≠ null) :*
 - Bonne réponse → score + 1 (max 5)
 - 2 erreurs consécutives → score - 1 (min 0)
-- Si score est null et erreur → passe à 0 (étudié)
-- Si score est null et bonne réponse → passe à 1
 
-**Statut global vocab** = minimum des scores testés (null ignoré) en mode quiz, maximum en mode affichage accueil.
+**Statut global vocab** (calcul basé sur les 3 scores : lecture, jpfr, frjp) :
+- **Mode quiz** (`mode: 'quiz'`) : minimum des scores testés (null ignoré) — utilisé dans `getCardsForQuiz()` pour déterminer la sélection et évaluation de progression
+- **Mode display** (`mode: 'display'`, défaut) : maximum des scores testés (null ignoré) — utilisé sur l'accueil pour afficher la progression globale la plus optimiste
 
-**Statut global kanji** = même règle sur les 4 scores (comprehension_jpfr, comprehension_frjp, lecture_on, lecture_kun).
+**Statut global kanji** (même logique que vocab, appliquée aux 4 scores) :
+- Les 4 scores (comprehension_jpfr, comprehension_frjp, lecture_on, lecture_kun) suivent la règle min/max identique
+- Mode quiz → minimum, mode display → maximum
+- Null ignoré dans les deux cas
 
 ### Scores vocab (3 indépendants)
 - `score_lecture` — mode Lecture (saisir la lecture du mot)
@@ -252,17 +261,17 @@ Le prompt complet est stocké dans `js/screens/import.js` dans la constante `PRO
 
 `js/audio.js` — Web Speech API.
 
-Sélection de la voix : scoring des voix japonaises disponibles avec priorité :
-1. "Siri Voix 2" (score 200)
+**Sélection de la voix** : scoring automatique au boot (`initAudio()`) des voix japonaises disponibles avec priorité :
+1. "Siri Voix 2" (score 200) — **voix par défaut sélectionnée (v3.2)**
 2. Autres voix Siri (score 100)
 3. Voix "premium" (score 50)
 4. Voix "enhanced" (score 30)
 5. Kyoko / O-ren (score 20)
 6. lang === 'ja-JP' (score 10)
 
-Polling robuste pour iOS : `setInterval` toutes les 100ms, max 30 tentatives (3 secondes), puis fallback `onvoiceschanged`.
-
-**Situation actuelle** : la voix sélectionnée n'est pas encore la voix Siri souhaitée — à investiguer (voir noms exacts des voix disponibles via console Safari).
+**Polling robuste iOS** : `setInterval` toutes les 100ms, max 30 tentatives (3 secondes).
+- Si polling échoue → fallback `onvoiceschanged` attendra les voix du navigateur
+- Garantit l'utilisation de Siri Voix 2 dès que disponible
 
 ---
 
