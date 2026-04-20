@@ -150,18 +150,10 @@ export async function saveEntry(entry) {
 
 // sens pour vocab : 'lecture' | 'jpfr' | 'frjp'
 // sens pour kanji : 'comprehension_jpfr' | 'comprehension_frjp' | 'lecture_on' | 'lecture_kun'
-export async function updateScore(type, key, sens, correct) {
-  const store = type === 'kanji' ? 'kanji' : 'vocab';
-  const entry = await get(store, key);
-  if (!entry) return;
-
+function applyScoreUpdate(entry, sens, correct) {
   const scoreKey  = `score_${sens}`;
   const consecKey = `consec_${sens}`;
   const errKey    = `err_consec_${sens}`;
-  let vueKey;
-  if (sens === 'lecture') vueKey = 'derniere_vue_lecture';
-  else if (sens.includes('frjp')) vueKey = 'derniere_vue_frjp';
-  else vueKey = 'derniere_vue_jpfr';
 
   const prev   = entry[scoreKey] ?? 0;
   const consec = entry[consecKey] ?? 0;
@@ -169,17 +161,41 @@ export async function updateScore(type, key, sens, correct) {
 
   if (correct) {
     const newConsec = Math.min(consec + 1, 5);
-    await put(store, { ...entry, [scoreKey]: newConsec >= 5 ? 5 : newConsec, [consecKey]: newConsec, [errKey]: 0, [vueKey]: Date.now() });
+    return { ...entry, [scoreKey]: newConsec, [consecKey]: newConsec, [errKey]: 0 };
   } else {
-    // Si score null → passe à 0
     const baseScore = entry[scoreKey] === null || entry[scoreKey] === undefined ? 0 : prev;
     const newErr = err + 1;
     if (newErr >= 2) {
-      await put(store, { ...entry, [scoreKey]: Math.max(0, baseScore - 1), [consecKey]: 0, [errKey]: 0, [vueKey]: Date.now() });
+      return { ...entry, [scoreKey]: Math.max(0, baseScore - 1), [consecKey]: 0, [errKey]: 0 };
     } else {
-      await put(store, { ...entry, [scoreKey]: baseScore, [consecKey]: 0, [errKey]: newErr, [vueKey]: Date.now() });
+      return { ...entry, [scoreKey]: baseScore, [consecKey]: 0, [errKey]: newErr };
     }
   }
+}
+
+export async function updateScore(type, key, sens, correct) {
+  const store = type === 'kanji' ? 'kanji' : 'vocab';
+  const entry = await get(store, key);
+  if (!entry) return;
+
+  let vueKey;
+  if (sens === 'lecture') vueKey = 'derniere_vue_lecture';
+  else if (sens.includes('frjp')) vueKey = 'derniere_vue_frjp';
+  else vueKey = 'derniere_vue_jpfr';
+
+  const updated = applyScoreUpdate(entry, sens, correct);
+  await put(store, { ...updated, [vueKey]: Date.now() });
+}
+
+// Met à jour les scores kun et on en un seul get+put pour éviter la race condition IndexedDB.
+export async function updateKanjiLectureScores(key, correctKun, correctOn) {
+  const entry = await get('kanji', key);
+  if (!entry) return;
+
+  let updated = entry;
+  if (correctKun !== null) updated = applyScoreUpdate(updated, 'lecture_kun', correctKun);
+  if (correctOn  !== null) updated = applyScoreUpdate(updated, 'lecture_on',  correctOn);
+  await put('kanji', { ...updated, derniere_vue_jpfr: Date.now() });
 }
 
 // ── LISTES DISPONIBLES ──────────────────────────────────────────────────
