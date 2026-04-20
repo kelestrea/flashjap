@@ -85,13 +85,10 @@ function buildKanjiStats(entry) {
           </div>`).join('')}
       </div>
     </div>
-    <div class="section" style="border-bottom:none;">
-      <div style="display:flex;align-items:center;justify-content:space-between;">
-        <div class="section-label" style="margin:0;">LISTES</div>
-        <button class="edit-listes-btn" data-key="${key}" data-ktype="kanji"
-          style="background:none;border:none;cursor:pointer;color:var(--green);font-size:16px;padding:0;">✏️</button>
-      </div>
-      <p style="font-size:13px;color:var(--gray);margin:6px 0 0;">${listesStr || '—'}</p>
+    <div class="section" style="padding-bottom:0;border-bottom:none;">
+      <div class="section-label">LISTES</div>
+      <p style="font-size:13px;color:var(--gray);margin:0 0 12px 0;">${listesStr || '—'}</p>
+      <button class="btn btn-ghost edit-listes-btn" data-key="${key}" data-ktype="kanji" style="font-size:13px;padding:11px;">éditer</button>
     </div>`;
 }
 
