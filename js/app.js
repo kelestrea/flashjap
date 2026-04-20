@@ -1,5 +1,5 @@
 // app.js — Point d'entrée
-import { openDB } from './db.js';
+import { openDB, loadDefaultDatabase } from './db.js';
 import { initAudio } from './audio.js';
 import { navigate } from './router.js';
 import { initHome }       from './screens/home.js';
@@ -15,6 +15,7 @@ import { initEditListes } from './screens/edit-listes.js';
 
 async function boot() {
   await openDB();
+  await loadDefaultDatabase();
   initAudio();
 
   initHome();
