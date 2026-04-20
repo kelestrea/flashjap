@@ -1,8 +1,8 @@
 // components/card-vocab.js
-import { getKanji, getStatut, getStatutGlobal, STATUT_COLOR, esc, getAllListes, putVocab, putKanji } from '../db.js';
+import { getKanji, getStatut, getStatutGlobal, STATUT_COLOR, esc, getAllListes, putVocab, putKanji, deleteVocab, deleteKanji } from '../db.js';
 import { speak } from '../audio.js';
 import { ICONS } from '../icons.js';
-import { openOverlay, closeOverlay } from '../router.js';
+import { openOverlay, closeOverlay, showPopup } from '../router.js';
 
 const bg        = document.getElementById('overlay-bg');
 const sheet     = document.getElementById('overlay-sheet');
@@ -170,6 +170,9 @@ export async function renderVocabCard(entry, returnCb) {
       </a>
     </div>
     ${buildVocabStats(entry)}
+    <div style="padding:16px 20px 32px;">
+      <button class="btn btn-danger" id="vc-delete" style="width:100%;">Supprimer</button>
+    </div>
   `;
 
   kanjiItems.forEach(async ({k,exists}) => {
@@ -181,6 +184,13 @@ export async function renderVocabCard(entry, returnCb) {
 
   document.getElementById('vc-play').onclick  = () => speak(entry.mot);
   document.getElementById('vc-close').onclick = () => { closeOverlay(); if (returnCb) returnCb(); };
+  document.getElementById('vc-delete').onclick = () => {
+    showPopup(`Supprimer "${entry.mot}" ?`, async () => {
+      await deleteVocab(entry.mot);
+      closeOverlay();
+      if (returnCb) returnCb();
+    });
+  };
 
   sheet.querySelectorAll('.kanji-chip:not(.disabled)').forEach(btn => {
     btn.onclick = async () => {
@@ -252,5 +262,9 @@ export async function buildKanjiContent(entry, isPush = false, isScreen = false)
       </a>
     </div>
     ${buildKanjiStats(entry)}
+    ${!isPush ? `
+    <div style="padding:16px 20px 32px;">
+      <button class="btn btn-danger kp-delete" data-kanji="${esc(entry.kanji)}" style="width:100%;">Supprimer</button>
+    </div>` : ''}
   `;
 }

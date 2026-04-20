@@ -1,6 +1,6 @@
 // screens/fiche.js — écran plein (push depuis recherche)
-import { getVocab, getKanji, getStatut, getStatutGlobal, STATUT_COLOR, esc } from '../db.js';
-import { goBack, navigate, registerScreen } from '../router.js';
+import { getVocab, getKanji, getStatut, getStatutGlobal, STATUT_COLOR, esc, deleteVocab, deleteKanji } from '../db.js';
+import { goBack, navigate, registerScreen, showPopup } from '../router.js';
 import { speak } from '../audio.js';
 import { buildKanjiContent } from '../components/card-vocab.js';
 import { ICONS } from '../icons.js';
@@ -34,6 +34,14 @@ async function enterFiche({ key, ktype }) {
         if (kData) navigate('screen-fiche', { key: btn.dataset.kanji, ktype: 'kanji' });
       };
     });
+
+    const delBtn = container.querySelector('.kp-delete');
+    if (delBtn) delBtn.onclick = () => {
+      showPopup(`Supprimer le kanji "${entry.kanji}" ?`, async () => {
+        await deleteKanji(entry.kanji);
+        goBack();
+      });
+    };
   } else {
     const kanjis = entry.kanjis_composants || [];
     container.innerHTML = `
@@ -68,9 +76,18 @@ async function enterFiche({ key, ktype }) {
         </a>
       </div>
       ${buildVocabStats(entry)}
+      <div style="padding:16px 20px 32px;">
+        <button class="btn btn-danger" id="f-delete" style="width:100%;">Supprimer</button>
+      </div>
     `;
 
     document.getElementById('f-play').onclick = () => speak(entry.mot);
+    document.getElementById('f-delete').onclick = () => {
+      showPopup(`Supprimer "${entry.mot}" ?`, async () => {
+        await deleteVocab(entry.mot);
+        goBack();
+      });
+    };
 
     // Bouton édition listes vocab
     container.addEventListener('click', e => {
