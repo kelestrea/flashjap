@@ -1,7 +1,7 @@
 // app.js — Point d'entrée
-import { openDB, loadDefaultDatabase } from './db.js';
+import { openDB, loadDefaultDatabase, getAllVocab, getAllKanji } from './db.js';
 import { initAudio } from './audio.js';
-import { navigate } from './router.js';
+import { navigate, showPopup } from './router.js';
 import { initHome }       from './screens/home.js';
 import { initQuizParams } from './screens/quiz-params.js';
 import { initQuiz }       from './screens/quiz.js';
@@ -15,7 +15,18 @@ import { initEditListes } from './screens/edit-listes.js';
 
 async function boot() {
   await openDB();
-  await loadDefaultDatabase();
+  const vocab = await getAllVocab();
+  const kanji = await getAllKanji();
+  if (vocab.length === 0 && kanji.length === 0) {
+    const shouldLoad = await new Promise(resolve => {
+      showPopup(
+        'Charger la base de données par défaut ?',
+        () => resolve(true),
+        () => resolve(false)
+      );
+    });
+    if (shouldLoad) await loadDefaultDatabase();
+  }
   initAudio();
 
   initHome();
