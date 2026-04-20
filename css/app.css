@@ -463,6 +463,67 @@ input[type=range] { width: 100%; accent-color: var(--blue); }
   color: var(--gray);
 }
 
+/* ── CATEGORIES (LIST SELECTION & EDIT) ── */
+.list-category, .edit-category { border-bottom: 1px solid var(--border); }
+
+.edit-category-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  gap: 8px;
+}
+
+.edit-category-header .category-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  text-align: left;
+}
+
+.edit-category-header .category-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--blue);
+}
+
+.edit-category-header .category-chevron {
+  font-size: 12px;
+  color: var(--gray);
+  display: inline-block;
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+
+.edit-category-header .category-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.edit-category-header .select-all, .edit-category-header .deselect-all {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 6px;
+  font-size: 12px;
+  color: var(--blue);
+  font-weight: 500;
+}
+
+.edit-category-content {
+  padding: 8px 0 12px 0;
+  transition: all 0.2s;
+}
+
+.edit-category-content .check-item {
+  padding: 8px 0;
+}
+
 /* ── LIST SELECTION SCREEN ── */
 .list-category { border-bottom: 1px solid var(--border); }
 
