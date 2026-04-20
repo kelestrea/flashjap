@@ -222,14 +222,16 @@ function setFeedbackUI(correct, card, result) {
   fb.className = `feedback ${correct ? 'correct' : 'incorrect'}`;
 
   let linesHtml = '';
-  if (!correct && _state.type === 'lecture' && card.type === 'kanji' && result) {
+  if (_state.type === 'lecture' && card.type === 'kanji' && result) {
     const kunOk = result.correctKun;
     const onOk  = result.correctOn;
     const lines = [];
-    if (kunOk === false) lines.push(`<span style="color:#A32D2D">kun : ${(card.lectures_kun||[]).join(', ')} · ${(card.romaji_kun||[]).join(', ')}</span>`);
-    else if ((card.lectures_kun || []).length) lines.push(`kun : ${(card.lectures_kun||[]).join(', ')} · ${(card.romaji_kun||[]).join(', ')}`);
-    if (onOk === false) lines.push(`<span style="color:#A32D2D">on : ${(card.lectures_on||[]).join(', ')} · ${(card.romaji_on||[]).join(', ')}</span>`);
-    else if ((card.lectures_on || []).length) lines.push(`on : ${(card.lectures_on||[]).join(', ')} · ${(card.romaji_on||[]).join(', ')}`);
+    const kunText = `${(card.lectures_kun||[]).join(', ')} · ${(card.romaji_kun||[]).join(', ')}`;
+    const onText = `${(card.lectures_on||[]).join(', ')} · ${(card.romaji_on||[]).join(', ')}`;
+    if (kunOk === false) lines.push(`kun : <strong>${kunText}</strong>`);
+    else if ((card.lectures_kun || []).length) lines.push(`kun : ${kunText}`);
+    if (onOk === false) lines.push(`on : <strong>${onText}</strong>`);
+    else if ((card.lectures_on || []).length) lines.push(`on : ${onText}`);
     const trad = (card.sens || []).slice(0,2).join(', ');
     if (trad) lines.push(trad);
     linesHtml = lines.map(l => `<p class="fb-sub" style="margin:1px 0;">${l}</p>`).join('');
@@ -275,7 +277,7 @@ async function toggleCorrection() {
     if (!_state.errors.find(e => (e.mot || e.kanji) === (card.mot || card.kanji))) _state.errors.push(card);
   }
 
-  setFeedbackUI(nowCorrect, card, null);
+  setFeedbackUI(nowCorrect, card, _state.lastCheckResult);
 
   const btnFiche  = document.getElementById('quiz-fiche');
   const btnNext   = document.getElementById('quiz-next');
