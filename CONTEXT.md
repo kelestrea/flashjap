@@ -205,12 +205,40 @@ Après sélection des N cartes selon le critère, **toujours mélanger aléatoir
 - **Règle** : si un mot/kanji a au moins une liste autre que `"automatique"`, la liste `"automatique"` est retirée automatiquement
 - À l'import, si un doublon est détecté, les nouvelles listes sont fusionnées (pas d'écrasement des scores)
 
+
 ### Recherche
 
 - Champs indexés : kanji/mot, hiragana, romaji, traductions/sens, listes
 - Toggle pour exclure/inclure les entrées de la liste "automatique" (exclus par défaut)
 - Pagination : 50 résultats par page
 - Debounce 200ms sur la saisie
+
+### Sélection des Listes
+
+#### Mémoire des Listes
+- Les listes cochées mémorisées entre sessions via **localStorage** (clé: `selectedListes`)
+- État "ouvert/fermé" des catégories : session uniquement (optionnel, non persisté)
+- Validation : minimum 1 liste sélectionnée obligatoire
+
+#### Affichage sur quiz-params
+- Affiche uniquement listes sélectionnées (liste texte simple, séparées par `·`)
+- Bouton "éditer" positionné en bas de la section Listes
+- Navigation vers `screen-list-selection` au clic
+
+#### Nouvel écran: screen-list-selection
+**Titre:** "Sélectionner les listes"
+
+**Affichage catégories:**
+- Extraction: premier mot de chaque nom de liste (jusqu'au espace) = catégorie
+  - Ex: "leçon 1.1" → "leçon" | "ML 08042026" → "ML" | "JPLT N5" → "JPLT"
+- Tri alphabétique des catégories
+- Catégories ouvertes par défaut (collapsible)
+
+**Interactions:**
+- Checkbox par liste (cocher/décocher), état préservé même catégorie fermée
+- "Tout cocher / Tout décocher" par catégorie (en en-tête)
+- Bouton "Valider" haut droite → retour quiz-params + update localStorage
+- Back/fermeture sans Valider → annule changements (retour à l'état précédent)
 
 ---
 
@@ -552,49 +580,3 @@ req.onsuccess = e => {
 
 ---
 
-## Refonte Sélection des Listes (Issue #91zQB)
-
-### Exigences Fonctionnelles
-
-#### Mémoire des Listes
-- Les listes cochées mémorisées entre sessions via **localStorage** (clé: `selectedListes`)
-- État "ouvert/fermé" des catégories : session uniquement (optionnel, non persisté)
-- Validation : minimum 1 liste sélectionnée obligatoire
-
-#### Affichage sur quiz-params
-- Affiche uniquement listes sélectionnées (liste texte simple, séparées par `·`)
-- Bouton "éditer" positionné en bas de la section Listes
-- Navigation vers `screen-list-selection` au clic
-
-#### Nouvel écran: screen-list-selection
-**Titre:** "Sélectionner les listes"
-
-**Affichage catégories:**
-- Extraction: premier mot de chaque nom de liste (jusqu'au espace) = catégorie
-  - Ex: "leçon 1.1" → "leçon" | "ML 08042026" → "ML" | "JPLT N5" → "JPLT"
-- Tri alphabétique des catégories
-- Catégories ouvertes par défaut (collapsible)
-
-**Interactions:**
-- Checkbox par liste (cocher/décocher), état préservé même catégorie fermée
-- "Tout cocher / Tout décocher" par catégorie (en en-tête)
-- Bouton "Valider" haut droite → retour quiz-params + update localStorage
-- Back/fermeture sans Valider → annule changements (retour à l'état précédent)
-
-### Modifications Techniques
-
-#### Fichiers à créer
-- **`js/lists-state.js`** : Gestion état localStorage (getSelectedListes, setSelectedListes, initializeSelectedListes)
-- **`js/screens/list-selection.js`** : Écran sélection avec catégorisation + logique toggle
-
-#### Fichiers à modifier
-- **`js/screens/quiz-params.js`** : Affiche selectedListes + bouton "Gérer les listes"
-- **`js/app.js`** : Import list-selection.js + initialisation
-- **`index.html`** : Ajouter div `#screen-list-selection`
-- **`css/app.css`** : Styles `.list-category-header`, `.list-category-content`, animations toggle
-
-#### Réutiliser
-- `getListes(type)` de `db.js` pour récupérer toutes listes
-- HTML/CSS patterns checkboxes existants
-- `navigate()`, `goBack()` du router
-- `registerScreen()` pour enregistrement écran
