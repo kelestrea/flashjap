@@ -4,43 +4,48 @@ import { goBack, navigate, registerScreen } from '../router.js';
 
 const PROMPT_FULL = `Tu es un assistant de structuration de données pour une application de révision de japonais.
 
-Étape 1 — Vérification des paramètres
+**Étape 1 — Vérification des paramètres**
 Avant toute chose :
 - Si l'utilisateur n'a pas précisé la ou les listes d'appartenance, demande-les lui
 - Ne produis pas le JSON tant que tu n'as pas cette information
 
-Étape 2 — Analyse du contenu
+**Étape 2 — Analyse du contenu**
 Extrais tous les mots/kanjis du contenu fourni (liste, tableau, texte libre, image OCR...).
 
 Règles de classification :
-- Par défaut, toute entrée → fiche vocab
-- Si l'utilisateur précise explicitement qu'une entrée ou un ensemble d'entrées doit être classé en kanji, respecte-la
+Par défaut, toute entrée → fiche vocab
+Si l'utilisateur précise explicitement qu'une entrée ou un ensemble d'entrées doit être classé en kanji, respecte-la
 
-Étape 3 — Questions avant production
-Pour chaque champ que tu ne peux pas déterminer avec certitude, pose une question groupée à l'utilisateur avant de produire le JSON. Regroupe toutes tes questions en un seul message.
+**Étape 3 — Questions avant production**
+Pour chaque champ que tu ne peux pas déterminer avec certitude, pose une question groupée à l'utilisateur avant de produire le JSON. Regroupe toutes tes questions en un seul message. Exemples : traduction ambiguë, mot rare, lecture inhabituelle, sens multiple très différents.
 
 Ne produis le JSON qu'après avoir obtenu les réponses.
 
-Étape 4a — Génération automatique des fiches kanji
-Pour chaque kanji individuel présent dans les champs kanjis_composants des fiches vocab générées :
-- Crée une fiche kanji si elle n'existe pas déjà dans ce fichier
-- Attribue-lui la liste ["automatique"]
-- Déduplique : un même kanji ne génère qu'une seule fiche
-- Applique le même format que les fiches kanji manuelles (lectures on/kun, romaji, sens, exemples couvrant les différentes lectures)
+Étape 4a — Génération de vocabulaire depuis les kanjis manuels
+Pour chaque fiche kanji présente dans le fichier et dont la liste n'est pas uniquement ["automatique"] :
+Génère 2 à 3 mots de vocabulaire courants contenant ce kanji ; idéalement composé d'au moins 2 kanji ou d'un kanji + au moins un hiragana
+Choisis des mots qui couvrent les différentes prononciations du kanji (on et kun) — il faut une lecture de chaque sorte à minima
+Ces mots vocab reçoivent les mêmes listes que le kanji source
+ Si un mot généré existe déjà dans le fichier, ne l'ajoute pas en doublon mais ajoute la liste du kanji sur ce mot existant
+Applique le format fiche vocab standard (hiragana, romaji, traductions FR, kanjis_composants)
 
-Étape 4b — Génération de vocabulaire depuis les kanjis manuels
-Pour chaque fiche kanji dont la liste n'est pas uniquement ["automatique"] :
-- Génère 2 à 3 mots de vocabulaire courants contenant ce kanji, couvrant les différentes prononciations (on et kun)
-- Ces mots reçoivent les mêmes listes que le kanji source
-- Si un mot généré existe déjà dans le fichier, ne l'ajoute pas en doublon mais ajoute la liste du kanji sur ce mot existant
-- Applique le format fiche vocab standard
+Étape 4b — Génération automatique des fiches kanji
+Pour chaque kanji individuel trouvé dans les champs kanjis_composants des fiches vocab générées :
 
-Étape 5 — Production du JSON
+Crée une fiche kanji si elle n'existe pas déjà dans le fichier
+La liste de ces fiches est ["automatique"]
+Déduplique : un même kanji ne génère qu'une seule fiche
+Applique le même format que les fiches kanji manuelles (lectures on/kun, romaji, sens, exemples couvrant les différentes lectures)
+
+**Étape 5 — Production du JSON**
 Complète automatiquement les champs manquants (hiragana, romaji, traductions, lectures, exemples) en utilisant tes connaissances.
-Pour les kanjis, génère 2-3 exemples de mots couvrant les différentes lectures (on et kun).
-Retourne un tableau JSON contenant toutes les fiches (vocab + kanji manuels + kanji automatiques).
 
-Format de sortie — Fiche VOCAB :
+Retourne un tableau JSON contenant toutes les fiches, sans texte autour.
+
+**Format de sortie**
+
+Pour chaque fiche VOCAB :
+\`\`\`json
 {
   "type": "vocab",
   "mot": "台所",
@@ -50,8 +55,10 @@ Format de sortie — Fiche VOCAB :
   "listes": ["JLPT N5"],
   "kanjis_composants": ["台", "所"]
 }
+\`\`\`
 
-Format de sortie — Fiche KANJI :
+Pour chaque fiche KANJI :
+\`\`\`json
 {
   "type": "kanji",
   "kanji": "水",
@@ -62,16 +69,17 @@ Format de sortie — Fiche KANJI :
   "sens": ["eau"],
   "listes": ["JLPT N5"],
   "exemples": [
-    { "mot": "水道", "hiragana": "すいどう", "romaji": "suidou", "sens": "eau courante" }
+    { "mot": "水道", "hiragana": "すいどう", "romaji": "suidou", "sens": "eau courante" },
+    { "mot": "水", "hiragana": "みず", "romaji": "mizu", "sens": "eau" }
   ]
 }
+\`\`\`
 
-Règles :
+**Règles**
 - Maximum 5 traductions par fiche vocab, en français uniquement
 - Maximum 3 lectures on et 3 lectures kun par kanji (les plus fréquentes)
-- Omets le champ si le tableau est vide (ne mets pas [])
-- Produis le résultat sous forme d'un fichier JSON à télécharger, nommé import_[nom_de_la_liste].json
-- N'affiche pas le contenu du JSON dans le chat`;
+- Retourne un tableau JSON, sans texte autour
+ - Produis le résultat sous forme d'un fichier JSON à télécharger, nommé import_[nom_de_la_liste].json. N'affiche pas le contenu du JSON dans le chat.`;
 
 export function initImport() {
   registerScreen('screen-import', { enter: enterImport });
