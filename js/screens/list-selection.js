@@ -137,7 +137,12 @@ function leaveListSelection() {
 }
 
 export function init() {
+  const backBtn = document.getElementById('ls-back');
   const validateBtn = document.getElementById('ls-validate');
+
+  if (backBtn) {
+    backBtn.addEventListener('click', () => goBack());
+  }
 
   if (validateBtn) {
     validateBtn.addEventListener('click', () => {

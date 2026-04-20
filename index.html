@@ -191,12 +191,11 @@
 ══════════════════════════════════════════════════════════ -->
 <div id="screen-list-selection" class="screen">
   <div class="topbar">
-    <div class="topbar-title" style="flex:1;">Sélectionner les listes</div>
-    <button class="icon-btn" id="ls-validate" style="color:var(--blue);">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-        <path d="M5 13l3 3 8-8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+    <button class="back-btn" id="ls-back" style="color:var(--blue)">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M13 4l-6 6 6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
+    <div class="topbar-title" style="flex:1;margin-left:10px;">Sélectionner les listes</div>
+    <button id="ls-validate" style="background:var(--green);border:none;border-radius:8px;padding:6px 14px;color:#fff;font-size:14px;font-weight:500;cursor:pointer;">✓</button>
   </div>
   <div id="ls-categories" style="padding:20px 10px;overflow-y:auto;flex:1;"></div>
 </div>
