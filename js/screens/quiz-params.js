@@ -2,14 +2,25 @@
 import { getListes, getCardsForQuiz } from '../db.js';
 import { navigate, goBack, registerScreen } from '../router.js';
 import { getHomeType } from './home.js';
+import * as listsState from '../lists-state.js';
 
 export function initQuizParams() {
   registerScreen('screen-quiz-params', { enter: enterParams });
   document.getElementById('qp-back').onclick  = () => goBack();
   document.getElementById('qp-start').onclick = () => startQuiz();
 
-  document.querySelectorAll('[name="qp-cat"]').forEach(r =>
-    r.addEventListener('change', () => loadListes()));
+  document.getElementById('qp-toggle-vocab').addEventListener('click', () => {
+    document.getElementById('qp-toggle-vocab').classList.add('active');
+    document.getElementById('qp-toggle-kanji').classList.remove('active');
+    loadListes();
+  });
+
+  document.getElementById('qp-toggle-kanji').addEventListener('click', () => {
+    document.getElementById('qp-toggle-kanji').classList.add('active');
+    document.getElementById('qp-toggle-vocab').classList.remove('active');
+    loadListes();
+  });
+
   document.querySelectorAll('[name="qp-type"]').forEach(r =>
     r.addEventListener('change', () => toggleSens()));
   document.querySelectorAll('[name="qp-critere"]').forEach(r =>
@@ -17,41 +28,86 @@ export function initQuizParams() {
 
   const slider = document.getElementById('qp-slider');
   slider.oninput = () => document.getElementById('qp-slider-val').textContent = slider.value;
+
+  const manageBtn = document.getElementById('qp-manage-listes');
+  if (manageBtn) {
+    manageBtn.addEventListener('click', () => {
+      const type = getSelectedCategory();
+      navigate('screen-list-selection', { type });
+    });
+  }
+}
+
+function getSelectedCategory() {
+  return document.getElementById('qp-toggle-vocab').classList.contains('active') ? 'vocab' : 'kanji';
 }
 
 async function enterParams() {
   // Pré-cocher selon toggle accueil
   const homeType = getHomeType();
-  document.querySelectorAll('[name="qp-cat"]').forEach(r => {
-    r.checked = r.value === homeType;
-  });
+  const vocabBtn = document.getElementById('qp-toggle-vocab');
+  const kanjiBtn = document.getElementById('qp-toggle-kanji');
+
+  if (homeType === 'kanji') {
+    vocabBtn.classList.remove('active');
+    kanjiBtn.classList.add('active');
+  } else {
+    vocabBtn.classList.add('active');
+    kanjiBtn.classList.remove('active');
+  }
+
+  const type = getSelectedCategory();
+  const allListes = await getListes(type);
+  listsState.initializeSelectedListes(allListes);
   await loadListes();
   toggleSens();
 }
 
-async function loadListes() {
-  const type = document.querySelector('[name="qp-cat"]:checked')?.value || 'vocab';
-  const listes = await getListes(type);
-  const container = document.getElementById('qp-listes');
-  container.innerHTML = listes.map(l => `
-    <label class="check-item">
-      <input type="checkbox" name="qp-liste" value="${l}" checked
-        style="accent-color:var(--blue);width:16px;height:16px;margin-top:2px;"
-        onchange="document.dispatchEvent(new Event('qp-liste-change'))">
-      <span>${l}</span>
-    </label>
-  `).join('') || '<p style="font-size:13px;color:var(--gray)">Aucune liste disponible</p>';
+function extractCategory(listeName) {
+  const match = listeName.match(/^(\S+)/);
+  return match ? match[1] : listeName;
+}
 
-  document.addEventListener('qp-liste-change', refreshSlider, { once: false });
+function groupListesByCategory(listes) {
+  const groups = {};
+  listes.forEach(liste => {
+    const cat = extractCategory(liste);
+    if (!groups[cat]) groups[cat] = [];
+    groups[cat].push(liste);
+  });
+  return groups;
+}
+
+async function loadListes() {
+  const selectedListes = listsState.getSelectedListes();
+  const container = document.getElementById('qp-listes');
+
+  if (selectedListes.length === 0) {
+    container.innerHTML = '<p style="font-size:13px;color:var(--gray)">Aucune liste sélectionnée</p>';
+  } else {
+    const groups = groupListesByCategory(selectedListes);
+    const categories = Object.keys(groups).sort();
+    const html = categories
+      .map(cat => `<div style="margin-bottom:8px;">${esc(groups[cat].join(' · '))}</div>`)
+      .join('');
+    container.innerHTML = `<div style="font-size:14px;color:var(--blue);">${html}</div>`;
+  }
+
   await refreshSlider();
 }
 
+function esc(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
 async function refreshSlider() {
-  const type    = document.querySelector('[name="qp-cat"]:checked')?.value || 'vocab';
+  const type    = getSelectedCategory();
   const critere = document.querySelector('[name="qp-critere"]:checked')?.value || 'tous';
   const sensType = document.querySelector('[name="qp-type"]:checked')?.value || 'lecture';
   const sens    = sensType === 'lecture' ? 'lecture' : (document.querySelector('[name="qp-sens"]:checked')?.value || 'jpfr');
-  const listes  = [...document.querySelectorAll('[name="qp-liste"]:checked')].map(c => c.value);
+  const listes  = listsState.getSelectedListes();
   const cards   = await getCardsForQuiz({ type, listes, critere, sens, count: 0 });
   const slider  = document.getElementById('qp-slider');
   const prev    = parseInt(slider.value) || 20;
@@ -68,12 +124,12 @@ function toggleSens() {
 }
 
 async function startQuiz() {
-  const cat     = document.querySelector('[name="qp-cat"]:checked')?.value || 'vocab';
+  const cat     = getSelectedCategory();
   const type    = document.querySelector('[name="qp-type"]:checked')?.value || 'lecture';
   const sens    = type === 'lecture' ? 'lecture' : (document.querySelector('[name="qp-sens"]:checked')?.value || 'jpfr');
   const critere = document.querySelector('[name="qp-critere"]:checked')?.value || 'tous';
   const count   = parseInt(document.getElementById('qp-slider').value) || 0;
-  const listes  = [...document.querySelectorAll('[name="qp-liste"]:checked')].map(c => c.value);
+  const listes  = listsState.getSelectedListes();
   const cards   = await getCardsForQuiz({ type: cat, listes, critere, sens, count });
   if (!cards.length) { alert('Aucune carte disponible avec ces critères.'); return; }
   navigate('screen-quiz', { cards, type, sens, cat, critere, listes });
