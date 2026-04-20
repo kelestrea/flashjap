@@ -58,7 +58,7 @@ function renderCategories() {
 
     const content = document.createElement('div');
     content.className = 'list-category-content';
-    content.style.display = 'none';
+    content.style.display = 'block';
 
     listes.forEach(liste => {
       const label = document.createElement('label');
@@ -74,6 +74,9 @@ function renderCategories() {
     categoryDiv.appendChild(header);
     categoryDiv.appendChild(content);
     container.appendChild(categoryDiv);
+
+    const chevron = header.querySelector('.category-chevron');
+    chevron.style.transform = 'rotate(90deg)';
 
     header.querySelector('.category-toggle').addEventListener('click', (e) => {
       e.preventDefault();
