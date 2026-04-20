@@ -286,10 +286,258 @@ Polling robuste pour iOS : `setInterval` toutes les 100ms, max 30 tentatives (3 
 
 ---
 
+---
+
+## Architecture détaillée des modules
+
+### Dépendances entre modules (vue globale)
+
+```
+index.html
+    ↓
+app.js (boot)
+    ├→ db.js (initialisation IndexedDB)
+    ├→ audio.js (initialisation Web Speech API)
+    ├→ router.js (initialisation navigation)
+    └→ screens/* (initialisation tous les écrans)
+
+router.js (gestion navigation/état)
+    ↓ (utilisé par tous les écrans)
+
+db.js (état central)
+    ├→ IndexedDB (vocab + kanji)
+    ├→ Scoring logic (getStatut, getStatutGlobal)
+    ├→ Search index (buildSearchIndex)
+    └→ Import/Export (formatage)
+
+Écrans (screens/*)
+    ├→ Utilisent: router.js, db.js
+    ├→ Affichent: DOM depuis index.html
+    └→ Composants: renderVocabCard, renderKanjiCard
+
+Composants (components/*)
+    ├→ card-vocab.js (fiche vocab)
+    ├→ card-kanji.js (fiche kanji)
+    └→ Utilisent: db.js, router.js, audio.js
+```
+
+### Modules clés et leurs responsabilités
+
+| Module | Lignes | Responsabilité |
+|---|---|---|
+| `db.js` | 357 | État IndexedDB, logique scoring, recherche, import/export |
+| `screens/quiz.js` | 313 | Écran principal quiz (logique réponses, transition cartes) |
+| `components/card-vocab.js` | 235 | Rendu fiche vocab (overlay), gestion interactions |
+| `router.js` | 96 | Navigation SPA, pile d'état, overlays, popups |
+| `screens/home.js` | 138 | Accueil avec camemberts (charts) |
+| `screens/fiche.js` | 144 | Détail entrée (depuis recherche ou quiz) |
+| `screens/import.js` | 177 | Intégration Claude API, import JSON |
+| `audio.js` | 56 | Web Speech API, sélection voix, polling |
+| `screens/quiz-params.js` | 80 | Sélection paramètres quiz |
+| `icons.js` | 25 | SVG inline réutilisables |
+
+### État global et partagé
+
+Aucun store centralisé. État distribué :
+- **IndexedDB** : état persistant (vocab, kanji, scores, listes)
+- **Variables locales (`screens/*.js`)** : état de session (filtre cherche, paramètres quiz)
+- **Router state** : pile de navigation, état overlay
+- **DOM** : sources de vérité pour certains inputs (champs de saisie)
+
+**Flux données** : IndexedDB ← → écrans ← → DOM ← → utilisateur
+
+### Exports par module (pour dépendances rapides)
+
+#### `db.js`
+- Helpers : `esc()`, `openDB()`, `loadDefaultDatabase()`
+- Statut : `getStatut()`, `getStatutGlobal()`, `STATUT_COLOR`
+- Crud vocab/kanji : `getAllVocab()`, `getVocab()`, `putVocab()`, `getAllKanji()`, `getKanji()`, `putKanji()`
+- Scoring : `updateScore()`, `updateKanjiLectureScores()`
+- Listes : `getListes()`, `getAllListes()`
+- Quiz : `getCardsForQuiz()`
+- Import/Export : `exportAll()`, `importAll()`, `saveEntry()`, `validateEntry()`
+- Recherche : `buildSearchIndex()`, `search()`
+
+#### `router.js`
+- Navigation : `navigate()`, `goBack()`, `currentState()`, `replaceState()`
+- Overlays : `openOverlay()`, `closeOverlay()`
+- Popups : `showPopup()`
+- Inscription : `registerScreen()`
+
+#### `audio.js`
+- Initialisation : `initAudio()`
+- Playback : `speak()`
+- État : `isAvailable()`
+
+#### `screens/*`
+- Chaque écran exporte `init*()` appelé au boot
+- Chaque écran écoute `navigate()` via `registerScreen()`
+
+#### `components/*`
+- `renderVocabCard(entry, returnCb)` — Overlay bottom sheet avec overlay controls
+- `buildKanjiContent(entry, isPush, isScreen)` — HTML pour kanjis composants (utilisé par vocab + directement)
+- `renderKanjiCard(entry, returnCb)` — Overlay bottom sheet kanji
+
+---
+
+## Flux d'initialisation détaillé
+
+```
+1. DOMContentLoaded
+   └→ app.js boot()
+       ├→ openDB()
+       │   └→ IndexedDB onupgradeneeded si version récente
+       │       ├→ ObjectStore 'vocab' (keyPath: 'mot')
+       │       │   └→ Indices: hiragana, romaji, listes
+       │       └→ ObjectStore 'kanji' (keyPath: 'kanji')
+       │           └→ Indice: listes
+       │
+       ├→ loadDefaultDatabase()
+       │   └→ Si IndexedDB vide, importe flashjap_base.json
+       │
+       ├→ initAudio()
+       │   ├→ Polling voix (100ms, max 30 tentatives)
+       │   └→ Fallback onvoiceschanged
+       │
+       ├→ init*() pour chaque écran
+       │   └→ registerScreen(id, { enter, leave })
+       │       └→ Enregistre callbacks pour show/hide
+       │
+       ├→ navigate('screen-home')
+       │   ├→ Pousse sur pile
+       │   ├→ Appelle enter() du nouveau screen
+       │   └→ Rend visible le DOM
+       │
+       └→ Service Worker
+           └→ register('/flashjap/sw.js')
+```
+
+---
+
+## Patterns et conventions
+
+### Naming
+- **Écrans** : `screen-{nom}` (ex: `screen-quiz`)
+- **Statuts** : `noncommence`, `etudie`, `encours`, `maitrise` (pas de tiret)
+- **Variables privées** : préfixe `_` (ex: `_db`, `_available`)
+- **Constantes** : SCREAMING_SNAKE_CASE (ex: `CACHE`, `DB_NAME`, `ASSETS`)
+
+### DOM
+- Tous les éléments HTML dans `index.html`
+- Écrans identifiés par `id="screen-{nom}"`
+- Boutons/inputs identifiés par `data-action` ou `id` direct
+- Classes CSS : BEM-ish (`quiz__card`, `overlay__bg`)
+
+### Sélection d'éléments
+- `document.getElementById('screen-quiz')` pour écrans
+- `document.querySelector('[data-action="next"]')` pour actions
+- `el.querySelector()` pour recherche dans sous-arbre
+
+### Événements
+- `registerScreen()` → callbacks `enter(state)` et `leave()`
+- `addEventListener('change')`, `addEventListener('click')` directs sur éléments
+- Pas de delegation systématique (petit projet)
+
+### Validation
+- `validateEntry()` dans db.js (obligatoires listés)
+- Validation UI dans écrans (ex: longueur réponse)
+- Validation scores dans `updateScore()` (min 0, max 5)
+
+### XSS Prevention
+- Toujours `esc()` avant `innerHTML` sur données utilisateur
+- Si élément créé via `createElement`, safer mais moins répandu ici
+
+---
+
+## Performance et optimisations
+
+### Requêtes IndexedDB
+- Transactions readonly par défaut (`readwrite` seulement si nécessaire)
+- `getAll()` OK pour vocab/kanji (données petites ~200-500 entrées)
+- Index sur `listes` (multiEntry) pour filtrage rapide
+
+### Recherche
+- `buildSearchIndex()` construit index in-memory à chaque recherche
+- Pas de réindexation incrémentale (peu fréquent)
+- Debounce 200ms sur input recherche
+
+### Service Worker
+- Cache First pour JS/CSS (assets statiques)
+- Stale-While-Revalidate pour HTML (toujours fresh, mais donne ancien si réseau KO)
+- Incrémenter `CACHE` (`flashjap-v1` → `flashjap-v2`) pour forcer invalidation
+
+### Pagination
+- Recherche : 50 résultats par page
+- Pas de lazy loading, tout charger d'un coup OK
+
+---
+
+## Debugging et tooling
+
+### Outils utiles
+- **Safari DevTools** (iPhone) : voir console, IndexedDB, Service Worker
+- **Chrome DevTools (Desktop)** : Application → Storage → IndexedDB → flashjap
+- **Logs** : `console.log()` partout, pas de logger framework
+
+### Inspection IndexedDB
+```javascript
+// Dans console navigateur
+const req = indexedDB.open('flashjap');
+req.onsuccess = e => {
+  const db = e.target.result;
+  const tx = db.transaction('vocab', 'readonly');
+  const os = tx.objectStore('vocab');
+  const all = os.getAll();
+  all.onsuccess = () => console.log(all.result);
+};
+```
+
+### Tests
+- Pas de framework test (HTML/JS pur)
+- Tests manuels : iPhone Safari + DevTools Chrome desktop
+- Cas critiques :
+  - Import avec doublon (fusion listes)
+  - Scoring avec 2 erreurs consécutives
+  - Quiz multi-sens (kanji + vocab)
+  - Transitions overlays (ordre push/pop)
+
+---
+
 ## Points d'attention
 
-- **XSS** : toujours utiliser `esc()` (exporté depuis `db.js`) pour échapper les données utilisateur avant injection dans `innerHTML`
-- **Apostrophes** : utiliser uniquement des apostrophes droites `'` dans les strings JavaScript (pas de `'` typographiques)
-- **Pas de build** : pas de npm, pas de webpack — tout doit fonctionner en ES modules natifs
-- **iOS Safari** : tester les overlays et transitions sur iPhone réel, le comportement peut différer du desktop
-- **Service Worker** : penser à incrémenter la version du cache (`CACHE` dans `sw.js`) lors de mises à jour importantes pour éviter que les utilisateurs gardent une version obsolète
+### Sécurité
+- **XSS** : toujours `esc()` avant `innerHTML` sur données utilisateur
+- **IndexedDB** : pas de requête SQL, données structurées = moins de risque injection
+- Apostrophes : droites uniquement `'` (pas typographiques)
+
+### Compatibilité
+- **iOS Safari** : tester overlays/transitions sur iPhone réel
+  - Web Speech API : polling 100ms + fallback `onvoiceschanged`
+  - Voix Siri Premium : actuellement pas trouvée (à investiguer)
+- **Desktop** : Chrome/Firefox/Safari (desktop) testé moins régulièrement
+
+### Maintenance
+- **Pas de build** : pas npm, pas webpack — ES modules natifs uniquement
+- **Service Worker** : incrémenter `CACHE` dans `sw.js` pour invalidation
+- **Schéma IndexedDB** : modifications rares (v1 depuis ~2 ans)
+  - Ajouter champ → tous les anciens manquent le champ (undefined/null)
+  - Ajouter score → détecter et init à null dans écrans pertinents
+
+### Git & Deploy
+- Repo public : `kelestrea/flashjap`
+- Hébergement : GitHub Pages (automatique)
+- Branche : `main`
+- Mise à jour : commit → push → redéploiement 1-2 min
+
+---
+
+## Checklist avant commit
+
+- [ ] XSS : vérifier tout `innerHTML` sur données utilisateur (utiliser `esc()`)
+- [ ] Apostrophes : uniquement droites
+- [ ] Import/Export : tester round-trip
+- [ ] Overlays : tester sur iPhone (transitions, fermeture)
+- [ ] Scoring : vérifier min/max (0-5 vocab, logique kanji)
+- [ ] Recherche : pagination et debounce fonctionnent
+- [ ] Service Worker : incrémenter `CACHE` si fichiers importants modifiés
+- [ ] DOM : tous les `id` et `data-action` existent dans `index.html`
