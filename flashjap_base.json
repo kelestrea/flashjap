@@ -1,0 +1,8236 @@
+{
+  "vocab": [
+    {
+      "type": "vocab",
+      "mot": "お湯",
+      "hiragana": "おゆ",
+      "romaji": "oyu",
+      "traductions": [
+        "eau chaude"
+      ],
+      "listes": [
+        "ML 180426"
+      ],
+      "kanjis_composants": [
+        "湯"
+      ],
+      "score_lecture": 1,
+      "score_jpfr": 1,
+      "score_frjp": null,
+      "consec_lecture": 1,
+      "consec_jpfr": 1,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": 1776664639472,
+      "derniere_vue_jpfr": 1776634080066,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588401
+    },
+    {
+      "type": "vocab",
+      "mot": "ガス",
+      "hiragana": "がす",
+      "romaji": "gasu",
+      "traductions": [
+        "gaz"
+      ],
+      "listes": [
+        "ML 180426"
+      ],
+      "kanjis_composants": [],
+      "score_lecture": null,
+      "score_jpfr": 1,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 1,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": 1776634048607,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588401
+    },
+    {
+      "type": "vocab",
+      "mot": "ゴミを出す",
+      "hiragana": "ごみをだす",
+      "romaji": "gomi o dasu",
+      "traductions": [
+        "sortir les poubelles"
+      ],
+      "listes": [
+        "ML 180426"
+      ],
+      "kanjis_composants": [
+        "出"
+      ],
+      "score_lecture": 1,
+      "score_jpfr": 1,
+      "score_frjp": null,
+      "consec_lecture": 1,
+      "consec_jpfr": 1,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": 1776664632827,
+      "derniere_vue_jpfr": 1776634067757,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588398
+    },
+    {
+      "type": "vocab",
+      "mot": "ゴミ置き場",
+      "hiragana": "ごみおきば",
+      "romaji": "gomiokiba",
+      "traductions": [
+        "endroit où l’on dépose les poubelles"
+      ],
+      "listes": [
+        "ML 180426"
+      ],
+      "kanjis_composants": [
+        "置",
+        "場"
+      ],
+      "score_lecture": 1,
+      "score_jpfr": 0,
+      "score_frjp": null,
+      "consec_lecture": 1,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 1,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": 1776664528408,
+      "derniere_vue_jpfr": 1776634071956,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588400
+    },
+    {
+      "type": "vocab",
+      "mot": "万円",
+      "hiragana": "まんえん",
+      "romaji": "man'en",
+      "traductions": [
+        "dix mille yens"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "万",
+        "円"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633194417
+    },
+    {
+      "type": "vocab",
+      "mot": "万年",
+      "hiragana": "まんねん",
+      "romaji": "mannen",
+      "traductions": [
+        "dix mille ans"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "万",
+        "年"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633194418
+    },
+    {
+      "type": "vocab",
+      "mot": "上げる",
+      "hiragana": "あげる",
+      "romaji": "ageru",
+      "traductions": [
+        "lever",
+        "monter"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "上"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633194419
+    },
+    {
+      "type": "vocab",
+      "mot": "上下",
+      "hiragana": "じょうげ",
+      "romaji": "jouge",
+      "traductions": [
+        "haut et bas"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "上",
+        "下"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633194419
+    },
+    {
+      "type": "vocab",
+      "mot": "上司",
+      "hiragana": "じょうし",
+      "romaji": "joushi",
+      "traductions": [
+        "supérieur hiérarchique"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "上"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633194420
+    },
+    {
+      "type": "vocab",
+      "mot": "下げる",
+      "hiragana": "さげる",
+      "romaji": "sageru",
+      "traductions": [
+        "baisser",
+        "descendre"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "下"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633194420
+    },
+    {
+      "type": "vocab",
+      "mot": "下さい",
+      "hiragana": "ください",
+      "romaji": "kudasai",
+      "traductions": [
+        "s'il vous plaît"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "下"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633194420
+    },
+    {
+      "type": "vocab",
+      "mot": "不可",
+      "hiragana": "ふか",
+      "romaji": "fuka",
+      "traductions": [
+        "impossible"
+      ],
+      "listes": [
+        "leçon 2.3"
+      ],
+      "kanjis_composants": [
+        "不"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633204904
+    },
+    {
+      "type": "vocab",
+      "mot": "不安",
+      "hiragana": "ふあん",
+      "romaji": "fuan",
+      "traductions": [
+        "inquiétude",
+        "anxiété"
+      ],
+      "listes": [
+        "leçon 2.3"
+      ],
+      "kanjis_composants": [
+        "不"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633204904
+    },
+    {
+      "type": "vocab",
+      "mot": "中国",
+      "hiragana": "ちゅうごく",
+      "romaji": "chuugoku",
+      "traductions": [
+        "Chine"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "中"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633194421
+    },
+    {
+      "type": "vocab",
+      "mot": "中身",
+      "hiragana": "なかみ",
+      "romaji": "nakami",
+      "traductions": [
+        "contenu",
+        "intérieur"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "中"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633194421
+    },
+    {
+      "type": "vocab",
+      "mot": "五分",
+      "hiragana": "ごふん",
+      "romaji": "gofun",
+      "traductions": [
+        "cinq minutes"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "分"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633194423
+    },
+    {
+      "type": "vocab",
+      "mot": "今年",
+      "hiragana": "ことし",
+      "romaji": "kotoshi",
+      "traductions": [
+        "cette année"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "年"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633194419
+    },
+    {
+      "type": "vocab",
+      "mot": "低下",
+      "hiragana": "ていか",
+      "romaji": "teika",
+      "traductions": [
+        "baisse"
+      ],
+      "listes": [
+        "leçon 2.4"
+      ],
+      "kanjis_composants": [
+        "低",
+        "下"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633160322
+    },
+    {
+      "type": "vocab",
+      "mot": "低空",
+      "hiragana": "ていくう",
+      "romaji": "teikuu",
+      "traductions": [
+        "basse altitude"
+      ],
+      "listes": [
+        "leçon 2.4"
+      ],
+      "kanjis_composants": [
+        "低",
+        "空"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633160322
+    },
+    {
+      "type": "vocab",
+      "mot": "作り方",
+      "hiragana": "つくりかた",
+      "romaji": "tsukurikata",
+      "traductions": [
+        "manière de faire",
+        "recette",
+        "façon de fabriquer"
+      ],
+      "listes": [
+        "ML 080426"
+      ],
+      "kanjis_composants": [
+        "作",
+        "方"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284705
+    },
+    {
+      "type": "vocab",
+      "mot": "便",
+      "hiragana": "びん",
+      "romaji": "bin",
+      "traductions": [
+        "courrier",
+        "correspondance"
+      ],
+      "listes": [
+        "leçon 2.3"
+      ],
+      "kanjis_composants": [
+        "便"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633204903
+    },
+    {
+      "type": "vocab",
+      "mot": "便利",
+      "hiragana": "べんり",
+      "romaji": "benri",
+      "traductions": [
+        "pratique",
+        "commode"
+      ],
+      "listes": [
+        "leçon 2.3"
+      ],
+      "kanjis_composants": [
+        "便",
+        "利"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633204902
+    },
+    {
+      "type": "vocab",
+      "mot": "元々",
+      "hiragana": "もともと",
+      "romaji": "motomoto",
+      "traductions": [
+        "à l'origine",
+        "au départ"
+      ],
+      "listes": [
+        "leçon 2.3"
+      ],
+      "kanjis_composants": [
+        "元"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633204905
+    },
+    {
+      "type": "vocab",
+      "mot": "元気",
+      "hiragana": "げんき",
+      "romaji": "genki",
+      "traductions": [
+        "vigueur",
+        "entrain"
+      ],
+      "listes": [
+        "leçon 2.3"
+      ],
+      "kanjis_composants": [
+        "元"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633204905
+    },
+    {
+      "type": "vocab",
+      "mot": "円形",
+      "hiragana": "えんけい",
+      "romaji": "enkei",
+      "traductions": [
+        "forme circulaire"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "円"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633194418
+    },
+    {
+      "type": "vocab",
+      "mot": "分ける",
+      "hiragana": "わける",
+      "romaji": "wakeru",
+      "traductions": [
+        "diviser",
+        "séparer"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "分"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633194422
+    },
+    {
+      "type": "vocab",
+      "mot": "切る",
+      "hiragana": "きる",
+      "romaji": "kiru",
+      "traductions": [
+        "couper"
+      ],
+      "listes": [
+        "leçon 2.3"
+      ],
+      "kanjis_composants": [
+        "切"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633204904
+    },
+    {
+      "type": "vocab",
+      "mot": "別々",
+      "hiragana": "べつべつ",
+      "romaji": "betsutbetsu",
+      "traductions": [
+        "séparément"
+      ],
+      "listes": [
+        "leçon 2.3"
+      ],
+      "kanjis_composants": [
+        "別"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633204901
+    },
+    {
+      "type": "vocab",
+      "mot": "別れる",
+      "hiragana": "わかれる",
+      "romaji": "wakareru",
+      "traductions": [
+        "se séparer"
+      ],
+      "listes": [
+        "leçon 2.3"
+      ],
+      "kanjis_composants": [
+        "別"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633204901
+    },
+    {
+      "type": "vocab",
+      "mot": "利用",
+      "hiragana": "りよう",
+      "romaji": "riyou",
+      "traductions": [
+        "utilisation",
+        "usage"
+      ],
+      "listes": [
+        "leçon 2.3"
+      ],
+      "kanjis_composants": [
+        "利"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633204903
+    },
+    {
+      "type": "vocab",
+      "mot": "利益",
+      "hiragana": "りえき",
+      "romaji": "rieki",
+      "traductions": [
+        "bénéfice",
+        "profit"
+      ],
+      "listes": [
+        "leçon 2.3"
+      ],
+      "kanjis_composants": [
+        "利"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633204903
+    },
+    {
+      "type": "vocab",
+      "mot": "十分",
+      "hiragana": "じゅっぷん",
+      "romaji": "juppun",
+      "traductions": [
+        "dix minutes"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "分"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633194422
+    },
+    {
+      "type": "vocab",
+      "mot": "千円",
+      "hiragana": "せんえん",
+      "romaji": "sen'en",
+      "traductions": [
+        "mille yens"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "千",
+        "円"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633194417
+    },
+    {
+      "type": "vocab",
+      "mot": "千年",
+      "hiragana": "せんねん",
+      "romaji": "sennen",
+      "traductions": [
+        "mille ans"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "千",
+        "年"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633194417
+    },
+    {
+      "type": "vocab",
+      "mot": "半分",
+      "hiragana": "はんぶん",
+      "romaji": "hanbun",
+      "traductions": [
+        "moitié"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "半",
+        "分"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633194421
+    },
+    {
+      "type": "vocab",
+      "mot": "半年",
+      "hiragana": "はんとし",
+      "romaji": "hantoshi",
+      "traductions": [
+        "six mois"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "半",
+        "年"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633194422
+    },
+    {
+      "type": "vocab",
+      "mot": "国会議事堂",
+      "hiragana": "こっかいぎじどう",
+      "romaji": "kokkaigijidou",
+      "traductions": [
+        "bâtiment de la Diète nationale"
+      ],
+      "listes": [
+        "ML 180426"
+      ],
+      "kanjis_composants": [
+        "国",
+        "会",
+        "議",
+        "事",
+        "堂"
+      ],
+      "score_lecture": 1,
+      "score_jpfr": 0,
+      "score_frjp": null,
+      "consec_lecture": 1,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 1,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": 1776664677224,
+      "derniere_vue_jpfr": 1776634037949,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588396
+    },
+    {
+      "type": "vocab",
+      "mot": "変化",
+      "hiragana": "へんか",
+      "romaji": "henka",
+      "traductions": [
+        "changement"
+      ],
+      "listes": [
+        "leçon 2.4"
+      ],
+      "kanjis_composants": [
+        "変",
+        "化"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633160329
+    },
+    {
+      "type": "vocab",
+      "mot": "大切",
+      "hiragana": "たいせつ",
+      "romaji": "taisetsu",
+      "traductions": [
+        "important",
+        "précieux"
+      ],
+      "listes": [
+        "leçon 2.3"
+      ],
+      "kanjis_composants": [
+        "切"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633204905
+    },
+    {
+      "type": "vocab",
+      "mot": "大変",
+      "hiragana": "たいへん",
+      "romaji": "taihen",
+      "traductions": [
+        "difficile / très"
+      ],
+      "listes": [
+        "leçon 2.4"
+      ],
+      "kanjis_composants": [
+        "大",
+        "変"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633160330
+    },
+    {
+      "type": "vocab",
+      "mot": "太い",
+      "hiragana": "ふとい",
+      "romaji": "futoi",
+      "traductions": [
+        "gros",
+        "épais"
+      ],
+      "listes": [
+        "leçon 2.2"
+      ],
+      "kanjis_composants": [
+        "太"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633199555
+    },
+    {
+      "type": "vocab",
+      "mot": "太陽",
+      "hiragana": "たいよう",
+      "romaji": "taiyou",
+      "traductions": [
+        "soleil"
+      ],
+      "listes": [
+        "leçon 2.2"
+      ],
+      "kanjis_composants": [
+        "太"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633199555
+    },
+    {
+      "type": "vocab",
+      "mot": "好き",
+      "hiragana": "すき",
+      "romaji": "suki",
+      "traductions": [
+        "aimer"
+      ],
+      "listes": [
+        "leçon 2.3"
+      ],
+      "kanjis_composants": [
+        "好"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633204906
+    },
+    {
+      "type": "vocab",
+      "mot": "好意",
+      "hiragana": "こうい",
+      "romaji": "koui",
+      "traductions": [
+        "bienveillance",
+        "faveur"
+      ],
+      "listes": [
+        "leçon 2.3"
+      ],
+      "kanjis_composants": [
+        "好"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633204906
+    },
+    {
+      "type": "vocab",
+      "mot": "家事代行",
+      "hiragana": "かじだいこう",
+      "romaji": "kajidaikou",
+      "traductions": [
+        "service de ménage à domicile",
+        "aide ménagère"
+      ],
+      "listes": [
+        "ML 080426"
+      ],
+      "kanjis_composants": [
+        "家",
+        "事",
+        "代",
+        "行"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284705
+    },
+    {
+      "type": "vocab",
+      "mot": "市長",
+      "hiragana": "しちょう",
+      "romaji": "shichou",
+      "traductions": [
+        "maire"
+      ],
+      "listes": [
+        "ML 080426"
+      ],
+      "kanjis_composants": [
+        "市",
+        "長"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284707
+    },
+    {
+      "type": "vocab",
+      "mot": "平日",
+      "hiragana": "へいじつ",
+      "romaji": "heijitsu",
+      "traductions": [
+        "jour de semaine"
+      ],
+      "listes": [
+        "ML 180426"
+      ],
+      "kanjis_composants": [
+        "平",
+        "日"
+      ],
+      "score_lecture": 0,
+      "score_jpfr": 0,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 1,
+      "err_consec_jpfr": 1,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": 1776664499338,
+      "derniere_vue_jpfr": 1776634054444,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588397
+    },
+    {
+      "type": "vocab",
+      "mot": "広告",
+      "hiragana": "こうこく",
+      "romaji": "koukoku",
+      "traductions": [
+        "publicité"
+      ],
+      "listes": [
+        "leçon 2.4"
+      ],
+      "kanjis_composants": [
+        "広",
+        "告"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633160323
+    },
+    {
+      "type": "vocab",
+      "mot": "広大",
+      "hiragana": "こうだい",
+      "romaji": "koudai",
+      "traductions": [
+        "vaste"
+      ],
+      "listes": [
+        "leçon 2.4"
+      ],
+      "kanjis_composants": [
+        "広",
+        "大"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633160323
+    },
+    {
+      "type": "vocab",
+      "mot": "引っ越し",
+      "hiragana": "ひっこし",
+      "romaji": "hikkoshi",
+      "traductions": [
+        "déménagement"
+      ],
+      "listes": [
+        "ML 180426"
+      ],
+      "kanjis_composants": [
+        "引",
+        "越"
+      ],
+      "score_lecture": 0,
+      "score_jpfr": 0,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 1,
+      "err_consec_jpfr": 1,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": 1776664647780,
+      "derniere_vue_jpfr": 1776634032443,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588398
+    },
+    {
+      "type": "vocab",
+      "mot": "弱い",
+      "hiragana": "よわい",
+      "romaji": "yowai",
+      "traductions": [
+        "faible"
+      ],
+      "listes": [
+        "leçon 2.2"
+      ],
+      "kanjis_composants": [
+        "弱"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633199553
+    },
+    {
+      "type": "vocab",
+      "mot": "弱点",
+      "hiragana": "じゃくてん",
+      "romaji": "jakuten",
+      "traductions": [
+        "point faible",
+        "faiblesse"
+      ],
+      "listes": [
+        "leçon 2.2"
+      ],
+      "kanjis_composants": [
+        "弱"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633199553
+    },
+    {
+      "type": "vocab",
+      "mot": "強い",
+      "hiragana": "つよい",
+      "romaji": "tsuyoi",
+      "traductions": [
+        "fort",
+        "puissant"
+      ],
+      "listes": [
+        "leçon 2.2"
+      ],
+      "kanjis_composants": [
+        "強"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633199552
+    },
+    {
+      "type": "vocab",
+      "mot": "強力",
+      "hiragana": "きょうりょく",
+      "romaji": "kyouryoku",
+      "traductions": [
+        "puissant",
+        "vigoureux"
+      ],
+      "listes": [
+        "leçon 2.2"
+      ],
+      "kanjis_composants": [
+        "強"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633199553
+    },
+    {
+      "type": "vocab",
+      "mot": "急ぐ",
+      "hiragana": "いそぐ",
+      "romaji": "isogu",
+      "traductions": [
+        "se dépêcher",
+        "se hâter"
+      ],
+      "listes": [
+        "leçon 2.3"
+      ],
+      "kanjis_composants": [
+        "急"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633204906
+    },
+    {
+      "type": "vocab",
+      "mot": "急速",
+      "hiragana": "きゅうそく",
+      "romaji": "kyuusoku",
+      "traductions": [
+        "rapide",
+        "rapidement"
+      ],
+      "listes": [
+        "leçon 2.3"
+      ],
+      "kanjis_composants": [
+        "急"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633204907
+    },
+    {
+      "type": "vocab",
+      "mot": "悪口",
+      "hiragana": "わるぐち",
+      "romaji": "waruguchi",
+      "traductions": [
+        "médisance"
+      ],
+      "listes": [
+        "leçon 2.4"
+      ],
+      "kanjis_composants": [
+        "悪",
+        "口"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633160327
+    },
+    {
+      "type": "vocab",
+      "mot": "拭く",
+      "hiragana": "ふく",
+      "romaji": "fuku",
+      "traductions": [
+        "essuyer",
+        "torcher",
+        "frotter"
+      ],
+      "listes": [
+        "ML 080426"
+      ],
+      "kanjis_composants": [
+        "拭"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284707
+    },
+    {
+      "type": "vocab",
+      "mot": "捨てる",
+      "hiragana": "すてる",
+      "romaji": "suteru",
+      "traductions": [
+        "jeter"
+      ],
+      "listes": [
+        "ML 180426"
+      ],
+      "kanjis_composants": [
+        "捨"
+      ],
+      "score_lecture": 0,
+      "score_jpfr": 0,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 1,
+      "err_consec_jpfr": 1,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": 1776664611338,
+      "derniere_vue_jpfr": 1776634163685,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588399
+    },
+    {
+      "type": "vocab",
+      "mot": "方",
+      "hiragana": "かた",
+      "romaji": "kata",
+      "traductions": [
+        "personne (forme honorifique)",
+        "direction",
+        "côté"
+      ],
+      "listes": [
+        "ML 080426"
+      ],
+      "kanjis_composants": [
+        "方"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284707
+    },
+    {
+      "type": "vocab",
+      "mot": "明るい",
+      "hiragana": "あかるい",
+      "romaji": "akarui",
+      "traductions": [
+        "lumineux",
+        "clair"
+      ],
+      "listes": [
+        "leçon 2.2"
+      ],
+      "kanjis_composants": [
+        "明"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633199550
+    },
+    {
+      "type": "vocab",
+      "mot": "明日",
+      "hiragana": "あした",
+      "romaji": "ashita",
+      "traductions": [
+        "demain"
+      ],
+      "listes": [
+        "leçon 2.2"
+      ],
+      "kanjis_composants": [
+        "明"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633199550
+    },
+    {
+      "type": "vocab",
+      "mot": "暗い",
+      "hiragana": "くらい",
+      "romaji": "kurai",
+      "traductions": [
+        "sombre",
+        "obscur"
+      ],
+      "listes": [
+        "leçon 2.2"
+      ],
+      "kanjis_composants": [
+        "暗"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633199550
+    },
+    {
+      "type": "vocab",
+      "mot": "暗闇",
+      "hiragana": "くらやみ",
+      "romaji": "kurayami",
+      "traductions": [
+        "obscurité",
+        "ténèbres"
+      ],
+      "listes": [
+        "leçon 2.2"
+      ],
+      "kanjis_composants": [
+        "暗"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633199551
+    },
+    {
+      "type": "vocab",
+      "mot": "最悪",
+      "hiragana": "さいあく",
+      "romaji": "saiaku",
+      "traductions": [
+        "le pire"
+      ],
+      "listes": [
+        "leçon 2.4"
+      ],
+      "kanjis_composants": [
+        "最",
+        "悪"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633160327
+    },
+    {
+      "type": "vocab",
+      "mot": "最良",
+      "hiragana": "さいりょう",
+      "romaji": "sairyou",
+      "traductions": [
+        "le meilleur"
+      ],
+      "listes": [
+        "leçon 2.4"
+      ],
+      "kanjis_composants": [
+        "最",
+        "良"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633160326
+    },
+    {
+      "type": "vocab",
+      "mot": "有る",
+      "hiragana": "ある",
+      "romaji": "aru",
+      "traductions": [
+        "avoir",
+        "exister"
+      ],
+      "listes": [
+        "leçon 2.3"
+      ],
+      "kanjis_composants": [
+        "有"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633204902
+    },
+    {
+      "type": "vocab",
+      "mot": "有名",
+      "hiragana": "ゆうめい",
+      "romaji": "yuumei",
+      "traductions": [
+        "célèbre"
+      ],
+      "listes": [
+        "leçon 2.3"
+      ],
+      "kanjis_composants": [
+        "有"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633204902
+    },
+    {
+      "type": "vocab",
+      "mot": "来年",
+      "hiragana": "らいねん",
+      "romaji": "rainen",
+      "traductions": [
+        "année prochaine"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "年"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633194418
+    },
+    {
+      "type": "vocab",
+      "mot": "楽",
+      "hiragana": "らく",
+      "romaji": "raku",
+      "traductions": [
+        "facile",
+        "confortable",
+        "sans effort"
+      ],
+      "listes": [
+        "ML 080426"
+      ],
+      "kanjis_composants": [
+        "楽"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284706
+    },
+    {
+      "type": "vocab",
+      "mot": "横",
+      "hiragana": "よこ",
+      "romaji": "yoko",
+      "traductions": [
+        "côté",
+        "à côté"
+      ],
+      "listes": [
+        "ML 180426"
+      ],
+      "kanjis_composants": [
+        "横"
+      ],
+      "score_lecture": 0,
+      "score_jpfr": 0,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 1,
+      "err_consec_jpfr": 1,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": 1776664531861,
+      "derniere_vue_jpfr": 1776634088191,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588400
+    },
+    {
+      "type": "vocab",
+      "mot": "正月",
+      "hiragana": "しょうがつ",
+      "romaji": "shougatsu",
+      "traductions": [
+        "Nouvel An"
+      ],
+      "listes": [
+        "leçon 2.4"
+      ],
+      "kanjis_composants": [
+        "正",
+        "月"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633160328
+    },
+    {
+      "type": "vocab",
+      "mot": "正確",
+      "hiragana": "せいかく",
+      "romaji": "seikaku",
+      "traductions": [
+        "précis"
+      ],
+      "listes": [
+        "leçon 2.4"
+      ],
+      "kanjis_composants": [
+        "正",
+        "確"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633160329
+    },
+    {
+      "type": "vocab",
+      "mot": "残業",
+      "hiragana": "ざんぎょう",
+      "romaji": "zangyou",
+      "traductions": [
+        "heures supplémentaires"
+      ],
+      "listes": [
+        "ML 080426"
+      ],
+      "kanjis_composants": [
+        "残",
+        "業"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284703
+    },
+    {
+      "type": "vocab",
+      "mot": "気が付く",
+      "hiragana": "きがつく",
+      "romaji": "kiga tsuku",
+      "traductions": [
+        "se rendre compte",
+        "remarquer",
+        "prendre conscience"
+      ],
+      "listes": [
+        "ML 080426"
+      ],
+      "kanjis_composants": [
+        "気",
+        "付"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284706
+    },
+    {
+      "type": "vocab",
+      "mot": "清掃",
+      "hiragana": "せいそう",
+      "romaji": "seisou",
+      "traductions": [
+        "nettoyage",
+        "nettoyage général"
+      ],
+      "listes": [
+        "ML 080426"
+      ],
+      "kanjis_composants": [
+        "清",
+        "掃"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284706
+    },
+    {
+      "type": "vocab",
+      "mot": "燃える",
+      "hiragana": "もえる",
+      "romaji": "moeru",
+      "traductions": [
+        "brûler"
+      ],
+      "listes": [
+        "ML 180426"
+      ],
+      "kanjis_composants": [
+        "燃"
+      ],
+      "score_lecture": 0,
+      "score_jpfr": 0,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 1,
+      "err_consec_jpfr": 1,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": 1776664644477,
+      "derniere_vue_jpfr": 1776634147903,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588399
+    },
+    {
+      "type": "vocab",
+      "mot": "燃えるゴミ",
+      "hiragana": "もえるごみ",
+      "romaji": "moeru gomi",
+      "traductions": [
+        "déchets combustibles"
+      ],
+      "listes": [
+        "ML 180426"
+      ],
+      "kanjis_composants": [
+        "燃"
+      ],
+      "score_lecture": 0,
+      "score_jpfr": 0,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 1,
+      "err_consec_jpfr": 1,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": 1776664660072,
+      "derniere_vue_jpfr": 1776634020135,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588400
+    },
+    {
+      "type": "vocab",
+      "mot": "片づく",
+      "hiragana": "かたづく",
+      "romaji": "kataduku",
+      "traductions": [
+        "être rangé",
+        "se ranger"
+      ],
+      "listes": [
+        "ML 180426"
+      ],
+      "kanjis_composants": [
+        "片"
+      ],
+      "score_lecture": 0,
+      "score_jpfr": 0,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 1,
+      "err_consec_jpfr": 1,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": 1776664537769,
+      "derniere_vue_jpfr": 1776634158045,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588399
+    },
+    {
+      "type": "vocab",
+      "mot": "特に",
+      "hiragana": "とくに",
+      "romaji": "tokuni",
+      "traductions": [
+        "particulièrement"
+      ],
+      "listes": [
+        "leçon 2.3"
+      ],
+      "kanjis_composants": [
+        "特"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633204900
+    },
+    {
+      "type": "vocab",
+      "mot": "特別",
+      "hiragana": "とくべつ",
+      "romaji": "tokubetsu",
+      "traductions": [
+        "spécial",
+        "particulier"
+      ],
+      "listes": [
+        "leçon 2.3"
+      ],
+      "kanjis_composants": [
+        "特",
+        "別"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633204900
+    },
+    {
+      "type": "vocab",
+      "mot": "理由",
+      "hiragana": "りゆう",
+      "romaji": "riyuu",
+      "traductions": [
+        "raison",
+        "motif"
+      ],
+      "listes": [
+        "ML 080426"
+      ],
+      "kanjis_composants": [
+        "理",
+        "由"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284705
+    },
+    {
+      "type": "vocab",
+      "mot": "瓶",
+      "hiragana": "びん",
+      "romaji": "bin",
+      "traductions": [
+        "bouteille (en verre)"
+      ],
+      "listes": [
+        "ML 180426"
+      ],
+      "kanjis_composants": [
+        "瓶"
+      ],
+      "score_lecture": 0,
+      "score_jpfr": 0,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 1,
+      "err_consec_jpfr": 1,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": 1776664505277,
+      "derniere_vue_jpfr": 1776634013799,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588400
+    },
+    {
+      "type": "vocab",
+      "mot": "白黒",
+      "hiragana": "しろくろ",
+      "romaji": "shirokuro",
+      "traductions": [
+        "noir et blanc"
+      ],
+      "listes": [
+        "leçon 2.4"
+      ],
+      "kanjis_composants": [
+        "白",
+        "黒"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633160333
+    },
+    {
+      "type": "vocab",
+      "mot": "百人",
+      "hiragana": "ひゃくにん",
+      "romaji": "hyakunin",
+      "traductions": [
+        "cent personnes"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "百"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633194416
+    },
+    {
+      "type": "vocab",
+      "mot": "百円",
+      "hiragana": "ひゃくえん",
+      "romaji": "hyakuen",
+      "traductions": [
+        "cent yens"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "百",
+        "円"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633194416
+    },
+    {
+      "type": "vocab",
+      "mot": "直接",
+      "hiragana": "ちょくせつ",
+      "romaji": "chokusetsu",
+      "traductions": [
+        "directement"
+      ],
+      "listes": [
+        "ML 180426"
+      ],
+      "kanjis_composants": [
+        "直",
+        "接"
+      ],
+      "score_lecture": 0,
+      "score_jpfr": 0,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 1,
+      "err_consec_jpfr": 1,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": 1776664653036,
+      "derniere_vue_jpfr": 1776634096743,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588397
+    },
+    {
+      "type": "vocab",
+      "mot": "短所",
+      "hiragana": "たんしょ",
+      "romaji": "tansho",
+      "traductions": [
+        "point faible"
+      ],
+      "listes": [
+        "leçon 2.4"
+      ],
+      "kanjis_composants": [
+        "短",
+        "所"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633160324
+    },
+    {
+      "type": "vocab",
+      "mot": "短歌",
+      "hiragana": "たんか",
+      "romaji": "tanka",
+      "traductions": [
+        "tanka (poème)"
+      ],
+      "listes": [
+        "leçon 2.4"
+      ],
+      "kanjis_composants": [
+        "短",
+        "歌"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633160325
+    },
+    {
+      "type": "vocab",
+      "mot": "細い",
+      "hiragana": "ほそい",
+      "romaji": "hosoi",
+      "traductions": [
+        "fin",
+        "mince"
+      ],
+      "listes": [
+        "leçon 2.2"
+      ],
+      "kanjis_composants": [
+        "細"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633199556
+    },
+    {
+      "type": "vocab",
+      "mot": "細かい",
+      "hiragana": "こまかい",
+      "romaji": "komakai",
+      "traductions": [
+        "détaillé",
+        "minutieux",
+        "menu",
+        "petit"
+      ],
+      "listes": [
+        "ML 080426"
+      ],
+      "kanjis_composants": [
+        "細"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284706
+    },
+    {
+      "type": "vocab",
+      "mot": "細部",
+      "hiragana": "さいぶ",
+      "romaji": "saibu",
+      "traductions": [
+        "détail",
+        "point"
+      ],
+      "listes": [
+        "leçon 2.2"
+      ],
+      "kanjis_composants": [
+        "細"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633199556
+    },
+    {
+      "type": "vocab",
+      "mot": "缶",
+      "hiragana": "かん",
+      "romaji": "kan",
+      "traductions": [
+        "canette"
+      ],
+      "listes": [
+        "ML 180426"
+      ],
+      "kanjis_composants": [
+        "缶"
+      ],
+      "score_lecture": 0,
+      "score_jpfr": 0,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 1,
+      "err_consec_jpfr": 1,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": 1776664704215,
+      "derniere_vue_jpfr": 1776634084183,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588401
+    },
+    {
+      "type": "vocab",
+      "mot": "良心",
+      "hiragana": "りょうしん",
+      "romaji": "ryoushin",
+      "traductions": [
+        "conscience"
+      ],
+      "listes": [
+        "leçon 2.4"
+      ],
+      "kanjis_composants": [
+        "良",
+        "心"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633160326
+    },
+    {
+      "type": "vocab",
+      "mot": "荷物",
+      "hiragana": "にもつ",
+      "romaji": "nimotsu",
+      "traductions": [
+        "bagages",
+        "affaires"
+      ],
+      "listes": [
+        "ML 180426"
+      ],
+      "kanjis_composants": [
+        "荷",
+        "物"
+      ],
+      "score_lecture": 0,
+      "score_jpfr": 0,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 1,
+      "err_consec_jpfr": 1,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": 1776664688621,
+      "derniere_vue_jpfr": 1776634042671,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588398
+    },
+    {
+      "type": "vocab",
+      "mot": "見学",
+      "hiragana": "けんがく",
+      "romaji": "kengaku",
+      "traductions": [
+        "visite d’étude",
+        "visite guidée"
+      ],
+      "listes": [
+        "ML 180426"
+      ],
+      "kanjis_composants": [
+        "見",
+        "学"
+      ],
+      "score_lecture": 1,
+      "score_jpfr": 0,
+      "score_frjp": null,
+      "consec_lecture": 1,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 1,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": 1776664608156,
+      "derniere_vue_jpfr": 1776634025407,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588396
+    },
+    {
+      "type": "vocab",
+      "mot": "訓練",
+      "hiragana": "くんれん",
+      "romaji": "kunren",
+      "traductions": [
+        "entraînement",
+        "formation"
+      ],
+      "listes": [
+        "ML 080426"
+      ],
+      "kanjis_composants": [
+        "訓",
+        "練"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284704
+    },
+    {
+      "type": "vocab",
+      "mot": "赤ちゃん",
+      "hiragana": "あかちゃん",
+      "romaji": "akachan",
+      "traductions": [
+        "bébé"
+      ],
+      "listes": [
+        "leçon 2.4"
+      ],
+      "kanjis_composants": [
+        "赤"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633160331
+    },
+    {
+      "type": "vocab",
+      "mot": "赤道",
+      "hiragana": "せきどう",
+      "romaji": "sekidou",
+      "traductions": [
+        "équateur"
+      ],
+      "listes": [
+        "leçon 2.4"
+      ],
+      "kanjis_composants": [
+        "赤",
+        "道"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633160330
+    },
+    {
+      "type": "vocab",
+      "mot": "軽い",
+      "hiragana": "かるい",
+      "romaji": "karui",
+      "traductions": [
+        "léger"
+      ],
+      "listes": [
+        "leçon 2.2"
+      ],
+      "kanjis_composants": [
+        "軽"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633199554
+    },
+    {
+      "type": "vocab",
+      "mot": "軽快",
+      "hiragana": "けいかい",
+      "romaji": "keikai",
+      "traductions": [
+        "allègre",
+        "léger"
+      ],
+      "listes": [
+        "leçon 2.2"
+      ],
+      "kanjis_composants": [
+        "軽"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633199555
+    },
+    {
+      "type": "vocab",
+      "mot": "近い",
+      "hiragana": "ちかい",
+      "romaji": "chikai",
+      "traductions": [
+        "proche",
+        "rapproché"
+      ],
+      "listes": [
+        "leçon 2.2"
+      ],
+      "kanjis_composants": [
+        "近"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633199552
+    },
+    {
+      "type": "vocab",
+      "mot": "近所",
+      "hiragana": "きんじょ",
+      "romaji": "kinjo",
+      "traductions": [
+        "voisinage",
+        "environs"
+      ],
+      "listes": [
+        "leçon 2.2"
+      ],
+      "kanjis_composants": [
+        "近"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633199552
+    },
+    {
+      "type": "vocab",
+      "mot": "遠い",
+      "hiragana": "とおい",
+      "romaji": "tooi",
+      "traductions": [
+        "loin",
+        "distant"
+      ],
+      "listes": [
+        "leçon 2.2"
+      ],
+      "kanjis_composants": [
+        "遠"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633199551
+    },
+    {
+      "type": "vocab",
+      "mot": "遠方",
+      "hiragana": "えんぽう",
+      "romaji": "enpou",
+      "traductions": [
+        "région lointaine"
+      ],
+      "listes": [
+        "leçon 2.2"
+      ],
+      "kanjis_composants": [
+        "遠"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633199551
+    },
+    {
+      "type": "vocab",
+      "mot": "選手",
+      "hiragana": "せんしゅ",
+      "romaji": "senshu",
+      "traductions": [
+        "athlète",
+        "joueur",
+        "compétiteur"
+      ],
+      "listes": [
+        "ML 080426"
+      ],
+      "kanjis_composants": [
+        "選",
+        "手"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284707
+    },
+    {
+      "type": "vocab",
+      "mot": "重い",
+      "hiragana": "おもい",
+      "romaji": "omoi",
+      "traductions": [
+        "lourd"
+      ],
+      "listes": [
+        "leçon 2.2"
+      ],
+      "kanjis_composants": [
+        "重"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633199554
+    },
+    {
+      "type": "vocab",
+      "mot": "重要",
+      "hiragana": "じゅうよう",
+      "romaji": "juuyou",
+      "traductions": [
+        "important"
+      ],
+      "listes": [
+        "leçon 2.2"
+      ],
+      "kanjis_composants": [
+        "重"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633199554
+    },
+    {
+      "type": "vocab",
+      "mot": "青年",
+      "hiragana": "せいねん",
+      "romaji": "seinen",
+      "traductions": [
+        "jeune homme"
+      ],
+      "listes": [
+        "leçon 2.4"
+      ],
+      "kanjis_composants": [
+        "青",
+        "年"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633160331
+    },
+    {
+      "type": "vocab",
+      "mot": "青空",
+      "hiragana": "あおぞら",
+      "romaji": "aozora",
+      "traductions": [
+        "ciel bleu"
+      ],
+      "listes": [
+        "leçon 2.4"
+      ],
+      "kanjis_composants": [
+        "青",
+        "空"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633160331
+    },
+    {
+      "type": "vocab",
+      "mot": "食洗機",
+      "hiragana": "しょくせんき",
+      "romaji": "shokusenki",
+      "traductions": [
+        "lave-vaisselle"
+      ],
+      "listes": [
+        "ML 080426"
+      ],
+      "kanjis_composants": [
+        "食",
+        "洗",
+        "機"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284705
+    },
+    {
+      "type": "vocab",
+      "mot": "駐車場",
+      "hiragana": "ちゅうしゃじょう",
+      "romaji": "chuushajou",
+      "traductions": [
+        "parking"
+      ],
+      "listes": [
+        "ML 180426"
+      ],
+      "kanjis_composants": [
+        "駐",
+        "車",
+        "場"
+      ],
+      "score_lecture": 0,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 1,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": 1776664691490,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588400
+    },
+    {
+      "type": "vocab",
+      "mot": "黒板",
+      "hiragana": "こくばん",
+      "romaji": "kokuban",
+      "traductions": [
+        "tableau noir"
+      ],
+      "listes": [
+        "leçon 2.4"
+      ],
+      "kanjis_composants": [
+        "黒",
+        "板"
+      ],
+      "score_lecture": null,
+      "score_jpfr": null,
+      "score_frjp": null,
+      "consec_lecture": 0,
+      "consec_jpfr": 0,
+      "consec_frjp": 0,
+      "err_consec_lecture": 0,
+      "err_consec_jpfr": 0,
+      "err_consec_frjp": 0,
+      "derniere_vue_lecture": null,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633160332
+    },
+    {
+      "type": "vocab",
+      "mot": "万倍",
+      "hiragana": "まんばい",
+      "romaji": "manbai",
+      "traductions": [
+        "million de fois"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "万"
+      ]
+    },
+    {
+      "type": "vocab",
+      "mot": "上司",
+      "hiragana": "じょうし",
+      "romaji": "joushi",
+      "traductions": [
+        "supérieur hiérarchique"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "上"
+      ]
+    },
+    {
+      "type": "vocab",
+      "mot": "下降",
+      "hiragana": "かこう",
+      "romaji": "kakou",
+      "traductions": [
+        "descente"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "下"
+      ]
+    },
+    {
+      "type": "vocab",
+      "mot": "低い",
+      "hiragana": "ひくい",
+      "romaji": "hikui",
+      "traductions": [
+        "bas"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "低"
+      ]
+    },
+    {
+      "type": "vocab",
+      "mot": "便り",
+      "hiragana": "たより",
+      "romaji": "tayori",
+      "traductions": [
+        "nouvelles"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "便"
+      ]
+    },
+    {
+      "type": "vocab",
+      "mot": "円い",
+      "hiragana": "まるい",
+      "romaji": "marui",
+      "traductions": [
+        "rond"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "円"
+      ]
+    },
+    {
+      "type": "vocab",
+      "mot": "分かる",
+      "hiragana": "わかる",
+      "romaji": "wakaru",
+      "traductions": [
+        "comprendre"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "分"
+      ]
+    },
+    {
+      "type": "vocab",
+      "mot": "利く",
+      "hiragana": "きく",
+      "romaji": "kiku",
+      "traductions": [
+        "être efficace"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "利"
+      ]
+    },
+    {
+      "type": "vocab",
+      "mot": "千",
+      "hiragana": "ち",
+      "romaji": "chi",
+      "traductions": [
+        "mille"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "千"
+      ]
+    },
+    {
+      "type": "vocab",
+      "mot": "変わる",
+      "hiragana": "かわる",
+      "romaji": "kawaru",
+      "traductions": [
+        "changer"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "変"
+      ]
+    },
+    {
+      "type": "vocab",
+      "mot": "年",
+      "hiragana": "とし",
+      "romaji": "toshi",
+      "traductions": [
+        "année"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "年"
+      ]
+    },
+    {
+      "type": "vocab",
+      "mot": "広い",
+      "hiragana": "ひろい",
+      "romaji": "hiroi",
+      "traductions": [
+        "large"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "広"
+      ]
+    },
+    {
+      "type": "vocab",
+      "mot": "悪い",
+      "hiragana": "わるい",
+      "romaji": "warui",
+      "traductions": [
+        "mauvais"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "悪"
+      ]
+    },
+    {
+      "type": "vocab",
+      "mot": "暗号",
+      "hiragana": "あんごう",
+      "romaji": "angou",
+      "traductions": [
+        "code"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "暗"
+      ]
+    },
+    {
+      "type": "vocab",
+      "mot": "正しい",
+      "hiragana": "ただしい",
+      "romaji": "tadashii",
+      "traductions": [
+        "correct"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "正"
+      ]
+    },
+    {
+      "type": "vocab",
+      "mot": "短い",
+      "hiragana": "みじかい",
+      "romaji": "mijikai",
+      "traductions": [
+        "court"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "短"
+      ]
+    },
+    {
+      "type": "vocab",
+      "mot": "良い",
+      "hiragana": "よい",
+      "romaji": "yoi",
+      "traductions": [
+        "bon"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "良"
+      ]
+    },
+    {
+      "type": "vocab",
+      "mot": "赤",
+      "hiragana": "あか",
+      "romaji": "aka",
+      "traductions": [
+        "rouge"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "赤"
+      ]
+    },
+    {
+      "type": "vocab",
+      "mot": "青い",
+      "hiragana": "あおい",
+      "romaji": "aoi",
+      "traductions": [
+        "bleu"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "kanjis_composants": [
+        "青"
+      ]
+    }
+  ],
+  "kanji": [
+    {
+      "type": "kanji",
+      "kanji": "万",
+      "lectures_on": [
+        "マン"
+      ],
+      "lectures_kun": [
+        "よろず"
+      ],
+      "romaji_on": [
+        "man"
+      ],
+      "romaji_kun": [
+        "yorozu"
+      ],
+      "sens": [
+        "dix mille"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "exemples": [
+        {
+          "mot": "万円",
+          "hiragana": "まんえん",
+          "romaji": "man'en",
+          "sens": "dix mille yens"
+        },
+        {
+          "mot": "万年",
+          "hiragana": "まんねん",
+          "romaji": "mannen",
+          "sens": "dix mille ans"
+        },
+        {
+          "mot": "万倍",
+          "hiragana": "まんばい",
+          "romaji": "manbai",
+          "sens": "million de fois"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633194413
+    },
+    {
+      "type": "kanji",
+      "kanji": "上",
+      "lectures_on": [
+        "ジョウ"
+      ],
+      "lectures_kun": [
+        "うえ",
+        "うわ"
+      ],
+      "romaji_on": [
+        "jou"
+      ],
+      "romaji_kun": [
+        "ue",
+        "uwa"
+      ],
+      "sens": [
+        "haut",
+        "dessus"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "exemples": [
+        {
+          "mot": "上",
+          "hiragana": "うえ",
+          "romaji": "ue",
+          "sens": "haut"
+        },
+        {
+          "mot": "上着",
+          "hiragana": "うわぎ",
+          "romaji": "uwagi",
+          "sens": "veste"
+        },
+        {
+          "mot": "上司",
+          "hiragana": "じょうし",
+          "romaji": "joushi",
+          "sens": "supérieur hiérarchique"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633194414
+    },
+    {
+      "type": "kanji",
+      "kanji": "下",
+      "lectures_on": [
+        "カ"
+      ],
+      "lectures_kun": [
+        "した",
+        "しも"
+      ],
+      "romaji_on": [
+        "ka"
+      ],
+      "romaji_kun": [
+        "shita",
+        "shimo"
+      ],
+      "sens": [
+        "bas",
+        "dessous"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "exemples": [
+        {
+          "mot": "下",
+          "hiragana": "した",
+          "romaji": "shita",
+          "sens": "bas"
+        },
+        {
+          "mot": "下着",
+          "hiragana": "したぎ",
+          "romaji": "shitagi",
+          "sens": "sous-vêtement"
+        },
+        {
+          "mot": "下降",
+          "hiragana": "かこう",
+          "romaji": "kakou",
+          "sens": "descente"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633194415
+    },
+    {
+      "type": "kanji",
+      "kanji": "不",
+      "lectures_on": [
+        "フ"
+      ],
+      "lectures_kun": [],
+      "romaji_on": [
+        "fu"
+      ],
+      "romaji_kun": [],
+      "sens": [
+        "non",
+        "pas"
+      ],
+      "listes": [
+        "leçon 2.3"
+      ],
+      "exemples": [
+        {
+          "mot": "不安",
+          "hiragana": "ふあん",
+          "romaji": "fuan",
+          "sens": "inquiétude"
+        },
+        {
+          "mot": "不可",
+          "hiragana": "ふか",
+          "romaji": "fuka",
+          "sens": "impossible"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633204898
+    },
+    {
+      "type": "kanji",
+      "kanji": "中",
+      "lectures_on": [
+        "チュウ"
+      ],
+      "lectures_kun": [
+        "なか"
+      ],
+      "romaji_on": [
+        "chuu"
+      ],
+      "romaji_kun": [
+        "naka"
+      ],
+      "sens": [
+        "intérieur",
+        "milieu"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "exemples": [
+        {
+          "mot": "中",
+          "hiragana": "なか",
+          "romaji": "naka",
+          "sens": "intérieur"
+        },
+        {
+          "mot": "中国",
+          "hiragana": "ちゅうごく",
+          "romaji": "chuugoku",
+          "sens": "Chine"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633194415
+    },
+    {
+      "type": "kanji",
+      "kanji": "事",
+      "lectures_on": [
+        "ジ",
+        "ズ"
+      ],
+      "lectures_kun": [
+        "こと"
+      ],
+      "romaji_on": [
+        "ji",
+        "zu"
+      ],
+      "romaji_kun": [
+        "koto"
+      ],
+      "sens": [
+        "chose",
+        "affaire",
+        "fait",
+        "travail"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [
+        {
+          "mot": "家事",
+          "hiragana": "かじ",
+          "romaji": "kaji",
+          "sens": "tâches ménagères"
+        },
+        {
+          "mot": "事件",
+          "hiragana": "じけん",
+          "romaji": "jiken",
+          "sens": "incident, affaire"
+        },
+        {
+          "mot": "事",
+          "hiragana": "こと",
+          "romaji": "koto",
+          "sens": "chose, fait"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284712
+    },
+    {
+      "type": "kanji",
+      "kanji": "付",
+      "lectures_on": [
+        "フ"
+      ],
+      "lectures_kun": [
+        "つ-く",
+        "つ-ける"
+      ],
+      "romaji_on": [
+        "fu"
+      ],
+      "romaji_kun": [
+        "tsu-ku",
+        "tsu-keru"
+      ],
+      "sens": [
+        "attacher",
+        "coller",
+        "remarquer",
+        "accompagner"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [
+        {
+          "mot": "気が付く",
+          "hiragana": "きがつく",
+          "romaji": "kiga tsuku",
+          "sens": "se rendre compte"
+        },
+        {
+          "mot": "付ける",
+          "hiragana": "つける",
+          "romaji": "tsukeru",
+          "sens": "attacher, allumer"
+        },
+        {
+          "mot": "受付",
+          "hiragana": "うけつけ",
+          "romaji": "uketsuke",
+          "sens": "réception, accueil"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284715
+    },
+    {
+      "type": "kanji",
+      "kanji": "代",
+      "lectures_on": [
+        "ダイ",
+        "タイ"
+      ],
+      "lectures_kun": [
+        "か-わる",
+        "よ",
+        "しろ"
+      ],
+      "romaji_on": [
+        "dai",
+        "tai"
+      ],
+      "romaji_kun": [
+        "ka-waru",
+        "yo",
+        "shiro"
+      ],
+      "sens": [
+        "remplacer",
+        "génération",
+        "ère",
+        "prix"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [
+        {
+          "mot": "家事代行",
+          "hiragana": "かじだいこう",
+          "romaji": "kajidaikou",
+          "sens": "service de ménage"
+        },
+        {
+          "mot": "代わる",
+          "hiragana": "かわる",
+          "romaji": "kawaru",
+          "sens": "remplacer, se substituer"
+        },
+        {
+          "mot": "時代",
+          "hiragana": "じだい",
+          "romaji": "jidai",
+          "sens": "époque, ère"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284712
+    },
+    {
+      "type": "kanji",
+      "kanji": "会",
+      "lectures_on": [
+        "カイ"
+      ],
+      "lectures_kun": [
+        "あ.う"
+      ],
+      "romaji_on": [
+        "カイ"
+      ],
+      "romaji_kun": [
+        "あう"
+      ],
+      "sens": [
+        "rencontre"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588402
+    },
+    {
+      "type": "kanji",
+      "kanji": "低",
+      "lectures_on": [
+        "テイ"
+      ],
+      "lectures_kun": [
+        "hiku.i"
+      ],
+      "romaji_on": [
+        "テイ"
+      ],
+      "romaji_kun": [
+        "hikui"
+      ],
+      "sens": [
+        "bas"
+      ],
+      "listes": [
+        "leçon 2.4"
+      ],
+      "exemples": [
+        {
+          "mot": "低下",
+          "hiragana": "ていか",
+          "romaji": "teika",
+          "sens": "baisse"
+        },
+        {
+          "mot": "低空",
+          "hiragana": "ていくう",
+          "romaji": "teikuu",
+          "sens": "basse altitude"
+        },
+        {
+          "mot": "低い",
+          "hiragana": "ひくい",
+          "romaji": "hikui",
+          "sens": "bas"
+        }
+      ],
+      "score_comprehension_jpfr": 1,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": 0,
+      "score_lecture_kun": 0,
+      "consec_comprehension_jpfr": 1,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 1,
+      "err_consec_lecture_kun": 1,
+      "derniere_vue_jpfr": 1776636068407,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633160321
+    },
+    {
+      "type": "kanji",
+      "kanji": "作",
+      "lectures_on": [
+        "サク",
+        "サ"
+      ],
+      "lectures_kun": [
+        "つく-る"
+      ],
+      "romaji_on": [
+        "saku",
+        "sa"
+      ],
+      "romaji_kun": [
+        "tsuku-ru"
+      ],
+      "sens": [
+        "faire",
+        "créer",
+        "fabriquer"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [
+        {
+          "mot": "作り方",
+          "hiragana": "つくりかた",
+          "romaji": "tsukurikata",
+          "sens": "manière de faire, recette"
+        },
+        {
+          "mot": "作品",
+          "hiragana": "さくひん",
+          "romaji": "sakuhin",
+          "sens": "œuvre, création"
+        },
+        {
+          "mot": "作る",
+          "hiragana": "つくる",
+          "romaji": "tsukuru",
+          "sens": "faire, fabriquer"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284708
+    },
+    {
+      "type": "kanji",
+      "kanji": "便",
+      "lectures_on": [
+        "ベン",
+        "ビン"
+      ],
+      "lectures_kun": [
+        "たより"
+      ],
+      "romaji_on": [
+        "ben",
+        "bin"
+      ],
+      "romaji_kun": [
+        "tayori"
+      ],
+      "sens": [
+        "commodité",
+        "pratique"
+      ],
+      "listes": [
+        "leçon 2.3"
+      ],
+      "exemples": [
+        {
+          "mot": "便利",
+          "hiragana": "べんり",
+          "romaji": "benri",
+          "sens": "pratique"
+        },
+        {
+          "mot": "便",
+          "hiragana": "びん",
+          "romaji": "bin",
+          "sens": "courrier"
+        },
+        {
+          "mot": "便り",
+          "hiragana": "たより",
+          "romaji": "tayori",
+          "sens": "nouvelles"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633204898
+    },
+    {
+      "type": "kanji",
+      "kanji": "元",
+      "lectures_on": [
+        "ゲン"
+      ],
+      "lectures_kun": [
+        "もと"
+      ],
+      "romaji_on": [
+        "gen"
+      ],
+      "romaji_kun": [
+        "moto"
+      ],
+      "sens": [
+        "source",
+        "origine",
+        "avant"
+      ],
+      "listes": [
+        "leçon 2.3"
+      ],
+      "exemples": [
+        {
+          "mot": "元々",
+          "hiragana": "もともと",
+          "romaji": "motomoto",
+          "sens": "à l'origine"
+        },
+        {
+          "mot": "元気",
+          "hiragana": "げんき",
+          "romaji": "genki",
+          "sens": "vigueur"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633204899
+    },
+    {
+      "type": "kanji",
+      "kanji": "円",
+      "lectures_on": [
+        "エン"
+      ],
+      "lectures_kun": [
+        "まる"
+      ],
+      "romaji_on": [
+        "en"
+      ],
+      "romaji_kun": [
+        "maru"
+      ],
+      "sens": [
+        "yen",
+        "cercle"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "exemples": [
+        {
+          "mot": "円",
+          "hiragana": "えん",
+          "romaji": "en",
+          "sens": "yen"
+        },
+        {
+          "mot": "円形",
+          "hiragana": "えんけい",
+          "romaji": "enkei",
+          "sens": "forme circulaire"
+        },
+        {
+          "mot": "円い",
+          "hiragana": "まるい",
+          "romaji": "marui",
+          "sens": "rond"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633194414
+    },
+    {
+      "type": "kanji",
+      "kanji": "出",
+      "lectures_on": [
+        "シュツ"
+      ],
+      "lectures_kun": [
+        "da.su"
+      ],
+      "romaji_on": [
+        "シュツ"
+      ],
+      "romaji_kun": [
+        "dasu"
+      ],
+      "sens": [
+        "sortir"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588402
+    },
+    {
+      "type": "kanji",
+      "kanji": "分",
+      "lectures_on": [
+        "ブン",
+        "フン"
+      ],
+      "lectures_kun": [
+        "わ"
+      ],
+      "romaji_on": [
+        "bun",
+        "fun"
+      ],
+      "romaji_kun": [
+        "wa"
+      ],
+      "sens": [
+        "minute",
+        "partie",
+        "portion"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "exemples": [
+        {
+          "mot": "分",
+          "hiragana": "ふん",
+          "romaji": "fun",
+          "sens": "minute"
+        },
+        {
+          "mot": "十分",
+          "hiragana": "じゅっぷん",
+          "romaji": "juppun",
+          "sens": "dix minutes"
+        },
+        {
+          "mot": "分かる",
+          "hiragana": "わかる",
+          "romaji": "wakaru",
+          "sens": "comprendre"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633194416
+    },
+    {
+      "type": "kanji",
+      "kanji": "切",
+      "lectures_on": [
+        "セツ"
+      ],
+      "lectures_kun": [
+        "きる",
+        "いた"
+      ],
+      "romaji_on": [
+        "setsu"
+      ],
+      "romaji_kun": [
+        "kiru",
+        "ita"
+      ],
+      "sens": [
+        "couper",
+        "urgent"
+      ],
+      "listes": [
+        "leçon 2.3"
+      ],
+      "exemples": [
+        {
+          "mot": "切る",
+          "hiragana": "きる",
+          "romaji": "kiru",
+          "sens": "couper"
+        },
+        {
+          "mot": "大切",
+          "hiragana": "たいせつ",
+          "romaji": "taisetsu",
+          "sens": "important"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633204899
+    },
+    {
+      "type": "kanji",
+      "kanji": "別",
+      "lectures_on": [
+        "ベツ"
+      ],
+      "lectures_kun": [
+        "わか"
+      ],
+      "romaji_on": [
+        "betsu"
+      ],
+      "romaji_kun": [
+        "waka"
+      ],
+      "sens": [
+        "séparé",
+        "différent"
+      ],
+      "listes": [
+        "leçon 2.3"
+      ],
+      "exemples": [
+        {
+          "mot": "別々",
+          "hiragana": "べつべつ",
+          "romaji": "betsutbetsu",
+          "sens": "séparément"
+        },
+        {
+          "mot": "別れる",
+          "hiragana": "わかれる",
+          "romaji": "wakareru",
+          "sens": "se séparer"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633204897
+    },
+    {
+      "type": "kanji",
+      "kanji": "利",
+      "lectures_on": [
+        "リ"
+      ],
+      "lectures_kun": [
+        "かじ"
+      ],
+      "romaji_on": [
+        "ri"
+      ],
+      "romaji_kun": [
+        "kaji"
+      ],
+      "sens": [
+        "profit",
+        "avantage"
+      ],
+      "listes": [
+        "leçon 2.3"
+      ],
+      "exemples": [
+        {
+          "mot": "便利",
+          "hiragana": "べんり",
+          "romaji": "benri",
+          "sens": "pratique"
+        },
+        {
+          "mot": "利益",
+          "hiragana": "りえき",
+          "romaji": "rieki",
+          "sens": "bénéfice"
+        },
+        {
+          "mot": "利く",
+          "hiragana": "きく",
+          "romaji": "kiku",
+          "sens": "être efficace"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633204898
+    },
+    {
+      "type": "kanji",
+      "kanji": "千",
+      "lectures_on": [
+        "セン"
+      ],
+      "lectures_kun": [
+        "ち"
+      ],
+      "romaji_on": [
+        "sen"
+      ],
+      "romaji_kun": [
+        "chi"
+      ],
+      "sens": [
+        "mille"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "exemples": [
+        {
+          "mot": "千円",
+          "hiragana": "せんえん",
+          "romaji": "sen'en",
+          "sens": "mille yens"
+        },
+        {
+          "mot": "千年",
+          "hiragana": "せんねん",
+          "romaji": "sennen",
+          "sens": "mille ans"
+        },
+        {
+          "mot": "千",
+          "hiragana": "ち",
+          "romaji": "chi",
+          "sens": "mille"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633194413
+    },
+    {
+      "type": "kanji",
+      "kanji": "半",
+      "lectures_on": [
+        "ハン"
+      ],
+      "lectures_kun": [],
+      "romaji_on": [
+        "han"
+      ],
+      "romaji_kun": [],
+      "sens": [
+        "demi",
+        "moitié"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "exemples": [
+        {
+          "mot": "半分",
+          "hiragana": "はんぶん",
+          "romaji": "hanbun",
+          "sens": "moitié"
+        },
+        {
+          "mot": "半年",
+          "hiragana": "はんとし",
+          "romaji": "hantoshi",
+          "sens": "six mois"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633194415
+    },
+    {
+      "type": "kanji",
+      "kanji": "国",
+      "lectures_on": [
+        "コク"
+      ],
+      "lectures_kun": [
+        "kuni"
+      ],
+      "romaji_on": [
+        "コク"
+      ],
+      "romaji_kun": [
+        "kuni"
+      ],
+      "sens": [
+        "pays"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588402
+    },
+    {
+      "type": "kanji",
+      "kanji": "堂",
+      "lectures_on": [
+        "ドウ"
+      ],
+      "lectures_kun": [],
+      "romaji_on": [
+        "ドウ"
+      ],
+      "romaji_kun": [],
+      "sens": [
+        "hall"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588402
+    },
+    {
+      "type": "kanji",
+      "kanji": "場",
+      "lectures_on": [
+        "ジョウ"
+      ],
+      "lectures_kun": [
+        "ba"
+      ],
+      "romaji_on": [
+        "ジョウ"
+      ],
+      "romaji_kun": [
+        "ba"
+      ],
+      "sens": [
+        "lieu"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588403
+    },
+    {
+      "type": "kanji",
+      "kanji": "変",
+      "lectures_on": [
+        "ヘン"
+      ],
+      "lectures_kun": [
+        "ka.waru"
+      ],
+      "romaji_on": [
+        "ヘン"
+      ],
+      "romaji_kun": [
+        "kawaru"
+      ],
+      "sens": [
+        "étrange",
+        "changement"
+      ],
+      "listes": [
+        "leçon 2.4"
+      ],
+      "exemples": [
+        {
+          "mot": "変化",
+          "hiragana": "へんか",
+          "romaji": "henka",
+          "sens": "changement"
+        },
+        {
+          "mot": "大変",
+          "hiragana": "たいへん",
+          "romaji": "taihen",
+          "sens": "difficile / très"
+        },
+        {
+          "mot": "変わる",
+          "hiragana": "かわる",
+          "romaji": "kawaru",
+          "sens": "changer"
+        }
+      ],
+      "score_comprehension_jpfr": 1,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": 0,
+      "score_lecture_kun": 0,
+      "consec_comprehension_jpfr": 1,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 1,
+      "err_consec_lecture_kun": 1,
+      "derniere_vue_jpfr": 1776636110166,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633160329
+    },
+    {
+      "type": "kanji",
+      "kanji": "太",
+      "lectures_on": [
+        "タイ"
+      ],
+      "lectures_kun": [
+        "ふとい"
+      ],
+      "romaji_on": [
+        "tai"
+      ],
+      "romaji_kun": [
+        "futoi"
+      ],
+      "sens": [
+        "gros",
+        "épais"
+      ],
+      "listes": [
+        "leçon 2.2"
+      ],
+      "exemples": [
+        {
+          "mot": "太い",
+          "hiragana": "ふとい",
+          "romaji": "futoi",
+          "sens": "gros"
+        },
+        {
+          "mot": "太陽",
+          "hiragana": "たいよう",
+          "romaji": "taiyou",
+          "sens": "soleil"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633199549
+    },
+    {
+      "type": "kanji",
+      "kanji": "好",
+      "lectures_on": [
+        "コウ"
+      ],
+      "lectures_kun": [
+        "す",
+        "よい"
+      ],
+      "romaji_on": [
+        "kou"
+      ],
+      "romaji_kun": [
+        "su",
+        "yoi"
+      ],
+      "sens": [
+        "bon",
+        "aimer"
+      ],
+      "listes": [
+        "leçon 2.3"
+      ],
+      "exemples": [
+        {
+          "mot": "好き",
+          "hiragana": "すき",
+          "romaji": "suki",
+          "sens": "aimer"
+        },
+        {
+          "mot": "好意",
+          "hiragana": "こうい",
+          "romaji": "koui",
+          "sens": "bienveillance"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633204899
+    },
+    {
+      "type": "kanji",
+      "kanji": "学",
+      "lectures_on": [
+        "ガク"
+      ],
+      "lectures_kun": [
+        "mana.bu"
+      ],
+      "romaji_on": [
+        "ガク"
+      ],
+      "romaji_kun": [
+        "manabu"
+      ],
+      "sens": [
+        "étude"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588403
+    },
+    {
+      "type": "kanji",
+      "kanji": "家",
+      "lectures_on": [
+        "カ",
+        "ケ"
+      ],
+      "lectures_kun": [
+        "いえ",
+        "や"
+      ],
+      "romaji_on": [
+        "ka",
+        "ke"
+      ],
+      "romaji_kun": [
+        "ie",
+        "ya"
+      ],
+      "sens": [
+        "maison",
+        "famille",
+        "spécialiste"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [
+        {
+          "mot": "家事代行",
+          "hiragana": "かじだいこう",
+          "romaji": "kajidaikou",
+          "sens": "service de ménage"
+        },
+        {
+          "mot": "家",
+          "hiragana": "いえ",
+          "romaji": "ie",
+          "sens": "maison"
+        },
+        {
+          "mot": "家族",
+          "hiragana": "かぞく",
+          "romaji": "kazoku",
+          "sens": "famille"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284712
+    },
+    {
+      "type": "kanji",
+      "kanji": "市",
+      "lectures_on": [
+        "シ"
+      ],
+      "lectures_kun": [
+        "いち"
+      ],
+      "romaji_on": [
+        "shi"
+      ],
+      "romaji_kun": [
+        "ichi"
+      ],
+      "sens": [
+        "ville",
+        "marché"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [
+        {
+          "mot": "市長",
+          "hiragana": "しちょう",
+          "romaji": "shichou",
+          "sens": "maire"
+        },
+        {
+          "mot": "市場",
+          "hiragana": "いちば",
+          "romaji": "ichiba",
+          "sens": "marché"
+        },
+        {
+          "mot": "都市",
+          "hiragana": "とし",
+          "romaji": "toshi",
+          "sens": "ville, cité"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284721
+    },
+    {
+      "type": "kanji",
+      "kanji": "平",
+      "lectures_on": [
+        "ヘイ"
+      ],
+      "lectures_kun": [
+        "tai.ra"
+      ],
+      "romaji_on": [
+        "ヘイ"
+      ],
+      "romaji_kun": [
+        "taira"
+      ],
+      "sens": [
+        "plat"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588403
+    },
+    {
+      "type": "kanji",
+      "kanji": "年",
+      "lectures_on": [
+        "ネン"
+      ],
+      "lectures_kun": [
+        "とし"
+      ],
+      "romaji_on": [
+        "nen"
+      ],
+      "romaji_kun": [
+        "toshi"
+      ],
+      "sens": [
+        "année"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "exemples": [
+        {
+          "mot": "年",
+          "hiragana": "ねん",
+          "romaji": "nen",
+          "sens": "année"
+        },
+        {
+          "mot": "去年",
+          "hiragana": "きょねん",
+          "romaji": "kyonen",
+          "sens": "année dernière"
+        },
+        {
+          "mot": "年",
+          "hiragana": "とし",
+          "romaji": "toshi",
+          "sens": "année"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633194414
+    },
+    {
+      "type": "kanji",
+      "kanji": "広",
+      "lectures_on": [
+        "コウ"
+      ],
+      "lectures_kun": [
+        "hiro.i"
+      ],
+      "romaji_on": [
+        "コウ"
+      ],
+      "romaji_kun": [
+        "hiroi"
+      ],
+      "sens": [
+        "large",
+        "vaste"
+      ],
+      "listes": [
+        "leçon 2.4"
+      ],
+      "exemples": [
+        {
+          "mot": "広大",
+          "hiragana": "こうだい",
+          "romaji": "koudai",
+          "sens": "vaste"
+        },
+        {
+          "mot": "広告",
+          "hiragana": "こうこく",
+          "romaji": "koukoku",
+          "sens": "publicité"
+        },
+        {
+          "mot": "広い",
+          "hiragana": "ひろい",
+          "romaji": "hiroi",
+          "sens": "large"
+        }
+      ],
+      "score_comprehension_jpfr": 1,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": 0,
+      "score_lecture_kun": 0,
+      "consec_comprehension_jpfr": 1,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 1,
+      "err_consec_lecture_kun": 1,
+      "derniere_vue_jpfr": 1776636168134,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633160323
+    },
+    {
+      "type": "kanji",
+      "kanji": "引",
+      "lectures_on": [
+        "イン"
+      ],
+      "lectures_kun": [
+        "hi.ku"
+      ],
+      "romaji_on": [
+        "イン"
+      ],
+      "romaji_kun": [
+        "hiku"
+      ],
+      "sens": [
+        "tirer"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588403
+    },
+    {
+      "type": "kanji",
+      "kanji": "弱",
+      "lectures_on": [
+        "ジャク"
+      ],
+      "lectures_kun": [
+        "よわい"
+      ],
+      "romaji_on": [
+        "jaku"
+      ],
+      "romaji_kun": [
+        "yowai"
+      ],
+      "sens": [
+        "faible",
+        "faiblesse"
+      ],
+      "listes": [
+        "leçon 2.2"
+      ],
+      "exemples": [
+        {
+          "mot": "弱い",
+          "hiragana": "よわい",
+          "romaji": "yowai",
+          "sens": "faible"
+        },
+        {
+          "mot": "弱点",
+          "hiragana": "じゃくてん",
+          "romaji": "jakuten",
+          "sens": "point faible"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633199548
+    },
+    {
+      "type": "kanji",
+      "kanji": "強",
+      "lectures_on": [
+        "キョウ"
+      ],
+      "lectures_kun": [
+        "つよい"
+      ],
+      "romaji_on": [
+        "kyou"
+      ],
+      "romaji_kun": [
+        "tsuyoi"
+      ],
+      "sens": [
+        "fort",
+        "force"
+      ],
+      "listes": [
+        "leçon 2.2"
+      ],
+      "exemples": [
+        {
+          "mot": "強い",
+          "hiragana": "つよい",
+          "romaji": "tsuyoi",
+          "sens": "fort"
+        },
+        {
+          "mot": "強力",
+          "hiragana": "きょうりょく",
+          "romaji": "kyouryoku",
+          "sens": "puissant"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633199548
+    },
+    {
+      "type": "kanji",
+      "kanji": "急",
+      "lectures_on": [
+        "キュウ"
+      ],
+      "lectures_kun": [
+        "いそぐ"
+      ],
+      "romaji_on": [
+        "kyuu"
+      ],
+      "romaji_kun": [
+        "isogu"
+      ],
+      "sens": [
+        "urgent",
+        "rapide"
+      ],
+      "listes": [
+        "leçon 2.3"
+      ],
+      "exemples": [
+        {
+          "mot": "急ぐ",
+          "hiragana": "いそぐ",
+          "romaji": "isogu",
+          "sens": "se dépêcher"
+        },
+        {
+          "mot": "急速",
+          "hiragana": "きゅうそく",
+          "romaji": "kyuusoku",
+          "sens": "rapide"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633204900
+    },
+    {
+      "type": "kanji",
+      "kanji": "悪",
+      "lectures_on": [
+        "アク"
+      ],
+      "lectures_kun": [
+        "waru.i"
+      ],
+      "romaji_on": [
+        "アク"
+      ],
+      "romaji_kun": [
+        "warui"
+      ],
+      "sens": [
+        "mauvais"
+      ],
+      "listes": [
+        "leçon 2.4"
+      ],
+      "exemples": [
+        {
+          "mot": "悪口",
+          "hiragana": "わるぐち",
+          "romaji": "waruguchi",
+          "sens": "médisance"
+        },
+        {
+          "mot": "最悪",
+          "hiragana": "さいあく",
+          "romaji": "saiaku",
+          "sens": "le pire"
+        },
+        {
+          "mot": "悪い",
+          "hiragana": "わるい",
+          "romaji": "warui",
+          "sens": "mauvais"
+        }
+      ],
+      "score_comprehension_jpfr": 1,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": 0,
+      "score_lecture_kun": 0,
+      "consec_comprehension_jpfr": 1,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 1,
+      "err_consec_lecture_kun": 1,
+      "derniere_vue_jpfr": 1776636083781,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633160327
+    },
+    {
+      "type": "kanji",
+      "kanji": "手",
+      "lectures_on": [
+        "シュ"
+      ],
+      "lectures_kun": [
+        "て",
+        "た"
+      ],
+      "romaji_on": [
+        "shu"
+      ],
+      "romaji_kun": [
+        "te",
+        "ta"
+      ],
+      "sens": [
+        "main",
+        "bras",
+        "moyen",
+        "joueur"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [
+        {
+          "mot": "選手",
+          "hiragana": "せんしゅ",
+          "romaji": "senshu",
+          "sens": "athlète, joueur"
+        },
+        {
+          "mot": "手",
+          "hiragana": "て",
+          "romaji": "te",
+          "sens": "main"
+        },
+        {
+          "mot": "手紙",
+          "hiragana": "てがみ",
+          "romaji": "tegami",
+          "sens": "lettre (courrier)"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284716
+    },
+    {
+      "type": "kanji",
+      "kanji": "拭",
+      "lectures_on": [
+        "ショク"
+      ],
+      "lectures_kun": [
+        "ふ-く",
+        "ぬぐ-う"
+      ],
+      "romaji_on": [
+        "shoku"
+      ],
+      "romaji_kun": [
+        "fu-ku",
+        "nugu-u"
+      ],
+      "sens": [
+        "essuyer",
+        "frotter"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [
+        {
+          "mot": "拭く",
+          "hiragana": "ふく",
+          "romaji": "fuku",
+          "sens": "essuyer"
+        },
+        {
+          "mot": "拭い去る",
+          "hiragana": "ぬぐいさる",
+          "romaji": "nuguisaru",
+          "sens": "effacer, faire disparaître"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284715
+    },
+    {
+      "type": "kanji",
+      "kanji": "捨",
+      "lectures_on": [
+        "シャ"
+      ],
+      "lectures_kun": [
+        "su.teru"
+      ],
+      "romaji_on": [
+        "シャ"
+      ],
+      "romaji_kun": [
+        "suteru"
+      ],
+      "sens": [
+        "jeter"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588403
+    },
+    {
+      "type": "kanji",
+      "kanji": "掃",
+      "lectures_on": [
+        "ソウ"
+      ],
+      "lectures_kun": [
+        "は-く"
+      ],
+      "romaji_on": [
+        "sou"
+      ],
+      "romaji_kun": [
+        "ha-ku"
+      ],
+      "sens": [
+        "balayer",
+        "nettoyer"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [
+        {
+          "mot": "清掃",
+          "hiragana": "せいそう",
+          "romaji": "seisou",
+          "sens": "nettoyage"
+        },
+        {
+          "mot": "掃除",
+          "hiragana": "そうじ",
+          "romaji": "souji",
+          "sens": "nettoyage, ménage"
+        },
+        {
+          "mot": "掃く",
+          "hiragana": "はく",
+          "romaji": "haku",
+          "sens": "balayer"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284713
+    },
+    {
+      "type": "kanji",
+      "kanji": "接",
+      "lectures_on": [
+        "セツ"
+      ],
+      "lectures_kun": [
+        "tsu.gu"
+      ],
+      "romaji_on": [
+        "セツ"
+      ],
+      "romaji_kun": [
+        "tsugu"
+      ],
+      "sens": [
+        "contact"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588404
+    },
+    {
+      "type": "kanji",
+      "kanji": "方",
+      "lectures_on": [
+        "ホウ"
+      ],
+      "lectures_kun": [
+        "かた",
+        "がた"
+      ],
+      "romaji_on": [
+        "hou"
+      ],
+      "romaji_kun": [
+        "kata",
+        "gata"
+      ],
+      "sens": [
+        "direction",
+        "côté",
+        "personne (honorifique)",
+        "façon"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [
+        {
+          "mot": "作り方",
+          "hiragana": "つくりかた",
+          "romaji": "tsukurikata",
+          "sens": "manière de faire"
+        },
+        {
+          "mot": "方法",
+          "hiragana": "ほうほう",
+          "romaji": "houhou",
+          "sens": "méthode, moyen"
+        },
+        {
+          "mot": "方",
+          "hiragana": "かた",
+          "romaji": "kata",
+          "sens": "personne (honorifique)"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284709
+    },
+    {
+      "type": "kanji",
+      "kanji": "日",
+      "lectures_on": [
+        "ニチ"
+      ],
+      "lectures_kun": [
+        "hi"
+      ],
+      "romaji_on": [
+        "ニチ"
+      ],
+      "romaji_kun": [
+        "hi"
+      ],
+      "sens": [
+        "jour"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588404
+    },
+    {
+      "type": "kanji",
+      "kanji": "明",
+      "lectures_on": [
+        "メイ"
+      ],
+      "lectures_kun": [
+        "あかり"
+      ],
+      "romaji_on": [
+        "mei"
+      ],
+      "romaji_kun": [
+        "akari"
+      ],
+      "sens": [
+        "lumineux"
+      ],
+      "listes": [
+        "leçon 2.2"
+      ],
+      "exemples": [
+        {
+          "mot": "明るい",
+          "hiragana": "あかるい",
+          "romaji": "akarui",
+          "sens": "lumineux"
+        },
+        {
+          "mot": "明日",
+          "hiragana": "あした",
+          "romaji": "ashita",
+          "sens": "demain"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633199546
+    },
+    {
+      "type": "kanji",
+      "kanji": "暗",
+      "lectures_on": [
+        "アン"
+      ],
+      "lectures_kun": [
+        "くらい"
+      ],
+      "romaji_on": [
+        "an"
+      ],
+      "romaji_kun": [
+        "kurai"
+      ],
+      "sens": [
+        "sombre",
+        "obscurité"
+      ],
+      "listes": [
+        "leçon 2.2"
+      ],
+      "exemples": [
+        {
+          "mot": "暗い",
+          "hiragana": "くらい",
+          "romaji": "kurai",
+          "sens": "sombre"
+        },
+        {
+          "mot": "暗闇",
+          "hiragana": "くらやみ",
+          "romaji": "kurayami",
+          "sens": "obscurité"
+        },
+        {
+          "mot": "暗号",
+          "hiragana": "あんごう",
+          "romaji": "angou",
+          "sens": "code"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633199546
+    },
+    {
+      "type": "kanji",
+      "kanji": "有",
+      "lectures_on": [
+        "ユウ"
+      ],
+      "lectures_kun": [
+        "ある"
+      ],
+      "romaji_on": [
+        "yuu"
+      ],
+      "romaji_kun": [
+        "aru"
+      ],
+      "sens": [
+        "avoir",
+        "exister"
+      ],
+      "listes": [
+        "leçon 2.3"
+      ],
+      "exemples": [
+        {
+          "mot": "有名",
+          "hiragana": "ゆうめい",
+          "romaji": "yuumei",
+          "sens": "célèbre"
+        },
+        {
+          "mot": "有る",
+          "hiragana": "ある",
+          "romaji": "aru",
+          "sens": "avoir"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633204897
+    },
+    {
+      "type": "kanji",
+      "kanji": "業",
+      "lectures_on": [
+        "ギョウ",
+        "ゴウ"
+      ],
+      "lectures_kun": [
+        "わざ"
+      ],
+      "romaji_on": [
+        "gyou",
+        "gou"
+      ],
+      "romaji_kun": [
+        "waza"
+      ],
+      "sens": [
+        "métier",
+        "industrie",
+        "karma",
+        "acte"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [
+        {
+          "mot": "残業",
+          "hiragana": "ざんぎょう",
+          "romaji": "zangyou",
+          "sens": "heures supplémentaires"
+        },
+        {
+          "mot": "業者",
+          "hiragana": "ぎょうしゃ",
+          "romaji": "gyousha",
+          "sens": "professionnel, entreprise"
+        },
+        {
+          "mot": "業",
+          "hiragana": "ごう",
+          "romaji": "gou",
+          "sens": "karma"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284708
+    },
+    {
+      "type": "kanji",
+      "kanji": "楽",
+      "lectures_on": [
+        "ガク",
+        "ラク"
+      ],
+      "lectures_kun": [
+        "たの-しい",
+        "たの-しむ"
+      ],
+      "romaji_on": [
+        "gaku",
+        "raku"
+      ],
+      "romaji_kun": [
+        "tano-shii",
+        "tano-shimu"
+      ],
+      "sens": [
+        "musique",
+        "agréable",
+        "facile",
+        "confortable"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [
+        {
+          "mot": "楽",
+          "hiragana": "らく",
+          "romaji": "raku",
+          "sens": "facile, confortable"
+        },
+        {
+          "mot": "音楽",
+          "hiragana": "おんがく",
+          "romaji": "ongaku",
+          "sens": "musique"
+        },
+        {
+          "mot": "楽しい",
+          "hiragana": "たのしい",
+          "romaji": "tanoshii",
+          "sens": "amusant, agréable"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284714
+    },
+    {
+      "type": "kanji",
+      "kanji": "横",
+      "lectures_on": [
+        "オウ"
+      ],
+      "lectures_kun": [
+        "yoko"
+      ],
+      "romaji_on": [
+        "オウ"
+      ],
+      "romaji_kun": [
+        "yoko"
+      ],
+      "sens": [
+        "côté"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588404
+    },
+    {
+      "type": "kanji",
+      "kanji": "機",
+      "lectures_on": [
+        "キ"
+      ],
+      "lectures_kun": [
+        "はた"
+      ],
+      "romaji_on": [
+        "ki"
+      ],
+      "romaji_kun": [
+        "hata"
+      ],
+      "sens": [
+        "machine",
+        "appareil",
+        "occasion",
+        "métier à tisser"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [
+        {
+          "mot": "食洗機",
+          "hiragana": "しょくせんき",
+          "romaji": "shokusenki",
+          "sens": "lave-vaisselle"
+        },
+        {
+          "mot": "機械",
+          "hiragana": "きかい",
+          "romaji": "kikai",
+          "sens": "machine, mécanique"
+        },
+        {
+          "mot": "機会",
+          "hiragana": "きかい",
+          "romaji": "kikai",
+          "sens": "occasion, opportunité"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284711
+    },
+    {
+      "type": "kanji",
+      "kanji": "正",
+      "lectures_on": [
+        "セイ",
+        "ショウ"
+      ],
+      "lectures_kun": [
+        "tada.shii"
+      ],
+      "romaji_on": [
+        "セイ",
+        "ショウ"
+      ],
+      "romaji_kun": [
+        "tadashii"
+      ],
+      "sens": [
+        "correct",
+        "juste"
+      ],
+      "listes": [
+        "leçon 2.4"
+      ],
+      "exemples": [
+        {
+          "mot": "正月",
+          "hiragana": "しょうがつ",
+          "romaji": "shougatsu",
+          "sens": "Nouvel An"
+        },
+        {
+          "mot": "正確",
+          "hiragana": "せいかく",
+          "romaji": "seikaku",
+          "sens": "précis"
+        },
+        {
+          "mot": "正しい",
+          "hiragana": "ただしい",
+          "romaji": "tadashii",
+          "sens": "correct"
+        }
+      ],
+      "score_comprehension_jpfr": 1,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": 0,
+      "score_lecture_kun": 0,
+      "consec_comprehension_jpfr": 1,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 1,
+      "err_consec_lecture_kun": 1,
+      "derniere_vue_jpfr": 1776636203365,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633160328
+    },
+    {
+      "type": "kanji",
+      "kanji": "残",
+      "lectures_on": [
+        "ザン"
+      ],
+      "lectures_kun": [
+        "のこ-る",
+        "のこ-す"
+      ],
+      "romaji_on": [
+        "zan"
+      ],
+      "romaji_kun": [
+        "noko-ru",
+        "noko-su"
+      ],
+      "sens": [
+        "rester",
+        "restes",
+        "cruel"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [
+        {
+          "mot": "残業",
+          "hiragana": "ざんぎょう",
+          "romaji": "zangyou",
+          "sens": "heures supplémentaires"
+        },
+        {
+          "mot": "残る",
+          "hiragana": "のこる",
+          "romaji": "nokoru",
+          "sens": "rester, subsister"
+        },
+        {
+          "mot": "残念",
+          "hiragana": "ざんねん",
+          "romaji": "zannen",
+          "sens": "dommage, regrettable"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284707
+    },
+    {
+      "type": "kanji",
+      "kanji": "気",
+      "lectures_on": [
+        "キ",
+        "ケ"
+      ],
+      "lectures_kun": [],
+      "romaji_on": [
+        "ki",
+        "ke"
+      ],
+      "romaji_kun": [],
+      "sens": [
+        "esprit",
+        "énergie",
+        "atmosphère",
+        "sentiment"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [
+        {
+          "mot": "気が付く",
+          "hiragana": "きがつく",
+          "romaji": "kiga tsuku",
+          "sens": "se rendre compte"
+        },
+        {
+          "mot": "気持ち",
+          "hiragana": "きもち",
+          "romaji": "kimochi",
+          "sens": "sentiment, sensation"
+        },
+        {
+          "mot": "天気",
+          "hiragana": "てんき",
+          "romaji": "tenki",
+          "sens": "météo, temps"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284715
+    },
+    {
+      "type": "kanji",
+      "kanji": "洗",
+      "lectures_on": [
+        "セン"
+      ],
+      "lectures_kun": [
+        "あら-う"
+      ],
+      "romaji_on": [
+        "sen"
+      ],
+      "romaji_kun": [
+        "ara-u"
+      ],
+      "sens": [
+        "laver",
+        "nettoyer"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [
+        {
+          "mot": "食洗機",
+          "hiragana": "しょくせんき",
+          "romaji": "shokusenki",
+          "sens": "lave-vaisselle"
+        },
+        {
+          "mot": "洗う",
+          "hiragana": "あらう",
+          "romaji": "arau",
+          "sens": "laver"
+        },
+        {
+          "mot": "洗濯",
+          "hiragana": "せんたく",
+          "romaji": "sentaku",
+          "sens": "lessive, lavage"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284711
+    },
+    {
+      "type": "kanji",
+      "kanji": "清",
+      "lectures_on": [
+        "セイ",
+        "ショウ"
+      ],
+      "lectures_kun": [
+        "きよ-い",
+        "きよ-める"
+      ],
+      "romaji_on": [
+        "sei",
+        "shou"
+      ],
+      "romaji_kun": [
+        "kiyo-i",
+        "kiyo-meru"
+      ],
+      "sens": [
+        "propre",
+        "pur",
+        "nettoyer"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [
+        {
+          "mot": "清掃",
+          "hiragana": "せいそう",
+          "romaji": "seisou",
+          "sens": "nettoyage"
+        },
+        {
+          "mot": "清い",
+          "hiragana": "きよい",
+          "romaji": "kiyoi",
+          "sens": "pur, propre"
+        },
+        {
+          "mot": "清潔",
+          "hiragana": "せいけつ",
+          "romaji": "seiketsu",
+          "sens": "hygiène, propreté"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284713
+    },
+    {
+      "type": "kanji",
+      "kanji": "湯",
+      "lectures_on": [
+        "トウ"
+      ],
+      "lectures_kun": [
+        "yu"
+      ],
+      "romaji_on": [
+        "トウ"
+      ],
+      "romaji_kun": [
+        "yu"
+      ],
+      "sens": [
+        "eau chaude"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588404
+    },
+    {
+      "type": "kanji",
+      "kanji": "燃",
+      "lectures_on": [
+        "ネン"
+      ],
+      "lectures_kun": [
+        "mo.eru"
+      ],
+      "romaji_on": [
+        "ネン"
+      ],
+      "romaji_kun": [
+        "moeru"
+      ],
+      "sens": [
+        "brûler"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588404
+    },
+    {
+      "type": "kanji",
+      "kanji": "片",
+      "lectures_on": [
+        "ヘン"
+      ],
+      "lectures_kun": [
+        "kata"
+      ],
+      "romaji_on": [
+        "ヘン"
+      ],
+      "romaji_kun": [
+        "kata"
+      ],
+      "sens": [
+        "morceau"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588405
+    },
+    {
+      "type": "kanji",
+      "kanji": "物",
+      "lectures_on": [
+        "ブツ"
+      ],
+      "lectures_kun": [
+        "mono"
+      ],
+      "romaji_on": [
+        "ブツ"
+      ],
+      "romaji_kun": [
+        "mono"
+      ],
+      "sens": [
+        "chose"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588405
+    },
+    {
+      "type": "kanji",
+      "kanji": "特",
+      "lectures_on": [
+        "トク"
+      ],
+      "lectures_kun": [],
+      "romaji_on": [
+        "toku"
+      ],
+      "romaji_kun": [],
+      "sens": [
+        "spécial",
+        "particulier"
+      ],
+      "listes": [
+        "leçon 2.3"
+      ],
+      "exemples": [
+        {
+          "mot": "特別",
+          "hiragana": "とくべつ",
+          "romaji": "tokubetsu",
+          "sens": "spécial"
+        },
+        {
+          "mot": "特に",
+          "hiragana": "とくに",
+          "romaji": "tokuni",
+          "sens": "particulièrement"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633204896
+    },
+    {
+      "type": "kanji",
+      "kanji": "理",
+      "lectures_on": [
+        "リ"
+      ],
+      "lectures_kun": [
+        "ことわり"
+      ],
+      "romaji_on": [
+        "ri"
+      ],
+      "romaji_kun": [
+        "kotowari"
+      ],
+      "sens": [
+        "raison",
+        "logique",
+        "principe",
+        "gérer"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [
+        {
+          "mot": "理由",
+          "hiragana": "りゆう",
+          "romaji": "riyuu",
+          "sens": "raison, motif"
+        },
+        {
+          "mot": "理解",
+          "hiragana": "りかい",
+          "romaji": "rikai",
+          "sens": "compréhension"
+        },
+        {
+          "mot": "料理",
+          "hiragana": "りょうり",
+          "romaji": "ryouri",
+          "sens": "cuisine, plat"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284710
+    },
+    {
+      "type": "kanji",
+      "kanji": "瓶",
+      "lectures_on": [
+        "ヘイ"
+      ],
+      "lectures_kun": [
+        "bin"
+      ],
+      "romaji_on": [
+        "ヘイ"
+      ],
+      "romaji_kun": [
+        "bin"
+      ],
+      "sens": [
+        "bouteille"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588405
+    },
+    {
+      "type": "kanji",
+      "kanji": "由",
+      "lectures_on": [
+        "ユウ",
+        "ユ"
+      ],
+      "lectures_kun": [
+        "よし"
+      ],
+      "romaji_on": [
+        "yuu",
+        "yu"
+      ],
+      "romaji_kun": [
+        "yoshi"
+      ],
+      "sens": [
+        "cause",
+        "raison",
+        "origine",
+        "liberté"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [
+        {
+          "mot": "理由",
+          "hiragana": "りゆう",
+          "romaji": "riyuu",
+          "sens": "raison, motif"
+        },
+        {
+          "mot": "自由",
+          "hiragana": "じゆう",
+          "romaji": "jiyuu",
+          "sens": "liberté"
+        },
+        {
+          "mot": "由来",
+          "hiragana": "ゆらい",
+          "romaji": "yurai",
+          "sens": "origine, étymologie"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284710
+    },
+    {
+      "type": "kanji",
+      "kanji": "百",
+      "lectures_on": [
+        "ヒャク"
+      ],
+      "lectures_kun": [],
+      "romaji_on": [
+        "hyaku"
+      ],
+      "romaji_kun": [],
+      "sens": [
+        "cent"
+      ],
+      "listes": [
+        "leçon 1.3"
+      ],
+      "exemples": [
+        {
+          "mot": "百円",
+          "hiragana": "ひゃくえん",
+          "romaji": "hyakuen",
+          "sens": "cent yens"
+        },
+        {
+          "mot": "百人",
+          "hiragana": "ひゃくにん",
+          "romaji": "hyakunin",
+          "sens": "cent personnes"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633194412
+    },
+    {
+      "type": "kanji",
+      "kanji": "直",
+      "lectures_on": [
+        "チョク"
+      ],
+      "lectures_kun": [
+        "tada.chi"
+      ],
+      "romaji_on": [
+        "チョク"
+      ],
+      "romaji_kun": [
+        "tadachi"
+      ],
+      "sens": [
+        "direct"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588405
+    },
+    {
+      "type": "kanji",
+      "kanji": "短",
+      "lectures_on": [
+        "タン"
+      ],
+      "lectures_kun": [
+        "mijika.i"
+      ],
+      "romaji_on": [
+        "タン"
+      ],
+      "romaji_kun": [
+        "mijikai"
+      ],
+      "sens": [
+        "court"
+      ],
+      "listes": [
+        "leçon 2.4"
+      ],
+      "exemples": [
+        {
+          "mot": "短所",
+          "hiragana": "たんしょ",
+          "romaji": "tansho",
+          "sens": "point faible"
+        },
+        {
+          "mot": "短歌",
+          "hiragana": "たんか",
+          "romaji": "tanka",
+          "sens": "tanka (poème)"
+        },
+        {
+          "mot": "短い",
+          "hiragana": "みじかい",
+          "romaji": "mijikai",
+          "sens": "court"
+        }
+      ],
+      "score_comprehension_jpfr": 1,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": 1,
+      "score_lecture_kun": 2,
+      "consec_comprehension_jpfr": 1,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 1,
+      "consec_lecture_kun": 2,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": 1776636139517,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633160324
+    },
+    {
+      "type": "kanji",
+      "kanji": "細",
+      "lectures_on": [
+        "サイ"
+      ],
+      "lectures_kun": [
+        "ほそい"
+      ],
+      "romaji_on": [
+        "sai"
+      ],
+      "romaji_kun": [
+        "hosoi"
+      ],
+      "sens": [
+        "fin",
+        "mince"
+      ],
+      "listes": [
+        "leçon 2.2"
+      ],
+      "exemples": [
+        {
+          "mot": "細い",
+          "hiragana": "ほそい",
+          "romaji": "hosoi",
+          "sens": "fin"
+        },
+        {
+          "mot": "細部",
+          "hiragana": "さいぶ",
+          "romaji": "saibu",
+          "sens": "détail"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633199549
+    },
+    {
+      "type": "kanji",
+      "kanji": "練",
+      "lectures_on": [
+        "レン"
+      ],
+      "lectures_kun": [
+        "ね-る"
+      ],
+      "romaji_on": [
+        "ren"
+      ],
+      "romaji_kun": [
+        "ne-ru"
+      ],
+      "sens": [
+        "s'entraîner",
+        "pétrir",
+        "raffiner"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [
+        {
+          "mot": "訓練",
+          "hiragana": "くんれん",
+          "romaji": "kunren",
+          "sens": "entraînement, formation"
+        },
+        {
+          "mot": "練習",
+          "hiragana": "れんしゅう",
+          "romaji": "renshuu",
+          "sens": "pratique, entraînement"
+        },
+        {
+          "mot": "練る",
+          "hiragana": "ねる",
+          "romaji": "neru",
+          "sens": "pétrir, peaufiner"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284708
+    },
+    {
+      "type": "kanji",
+      "kanji": "缶",
+      "lectures_on": [
+        "カン"
+      ],
+      "lectures_kun": [],
+      "romaji_on": [
+        "カン"
+      ],
+      "romaji_kun": [],
+      "sens": [
+        "canette"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588406
+    },
+    {
+      "type": "kanji",
+      "kanji": "置",
+      "lectures_on": [
+        "チ"
+      ],
+      "lectures_kun": [
+        "o.ku"
+      ],
+      "romaji_on": [
+        "チ"
+      ],
+      "romaji_kun": [
+        "oku"
+      ],
+      "sens": [
+        "poser"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588406
+    },
+    {
+      "type": "kanji",
+      "kanji": "良",
+      "lectures_on": [
+        "リョウ"
+      ],
+      "lectures_kun": [
+        "yo.i"
+      ],
+      "romaji_on": [
+        "リョウ"
+      ],
+      "romaji_kun": [
+        "yoi"
+      ],
+      "sens": [
+        "bon",
+        "bien"
+      ],
+      "listes": [
+        "leçon 2.4"
+      ],
+      "exemples": [
+        {
+          "mot": "良心",
+          "hiragana": "りょうしん",
+          "romaji": "ryoushin",
+          "sens": "conscience"
+        },
+        {
+          "mot": "最良",
+          "hiragana": "さいりょう",
+          "romaji": "sairyou",
+          "sens": "le meilleur"
+        },
+        {
+          "mot": "良い",
+          "hiragana": "よい",
+          "romaji": "yoi",
+          "sens": "bon"
+        }
+      ],
+      "score_comprehension_jpfr": 1,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": 0,
+      "score_lecture_kun": 0,
+      "consec_comprehension_jpfr": 1,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 1,
+      "err_consec_lecture_kun": 1,
+      "derniere_vue_jpfr": 1776636182202,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633160325
+    },
+    {
+      "type": "kanji",
+      "kanji": "荷",
+      "lectures_on": [
+        "カ"
+      ],
+      "lectures_kun": [
+        "ni"
+      ],
+      "romaji_on": [
+        "カ"
+      ],
+      "romaji_kun": [
+        "ni"
+      ],
+      "sens": [
+        "charge"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588406
+    },
+    {
+      "type": "kanji",
+      "kanji": "行",
+      "lectures_on": [
+        "コウ",
+        "ギョウ"
+      ],
+      "lectures_kun": [
+        "い-く",
+        "おこな-う"
+      ],
+      "romaji_on": [
+        "kou",
+        "gyou"
+      ],
+      "romaji_kun": [
+        "i-ku",
+        "okona-u"
+      ],
+      "sens": [
+        "aller",
+        "effectuer",
+        "rangée",
+        "conduite"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [
+        {
+          "mot": "家事代行",
+          "hiragana": "かじだいこう",
+          "romaji": "kajidaikou",
+          "sens": "service de ménage"
+        },
+        {
+          "mot": "行く",
+          "hiragana": "いく",
+          "romaji": "iku",
+          "sens": "aller"
+        },
+        {
+          "mot": "行動",
+          "hiragana": "こうどう",
+          "romaji": "koudou",
+          "sens": "action, comportement"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284713
+    },
+    {
+      "type": "kanji",
+      "kanji": "見",
+      "lectures_on": [
+        "ケン"
+      ],
+      "lectures_kun": [
+        "mi.ru"
+      ],
+      "romaji_on": [
+        "ケン"
+      ],
+      "romaji_kun": [
+        "miru"
+      ],
+      "sens": [
+        "voir"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588406
+    },
+    {
+      "type": "kanji",
+      "kanji": "訓",
+      "lectures_on": [
+        "クン"
+      ],
+      "lectures_kun": [
+        "よ-む"
+      ],
+      "romaji_on": [
+        "kun"
+      ],
+      "romaji_kun": [
+        "yo-mu"
+      ],
+      "sens": [
+        "lecture kun",
+        "instruction",
+        "enseigner"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [
+        {
+          "mot": "訓練",
+          "hiragana": "くんれん",
+          "romaji": "kunren",
+          "sens": "entraînement, formation"
+        },
+        {
+          "mot": "訓読み",
+          "hiragana": "くんよみ",
+          "romaji": "kunyomi",
+          "sens": "lecture kun d'un kanji"
+        },
+        {
+          "mot": "教訓",
+          "hiragana": "きょうくん",
+          "romaji": "kyoukun",
+          "sens": "leçon, enseignement moral"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284708
+    },
+    {
+      "type": "kanji",
+      "kanji": "議",
+      "lectures_on": [
+        "ギ"
+      ],
+      "lectures_kun": [],
+      "romaji_on": [
+        "ギ"
+      ],
+      "romaji_kun": [],
+      "sens": [
+        "délibération"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588407
+    },
+    {
+      "type": "kanji",
+      "kanji": "赤",
+      "lectures_on": [
+        "セキ"
+      ],
+      "lectures_kun": [
+        "aka"
+      ],
+      "romaji_on": [
+        "セキ"
+      ],
+      "romaji_kun": [
+        "aka"
+      ],
+      "sens": [
+        "rouge"
+      ],
+      "listes": [
+        "leçon 2.4"
+      ],
+      "exemples": [
+        {
+          "mot": "赤道",
+          "hiragana": "せきどう",
+          "romaji": "sekidou",
+          "sens": "équateur"
+        },
+        {
+          "mot": "赤ちゃん",
+          "hiragana": "あかちゃん",
+          "romaji": "akachan",
+          "sens": "bébé"
+        },
+        {
+          "mot": "赤",
+          "hiragana": "あか",
+          "romaji": "aka",
+          "sens": "rouge"
+        }
+      ],
+      "score_comprehension_jpfr": 1,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": 0,
+      "score_lecture_kun": 0,
+      "consec_comprehension_jpfr": 1,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 1,
+      "err_consec_lecture_kun": 1,
+      "derniere_vue_jpfr": 1776636162736,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633160330
+    },
+    {
+      "type": "kanji",
+      "kanji": "越",
+      "lectures_on": [
+        "エツ"
+      ],
+      "lectures_kun": [
+        "ko.su"
+      ],
+      "romaji_on": [
+        "エツ"
+      ],
+      "romaji_kun": [
+        "kosu"
+      ],
+      "sens": [
+        "dépasser"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588407
+    },
+    {
+      "type": "kanji",
+      "kanji": "車",
+      "lectures_on": [
+        "シャ"
+      ],
+      "lectures_kun": [
+        "kuruma"
+      ],
+      "romaji_on": [
+        "シャ"
+      ],
+      "romaji_kun": [
+        "kuruma"
+      ],
+      "sens": [
+        "voiture"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588407
+    },
+    {
+      "type": "kanji",
+      "kanji": "軽",
+      "lectures_on": [
+        "ケイ"
+      ],
+      "lectures_kun": [
+        "かるい"
+      ],
+      "romaji_on": [
+        "kei"
+      ],
+      "romaji_kun": [
+        "karui"
+      ],
+      "sens": [
+        "léger",
+        "légèreté"
+      ],
+      "listes": [
+        "leçon 2.2"
+      ],
+      "exemples": [
+        {
+          "mot": "軽い",
+          "hiragana": "かるい",
+          "romaji": "karui",
+          "sens": "léger"
+        },
+        {
+          "mot": "軽快",
+          "hiragana": "けいかい",
+          "romaji": "keikai",
+          "sens": "allègre"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633199549
+    },
+    {
+      "type": "kanji",
+      "kanji": "近",
+      "lectures_on": [
+        "キン"
+      ],
+      "lectures_kun": [
+        "ちかい"
+      ],
+      "romaji_on": [
+        "kin"
+      ],
+      "romaji_kun": [
+        "chikai"
+      ],
+      "sens": [
+        "proche",
+        "proximité"
+      ],
+      "listes": [
+        "leçon 2.2"
+      ],
+      "exemples": [
+        {
+          "mot": "近い",
+          "hiragana": "ちかい",
+          "romaji": "chikai",
+          "sens": "proche"
+        },
+        {
+          "mot": "近所",
+          "hiragana": "きんじょ",
+          "romaji": "kinjo",
+          "sens": "voisinage"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633199547
+    },
+    {
+      "type": "kanji",
+      "kanji": "遠",
+      "lectures_on": [
+        "エン"
+      ],
+      "lectures_kun": [
+        "とおい"
+      ],
+      "romaji_on": [
+        "en"
+      ],
+      "romaji_kun": [
+        "tooi"
+      ],
+      "sens": [
+        "loin",
+        "distance"
+      ],
+      "listes": [
+        "leçon 2.2"
+      ],
+      "exemples": [
+        {
+          "mot": "遠い",
+          "hiragana": "とおい",
+          "romaji": "tooi",
+          "sens": "loin"
+        },
+        {
+          "mot": "遠方",
+          "hiragana": "えんぽう",
+          "romaji": "enpou",
+          "sens": "région lointaine"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633199547
+    },
+    {
+      "type": "kanji",
+      "kanji": "選",
+      "lectures_on": [
+        "セン"
+      ],
+      "lectures_kun": [
+        "えら-ぶ"
+      ],
+      "romaji_on": [
+        "sen"
+      ],
+      "romaji_kun": [
+        "era-bu"
+      ],
+      "sens": [
+        "choisir",
+        "sélectionner"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [
+        {
+          "mot": "選手",
+          "hiragana": "せんしゅ",
+          "romaji": "senshu",
+          "sens": "athlète, joueur"
+        },
+        {
+          "mot": "選ぶ",
+          "hiragana": "えらぶ",
+          "romaji": "erabu",
+          "sens": "choisir"
+        },
+        {
+          "mot": "選挙",
+          "hiragana": "せんきょ",
+          "romaji": "senkyo",
+          "sens": "élection"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284716
+    },
+    {
+      "type": "kanji",
+      "kanji": "重",
+      "lectures_on": [
+        "ジュウ"
+      ],
+      "lectures_kun": [
+        "おもい"
+      ],
+      "romaji_on": [
+        "juu"
+      ],
+      "romaji_kun": [
+        "omoi"
+      ],
+      "sens": [
+        "lourd",
+        "poids"
+      ],
+      "listes": [
+        "leçon 2.2"
+      ],
+      "exemples": [
+        {
+          "mot": "重い",
+          "hiragana": "おもい",
+          "romaji": "omoi",
+          "sens": "lourd"
+        },
+        {
+          "mot": "重要",
+          "hiragana": "じゅうよう",
+          "romaji": "juuyou",
+          "sens": "important"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633199548
+    },
+    {
+      "type": "kanji",
+      "kanji": "長",
+      "lectures_on": [
+        "チョウ"
+      ],
+      "lectures_kun": [
+        "なが-い",
+        "おさ"
+      ],
+      "romaji_on": [
+        "chou"
+      ],
+      "romaji_kun": [
+        "naga-i",
+        "osa"
+      ],
+      "sens": [
+        "long",
+        "chef",
+        "aîné",
+        "croître"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [
+        {
+          "mot": "市長",
+          "hiragana": "しちょう",
+          "romaji": "shichou",
+          "sens": "maire"
+        },
+        {
+          "mot": "長い",
+          "hiragana": "ながい",
+          "romaji": "nagai",
+          "sens": "long"
+        },
+        {
+          "mot": "校長",
+          "hiragana": "こうちょう",
+          "romaji": "kouchou",
+          "sens": "directeur d'école"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284722
+    },
+    {
+      "type": "kanji",
+      "kanji": "青",
+      "lectures_on": [
+        "セイ"
+      ],
+      "lectures_kun": [
+        "ao"
+      ],
+      "romaji_on": [
+        "セイ"
+      ],
+      "romaji_kun": [
+        "ao"
+      ],
+      "sens": [
+        "bleu"
+      ],
+      "listes": [
+        "leçon 2.4"
+      ],
+      "exemples": [
+        {
+          "mot": "青年",
+          "hiragana": "せいねん",
+          "romaji": "seinen",
+          "sens": "jeune homme"
+        },
+        {
+          "mot": "青空",
+          "hiragana": "あおぞら",
+          "romaji": "aozora",
+          "sens": "ciel bleu"
+        },
+        {
+          "mot": "青い",
+          "hiragana": "あおい",
+          "romaji": "aoi",
+          "sens": "bleu"
+        }
+      ],
+      "score_comprehension_jpfr": 1,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": 0,
+      "score_lecture_kun": 0,
+      "consec_comprehension_jpfr": 1,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 1,
+      "err_consec_lecture_kun": 1,
+      "derniere_vue_jpfr": 1776636151952,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633160331
+    },
+    {
+      "type": "kanji",
+      "kanji": "食",
+      "lectures_on": [
+        "ショク",
+        "ジキ"
+      ],
+      "lectures_kun": [
+        "た-べる",
+        "く-う"
+      ],
+      "romaji_on": [
+        "shoku",
+        "jiki"
+      ],
+      "romaji_kun": [
+        "ta-beru",
+        "ku-u"
+      ],
+      "sens": [
+        "manger",
+        "nourriture",
+        "repas"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [
+        {
+          "mot": "食洗機",
+          "hiragana": "しょくせんき",
+          "romaji": "shokusenki",
+          "sens": "lave-vaisselle"
+        },
+        {
+          "mot": "食べる",
+          "hiragana": "たべる",
+          "romaji": "taberu",
+          "sens": "manger"
+        },
+        {
+          "mot": "食事",
+          "hiragana": "しょくじ",
+          "romaji": "shokuji",
+          "sens": "repas"
+        }
+      ],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633284711
+    },
+    {
+      "type": "kanji",
+      "kanji": "駐",
+      "lectures_on": [
+        "チュウ"
+      ],
+      "lectures_kun": [],
+      "romaji_on": [
+        "チュウ"
+      ],
+      "romaji_kun": [],
+      "sens": [
+        "stationner"
+      ],
+      "listes": [
+        "automatique"
+      ],
+      "exemples": [],
+      "score_comprehension_jpfr": null,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": null,
+      "score_lecture_kun": null,
+      "consec_comprehension_jpfr": 0,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 0,
+      "err_consec_lecture_kun": 0,
+      "derniere_vue_jpfr": null,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633588407
+    },
+    {
+      "type": "kanji",
+      "kanji": "黒",
+      "lectures_on": [
+        "コク"
+      ],
+      "lectures_kun": [
+        "kuro"
+      ],
+      "romaji_on": [
+        "コク"
+      ],
+      "romaji_kun": [
+        "kuro"
+      ],
+      "sens": [
+        "noir"
+      ],
+      "listes": [
+        "leçon 2.4"
+      ],
+      "exemples": [
+        {
+          "mot": "黒板",
+          "hiragana": "こくばん",
+          "romaji": "kokuban",
+          "sens": "tableau noir"
+        },
+        {
+          "mot": "白黒",
+          "hiragana": "しろくろ",
+          "romaji": "shirokuro",
+          "sens": "noir et blanc"
+        }
+      ],
+      "score_comprehension_jpfr": 1,
+      "score_comprehension_frjp": null,
+      "score_lecture_on": 0,
+      "score_lecture_kun": 0,
+      "consec_comprehension_jpfr": 1,
+      "consec_comprehension_frjp": 0,
+      "consec_lecture_on": 0,
+      "consec_lecture_kun": 0,
+      "err_consec_comprehension_jpfr": 0,
+      "err_consec_comprehension_frjp": 0,
+      "err_consec_lecture_on": 1,
+      "err_consec_lecture_kun": 1,
+      "derniere_vue_jpfr": 1776636102678,
+      "derniere_vue_frjp": null,
+      "created_at": 1776633160332
+    }
+  ]
+}

@@ -262,6 +262,25 @@ export async function exportAll() {
   return JSON.stringify({ vocab: await getAllVocab(), kanji: await getAllKanji() }, null, 2);
 }
 
+export async function loadDefaultDatabase() {
+  const vocab = await getAllVocab();
+  const kanji = await getAllKanji();
+
+  if (vocab.length === 0 && kanji.length === 0) {
+    try {
+      const response = await fetch('/flashjap/flashjap_base.json');
+      if (!response.ok) throw new Error('Failed to fetch default database');
+      const data = await response.json();
+      await importAll(data, false);
+      return true;
+    } catch (e) {
+      console.error('Error loading default database:', e);
+      return false;
+    }
+  }
+  return false;
+}
+
 export async function importAll(data, keepScores) {
   const VOCAB_SCORES = ['score_lecture','score_jpfr','score_frjp','consec_lecture','consec_jpfr','consec_frjp',
     'err_consec_lecture','err_consec_jpfr','err_consec_frjp','derniere_vue_lecture','derniere_vue_jpfr','derniere_vue_frjp'];
