@@ -9,8 +9,18 @@ export function initQuizParams() {
   document.getElementById('qp-back').onclick  = () => goBack();
   document.getElementById('qp-start').onclick = () => startQuiz();
 
-  document.querySelectorAll('[name="qp-cat"]').forEach(r =>
-    r.addEventListener('change', () => loadListes()));
+  document.getElementById('qp-toggle-vocab').addEventListener('click', () => {
+    document.getElementById('qp-toggle-vocab').classList.add('active');
+    document.getElementById('qp-toggle-kanji').classList.remove('active');
+    loadListes();
+  });
+
+  document.getElementById('qp-toggle-kanji').addEventListener('click', () => {
+    document.getElementById('qp-toggle-kanji').classList.add('active');
+    document.getElementById('qp-toggle-vocab').classList.remove('active');
+    loadListes();
+  });
+
   document.querySelectorAll('[name="qp-type"]').forEach(r =>
     r.addEventListener('change', () => toggleSens()));
   document.querySelectorAll('[name="qp-critere"]').forEach(r =>
@@ -22,19 +32,31 @@ export function initQuizParams() {
   const manageBtn = document.getElementById('qp-manage-listes');
   if (manageBtn) {
     manageBtn.addEventListener('click', () => {
-      const type = document.querySelector('[name="qp-cat"]:checked')?.value || 'vocab';
+      const type = getSelectedCategory();
       navigate('screen-list-selection', { type });
     });
   }
 }
 
+function getSelectedCategory() {
+  return document.getElementById('qp-toggle-vocab').classList.contains('active') ? 'vocab' : 'kanji';
+}
+
 async function enterParams() {
   // Pré-cocher selon toggle accueil
   const homeType = getHomeType();
-  document.querySelectorAll('[name="qp-cat"]').forEach(r => {
-    r.checked = r.value === homeType;
-  });
-  const type = document.querySelector('[name="qp-cat"]:checked')?.value || 'vocab';
+  const vocabBtn = document.getElementById('qp-toggle-vocab');
+  const kanjiBtn = document.getElementById('qp-toggle-kanji');
+
+  if (homeType === 'kanji') {
+    vocabBtn.classList.remove('active');
+    kanjiBtn.classList.add('active');
+  } else {
+    vocabBtn.classList.add('active');
+    kanjiBtn.classList.remove('active');
+  }
+
+  const type = getSelectedCategory();
   const allListes = await getListes(type);
   listsState.initializeSelectedListes(allListes);
   await loadListes();
@@ -81,7 +103,7 @@ function esc(str) {
 }
 
 async function refreshSlider() {
-  const type    = document.querySelector('[name="qp-cat"]:checked')?.value || 'vocab';
+  const type    = getSelectedCategory();
   const critere = document.querySelector('[name="qp-critere"]:checked')?.value || 'tous';
   const sensType = document.querySelector('[name="qp-type"]:checked')?.value || 'lecture';
   const sens    = sensType === 'lecture' ? 'lecture' : (document.querySelector('[name="qp-sens"]:checked')?.value || 'jpfr');
@@ -102,7 +124,7 @@ function toggleSens() {
 }
 
 async function startQuiz() {
-  const cat     = document.querySelector('[name="qp-cat"]:checked')?.value || 'vocab';
+  const cat     = getSelectedCategory();
   const type    = document.querySelector('[name="qp-type"]:checked')?.value || 'lecture';
   const sens    = type === 'lecture' ? 'lecture' : (document.querySelector('[name="qp-sens"]:checked')?.value || 'jpfr');
   const critere = document.querySelector('[name="qp-critere"]:checked')?.value || 'tous';
