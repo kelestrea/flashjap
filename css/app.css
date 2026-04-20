@@ -79,6 +79,24 @@ html, body {
 }
 .overlay-sheet.visible { transform: translateX(-50%) translateY(0); }
 
+/* ── PUSH SHEET (kanji push depuis overlay vocab) ── */
+#push-sheet {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(calc(-50% + 100%)) translateY(0);
+  width: 100%;
+  max-width: 430px;
+  background: var(--bg);
+  border-radius: var(--r) var(--r) 0 0;
+  z-index: 102;
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+  max-height: 92vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+#push-sheet.visible { transform: translateX(-50%) translateY(0); }
+
 /* ── COMPOSANTS DE BASE ── */
 .topbar {
   display: flex;

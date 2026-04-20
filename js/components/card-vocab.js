@@ -4,8 +4,12 @@ import { speak } from '../audio.js';
 import { ICONS } from '../icons.js';
 import { openOverlay, closeOverlay } from '../router.js';
 
-const bg    = document.getElementById('overlay-bg');
-const sheet = document.getElementById('overlay-sheet');
+const bg        = document.getElementById('overlay-bg');
+const sheet     = document.getElementById('overlay-sheet');
+const pushSheet = document.getElementById('push-sheet');
+
+// Pile d'overlays internes (pour vocab → kanji push)
+let _overlayStack = [];
 
 function statutDot(score) {
   if (score === null || score === undefined) return `<span style="width:8px;height:8px;border-radius:50%;background:${STATUT_COLOR.noncommence};display:inline-block;"></span>`;
@@ -90,6 +94,37 @@ function buildKanjiStats(entry) {
     </div>`;
 }
 
+async function showKanjiPush(entry) {
+  _overlayStack.push(sheet.innerHTML);
+
+  pushSheet.innerHTML = await buildKanjiContent(entry, true);
+  requestAnimationFrame(() => pushSheet.classList.add('visible'));
+
+  const playBtn = pushSheet.querySelector('#kp-play');
+  const backBtn = pushSheet.querySelector('#kp-back');
+
+  if (playBtn) playBtn.onclick = () => speak(entry.kanji);
+  if (backBtn) backBtn.onclick = () => {
+    pushSheet.classList.remove('visible');
+    setTimeout(() => {
+      pushSheet.innerHTML = '';
+      const prev = _overlayStack.pop();
+      if (prev) {
+        sheet.innerHTML = prev;
+        // Re-attach handlers to restored vocab card
+        const restored = document.getElementById('vc-close');
+        if (restored) restored.onclick = () => { closeOverlay(); };
+        sheet.querySelectorAll('.kanji-chip:not(.disabled)').forEach(btn => {
+          btn.onclick = async () => {
+            const kData = await getKanji(btn.dataset.kanji);
+            if (kData) showKanjiPush(kData);
+          };
+        });
+      }
+    }, 300);
+  };
+}
+
 export async function renderVocabCard(entry, returnCb) {
   const kanjis = entry.kanjis_composants || [];
   const kanjiItems = await Promise.all(kanjis.map(async k => {
@@ -148,12 +183,7 @@ export async function renderVocabCard(entry, returnCb) {
   sheet.querySelectorAll('.kanji-chip:not(.disabled)').forEach(btn => {
     btn.onclick = async () => {
       const kData = await getKanji(btn.dataset.kanji);
-      if (kData) {
-        closeOverlay();
-        import('../router.js').then(({ navigate }) => {
-          navigate('screen-fiche', { key: btn.dataset.kanji, ktype: 'kanji' });
-        });
-      }
+      if (kData) showKanjiPush(kData);
     };
   });
 
