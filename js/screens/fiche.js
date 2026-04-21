@@ -153,6 +153,8 @@ function buildVocabStats(entry) {
     <div class="section" style="padding-bottom:0;border-bottom:none;">
       <div class="section-label">LISTES</div>
       <p style="font-size:13px;color:var(--gray);margin:0 0 12px 0;">${listesStr || '—'}</p>
-      <button class="btn btn-ghost edit-listes-btn" data-key="${key}" data-ktype="${ktype}" style="font-size:13px;padding:11px;">éditer</button>
+    </div>
+    <div style="padding:16px 20px 32px;border-top:0.5px solid var(--border);">
+      <button class="btn btn-ghost edit-listes-btn" data-key="${key}" data-ktype="${ktype}" style="font-size:13px;padding:11px;width:100%;">choisir les listes</button>
     </div>`;
 }
