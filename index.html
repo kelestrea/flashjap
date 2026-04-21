@@ -107,7 +107,7 @@
     </button>
   </div>
 
-  <div class="version-footer">v3.1.0</div>
+  <div class="version-footer">v3.1.1</div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════════
@@ -208,12 +208,7 @@
     <button class="back-btn" id="quiz-back" style="color:var(--blue)">
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M13 4l-6 6 6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
-    <span style="font-size:13px;color:var(--gray);" id="quiz-count">1 / 20</span>
-    <span class="badge" id="quiz-badge">Lecture</span>
-  </div>
-
-  <div class="quiz-progress">
-    <div class="progress-bar"><div class="progress-fill" id="quiz-fill" style="width:0%"></div></div>
+    <div class="topbar-title" style="flex:1;margin-left:10px;" id="quiz-badge">Lecture</div>
   </div>
 
   <div class="quiz-word-zone">
@@ -223,16 +218,12 @@
     </button>
   </div>
 
-  <div class="reading-row" id="quiz-reading-row" style="display:none;">
-    <span class="reading-text hidden" id="quiz-reading-text"></span>
-    <button class="eye-btn" id="quiz-eye" style="color:var(--gray)">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><ellipse cx="8" cy="8" rx="6" ry="4" stroke="currentColor" stroke-width="1.2"/><circle cx="8" cy="8" r="2" stroke="currentColor" stroke-width="1.2"/><path d="M2 14L14 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-    </button>
-  </div>
-
-  <div id="quiz-input-section" style="padding:0 20px 24px;display:flex;flex-direction:column;gap:10px;">
+  <div id="quiz-input-section" style="padding:0 20px 24px;display:flex;flex-direction:column;gap:20px;">
     <input type="text" class="input-field" id="quiz-input" placeholder="Saisir la lecture…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-    <button class="btn btn-primary" id="quiz-validate">Valider</button>
+    <div style="display:flex;flex-direction:column;gap:12px;align-items:center;">
+      <button class="btn btn-primary" id="quiz-validate">valider</button>
+      <span style="font-size:13px;color:var(--gray);" id="quiz-count">1 / 20</span>
+    </div>
   </div>
 
   <div id="quiz-feedback-section" style="display:none;">
