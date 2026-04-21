@@ -62,7 +62,7 @@ function showCard() {
 
   // Reset UI
   document.getElementById('quiz-input').value = '';
-  document.getElementById('quiz-input-section').style.display = 'block';
+  document.getElementById('quiz-input-section').style.display = 'flex';
   document.getElementById('quiz-feedback-section').style.display = 'none';
   document.getElementById('quiz-validate').style.display = 'block';
   _state.answered = false;
