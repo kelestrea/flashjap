@@ -27,7 +27,10 @@ export function initQuizParams() {
     r.addEventListener('change', () => refreshSlider()));
 
   const slider = document.getElementById('qp-slider');
-  slider.oninput = () => document.getElementById('qp-slider-val').textContent = slider.value;
+  slider.oninput = () => {
+    document.getElementById('qp-slider-val').textContent = slider.value;
+    listsState.setSliderValue(slider.value);
+  };
 
   const manageBtn = document.getElementById('qp-manage-listes');
   if (manageBtn) {
@@ -110,7 +113,7 @@ async function refreshSlider() {
   const listes  = listsState.getSelectedListes();
   const cards   = await getCardsForQuiz({ type, listes, critere, sens, count: 0 });
   const slider  = document.getElementById('qp-slider');
-  const prev    = parseInt(slider.value) || 20;
+  const prev    = listsState.getSliderValue();
   slider.max    = cards.length;
   slider.value  = Math.min(prev, cards.length);
   document.getElementById('qp-slider-val').textContent = slider.value;
