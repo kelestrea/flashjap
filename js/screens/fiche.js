@@ -77,7 +77,7 @@ async function enterFiche({ key, ktype }) {
       </div>
       ${buildVocabStats(entry)}
       <div style="padding:16px 20px 32px;border-top:0.5px solid var(--border);">
-        <button class="btn btn-danger" id="f-delete" style="width:100%;">Supprimer</button>
+        <button class="btn btn-danger" id="f-delete" style="font-size:13px;padding:11px;width:100%;">supprimer la fiche</button>
       </div>
     `;
 
@@ -150,9 +150,9 @@ function buildVocabStats(entry) {
         </div>
       </div>
     </div>
-    <div class="section" style="padding-bottom:0;border-bottom:none;">
+    <div class="section">
       <div class="section-label">LISTES</div>
       <p style="font-size:13px;color:var(--gray);margin:0 0 12px 0;">${listesStr || '—'}</p>
-      <button class="btn btn-ghost edit-listes-btn" data-key="${key}" data-ktype="${ktype}" style="font-size:13px;padding:11px;">éditer</button>
+      <button class="btn btn-ghost edit-listes-btn" data-key="${key}" data-ktype="${ktype}" style="font-size:13px;padding:11px;width:100%;">choisir les listes</button>
     </div>`;
 }
