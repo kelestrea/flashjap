@@ -44,7 +44,11 @@ async function renderListes() {
   const extra   = _extraListes.filter(l => !all.includes(l));
   const combined = [...all, ...extra];
   const groups = groupListesByCategory(combined);
-  const categories = Object.keys(groups).sort();
+  let categories = Object.keys(groups).sort();
+  if (groups['automatique']) {
+    categories = categories.filter(c => c !== 'automatique');
+    categories.push('automatique');
+  }
 
   const container = document.getElementById('edit-listes-list');
   container.innerHTML = '';

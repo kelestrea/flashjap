@@ -34,7 +34,14 @@ function renderCategories() {
   const selectedListes = listsState.getSelectedListes();
   const categorized = categorizeListes(_allListes);
 
-  Object.entries(categorized).forEach(([category, listes]) => {
+  let categories = Object.keys(categorized).sort();
+  if (categorized['automatique']) {
+    categories = categories.filter(c => c !== 'automatique');
+    categories.push('automatique');
+  }
+
+  categories.forEach((category) => {
+    const listes = categorized[category];
     const categoryDiv = document.createElement('div');
     categoryDiv.className = 'list-category';
     categoryDiv.dataset.category = category;
