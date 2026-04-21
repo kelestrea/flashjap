@@ -35,17 +35,19 @@ Application PWA de révision de japonais (kanjis + vocabulaire), installable sur
     ├── router.js       — Navigation SPA avec pile d'état, overlays, popup confirmation
     ├── audio.js        — Web Speech API, sélection voix japonaise premium/Siri
     ├── icons.js        — SVG inline partagés
+    ├── lists-state.js  — Persistance localStorage (listes sélectionnées, valeur slider)
     ├── screens/
-    │   ├── home.js         — Accueil avec camembert global + grille 2x2 sous-camemberts
-    │   ├── quiz-params.js  — Paramètres de session
-    │   ├── quiz.js         — Logique quiz complet
-    │   ├── results.js      — Résultats de session
-    │   ├── search.js       — Recherche avec pagination et toggle automatique
-    │   ├── fiche.js        — Fiche détail (push depuis recherche)
-    │   ├── data.js         — Écran données (import/export/restaurer)
-    │   ├── import.js       — Import JSON + prompt Claude
-    │   ├── restore.js      — Restauration base
-    │   └── edit-listes.js  — Édition des listes d'un mot/kanji
+    │   ├── home.js             — Accueil avec camembert global + grille 2x2 sous-camemberts
+    │   ├── quiz-params.js      — Paramètres de session
+    │   ├── list-selection.js   — Sélection des listes avec catégories collapsibles
+    │   ├── quiz.js             — Logique quiz complet
+    │   ├── results.js          — Résultats de session
+    │   ├── search.js           — Recherche avec pagination et toggle automatique
+    │   ├── fiche.js            — Fiche détail (push depuis recherche)
+    │   ├── data.js             — Écran données (import/export/restaurer)
+    │   ├── import.js           — Import JSON + prompt Claude
+    │   ├── restore.js          — Restauration base
+    │   └── edit-listes.js      — Édition des listes d'un mot/kanji
     └── components/
         ├── card-vocab.js   — Fiche vocab (overlay) + buildKanjiContent + stats
         └── card-kanji.js   — Fiche kanji (overlay direct)
@@ -206,6 +208,12 @@ Après sélection des N cartes selon le critère, **toujours mélanger aléatoir
 - À l'import, si un doublon est détecté, les nouvelles listes sont fusionnées (pas d'écrasement des scores)
 
 
+### Suppression de fiches
+
+- Disponible depuis la fiche détail (vocab et kanji) via le bouton "supprimer la fiche"
+- Fonctions dans `db.js` : `deleteVocab(mot)`, `deleteKanji(kanji)`
+- Invalide l'index de recherche en mémoire (`_searchIndex = null`) après suppression
+
 ### Recherche
 
 - Champs indexés : kanji/mot, hiragana, romaji, traductions/sens, listes
@@ -215,29 +223,31 @@ Après sélection des N cartes selon le critère, **toujours mélanger aléatoir
 
 ### Sélection des Listes
 
-#### Mémoire des Listes
-- Les listes cochées mémorisées entre sessions via **localStorage** (clé: `selectedListes`)
-- État "ouvert/fermé" des catégories : session uniquement (optionnel, non persisté)
+#### Mémoire des paramètres (via `lists-state.js`)
+- Listes cochées persistées via **localStorage** (clé: `selectedListes`) — module `lists-state.js`
+- Valeur du slider persistée via **localStorage** (clé: `quizSliderValue`, défaut: 20)
+- État "ouvert/fermé" des catégories : session uniquement (non persisté)
 - Validation : minimum 1 liste sélectionnée obligatoire
 
 #### Affichage sur quiz-params
-- Affiche uniquement listes sélectionnées (liste texte simple, séparées par `·`)
-- Bouton "éditer" positionné en bas de la section Listes
+- Affiche uniquement listes sélectionnées (liste texte simple, groupées par catégorie, séparées par `·`)
+- Bouton "choisir les listes" positionné en bas de la section Listes
 - Navigation vers `screen-list-selection` au clic
+- Slider : min=1, max=nombre de cartes disponibles, valeur restaurée depuis localStorage
 
-#### Nouvel écran: screen-list-selection
+#### Écran screen-list-selection (`js/screens/list-selection.js`)
 **Titre:** "Sélectionner les listes"
 
 **Affichage catégories:**
-- Extraction: premier mot de chaque nom de liste (jusqu'au espace) = catégorie
+- Extraction: premier mot de chaque nom de liste (premier token non-espace) = catégorie
   - Ex: "leçon 1.1" → "leçon" | "ML 08042026" → "ML" | "JPLT N5" → "JPLT"
-- Tri alphabétique des catégories
+- Tri alphabétique des catégories, sauf `automatique` toujours placée en dernier
 - Catégories ouvertes par défaut (collapsible)
 
 **Interactions:**
 - Checkbox par liste (cocher/décocher), état préservé même catégorie fermée
 - "Tout cocher / Tout décocher" par catégorie (en en-tête)
-- Bouton "Valider" haut droite → retour quiz-params + update localStorage
+- Bouton "Valider" haut droite → retour quiz-params + sauvegarde via `lists-state.setSelectedListes()`
 - Back/fermeture sans Valider → annule changements (retour à l'état précédent)
 
 ---
@@ -369,7 +379,9 @@ Composants (components/*)
 | `screens/fiche.js` | 144 | Détail entrée (depuis recherche ou quiz) |
 | `screens/import.js` | 177 | Intégration Claude API, import JSON |
 | `audio.js` | 56 | Web Speech API, sélection voix, polling |
-| `screens/quiz-params.js` | 80 | Sélection paramètres quiz |
+| `screens/quiz-params.js` | 140 | Sélection paramètres quiz |
+| `screens/list-selection.js` | 178 | Sélection des listes (catégories collapsibles) |
+| `lists-state.js` | 31 | Persistance localStorage (listes, slider) |
 | `icons.js` | 25 | SVG inline réutilisables |
 
 ### État global et partagé
@@ -404,6 +416,10 @@ Aucun store centralisé. État distribué :
 - Initialisation : `initAudio()`
 - Playback : `speak()`
 - État : `isAvailable()`
+
+#### `lists-state.js`
+- Listes : `getSelectedListes()`, `setSelectedListes(listes)`, `initializeSelectedListes(allListes)`
+- Slider : `getSliderValue()`, `setSliderValue(value)`
 
 #### `screens/*`
 - Chaque écran exporte `init*()` appelé au boot
