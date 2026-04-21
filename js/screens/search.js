@@ -56,14 +56,16 @@ function doSearch() {
 }
 
 function renderPage(page) {
-  const list  = document.getElementById('search-list');
-  const hint  = document.getElementById('search-hint');
-  const total = _allResults.length;
-  const slice = _allResults.slice(0, (page + 1) * PAGE_SIZE);
+  const list      = document.getElementById('search-list');
+  const hint      = document.getElementById('search-hint');
+  const total     = _allResults.length;
+  const startIdx  = page * PAGE_SIZE;
+  const endIdx    = (page + 1) * PAGE_SIZE;
+  const pageItems = _allResults.slice(startIdx, endIdx);
 
   hint.textContent = `${total} résultat${total !== 1 ? 's' : ''}`;
 
-  const items = slice.map(e => {
+  const items = pageItems.map(e => {
     const sg    = getStatutGlobal(e);
     const color = STATUT_COLOR[sg] || STATUT_COLOR.noncommence;
     const mot   = e.mot || e.kanji || '';
@@ -86,7 +88,7 @@ function renderPage(page) {
     list.insertAdjacentHTML('beforeend', items);
   }
 
-  document.getElementById('search-more-wrap').style.display = slice.length < total ? 'block' : 'none';
+  document.getElementById('search-more-wrap').style.display = endIdx < total ? 'block' : 'none';
 
   list.querySelectorAll('.list-item').forEach(item => {
     item.onclick = () => navigate('screen-fiche', { key: item.dataset.key, ktype: item.dataset.ktype });
