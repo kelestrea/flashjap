@@ -43,7 +43,6 @@ function showCard() {
   document.getElementById('quiz-badge').textContent =
     type === 'lecture' ? 'Lecture' : `Compréhension · ${sens === 'jpfr' ? 'JP→FR' : 'FR→JP'}`;
   document.getElementById('quiz-count').textContent = `${idx + 1} / ${total}`;
-  document.getElementById('quiz-fill').style.width  = `${(idx / total) * 100}%`;
 
   // Mot affiché
   let display = '';
