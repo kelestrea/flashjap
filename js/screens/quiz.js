@@ -13,7 +13,6 @@ export function initQuiz() {
   document.getElementById('quiz-back').onclick     = () => goBack();
   document.getElementById('quiz-play').onclick     = () => speak(currentWord());
   document.getElementById('quiz-validate').onclick = () => validate();
-  document.getElementById('quiz-eye').onclick      = () => toggleReading();
   document.getElementById('quiz-next').onclick     = () => nextCard();
   document.getElementById('quiz-fiche').onclick    = () => openFiche();
   document.getElementById('quiz-toggle').onclick   = () => toggleCorrection();
@@ -31,7 +30,7 @@ function currentWord() {
 }
 
 async function enterQuiz(state) {
-  _state = { ...state, idx: 0, errors: [], answered: false, forcedResult: null, readingVisible: false };
+  _state = { ...state, idx: 0, errors: [], answered: false, forcedResult: null };
   showCard();
 }
 
@@ -41,10 +40,10 @@ function showCard() {
   const total = cards.length;
   const isKanji = card.type === 'kanji';
 
-  document.getElementById('quiz-count').textContent = `${idx + 1} / ${total}`;
-  document.getElementById('quiz-fill').style.width  = `${(idx / total) * 100}%`;
   document.getElementById('quiz-badge').textContent =
     type === 'lecture' ? 'Lecture' : `Compréhension · ${sens === 'jpfr' ? 'JP→FR' : 'FR→JP'}`;
+  document.getElementById('quiz-count').textContent = `${idx + 1} / ${total}`;
+  document.getElementById('quiz-fill').style.width  = `${(idx / total) * 100}%`;
 
   // Mot affiché
   let display = '';
@@ -54,21 +53,6 @@ function showCard() {
     display = (card.traductions || card.sens || [])[0] || '';
   }
   document.getElementById('quiz-word').textContent = display;
-
-  // Lecture masquée (compréhension uniquement)
-  const readingRow = document.getElementById('quiz-reading-row');
-  if (type === 'comprehension') {
-    readingRow.style.display = 'flex';
-    _state.readingVisible = false;
-    const rt = document.getElementById('quiz-reading-text');
-    rt.textContent = isKanji
-      ? [(card.lectures_kun || []).join(', '), (card.lectures_on || []).join(', ')].filter(Boolean).join(' · ')
-      : `${card.hiragana || ''} · ${card.romaji || ''}`;
-    rt.classList.add('hidden');
-    document.getElementById('quiz-eye').innerHTML = ICONS.eyeOff;
-  } else {
-    readingRow.style.display = 'none';
-  }
 
   // Placeholder
   let placeholder = 'Saisir la traduction…';
@@ -86,13 +70,6 @@ function showCard() {
   _state.forcedResult = null;
 
   setTimeout(() => document.getElementById('quiz-input').focus(), 100);
-}
-
-function toggleReading() {
-  _state.readingVisible = !_state.readingVisible;
-  const rt = document.getElementById('quiz-reading-text');
-  rt.classList.toggle('hidden', !_state.readingVisible);
-  document.getElementById('quiz-eye').innerHTML = _state.readingVisible ? ICONS.eye : ICONS.eyeOff;
 }
 
 function normalize(s) {
