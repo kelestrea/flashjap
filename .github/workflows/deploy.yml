@@ -16,7 +16,7 @@ jobs:
 
     environment:
       name: ${{ github.ref == 'refs/heads/main' && 'production' || 'test' }}
-      url: ${{ github.ref == 'refs/heads/main' && 'https://kelestrea.github.io/flashjap/' || 'https://kelestrea.github.io/flashjap-test/' }}
+      url: ${{ github.ref == 'refs/heads/main' && 'https://kelestrea.github.io/flashjap/' || 'https://kelestrea.github.io/flashjap/test/' }}
 
     steps:
       - name: Checkout code
@@ -25,10 +25,22 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
+      - name: Prepare deployment structure
+        run: |
+          if [ "${{ github.ref }}" = "refs/heads/test" ]; then
+            mkdir -p deploy/test
+            cp -r *.html *.json *.js css js icons manifest.json sw.js deploy/test/ 2>/dev/null || true
+            echo "✅ Test deployment prepared in deploy/test/"
+          else
+            mkdir -p deploy
+            cp -r *.html *.json *.js css js icons manifest.json sw.js deploy/ 2>/dev/null || true
+            echo "✅ Production deployment prepared in deploy/"
+          fi
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: 'deploy'
 
       - name: Deploy to GitHub Pages
         id: deployment
