@@ -68,6 +68,8 @@ function showCard() {
   _state.answered = false;
   _state.forcedResult = null;
 
+  if (_state.autoplay === 'autoplay') speak(currentWord());
+
   setTimeout(() => document.getElementById('quiz-input').focus(), 100);
 }
 

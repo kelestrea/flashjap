@@ -169,6 +169,18 @@
     <input type="radio" name="qp-sens" value="frjp" style="display:none">
   </div>
 
+  <div class="section" id="qp-autoplay-section" style="display:none;">
+    <div class="section-label">LECTURE AUTO</div>
+    <div class="toggle">
+      <button class="toggle-btn active" id="qp-autoplay-silence"
+        onclick="document.querySelector('[name=qp-autoplay][value=silence]').checked=true;this.classList.add('active');document.getElementById('qp-autoplay-auto').classList.remove('active')">Silence</button>
+      <button class="toggle-btn" id="qp-autoplay-auto"
+        onclick="document.querySelector('[name=qp-autoplay][value=autoplay]').checked=true;this.classList.add('active');document.getElementById('qp-autoplay-silence').classList.remove('active')">Autoplay</button>
+    </div>
+    <input type="radio" name="qp-autoplay" value="silence" checked style="display:none">
+    <input type="radio" name="qp-autoplay" value="autoplay" style="display:none">
+  </div>
+
   <div class="section">
     <div class="slider-row">
       <div class="section-label" style="margin:0;">NOMBRE DE CARTES</div>

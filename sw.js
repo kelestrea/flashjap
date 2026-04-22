@@ -1,4 +1,4 @@
-const CACHE = 'flashjap-v3';
+const CACHE = 'flashjap-v4';
 const ASSETS = [
   '/flashjap/',
   '/flashjap/index.html',
@@ -6,6 +6,7 @@ const ASSETS = [
   '/flashjap/js/db.js',
   '/flashjap/js/router.js',
   '/flashjap/js/audio.js',
+  '/flashjap/js/lists-state.js',
   '/flashjap/js/app.js',
   '/flashjap/js/screens/home.js',
   '/flashjap/js/screens/quiz-params.js',
