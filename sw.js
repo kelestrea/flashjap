@@ -1,4 +1,4 @@
-const CACHE = 'flashjap-v5';
+const CACHE = 'flashjap-v6';
 const ASSETS = [
   '/flashjap/',
   '/flashjap/index.html',
@@ -6,13 +6,18 @@ const ASSETS = [
   '/flashjap/js/db.js',
   '/flashjap/js/router.js',
   '/flashjap/js/audio.js',
+  '/flashjap/js/icons.js',
   '/flashjap/js/lists-state.js',
+  '/flashjap/js/version.js',
   '/flashjap/js/app.js',
   '/flashjap/js/screens/home.js',
   '/flashjap/js/screens/quiz-params.js',
   '/flashjap/js/screens/quiz.js',
   '/flashjap/js/screens/results.js',
   '/flashjap/js/screens/search.js',
+  '/flashjap/js/screens/fiche.js',
+  '/flashjap/js/screens/edit-listes.js',
+  '/flashjap/js/screens/list-selection.js',
   '/flashjap/js/screens/data.js',
   '/flashjap/js/screens/import.js',
   '/flashjap/js/screens/restore.js',
