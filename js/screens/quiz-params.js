@@ -23,8 +23,8 @@ export function initQuizParams() {
 
   document.querySelectorAll('[name="qp-type"]').forEach(r =>
     r.addEventListener('change', () => toggleSens()));
-  document.querySelectorAll('[name="qp-sens"]').forEach(r =>
-    r.addEventListener('change', () => toggleSens()));
+  document.querySelectorAll('#qp-sens-section .toggle-btn').forEach(btn =>
+    btn.addEventListener('click', () => toggleSens()));
   document.querySelectorAll('[name="qp-critere"]').forEach(r =>
     r.addEventListener('change', () => refreshSlider()));
   document.querySelectorAll('[name="qp-autoplay"]').forEach(r =>
