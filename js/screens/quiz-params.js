@@ -23,8 +23,20 @@ export function initQuizParams() {
 
   document.querySelectorAll('[name="qp-type"]').forEach(r =>
     r.addEventListener('change', () => toggleSens()));
-  document.querySelectorAll('#qp-sens-section .toggle-btn').forEach(btn =>
-    btn.addEventListener('click', () => toggleSens()));
+  document.getElementById('qp-sens-jpfr').addEventListener('click', () => {
+    document.querySelector('[name=qp-sens][value=jpfr]').checked = true;
+    document.getElementById('qp-sens-jpfr').classList.add('active');
+    document.getElementById('qp-sens-frjp').classList.remove('active');
+    toggleSens();
+    refreshSlider();
+  });
+  document.getElementById('qp-sens-frjp').addEventListener('click', () => {
+    document.querySelector('[name=qp-sens][value=frjp]').checked = true;
+    document.getElementById('qp-sens-frjp').classList.add('active');
+    document.getElementById('qp-sens-jpfr').classList.remove('active');
+    toggleSens();
+    refreshSlider();
+  });
   document.querySelectorAll('[name="qp-critere"]').forEach(r =>
     r.addEventListener('change', () => refreshSlider()));
   document.querySelectorAll('[name="qp-autoplay"]').forEach(r =>
