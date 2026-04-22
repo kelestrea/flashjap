@@ -162,8 +162,8 @@
   <div class="section" id="qp-sens-section" style="display:none;">
     <div class="section-label">SENS</div>
     <div class="toggle">
-      <button class="toggle-btn active" onclick="document.querySelector('[name=qp-sens][value=jpfr]').checked=true;this.classList.add('active');this.nextElementSibling.classList.remove('active')">JP → FR</button>
-      <button class="toggle-btn" onclick="document.querySelector('[name=qp-sens][value=frjp]').checked=true;this.classList.add('active');this.previousElementSibling.classList.remove('active')">FR → JP</button>
+      <button class="toggle-btn active" id="qp-sens-jpfr">JP → FR</button>
+      <button class="toggle-btn" id="qp-sens-frjp">FR → JP</button>
     </div>
     <input type="radio" name="qp-sens" value="jpfr" checked style="display:none">
     <input type="radio" name="qp-sens" value="frjp" style="display:none">
