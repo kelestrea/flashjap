@@ -1,5 +1,5 @@
 // screens/quiz.js
-import { updateScore, updateKanjiLectureScores, getStatutGlobal, STATUT_COLOR } from '../db.js';
+import { updateScore, updateKanjiLectureScores, reapplyScore, reapplyKanjiLectureScores, getStatutGlobal, STATUT_COLOR } from '../db.js';
 import { navigate, goBack, registerScreen } from '../router.js';
 import { speak } from '../audio.js';
 import { renderVocabCard } from '../components/card-vocab.js';
@@ -131,9 +131,10 @@ async function validate() {
   const input = document.getElementById('quiz-input').value;
   const result = checkAnswer(card, input, _state.type, _state.sens);
 
-  _state.answered   = true;
-  _state.lastResult = result.correct;
+  _state.answered        = true;
+  _state.lastResult      = result.correct;
   _state.lastCheckResult = result;
+  _state.preValidateCard = { ...card };
 
   // Mettre à jour les scores
   if (_state.type === 'lecture' && card.type === 'kanji') {
@@ -234,11 +235,12 @@ async function toggleCorrection() {
   const nowCorrect = !wasCorrect;
   _state.forcedResult = nowCorrect;
 
-  // Mettre à jour les scores en base de données
+  // Repartir de l'état pré-validate pour remplacer (pas empiler) le résultat
+  const base = _state.preValidateCard;
   if (_state.type === 'lecture' && card.type === 'kanji') {
     const correctKun = (card.lectures_kun || []).length ? nowCorrect : null;
     const correctOn  = (card.lectures_on  || []).length ? nowCorrect : null;
-    await updateKanjiLectureScores(card.kanji, correctKun, correctOn);
+    await reapplyKanjiLectureScores(card.kanji, correctKun, correctOn, base);
   } else {
     let sensKey;
     if (_state.type === 'lecture') {
@@ -246,7 +248,7 @@ async function toggleCorrection() {
     } else {
       sensKey = card.type === 'kanji' ? `comprehension_${_state.sens}` : _state.sens;
     }
-    await updateScore(card.type || 'vocab', card.mot || card.kanji, sensKey, nowCorrect);
+    await reapplyScore(card.type || 'vocab', card.mot || card.kanji, sensKey, nowCorrect, base);
   }
 
   if (nowCorrect) {

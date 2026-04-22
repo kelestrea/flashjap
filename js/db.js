@@ -209,6 +209,25 @@ export async function updateKanjiLectureScores(key, correctKun, correctOn) {
   await put('kanji', { ...updated, derniere_vue_jpfr: Date.now() });
 }
 
+// Variantes "from base" : repartent d'une entrée fournie (pré-validate) pour que
+// toggleCorrection() remplace le résultat au lieu d'empiler un deuxième delta.
+export async function reapplyScore(type, key, sens, correct, baseEntry) {
+  const store = type === 'kanji' ? 'kanji' : 'vocab';
+  let vueKey;
+  if (sens === 'lecture') vueKey = 'derniere_vue_lecture';
+  else if (sens.includes('frjp')) vueKey = 'derniere_vue_frjp';
+  else vueKey = 'derniere_vue_jpfr';
+  const updated = applyScoreUpdate(baseEntry, sens, correct);
+  await put(store, { ...updated, [vueKey]: Date.now() });
+}
+
+export async function reapplyKanjiLectureScores(key, correctKun, correctOn, baseEntry) {
+  let updated = baseEntry;
+  if (correctKun !== null) updated = applyScoreUpdate(updated, 'lecture_kun', correctKun);
+  if (correctOn  !== null) updated = applyScoreUpdate(updated, 'lecture_on',  correctOn);
+  await put('kanji', { ...updated, derniere_vue_lecture: Date.now() });
+}
+
 // ── LISTES DISPONIBLES ──────────────────────────────────────────────────
 export async function getListes(type) {
   const entries = type === 'kanji' ? await getAllKanji()
