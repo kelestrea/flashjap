@@ -170,8 +170,9 @@ function applyScoreUpdate(entry, sens, correct) {
   const err    = entry[errKey] ?? 0;
 
   if (correct) {
-    const newConsec = Math.min(consec + 1, 5);
-    return { ...entry, [scoreKey]: newConsec, [consecKey]: newConsec, [errKey]: 0 };
+    const newScore  = Math.min(prev + 1, 5);
+    const newConsec = consec + 1;
+    return { ...entry, [scoreKey]: newScore, [consecKey]: newConsec, [errKey]: 0 };
   } else {
     const baseScore = entry[scoreKey] === null || entry[scoreKey] === undefined ? 0 : prev;
     const newErr = err + 1;
