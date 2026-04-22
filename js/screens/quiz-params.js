@@ -23,8 +23,12 @@ export function initQuizParams() {
 
   document.querySelectorAll('[name="qp-type"]').forEach(r =>
     r.addEventListener('change', () => toggleSens()));
+  document.querySelectorAll('[name="qp-sens"]').forEach(r =>
+    r.addEventListener('change', () => toggleSens()));
   document.querySelectorAll('[name="qp-critere"]').forEach(r =>
     r.addEventListener('change', () => refreshSlider()));
+  document.querySelectorAll('[name="qp-autoplay"]').forEach(r =>
+    r.addEventListener('change', () => listsState.setAutoplayMode(r.value)));
 
   const slider = document.getElementById('qp-slider');
   slider.oninput = () => {
@@ -64,6 +68,19 @@ async function enterParams() {
   listsState.initializeSelectedListes(allListes);
   await loadListes();
   toggleSens();
+
+  const autoplayMode = listsState.getAutoplayMode();
+  const silenceBtn = document.getElementById('qp-autoplay-silence');
+  const autoBtn    = document.getElementById('qp-autoplay-auto');
+  if (autoplayMode === 'autoplay') {
+    silenceBtn.classList.remove('active');
+    autoBtn.classList.add('active');
+    document.querySelector('[name=qp-autoplay][value=autoplay]').checked = true;
+  } else {
+    silenceBtn.classList.add('active');
+    autoBtn.classList.remove('active');
+    document.querySelector('[name=qp-autoplay][value=silence]').checked = true;
+  }
 }
 
 function extractCategory(listeName) {
@@ -122,8 +139,11 @@ async function refreshSlider() {
 
 function toggleSens() {
   const type = document.querySelector('[name="qp-type"]:checked')?.value;
+  const sens = document.querySelector('[name="qp-sens"]:checked')?.value;
   document.getElementById('qp-sens-section').style.display =
     type === 'comprehension' ? 'block' : 'none';
+  document.getElementById('qp-autoplay-section').style.display =
+    (type === 'comprehension' && sens === 'jpfr') ? 'block' : 'none';
 }
 
 async function startQuiz() {
@@ -133,7 +153,10 @@ async function startQuiz() {
   const critere = document.querySelector('[name="qp-critere"]:checked')?.value || 'tous';
   const count   = parseInt(document.getElementById('qp-slider').value) || 0;
   const listes  = listsState.getSelectedListes();
+  const autoplay = (type === 'comprehension' && sens === 'jpfr')
+    ? (document.querySelector('[name="qp-autoplay"]:checked')?.value || 'silence')
+    : 'silence';
   const cards   = await getCardsForQuiz({ type: cat, listes, critere, sens, count });
   if (!cards.length) { alert('Aucune carte disponible avec ces critères.'); return; }
-  navigate('screen-quiz', { cards, type, sens, cat, critere, listes });
+  navigate('screen-quiz', { cards, type, sens, cat, critere, listes, autoplay });
 }

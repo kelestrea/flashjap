@@ -28,3 +28,13 @@ export function getSliderValue() {
 export function setSliderValue(value) {
   localStorage.setItem(SLIDER_VALUE_KEY, String(value));
 }
+
+const AUTOPLAY_KEY = 'quizAutoplay';
+
+export function getAutoplayMode() {
+  return localStorage.getItem(AUTOPLAY_KEY) || 'silence';
+}
+
+export function setAutoplayMode(mode) {
+  localStorage.setItem(AUTOPLAY_KEY, mode);
+}

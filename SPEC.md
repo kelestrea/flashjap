@@ -188,6 +188,15 @@ Bouton audio : triangle play plein dans un rond.
 
 **Mode Compréhension FR→JP** : saisir hiragana ou romaji.
 
+### Option Autoplay (compréhension JP→FR uniquement)
+
+- Disponible dans les paramètres quiz uniquement quand `type=comprehension` ET `sens=jpfr`
+- Toggle "Silence" (défaut) / "Autoplay" — section `qp-autoplay-section` dans `index.html`
+- Préférence persistée via localStorage (clé `quizAutoplay`) dans `lists-state.js`
+- En mode autoplay : `speak(card.mot || card.kanji)` est appelé dans `showCard()` à chaque nouvelle carte
+- Passé dans le state de navigation : `{ ..., autoplay: 'silence' | 'autoplay' }`
+- Si voix japonaise indisponible : `speak()` retourne silencieusement, pas d'erreur
+
 ### Critères de sélection quiz
 
 | Critère | Filtre | Tri avant sélection |
