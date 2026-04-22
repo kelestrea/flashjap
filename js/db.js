@@ -247,6 +247,14 @@ export async function getAllListes() {
 }
 
 // ── SÉLECTION DE CARTES POUR QUIZ ──────────────────────────────────────
+function getScoreKeysForSens(entry, sens) {
+  if (entry.type === 'kanji') {
+    if (sens === 'lecture') return ['score_lecture_on', 'score_lecture_kun'];
+    return [`score_comprehension_${sens}`];
+  }
+  return [`score_${sens}`];
+}
+
 export async function getCardsForQuiz({ type, listes, critere, sens, count }) {
   let entries = [];
   if (type === 'vocab' || type === 'les2') entries.push(...await getAllVocab());
@@ -263,7 +271,12 @@ export async function getCardsForQuiz({ type, listes, critere, sens, count }) {
   const THREE_WEEKS = 21 * 24 * 3600 * 1000;
 
   if (critere === 'faibles') {
-    entries = entries.filter(e => getStatutGlobal(e, 'quiz') !== 'maitrise');
+    const order = ['noncommence', 'etudie', 'encours', 'maitrise'];
+    entries = entries.filter(e => {
+      const keys = getScoreKeysForSens(e, sens);
+      const statuts = keys.map(k => getStatut(e[k]) ?? 'noncommence');
+      return order[Math.min(...statuts.map(s => order.indexOf(s)))] !== 'maitrise';
+    });
   } else if (critere === 'anciens') {
     entries = entries.filter(e => {
       const vue = Math.min(e.derniere_vue_jpfr || Infinity, e.derniere_vue_frjp || Infinity);
@@ -271,7 +284,10 @@ export async function getCardsForQuiz({ type, listes, critere, sens, count }) {
     });
     entries.sort((a, b) => (Math.min(a.derniere_vue_jpfr||0,a.derniere_vue_frjp||0)) - (Math.min(b.derniere_vue_jpfr||0,b.derniere_vue_frjp||0)));
   } else if (critere === 'jamais') {
-    entries = entries.filter(e => getStatutGlobal(e) === 'noncommence');
+    entries = entries.filter(e => {
+      const keys = getScoreKeysForSens(e, sens);
+      return keys.every(k => e[k] === null || e[k] === undefined);
+    });
     entries.sort((a, b) => (b.created_at || 0) - (a.created_at || 0));
   }
 
