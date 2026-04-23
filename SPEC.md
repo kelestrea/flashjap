@@ -159,8 +159,8 @@ Bouton audio : triangle play plein dans un rond.
 - 2 erreurs consécutives → score - 1 (min 0)
 
 **Statut global vocab** (calcul basé sur les 3 scores : lecture, jpfr, frjp) :
-- **Mode quiz** (`mode: 'quiz'`) : minimum des scores testés (null ignoré) — utilisé dans `getCardsForQuiz()` pour déterminer la sélection et évaluation de progression
 - **Mode display** (`mode: 'display'`, défaut) : maximum des scores testés (null ignoré) — utilisé sur l'accueil pour afficher la progression globale la plus optimiste
+- **Mode quiz** (`mode: 'quiz'`) : minimum des scores testés (null ignoré) — utilisé ponctuellement hors sélection de cartes
 
 **Statut global kanji** (même logique que vocab, appliquée aux 4 scores) :
 - Les 4 scores (comprehension_jpfr, comprehension_frjp, lecture_on, lecture_kun) suivent la règle min/max identique
@@ -199,12 +199,22 @@ Bouton audio : triangle play plein dans un rond.
 
 ### Critères de sélection quiz
 
-| Critère | Filtre | Tri avant sélection |
+Tous les filtres et tris opèrent sur le **score du sens de quiz sélectionné** (pas le statut global). La correspondance sens → clé(s) de score est assurée par `getScoreKeysForSens()` dans `db.js` :
+- vocab `lecture` → `score_lecture`
+- vocab `jpfr` → `score_jpfr`
+- vocab `frjp` → `score_frjp`
+- kanji `jpfr` → `score_comprehension_jpfr`
+- kanji `frjp` → `score_comprehension_frjp`
+- kanji `lecture` → `score_lecture_on` + `score_lecture_kun` (minimum des deux)
+
+La correspondance sens → clé de timestamp (`derniere_vue`) suit la même logique : `derniere_vue_lecture`, `derniere_vue_frjp`, ou `derniere_vue_jpfr`.
+
+| Critère | Filtre | Tri avant sélection (pour le slider) |
 |---|---|---|
 | Tous | Aucun | — |
-| Moins maîtrisés | statut global ≠ maîtrisé | — |
-| Revus il y a longtemps | derniere_vue ≥ 3 semaines | Du plus ancien au plus récent |
-| Jamais étudié | statut global = non commencé | Du plus récent au plus ancien (created_at) |
+| Moins maîtrisés | score du sens ≠ 5 (maîtrisé) | Score croissant, puis `derniere_vue` croissant |
+| Revus il y a longtemps | `derniere_vue` du sens ≥ 3 semaines ou null | Du plus ancien au plus récent |
+| Jamais étudié | score(s) du sens = null | Du plus récent au plus ancien (`created_at`) |
 
 Après sélection des N cartes selon le critère, **toujours mélanger aléatoirement** avant de lancer le quiz.
 
