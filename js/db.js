@@ -277,9 +277,12 @@ export async function getCardsForQuiz({ type, listes, critere, sens, count }) {
       const statuts = keys.map(k => getStatut(e[k]) ?? 'noncommence');
       return order[Math.min(...statuts.map(s => order.indexOf(s)))] !== 'maitrise';
     });
+    const vueKey = sens === 'lecture' ? 'derniere_vue_lecture'
+                 : sens.includes('frjp') ? 'derniere_vue_frjp'
+                 : 'derniere_vue_jpfr';
     entries.sort((a, b) => {
       const minScore = e => Math.min(...getScoreKeysForSens(e, sens).map(k => e[k] ?? -1));
-      return minScore(a) - minScore(b);
+      return minScore(a) - minScore(b) || (a[vueKey] || 0) - (b[vueKey] || 0);
     });
   } else if (critere === 'anciens') {
     const vueKey = sens === 'lecture' ? 'derniere_vue_lecture'
