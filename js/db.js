@@ -282,11 +282,14 @@ export async function getCardsForQuiz({ type, listes, critere, sens, count }) {
       return minScore(a) - minScore(b);
     });
   } else if (critere === 'anciens') {
+    const vueKey = sens === 'lecture' ? 'derniere_vue_lecture'
+                 : sens.includes('frjp') ? 'derniere_vue_frjp'
+                 : 'derniere_vue_jpfr';
     entries = entries.filter(e => {
-      const vue = Math.min(e.derniere_vue_jpfr || Infinity, e.derniere_vue_frjp || Infinity);
-      return vue === Infinity || (now - vue) >= THREE_WEEKS;
+      const vue = e[vueKey];
+      return !vue || (now - vue) >= THREE_WEEKS;
     });
-    entries.sort((a, b) => (Math.min(a.derniere_vue_jpfr||0,a.derniere_vue_frjp||0)) - (Math.min(b.derniere_vue_jpfr||0,b.derniere_vue_frjp||0)));
+    entries.sort((a, b) => (a[vueKey] || 0) - (b[vueKey] || 0));
   } else if (critere === 'jamais') {
     entries = entries.filter(e => {
       const keys = getScoreKeysForSens(e, sens);
