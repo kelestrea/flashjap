@@ -188,6 +188,17 @@ Bouton audio : triangle play plein dans un rond.
 
 **Mode Compréhension FR→JP** : saisir hiragana ou romaji.
 
+### Boutons "Je ne sais pas" / "Je sais"
+
+Présents dans l'écran quiz, entre le bouton "valider" et le compteur de progression. Visibles uniquement **avant** validation (disparaissent avec le champ de saisie quand la correction s'affiche).
+
+- **"Je ne sais pas"** (rouge, `btn-danger`) : enregistre une mauvaise réponse sans saisie
+- **"Je sais"** (vert, `btn-success`) : enregistre une bonne réponse sans saisie
+
+Comportement identique à une validation normale : la correction est affichée, l'utilisateur avance manuellement. En mode lecture kanji, "Je sais" incrémente `score_lecture_kun` ET `score_lecture_on`.
+
+Implémentation : `validateForced(bool)` dans `quiz.js`, partage `applyResult()` avec `validate()`.
+
 ### Option Autoplay (compréhension JP→FR uniquement)
 
 - Disponible dans les paramètres quiz uniquement quand `type=comprehension` ET `sens=jpfr`
