@@ -12,8 +12,10 @@ export function initQuiz() {
   registerScreen('screen-quiz', { enter: enterQuiz });
   document.getElementById('quiz-back').onclick     = () => goBack();
   document.getElementById('quiz-play').onclick     = () => speak(currentWord());
-  document.getElementById('quiz-validate').onclick = () => validate();
-  document.getElementById('quiz-next').onclick     = () => nextCard();
+  document.getElementById('quiz-validate').onclick  = () => validate();
+  document.getElementById('quiz-dontknow').onclick  = () => validateForced(false);
+  document.getElementById('quiz-know').onclick      = () => validateForced(true);
+  document.getElementById('quiz-next').onclick      = () => nextCard();
   document.getElementById('quiz-fiche').onclick    = () => openFiche();
   document.getElementById('quiz-toggle').onclick   = () => toggleCorrection();
   document.getElementById('quiz-input').addEventListener('keydown', e => {
@@ -129,20 +131,35 @@ async function validate() {
   if (_state.answered) return;
   const card  = _state.cards[_state.idx];
   const input = document.getElementById('quiz-input').value;
-  const result = checkAnswer(card, input, _state.type, _state.sens);
+  await applyResult(checkAnswer(card, input, _state.type, _state.sens), card);
+}
 
+async function validateForced(forcedCorrect) {
+  if (_state.answered) return;
+  const card = _state.cards[_state.idx];
+  let result;
+  if (_state.type === 'lecture' && card.type === 'kanji') {
+    const hasKun = (card.lectures_kun || []).length > 0 || (card.romaji_kun || []).length > 0;
+    const hasOn  = (card.lectures_on  || []).length > 0 || (card.romaji_on  || []).length > 0;
+    result = { correct: forcedCorrect, correctKun: hasKun ? forcedCorrect : null, correctOn: hasOn ? forcedCorrect : null };
+  } else {
+    result = { correct: forcedCorrect };
+  }
+  await applyResult(result, card);
+}
+
+async function applyResult(result, card) {
   _state.answered        = true;
   _state.lastResult      = result.correct;
   _state.lastCheckResult = result;
   _state.preValidateCard = { ...card };
 
-  // Mettre à jour les scores
   if (_state.type === 'lecture' && card.type === 'kanji') {
     await updateKanjiLectureScores(card.kanji, result.correctKun ?? null, result.correctOn ?? null);
   } else {
     let sensKey;
     if (_state.type === 'lecture') {
-      sensKey = 'lecture'; // vocab lecture → score_lecture
+      sensKey = 'lecture';
     } else {
       sensKey = card.type === 'kanji' ? `comprehension_${_state.sens}` : _state.sens;
     }
