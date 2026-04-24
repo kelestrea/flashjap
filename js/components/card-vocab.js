@@ -1,6 +1,6 @@
 // components/card-vocab.js
 import { getKanji, getStatut, getStatutGlobal, STATUT_COLOR, esc, getAllListes, putVocab, putKanji, deleteVocab, deleteKanji } from '../db.js';
-import { speak } from '../audio.js';
+import { speak, speakKanji } from '../audio.js';
 import { ICONS } from '../icons.js';
 import { openOverlay, closeOverlay, showPopup } from '../router.js';
 
@@ -104,7 +104,7 @@ async function showKanjiPush(entry) {
   const playBtn = pushSheet.querySelector('#kp-play');
   const backBtn = pushSheet.querySelector('#kp-back');
 
-  if (playBtn) playBtn.onclick = () => speak(entry.kanji);
+  if (playBtn) playBtn.onclick = () => speakKanji(entry);
   if (backBtn) backBtn.onclick = () => {
     pushSheet.classList.remove('visible');
     setTimeout(() => {

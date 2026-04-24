@@ -40,17 +40,36 @@ function updateBtns() {
   });
 }
 
+function utterance(text) {
+  const utt = new SpeechSynthesisUtterance(text);
+  utt.voice = _voice;
+  utt.lang  = 'ja-JP';
+  utt.rate  = 0.9;
+  return utt;
+}
+
 export function speak(text) {
   if (!text) return;
   // Dernier recours : re-chercher la voix si pas encore disponible
   if (!_voice) _voice = pickBestVoice();
   if (!_voice) return;
   speechSynthesis.cancel();
-  const utt = new SpeechSynthesisUtterance(text);
-  utt.voice = _voice;
-  utt.lang  = 'ja-JP';
-  utt.rate  = 0.9;
-  speechSynthesis.speak(utt);
+  speechSynthesis.speak(utterance(text));
+}
+
+export function speakKanji(entry) {
+  if (!_voice) _voice = pickBestVoice();
+  if (!_voice) return;
+  const kun = (entry.lectures_kun || []).join('　');
+  const on  = (entry.lectures_on  || []).join('　');
+  speechSynthesis.cancel();
+  if (kun && on) {
+    const uttKun = utterance(kun);
+    uttKun.onend = () => setTimeout(() => speechSynthesis.speak(utterance(on)), 700);
+    speechSynthesis.speak(uttKun);
+  } else if (kun || on) {
+    speechSynthesis.speak(utterance(kun || on));
+  }
 }
 
 export function isAvailable() { return _available; }

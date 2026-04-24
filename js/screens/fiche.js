@@ -1,7 +1,7 @@
 // screens/fiche.js — écran plein (push depuis recherche)
 import { getVocab, getKanji, getStatut, getStatutGlobal, STATUT_COLOR, esc, deleteVocab, deleteKanji } from '../db.js';
 import { goBack, navigate, registerScreen, showPopup } from '../router.js';
-import { speak } from '../audio.js';
+import { speak, speakKanji } from '../audio.js';
 import { buildKanjiContent } from '../components/card-vocab.js';
 import { ICONS } from '../icons.js';
 
@@ -20,7 +20,7 @@ async function enterFiche({ key, ktype }) {
   if (ktype === 'kanji') {
     container.innerHTML = await buildKanjiContent(entry, false, true);
     const kpPlay = container.querySelector('#kp-play');
-    if (kpPlay) kpPlay.onclick = () => speak(entry.kanji);
+    if (kpPlay) kpPlay.onclick = () => speakKanji(entry);
 
     // Bouton édition listes kanji
     container.addEventListener('click', e => {
