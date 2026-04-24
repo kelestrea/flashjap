@@ -1,5 +1,5 @@
 // components/card-kanji.js
-import { speak } from '../audio.js';
+import { speakKanji } from '../audio.js';
 import { ICONS } from '../icons.js';
 import { openOverlay, closeOverlay, showPopup } from '../router.js';
 import { buildKanjiContent } from './card-vocab.js';
@@ -11,7 +11,7 @@ const sheet = document.getElementById('overlay-sheet');
 export async function renderKanjiCard(entry, returnCb) {
   sheet.innerHTML = await buildKanjiContent(entry, false);
 
-  document.getElementById('kp-play').onclick  = () => speak(entry.kanji);
+  document.getElementById('kp-play').onclick  = () => speakKanji(entry);
   document.getElementById('kp-close').onclick = () => {
     closeOverlay();
     if (returnCb) returnCb();
