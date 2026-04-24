@@ -18,6 +18,7 @@ export function initQuiz() {
   document.getElementById('quiz-next').onclick      = () => nextCard();
   document.getElementById('quiz-fiche').onclick    = () => openFiche();
   document.getElementById('quiz-toggle').onclick   = () => toggleCorrection();
+  document.getElementById('quiz-eye').onclick       = () => toggleReading();
   document.getElementById('quiz-input').addEventListener('keydown', e => {
     if (e.key === 'Enter') validate();
   });
@@ -32,7 +33,7 @@ function currentWord() {
 }
 
 async function enterQuiz(state) {
-  _state = { ...state, idx: 0, errors: [], answered: false, forcedResult: null };
+  _state = { ...state, idx: 0, errors: [], answered: false, forcedResult: null, readingVisible: false };
   showCard();
 }
 
@@ -70,9 +71,36 @@ function showCard() {
   _state.answered = false;
   _state.forcedResult = null;
 
+  // Lecture masquée (mode compréhension uniquement)
+  const readingRow = document.getElementById('quiz-reading-row');
+  if (type === 'comprehension') {
+    let readingText = '';
+    if (isKanji) {
+      const kuns = (card.lectures_kun || []).join(', ');
+      const ons  = (card.lectures_on  || []).join(', ');
+      readingText = [kuns && `kun : ${kuns}`, ons && `on : ${ons}`].filter(Boolean).join(' · ');
+    } else {
+      readingText = [card.hiragana, card.romaji].filter(Boolean).join(' · ');
+    }
+    document.getElementById('quiz-reading-text').textContent = readingText;
+    document.getElementById('quiz-reading-text').classList.add('hidden');
+    document.getElementById('quiz-eye').innerHTML = ICONS.eyeOff;
+    _state.readingVisible = false;
+    readingRow.style.display = 'flex';
+  } else {
+    readingRow.style.display = 'none';
+  }
+
   if (_state.autoplay === 'autoplay') speak(currentWord());
 
   setTimeout(() => document.getElementById('quiz-input').focus(), 100);
+}
+
+function toggleReading() {
+  _state.readingVisible = !_state.readingVisible;
+  const rt = document.getElementById('quiz-reading-text');
+  rt.classList.toggle('hidden', !_state.readingVisible);
+  document.getElementById('quiz-eye').innerHTML = _state.readingVisible ? ICONS.eye : ICONS.eyeOff;
 }
 
 function normalize(s) {
