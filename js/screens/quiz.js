@@ -1,7 +1,7 @@
 // screens/quiz.js
 import { updateScore, updateKanjiLectureScores, reapplyScore, reapplyKanjiLectureScores, getStatutGlobal, STATUT_COLOR } from '../db.js';
 import { navigate, goBack, registerScreen } from '../router.js';
-import { speak } from '../audio.js';
+import { speak, speakKanji } from '../audio.js';
 import { renderVocabCard } from '../components/card-vocab.js';
 import { renderKanjiCard }  from '../components/card-kanji.js';
 import { ICONS } from '../icons.js';
@@ -11,7 +11,7 @@ let _state = {};
 export function initQuiz() {
   registerScreen('screen-quiz', { enter: enterQuiz });
   document.getElementById('quiz-back').onclick     = () => goBack();
-  document.getElementById('quiz-play').onclick     = () => speak(currentWord());
+  document.getElementById('quiz-play').onclick     = () => playCurrentCard();
   document.getElementById('quiz-validate').onclick  = () => validate();
   document.getElementById('quiz-dontknow').onclick  = () => validateForced(false);
   document.getElementById('quiz-know').onclick      = () => validateForced(true);
@@ -30,6 +30,12 @@ export function initQuiz() {
 function currentWord() {
   const card = _state.cards[_state.idx];
   return card.mot || card.kanji || '';
+}
+
+function playCurrentCard() {
+  const card = _state.cards[_state.idx];
+  if (card.type === 'kanji') speakKanji(card);
+  else speak(currentWord());
 }
 
 async function enterQuiz(state) {
@@ -91,7 +97,7 @@ function showCard() {
     readingRow.style.display = 'none';
   }
 
-  if (_state.autoplay === 'autoplay') speak(currentWord());
+  if (_state.autoplay === 'autoplay') playCurrentCard();
 
   setTimeout(() => document.getElementById('quiz-input').focus(), 100);
 }
