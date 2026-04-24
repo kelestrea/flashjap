@@ -19,6 +19,13 @@ Le fichier **SPEC.md** est la documentation source du projet. Il contient :
 
 Tous les changements de code doivent rester alignés avec SPEC.md.
 
+## Directive : Lever les ambiguïtés avant d'agir
+
+Avant toute modification, si une description dans la demande peut correspondre à **plusieurs éléments** de l'interface ou du code, **toujours poser la question** pour identifier lequel est visé. Ne pas deviner. Exemples de cas à clarifier :
+- Un élément visuel décrit vaguement ("le truc gris", "le petit rappel") alors que plusieurs éléments correspondent
+- Une action qui pourrait s'appliquer à plusieurs composants, boutons ou sections
+- Une suppression ou modification dont la portée est imprécise
+
 ## Directive : Validation SPEC.md avant merge
 
 **Quand tu me demandes de merger une PR**, voici le workflow :
