@@ -208,6 +208,21 @@ Implémentation : `validateForced(bool)` dans `quiz.js`, partage `applyResult()`
 - Passé dans le state de navigation : `{ ..., autoplay: 'silence' | 'autoplay' }`
 - Si voix japonaise indisponible : `speak()` retourne silencieusement, pas d'erreur
 
+### Écran de résultats
+
+**Données transmises depuis `quiz.js` vers `screen-results` :**
+- `cards` — cartes de la session terminée (peut être un sous-ensemble si "Rejouer les erreurs")
+- `cards_initial` — cartes du quiz initial lancé depuis `quiz-params` (toujours conservé intact, sert de référence pour "Recommencer")
+- `errors` — cartes mal répondues dans la session en cours
+- `params` — `{ type, sens, cat, critere, listes, autoplay }`
+
+**Boutons d'action (construits dynamiquement dans `enterResults()`) :**
+- Si erreurs > 0 : `[Recommencer][Rejouer les erreurs]` sur une ligne + `[Accueil]` pleine largeur en dessous
+- Si erreurs = 0 : `[Accueil][Recommencer]` sur une ligne
+- **"Recommencer"** (`btn-primary` bleu) : repart de `cards_initial` remélangé aléatoirement, `cards_initial` conservé inchangé dans le state suivant
+- **"Rejouer les erreurs"** (amber) : repart uniquement des `errors` de la session courante, `cards_initial` conservé inchangé
+- **"Accueil"** (`btn-ghost`) : `navigate('screen-home')`
+
 ### Critères de sélection quiz
 
 Tous les filtres et tris opèrent sur le **score du sens de quiz sélectionné** (pas le statut global). La correspondance sens → clé(s) de score est assurée par `getScoreKeysForSens()` dans `db.js` :
@@ -351,8 +366,8 @@ Le prompt complet est stocké dans `js/screens/import.js` dans la constante `PRO
 
 **Mise à jour sur iPhone après déploiement :**
 - Le service worker doit être invalidé pour que les nouveaux fichiers soient servis
-- Option 1 : Incrémenter `CACHE` dans `sw.js` (ex: `flashjap-v2`) à chaque déploiement majeur
-- Option 2 : Désinstaller et réinstaller la PWA sur iPhone (garanti)
+- **Méthode standard** : incrémenter la version dans `js/version.js` ET `sw.js` (constante `CACHE`) à chaque déploiement — les deux fichiers doivent rester synchronisés (voir CLAUDE.md)
+- Fallback : désinstaller et réinstaller la PWA sur iPhone (garanti)
 
 **Reset de la base IndexedDB :**
 - Depuis l'app : Données → Restaurer → "Tout réinitialiser" + fichier JSON vide `{"vocab":[],"kanji":[]}`
