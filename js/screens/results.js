@@ -93,27 +93,29 @@ async function enterResults(state) {
 }
 
 function restartQuiz() {
-  const cards = [..._state.cards];
+  const cards = [..._state.cards_initial];
   shuffle(cards);
   navigate('screen-quiz', {
     cards,
-    type:     _state.params.type,
-    sens:     _state.params.sens,
-    cat:      _state.params.cat,
-    critere:  _state.params.critere,
-    listes:   _state.params.listes,
-    autoplay: _state.params.autoplay,
+    cards_initial: _state.cards_initial,
+    type:          _state.params.type,
+    sens:          _state.params.sens,
+    cat:           _state.params.cat,
+    critere:       _state.params.critere,
+    listes:        _state.params.listes,
+    autoplay:      _state.params.autoplay,
   });
 }
 
 function retryErrors() {
   navigate('screen-quiz', {
-    cards:    _state.errors,
-    type:     _state.params.type,
-    sens:     _state.params.sens,
-    cat:      _state.params.cat,
-    critere:  _state.params.critere,
-    listes:   _state.params.listes,
-    autoplay: _state.params.autoplay,
+    cards:         _state.errors,
+    cards_initial: _state.cards_initial,
+    type:          _state.params.type,
+    sens:          _state.params.sens,
+    cat:           _state.params.cat,
+    critere:       _state.params.critere,
+    listes:        _state.params.listes,
+    autoplay:      _state.params.autoplay,
   });
 }

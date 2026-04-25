@@ -333,11 +333,12 @@ function nextCard() {
   _state.idx++;
   if (_state.idx >= _state.cards.length) {
     navigate('screen-results', {
-      errors:  _state.errors,
-      total:   _state.cards.length,
-      correct: _state.cards.length - _state.errors.length,
-      cards:   _state.cards,
-      params:  { type: _state.type, sens: _state.sens, cat: _state.cat, critere: _state.critere, listes: _state.listes, autoplay: _state.autoplay }
+      errors:        _state.errors,
+      total:         _state.cards.length,
+      correct:       _state.cards.length - _state.errors.length,
+      cards:         _state.cards,
+      cards_initial: _state.cards_initial,
+      params:        { type: _state.type, sens: _state.sens, cat: _state.cat, critere: _state.critere, listes: _state.listes, autoplay: _state.autoplay }
     });
   } else {
     showCard();

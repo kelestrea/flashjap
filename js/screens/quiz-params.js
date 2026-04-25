@@ -170,5 +170,5 @@ async function startQuiz() {
     : 'silence';
   const cards   = await getCardsForQuiz({ type: cat, listes, critere, sens, count });
   if (!cards.length) { alert('Aucune carte disponible avec ces critères.'); return; }
-  navigate('screen-quiz', { cards, type, sens, cat, critere, listes, autoplay });
+  navigate('screen-quiz', { cards, cards_initial: cards, type, sens, cat, critere, listes, autoplay });
 }
