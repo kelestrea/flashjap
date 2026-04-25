@@ -1,5 +1,4 @@
-import { APP_VERSION } from './js/version.js';
-const CACHE = 'flashjap-' + APP_VERSION;
+const CACHE = 'flashjap-3.1.5';
 const ASSETS = [
   '/flashjap/',
   '/flashjap/index.html',
