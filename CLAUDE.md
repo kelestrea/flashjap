@@ -21,11 +21,12 @@ Tous les changements de code doivent rester alignés avec SPEC.md.
 
 ## Bump de version
 
-Pour incrémenter le numéro de version de l'application, **modifier uniquement `js/version.js`** (le champ `APP_VERSION`). Le footer et le cache du service worker se mettent à jour automatiquement :
-- Le footer est injecté dynamiquement par `js/app.js` au démarrage
-- Le nom du cache SW est construit depuis `APP_VERSION` — le changer force un refresh PWA
+Pour incrémenter le numéro de version, **modifier deux fichiers** :
 
-Ne pas modifier le numéro de version dans `index.html` ni dans `sw.js` (ces valeurs sont désormais dynamiques).
+1. **`js/version.js`** — champ `APP_VERSION` : le footer est injecté dynamiquement par `js/app.js`
+2. **`sw.js`** — constante `CACHE` : mettre la même valeur (`'flashjap-x.y.z'`) pour invalider le cache SW et forcer un refresh PWA
+
+Ne pas modifier le numéro de version dans `index.html` (valeur dynamique).
 
 ## Directive : Lever les ambiguïtés avant d'agir
 

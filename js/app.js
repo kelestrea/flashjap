@@ -43,13 +43,14 @@ async function boot() {
   initEditListes();
   listSelection.init();
 
-  document.getElementById('version-footer').textContent = 'v' + APP_VERSION;
-
   navigate('screen-home');
+
+  const footer = document.getElementById('version-footer');
+  if (footer) footer.textContent = 'v' + APP_VERSION;
 
   // Service worker
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/flashjap/sw.js', { type: 'module' }).catch(() => {});
+    navigator.serviceWorker.register('/flashjap/sw.js').catch(() => {});
   }
 }
 
