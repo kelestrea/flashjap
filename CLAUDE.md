@@ -65,3 +65,7 @@ Cela garantit que la documentation reste à jour et cohérente avec le code.
 - **Système de navigation** : Si routing ou état SPA change
 - **Patterns de code** : Si conventions de code changent
 - **Points d'attention** : Si considérations de sécurité/compatibilité émergent
+
+## Directive : Vérifier avant d'expliquer
+
+Avant d'expliquer un comportement observé dans l'app (audio, affichage, logique), toujours lire le code concerné en premier, et le fichier SPEC.md. Ne jamais construire une explication à partir de suppositions, même plausibles. Si la cause n'est pas immédiatement certaine, dire "je ne sais pas, je vérifie" et lire le code avant de répondre.
