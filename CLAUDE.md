@@ -28,7 +28,12 @@ Avant toute modification, si une description dans la demande peut correspondre �
 
 ## Directive : Incrémenter la version avant de pousser une PR
 
-**Juste avant de pousser une PR** (sauf si tu m'as toi-même précisé un numéro de version), incrémenter le patch version (`z` dans `x.y.z`) de 1 dans le fichier `js/version.js`
+Avant de pousser une PR, incrémenter le patch version dans js/version.js :
+
+Trouver la ligne : export const APP_VERSION = 'x.y.z';
+Incrémenter z de 1
+Si la version est x.y (sans segment patch), considérer z = 0 → mettre à jour en x.y.1
+Ne pas effectuer cette étape si tu as toi-même indiqué un numéro de version durant la session
 
 
 ## Directive : Validation SPEC.md avant merge
