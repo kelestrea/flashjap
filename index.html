@@ -292,7 +292,14 @@
     <div id="results-list"></div>
   </div>
 
-  <div id="results-actions" style="padding:16px 20px;border-top:0.5px solid var(--border);display:flex;flex-direction:column;gap:8px;"></div>
+  <div style="padding:16px 20px;border-top:0.5px solid var(--border);display:flex;flex-direction:column;gap:8px;">
+    <div style="display:flex;gap:8px;">
+      <button class="btn btn-ghost" style="flex:1;" id="results-home">Accueil</button>
+      <button class="btn btn-primary" style="flex:1;" id="results-restart">Recommencer</button>
+      <button class="btn" style="flex:1;display:none;background:var(--amber);color:var(--bg);" id="results-retry">Rejouer les erreurs</button>
+    </div>
+    <button class="btn btn-ghost" style="display:none;" id="results-home-wide">Accueil</button>
+  </div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════════

@@ -8,6 +8,10 @@ let _state = {};
 
 export function initResults() {
   registerScreen('screen-results', { enter: enterResults });
+  document.getElementById('results-home').onclick      = () => navigate('screen-home');
+  document.getElementById('results-home-wide').onclick = () => navigate('screen-home');
+  document.getElementById('results-restart').onclick   = () => restartQuiz();
+  document.getElementById('results-retry').onclick     = () => retryErrors();
 }
 
 async function enterResults(state) {
@@ -34,28 +38,10 @@ async function enterResults(state) {
     `${params.type === 'lecture' ? 'Lecture' : 'Compréhension'} · ${total} cartes`;
 
   // Boutons : layout selon présence d'erreurs
-  const actions = document.getElementById('results-actions');
-  if (errors.length > 0) {
-    actions.innerHTML = `
-      <div style="display:flex;gap:8px;">
-        <button class="btn btn-primary" style="flex:1;" id="results-restart">Recommencer</button>
-        <button class="btn" style="flex:1;background:var(--amber);color:var(--bg);" id="results-retry">Rejouer les erreurs</button>
-      </div>
-      <button class="btn btn-ghost" id="results-home">Accueil</button>
-    `;
-    document.getElementById('results-restart').onclick = () => restartQuiz();
-    document.getElementById('results-retry').onclick   = () => retryErrors();
-    document.getElementById('results-home').onclick    = () => navigate('screen-home');
-  } else {
-    actions.innerHTML = `
-      <div style="display:flex;gap:8px;">
-        <button class="btn btn-ghost" style="flex:1;" id="results-home">Accueil</button>
-        <button class="btn btn-primary" style="flex:1;" id="results-restart">Recommencer</button>
-      </div>
-    `;
-    document.getElementById('results-restart').onclick = () => restartQuiz();
-    document.getElementById('results-home').onclick    = () => navigate('screen-home');
-  }
+  const hasErrors = errors.length > 0;
+  document.getElementById('results-home').style.display      = hasErrors ? 'none' : '';
+  document.getElementById('results-retry').style.display     = hasErrors ? '' : 'none';
+  document.getElementById('results-home-wide').style.display = hasErrors ? '' : 'none';
 
   // Liste des erreurs
   const list = document.getElementById('results-list');
