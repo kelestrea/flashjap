@@ -73,15 +73,11 @@ function renderPage(page) {
 
     let readings = '';
     if (e.type === 'kanji') {
-      const kun = e.lectures_kun && e.lectures_kun.length > 0
-        ? [e.lectures_kun[0], (e.romaji_kun || [])[0]].filter(Boolean).join(' · ')
-        : '';
-      const on = e.lectures_on && e.lectures_on.length > 0
-        ? [e.lectures_on[0], (e.romaji_on || [])[0]].filter(Boolean).join(' · ')
-        : '';
+      const kun = e.lectures_kun && e.lectures_kun.length > 0 ? e.lectures_kun[0] : '';
+      const on = e.lectures_on && e.lectures_on.length > 0 ? e.lectures_on[0] : '';
       readings = [kun, on].filter(Boolean).join(' · ');
     } else {
-      readings = [e.hiragana, e.romaji].filter(Boolean).join(' · ');
+      readings = e.hiragana || '';
     }
 
     return `

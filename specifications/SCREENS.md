@@ -173,6 +173,12 @@ Accessible uniquement depuis `screen-quiz-params`. Retour sans valider annule le
 - Toggle inclure/exclure liste "automatique"
 - Résultats paginés (50 par page)
 
+**Format d'affichage des résultats :**
+- **Vocab** : `[mot] [hiragana]` sur une seule ligne, lectures en couleur `--gray`
+- **Kanji** : `[kanji] [kun · on]` sur une seule ligne (ex. `水 みず · スイ`), lectures en couleur `--gray`
+  - Si kun absent : affiche seulement on
+  - Si on absent : affiche seulement kun
+
 **State reçu :** `{ type: 'vocab' | 'kanji' }` (optionnel)
 
 **State passé à fiche :** `{ key: mot | kanji, ktype: 'vocab' | 'kanji' }`
