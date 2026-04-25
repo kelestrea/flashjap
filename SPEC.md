@@ -14,7 +14,7 @@ Application PWA de révision de japonais (kanjis + vocabulaire), installable sur
 
 - PWA (HTML/JS pur, ES modules, pas de framework)
 - IndexedDB pour le stockage local
-- Web Speech API pour l'audio japonais
+- Google Cloud TTS (Neural2) pour l'audio japonais, Web Speech API en fallback
 - GitHub Pages pour l'hébergement
 - Service Worker : Cache First pour assets statiques, Stale-While-Revalidate pour HTML
 
@@ -33,7 +33,7 @@ Application PWA de révision de japonais (kanjis + vocabulaire), installable sur
     ├── app.js          — Boot : openDB → initAudio → init tous les écrans → navigate('screen-home')
     ├── db.js           — IndexedDB + toute la logique métier (scores, recherche, sélection quiz)
     ├── router.js       — Navigation SPA avec pile d'état, overlays, popup confirmation
-    ├── audio.js        — Web Speech API, sélection voix japonaise premium/Siri
+    ├── audio.js        — Google Cloud TTS (Neural2) + Web Speech API fallback
     ├── icons.js        — SVG inline partagés
     ├── lists-state.js  — Persistance localStorage (listes sélectionnées, valeur slider)
     ├── screens/
@@ -342,18 +342,28 @@ Le prompt complet est stocké dans `js/screens/import.js` dans la constante `PRO
 
 ## Audio
 
-`js/audio.js` — Web Speech API.
+`js/audio.js` — Google Cloud TTS (moteur principal) + Web Speech API (fallback).
 
-**Sélection de la voix** : sélection simple de la première voix japonaise disponible au boot (`initAudio()`).
-- Critère : `voice.lang.startsWith('ja')`
-- Pas de priorité/scoring implémenté actuellement
-- Voix sélectionnée : quelle que soit la première trouvée par le navigateur (ordre non garanti)
+**Google Cloud TTS** : moteur principal si une clé API est configurée.
+- Clé stockée dans `localStorage` (`gcloudTtsKey`) — jamais committée, saisie dans l'écran Données
+- Voix stockée dans `localStorage` (`gcloudTtsVoice`, défaut : `ja-JP-Neural2-B`)
+- Cache en RAM (`Map`) : un texte déjà lu n'entraîne pas de nouvel appel réseau dans la session
+- Endpoint : `POST https://texttospeech.googleapis.com/v1/text:synthesize`
+- Réponse MP3 base64 lue via `new Audio('data:audio/mp3;base64,...')`
+- Si appel échoue → fallback silencieux vers Web Speech API
 
-**Polling robuste iOS** : `setInterval` toutes les 100ms, max 30 tentatives (3 secondes).
-- Si polling échoue → fallback `onvoiceschanged` attendra les voix du navigateur
-- Récherche relancée à chaque `speak()` si la voix n'a pas pu être sélectionnée au boot
+**Voix disponibles** (configurables dans l'écran Données) :
+- `ja-JP-Neural2-B` — homme, très naturel (recommandé)
+- `ja-JP-Neural2-C` — femme, très naturel
+- `ja-JP-Wavenet-D` — homme, naturel (moins cher)
+- `ja-JP-Wavenet-A` — femme, naturel (moins cher)
 
-**Note** : l'idée d'une sélection avec priorité Siri/premium/enhanced n'est pas implémentée. À implémenter si besoin de contrôle de la qualité vocale.
+**Web Speech API (fallback)** : utilisée si aucune clé Cloud TTS n'est configurée.
+- Sélection de la première voix `lang.startsWith('ja')` au boot
+- Polling robuste iOS : `setInterval` 100ms, max 30 tentatives
+- Fallback `onvoiceschanged` si polling échoue
+
+**Sécurité de la clé** : restreindre aux referrers HTTP `https://kelestrea.github.io/*` dans Google Cloud Console + quota journalier pour éviter tout abus.
 
 ---
 
@@ -423,7 +433,7 @@ Composants (components/*)
 | `screens/home.js` | 138 | Accueil avec camemberts (charts) |
 | `screens/fiche.js` | 144 | Détail entrée (depuis recherche ou quiz) |
 | `screens/import.js` | 177 | Intégration Claude API, import JSON |
-| `audio.js` | 56 | Web Speech API, sélection voix, polling |
+| `audio.js` | ~120 | Google Cloud TTS + Web Speech API fallback, cache RAM |
 | `screens/quiz-params.js` | 140 | Sélection paramètres quiz |
 | `screens/list-selection.js` | 178 | Sélection des listes (catégories collapsibles) |
 | `lists-state.js` | 31 | Persistance localStorage (listes, slider) |
@@ -459,7 +469,8 @@ Aucun store centralisé. État distribué :
 
 #### `audio.js`
 - Initialisation : `initAudio()`
-- Playback : `speak()`
+- Playback : `speak()`, `speakKanji()`
+- Config Cloud TTS : `setCloudKey(key, voice)`, `getCloudConfig()`
 - État : `isAvailable()`
 
 #### `lists-state.js`
@@ -609,9 +620,15 @@ req.onsuccess = e => {
 
 ### Compatibilité
 - **iOS Safari** : tester overlays/transitions sur iPhone réel
-  - Web Speech API : polling 100ms + fallback `onvoiceschanged`
-  - Voix Siri Premium : actuellement pas trouvée (à investiguer)
+  - Google Cloud TTS : appel réseau externe → nécessite connexion (pas offline)
+  - Web Speech API (fallback) : polling 100ms + fallback `onvoiceschanged`
 - **Desktop** : Chrome/Firefox/Safari (desktop) testé moins régulièrement
+
+### Clé API Google Cloud TTS
+- Stockée en `localStorage` (jamais committée)
+- Restreindre aux referrers `https://kelestrea.github.io/*` dans Google Cloud Console
+- Fixer un quota journalier pour éviter les abus
+- Le fallback Web Speech API est transparent si la clé est absente ou si l'appel échoue
 
 ### Maintenance
 - **Pas de build** : pas npm, pas webpack — ES modules natifs uniquement
