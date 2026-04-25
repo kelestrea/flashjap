@@ -1,5 +1,5 @@
 // screens/quiz.js
-import { updateScore, updateKanjiLectureScores, reapplyScore, reapplyKanjiLectureScores, getStatutGlobal, STATUT_COLOR } from '../db.js';
+import { updateScore, updateKanjiLectureScores, reapplyScore, reapplyKanjiLectureScores, getStatutGlobal, STATUT_COLOR, getVocab, getKanji } from '../db.js';
 import { navigate, goBack, registerScreen } from '../router.js';
 import { speak, speakKanji } from '../audio.js';
 import { renderVocabCard } from '../components/card-vocab.js';
@@ -77,6 +77,7 @@ function showCard() {
   document.getElementById('quiz-input').value = '';
   document.getElementById('quiz-input-section').style.display = 'flex';
   document.getElementById('quiz-feedback-section').style.display = 'none';
+  document.getElementById('quiz-scores-section').style.display = 'none';
   document.getElementById('quiz-validate').style.display = 'block';
   _state.answered = false;
   _state.forcedResult = null;
@@ -206,6 +207,7 @@ async function applyResult(result, card) {
 
   if (!result.correct) _state.errors.push(card);
   showFeedback(result.correct, card, result);
+  await showScores(card);
 }
 
 function buildReponseLines(card) {
@@ -325,6 +327,25 @@ async function toggleCorrection() {
     btnFiche.classList.add('btn-primary');   btnFiche.classList.remove('btn-ghost');
     btnNext.classList.remove('btn-primary'); btnNext.classList.add('btn-ghost');
   }
+
+  await showScores(card);
+}
+
+async function showScores(card) {
+  const key = card.mot || card.kanji;
+  const entry = card.type === 'kanji' ? await getKanji(key) : await getVocab(key);
+  if (!entry) return;
+
+  const fmt = v => (v === null || v === undefined) ? '—/5' : `${v}/5`;
+  let items;
+  if (card.type === 'kanji') {
+    items = [['on', entry.score_lecture_on], ['kun', entry.score_lecture_kun], ['JP→FR', entry.score_comprehension_jpfr], ['FR→JP', entry.score_comprehension_frjp]];
+  } else {
+    items = [['lecture', entry.score_lecture], ['JP→FR', entry.score_jpfr], ['FR→JP', entry.score_frjp]];
+  }
+
+  document.getElementById('quiz-scores').textContent = items.map(([l, v]) => `${l} ${fmt(v)}`).join(' · ');
+  document.getElementById('quiz-scores-section').style.display = 'block';
 }
 
 function openFiche() {

@@ -243,7 +243,6 @@
         <button class="btn btn-danger" id="quiz-dontknow">je ne sais pas</button>
         <button class="btn btn-success" id="quiz-know">je sais</button>
       </div>
-      <span style="font-size:13px;color:var(--gray);" id="quiz-count">1 / 20</span>
     </div>
   </div>
 
@@ -253,6 +252,13 @@
       <button class="btn btn-ghost btn-sm" id="quiz-fiche">Fiche</button>
       <button class="btn btn-ghost btn-sm" id="quiz-toggle">Correct</button>
       <button class="btn btn-ghost btn-sm" id="quiz-next">Suivant</button>
+    </div>
+  </div>
+
+  <div id="quiz-status-bar">
+    <span id="quiz-count">1 / 20</span>
+    <div id="quiz-scores-section" style="display:none;width:100%;">
+      <span id="quiz-scores"></span>
     </div>
   </div>
 </div>
