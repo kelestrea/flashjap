@@ -26,6 +26,16 @@ Avant toute modification, si une description dans la demande peut correspondre �
 - Une action qui pourrait s'appliquer à plusieurs composants, boutons ou sections
 - Une suppression ou modification dont la portée est imprécise
 
+## Directive : Incrémenter la version avant de pousser une PR
+
+**Juste avant de pousser une PR** (sauf si tu m'as toi-même précisé un numéro de version), incrémenter le patch version (`z` dans `x.y.z`) de 1 dans le fichier `index.html` :
+
+```html
+<div class="version-footer">vX.Y.Z</div>
+```
+
+Par exemple : `v3.1.2` → `v3.1.3`.
+
 ## Directive : Validation SPEC.md avant merge
 
 **Quand tu me demandes de merger une PR**, voici le workflow :
