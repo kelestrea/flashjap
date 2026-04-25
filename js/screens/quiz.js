@@ -20,7 +20,11 @@ export function initQuiz() {
   document.getElementById('quiz-toggle').onclick   = () => toggleCorrection();
   document.getElementById('quiz-eye').onclick       = () => toggleReading();
   document.getElementById('quiz-input').addEventListener('keydown', e => {
-    if (e.key === 'Enter') validate();
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      e.stopPropagation();
+      validate();
+    }
   });
   document.addEventListener('keydown', e => {
     if (e.key === 'Enter' && _state.answered) nextCard();
