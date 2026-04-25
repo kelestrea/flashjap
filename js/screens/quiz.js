@@ -336,7 +336,8 @@ function nextCard() {
       errors:  _state.errors,
       total:   _state.cards.length,
       correct: _state.cards.length - _state.errors.length,
-      params:  { type: _state.type, sens: _state.sens, cat: _state.cat, critere: _state.critere, listes: _state.listes }
+      cards:   _state.cards,
+      params:  { type: _state.type, sens: _state.sens, cat: _state.cat, critere: _state.critere, listes: _state.listes, autoplay: _state.autoplay }
     });
   } else {
     showCard();
