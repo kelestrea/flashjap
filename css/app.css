@@ -419,6 +419,29 @@ input[type=range] { width: 100%; accent-color: var(--blue); }
 .reading-text.hidden { filter: blur(4px); }
 .eye-btn { background: none; border: none; cursor: pointer; padding: 2px; display: flex; }
 
+/* ── QUIZ STATUS BAR ── */
+#quiz-status-bar {
+  padding: 8px 20px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+#quiz-status-bar #quiz-count {
+  font-size: 13px;
+  color: var(--gray);
+}
+#quiz-scores-section {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+#quiz-scores {
+  font-size: 12px;
+  color: var(--gray);
+}
+
 /* ── POPUP CONFIRMATION ── */
 .popup-overlay {
   position: fixed;
