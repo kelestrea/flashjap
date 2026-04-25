@@ -353,8 +353,8 @@ Le prompt complet est stocké dans `js/screens/import.js` dans la constante `PRO
 - Si appel échoue → fallback silencieux vers Web Speech API
 
 **Voix disponibles** (configurables dans l'écran Données) :
-- `ja-JP-Neural2-B` — homme, très naturel (recommandé)
-- `ja-JP-Neural2-C` — femme, très naturel
+- `ja-JP-Neural2-B` — femme, très naturel
+- `ja-JP-Neural2-C` — homme, très naturel
 - `ja-JP-Wavenet-D` — homme, naturel (moins cher)
 - `ja-JP-Wavenet-A` — femme, naturel (moins cher)
 
