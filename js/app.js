@@ -1,4 +1,5 @@
 // app.js — Point d'entrée
+import { APP_VERSION } from './version.js';
 import { openDB, loadDefaultDatabase, getAllVocab, getAllKanji } from './db.js';
 import { initAudio } from './audio.js';
 import { navigate, showPopup } from './router.js';
@@ -42,11 +43,13 @@ async function boot() {
   initEditListes();
   listSelection.init();
 
+  document.getElementById('version-footer').textContent = 'v' + APP_VERSION;
+
   navigate('screen-home');
 
   // Service worker
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/flashjap/sw.js').catch(() => {});
+    navigator.serviceWorker.register('/flashjap/sw.js', { type: 'module' }).catch(() => {});
   }
 }
 

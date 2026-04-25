@@ -19,6 +19,14 @@ Le fichier **SPEC.md** est la documentation source du projet. Il contient :
 
 Tous les changements de code doivent rester alignés avec SPEC.md.
 
+## Bump de version
+
+Pour incrémenter le numéro de version de l'application, **modifier uniquement `js/version.js`** (le champ `APP_VERSION`). Le footer et le cache du service worker se mettent à jour automatiquement :
+- Le footer est injecté dynamiquement par `js/app.js` au démarrage
+- Le nom du cache SW est construit depuis `APP_VERSION` — le changer force un refresh PWA
+
+Ne pas modifier le numéro de version dans `index.html` ni dans `sw.js` (ces valeurs sont désormais dynamiques).
+
 ## Directive : Lever les ambiguïtés avant d'agir
 
 Avant toute modification, si une description dans la demande peut correspondre à **plusieurs éléments** de l'interface ou du code, **toujours poser la question** pour identifier lequel est visé. Ne pas deviner. Exemples de cas à clarifier :

@@ -1,4 +1,5 @@
-const CACHE = 'flashjap-v9';
+import { APP_VERSION } from './js/version.js';
+const CACHE = 'flashjap-' + APP_VERSION;
 const ASSETS = [
   '/flashjap/',
   '/flashjap/index.html',
