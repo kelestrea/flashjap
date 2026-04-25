@@ -70,13 +70,26 @@ function renderPage(page) {
     const color = STATUT_COLOR[sg] || STATUT_COLOR.noncommence;
     const mot   = e.mot || e.kanji || '';
     const sens  = (e.traductions || e.sens || [])[0] || '';
-    const hira  = [e.hiragana, e.romaji].filter(Boolean).join(' · ');
+
+    let readings = '';
+    if (e.type === 'kanji') {
+      const kun = e.lectures_kun && e.lectures_kun.length > 0
+        ? [e.lectures_kun[0], (e.romaji_kun || [])[0]].filter(Boolean).join(' · ')
+        : '';
+      const on = e.lectures_on && e.lectures_on.length > 0
+        ? [e.lectures_on[0], (e.romaji_on || [])[0]].filter(Boolean).join(' · ')
+        : '';
+      readings = [kun, on].filter(Boolean).join(' · ');
+    } else {
+      readings = [e.hiragana, e.romaji].filter(Boolean).join(' · ');
+    }
+
     return `
       <div class="list-item" data-key="${esc(mot)}" data-ktype="${esc(e.type || 'vocab')}">
         <span class="kanji">${esc(mot)}</span>
         <div class="info">
           <div class="main">${esc(sens)}</div>
-          <div class="sub">${esc(hira)}</div>
+          <div class="sub" style="color:var(--gray);">${esc(readings)}</div>
         </div>
         <span class="dot" style="background:${color}"></span>
       </div>`;
