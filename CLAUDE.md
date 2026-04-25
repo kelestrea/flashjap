@@ -10,14 +10,12 @@
 
 ## Source unique de vérité
 
-Le fichier **SPEC.md** est la documentation source du projet. Il contient :
-- Architecture complète
-- Modèle de données
-- Règles fonctionnelles
-- Patterns de code
-- Conventions
+Les fichiers de référence du projet se trouvent dans le dossier **`specifications/`** :
 
-Tous les changements de code doivent rester alignés avec SPEC.md.
+- **`specifications/SPEC.md`** — documentation principale : architecture, modèle de données, règles fonctionnelles, patterns de code, conventions
+- **`specifications/SCREENS.md`** — architecture détaillée des écrans : inventaire, arborescence de navigation, matrice des transitions, patterns de navigation
+
+Tous les changements de code doivent rester alignés avec ces fichiers.
 
 ## Bump de version
 
@@ -45,27 +43,33 @@ Si la version est x.y (sans segment patch), considérer z = 0 → mettre à jour
 Ne pas effectuer cette étape si tu as toi-même indiqué un numéro de version durant la session
 
 
-## Directive : Validation SPEC.md avant merge
+## Directive : Validation des specs avant merge
 
 **Quand tu me demandes de merger une PR**, voici le workflow :
 
 1. **J'analyse** les changements de code dans la PR
-2. **Je te propose** un plan détaillé des sections SPEC.md à mettre à jour
+2. **Je te propose** un plan détaillé des sections à mettre à jour dans `specifications/SPEC.md` et/ou `specifications/SCREENS.md`
 3. **Tu valides** le plan (tu peux l'accepter, le modifier, ou rejeter certaines sections)
-4. **Je fais** les changements de SPEC.md et je les commite dans la PR
-5. **On merge** la PR avec SPEC.md à jour
+4. **Je fais** les changements et je les commite dans la PR
+5. **On merge** la PR avec la documentation à jour
 
 Cela garantit que la documentation reste à jour et cohérente avec le code.
 
-### Sections SPEC.md à vérifier typiquement
+### Sections à vérifier typiquement
 
+**Dans `specifications/SPEC.md` :**
 - **Architecture** : Si structure de fichiers ou modules changent
 - **Modèle de données** : Si IndexedDB schema ou structure change
 - **Règles fonctionnelles** : Si comportement utilisateur change
-- **Système de navigation** : Si routing ou état SPA change
 - **Patterns de code** : Si conventions de code changent
 - **Points d'attention** : Si considérations de sécurité/compatibilité émergent
 
+**Dans `specifications/SCREENS.md` :**
+- **Inventaire des écrans** : Si un écran est ajouté, supprimé ou renommé
+- **Arborescence de navigation** : Si un flux de navigation change
+- **Matrice des transitions** : Si des boutons ou actions de navigation changent
+- **Patterns de navigation** : Si le système de routing évolue
+
 ## Directive : Vérifier avant d'expliquer
 
-Avant d'expliquer un comportement observé dans l'app (audio, affichage, logique), toujours lire le code concerné en premier, et le fichier SPEC.md. Ne jamais construire une explication à partir de suppositions, même plausibles. Si la cause n'est pas immédiatement certaine, dire "je ne sais pas, je vérifie" et lire le code avant de répondre.
+Avant d'expliquer un comportement observé dans l'app (audio, affichage, logique), toujours lire le code concerné en premier, et les fichiers dans `specifications/`. Ne jamais construire une explication à partir de suppositions, même plausibles. Si la cause n'est pas immédiatement certaine, dire "je ne sais pas, je vérifie" et lire le code avant de répondre.

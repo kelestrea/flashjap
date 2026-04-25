@@ -317,6 +317,8 @@ SPA avec pile d'état dans `router.js`. Pas de rechargement de page.
 - Depuis fiche → retour à l'écran précédent systématique
 - Navigate vers `screen-home` vide la pile
 
+**Documentation détaillée :** voir [SCREENS.md](./SCREENS.md) pour l'inventaire complet des écrans, l'arborescence de navigation, la matrice des transitions, et les patterns de navigation.
+
 ---
 
 ## Prompt d'import (Claude)
