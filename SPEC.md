@@ -36,6 +36,7 @@ Application PWA de révision de japonais (kanjis + vocabulaire), installable sur
     ├── audio.js        — Web Speech API, sélection voix japonaise premium/Siri
     ├── icons.js        — SVG inline partagés
     ├── lists-state.js  — Persistance localStorage (listes sélectionnées, valeur slider)
+    ├── version.js      — Source unique de version (APP_VERSION) : footer injecté par app.js + nom du cache SW
     ├── screens/
     │   ├── home.js             — Accueil avec camembert global + grille 2x2 sous-camemberts
     │   ├── quiz-params.js      — Paramètres de session
@@ -199,6 +200,19 @@ Comportement identique à une validation normale : la correction est affichée, 
 
 Implémentation : `validateForced(bool)` dans `quiz.js`, partage `applyResult()` avec `validate()`.
 
+### Écran résultats : actions
+
+Deux layouts selon la présence d'erreurs, construits dynamiquement dans `enterResults()` via `innerHTML` :
+
+- **Sans erreurs** : `[Accueil (ghost)][Recommencer (primary)]` sur une ligne
+- **Avec erreurs** : `[Recommencer (primary)][Rejouer les erreurs (amber)]` sur une ligne, puis `[Accueil (ghost)]` pleine largeur en dessous
+
+**Recommencer** : réutilise les cartes en mémoire (pas de requête base), mélange aléatoire via `shuffle()` au clic, relance le quiz avec les mêmes paramètres (type, sens, cat, critere, listes, autoplay). La liste des cartes jouées et les paramètres complets sont transmis de `quiz.js` vers `results.js` dans l'état de navigation.
+
+**Rejouer les erreurs** : relance un quiz avec uniquement les cartes incorrectes, mêmes paramètres.
+
+Pas de confirmation au clic (actions réversibles depuis un quiz terminé).
+
 ### Option Autoplay (compréhension JP→FR uniquement)
 
 - Disponible dans les paramètres quiz uniquement quand `type=comprehension` ET `sens=jpfr`
@@ -351,7 +365,7 @@ Le prompt complet est stocké dans `js/screens/import.js` dans la constante `PRO
 
 **Mise à jour sur iPhone après déploiement :**
 - Le service worker doit être invalidé pour que les nouveaux fichiers soient servis
-- Option 1 : Incrémenter `CACHE` dans `sw.js` (ex: `flashjap-v2`) à chaque déploiement majeur
+- Option 1 : Modifier `APP_VERSION` dans `js/version.js` — le nom du cache SW (`flashjap-{version}`) change automatiquement, l'ancien cache est purgé à l'activation
 - Option 2 : Désinstaller et réinstaller la PWA sur iPhone (garanti)
 
 **Reset de la base IndexedDB :**
@@ -432,7 +446,7 @@ Aucun store centralisé. État distribué :
 - Crud vocab/kanji : `getAllVocab()`, `getVocab()`, `putVocab()`, `getAllKanji()`, `getKanji()`, `putKanji()`
 - Scoring : `updateScore()`, `updateKanjiLectureScores()`
 - Listes : `getListes()`, `getAllListes()`
-- Quiz : `getCardsForQuiz()`
+- Quiz : `getCardsForQuiz()`, `shuffle()` (Fisher-Yates, réutilisée par `results.js`)
 - Import/Export : `exportAll()`, `importAll()`, `saveEntry()`, `validateEntry()`
 - Recherche : `buildSearchIndex()`, `search()`
 
@@ -491,7 +505,7 @@ Aucun store centralisé. État distribué :
        │   └→ Rend visible le DOM
        │
        └→ Service Worker
-           └→ register('/flashjap/sw.js')
+           └→ register('/flashjap/sw.js', { type: 'module' })
 ```
 
 ---
@@ -546,7 +560,8 @@ Aucun store centralisé. État distribué :
 ### Service Worker
 - Cache First pour JS/CSS (assets statiques)
 - Stale-While-Revalidate pour HTML (toujours fresh, mais donne ancien si réseau KO)
-- Incrémenter `CACHE` (`flashjap-v1` → `flashjap-v2`) pour forcer invalidation
+- `sw.js` est un module ES : importe `APP_VERSION` depuis `version.js`, cache nommé `flashjap-{version}`
+- Pour forcer l'invalidation : modifier `APP_VERSION` dans `version.js`
 
 ### Pagination
 - Recherche : 50 résultats par page
@@ -600,7 +615,7 @@ req.onsuccess = e => {
 
 ### Maintenance
 - **Pas de build** : pas npm, pas webpack — ES modules natifs uniquement
-- **Service Worker** : incrémenter `CACHE` dans `sw.js` pour invalidation
+- **Service Worker** : modifier `APP_VERSION` dans `version.js` pour forcer invalidation (CACHE et footer se mettent à jour automatiquement)
 - **Schéma IndexedDB** : modifications rares (v1 depuis ~2 ans)
   - Ajouter champ → tous les anciens manquent le champ (undefined/null)
   - Ajouter score → détecter et init à null dans écrans pertinents
@@ -621,7 +636,7 @@ req.onsuccess = e => {
 - [ ] Overlays : tester sur iPhone (transitions, fermeture)
 - [ ] Scoring : vérifier min/max (0-5 vocab, logique kanji)
 - [ ] Recherche : pagination et debounce fonctionnent
-- [ ] Service Worker : incrémenter `CACHE` si fichiers importants modifiés
+- [ ] Service Worker : incrémenter `APP_VERSION` dans `version.js` si fichiers importants modifiés
 - [ ] DOM : tous les `id` et `data-action` existent dans `index.html`
 
 ---
