@@ -363,6 +363,11 @@ Le prompt complet est stocké dans `js/screens/import.js` dans la constante `PRO
 - Polling robuste iOS : `setInterval` 100ms, max 30 tentatives
 - Fallback `onvoiceschanged` si polling échoue
 
+**Lectures kanji** : `speakKanji(entry)` lit kun puis on (avec délais).
+- Les lectures kanji peuvent contenir des points (ex. `わる.い`) qui indiquent la limite morphologique du kanji
+- Les points sont supprimés avant synthèse vocale via `cleanKanjiReading()` pour naturalité
+- Exemple : `わる.い` → `わる` (seul le kun est prononcé)
+
 **Sécurité de la clé** : restreindre aux referrers HTTP `https://kelestrea.github.io/*` dans Google Cloud Console + quota journalier pour éviter tout abus.
 
 ---
