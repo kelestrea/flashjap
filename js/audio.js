@@ -94,6 +94,10 @@ export async function speak(text) {
   speechSynthesis.speak(utterance(text));
 }
 
+function cleanKanjiReading(reading) {
+  return reading.replace(/\./g, '');
+}
+
 function speakSequence(items) {
   if (!items.length) return;
   const { text, delayAfter } = items[0];
@@ -105,8 +109,8 @@ function speakSequence(items) {
 
 export async function speakKanji(entry) {
   if (!_voice && !_cloudKey) _voice = pickBestVoice();
-  const kuns = (entry.lectures_kun || []).filter(Boolean);
-  const ons  = (entry.lectures_on  || []).filter(Boolean);
+  const kuns = (entry.lectures_kun || []).filter(Boolean).map(cleanKanjiReading);
+  const ons  = (entry.lectures_on  || []).filter(Boolean).map(cleanKanjiReading);
   if (!kuns.length && !ons.length) return;
 
   if (_cloudKey) {
