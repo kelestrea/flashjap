@@ -146,6 +146,14 @@ Accessible uniquement depuis `screen-quiz-params`. Retour sans valider annule le
 
 **State passé à results :** `{ cards, cards_initial, errors, params: { type, sens, cat, critere, listes, autoplay } }`
 
+**Comportement input :**
+- Focus automatique et nettoyage du champ à chaque nouvelle carte
+- Attribut `lang` ajusté dynamiquement selon le type de quiz :
+  - **Lecture** → `lang="ja"` (clavier japonais)
+  - **Compréhension JP→FR** → `lang="fr"` (clavier français)
+  - **Compréhension FR→JP** → `lang="ja"` (clavier japonais)
+- L'utilisateur peut override le clavier proposé via le sélecteur de langue du périphérique
+
 ---
 
 ### `screen-results` — Résultats

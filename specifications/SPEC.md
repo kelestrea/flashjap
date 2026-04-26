@@ -558,6 +558,14 @@ Aucun store centralisé. État distribué :
 - Validation UI dans écrans (ex: longueur réponse)
 - Validation scores dans `updateScore()` (min 0, max 5)
 
+### Clavier dynamique du quiz
+- L'input du quiz (`#quiz-input`) reçoit l'attribut `lang` ajusté **à chaque nouvelle carte** selon le type de quiz
+- **Lecture** → `lang="ja"` (clavier japonais)
+- **Compréhension JP→FR** → `lang="fr"` (clavier français)
+- **Compréhension FR→JP** → `lang="ja"` (clavier japonais)
+- Implémentation : dans `showCard()` de `screens/quiz.js`, juste avant le nettoyage du champ
+- L'utilisateur peut toujours override le clavier via le sélecteur de langue du périphérique
+
 ### XSS Prevention
 - Toujours `esc()` avant `innerHTML` sur données utilisateur
 - Si élément créé via `createElement`, safer mais moins répandu ici
