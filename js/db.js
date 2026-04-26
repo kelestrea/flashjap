@@ -265,17 +265,17 @@ export async function getAllListes() {
 export function getFreqLabel(frequence, type) {
   if (frequence === null || frequence === undefined) return null;
   if (type === 'kanji') {
-    if (frequence <= 100)  return 'Essentiel';
-    if (frequence <= 500)  return 'Très courant';
-    if (frequence <= 1000) return 'Courant';
-    if (frequence <= 2000) return 'Rare';
-    return 'Inusité';
+    if (frequence <= 100)  return 'essentiel';
+    if (frequence <= 500)  return 'très courant';
+    if (frequence <= 1000) return 'courant';
+    if (frequence <= 2000) return 'rare';
+    return 'inusité';
   }
-  if (frequence <= 1000)  return 'Essentiel';
-  if (frequence <= 5000)  return 'Très courant';
-  if (frequence <= 10000) return 'Courant';
-  if (frequence <= 20000) return 'Rare';
-  return 'Inusité';
+  if (frequence <= 1000)  return 'essentiel';
+  if (frequence <= 5000)  return 'très courant';
+  if (frequence <= 10000) return 'courant';
+  if (frequence <= 20000) return 'rare';
+  return 'inusité';
 }
 
 // ── SÉLECTION DE CARTES POUR QUIZ ──────────────────────────────────────
