@@ -53,7 +53,8 @@ Pour chaque fiche VOCAB :
   "romaji": "daidokoro",
   "traductions": ["cuisine"],
   "listes": ["JLPT N5"],
-  "kanjis_composants": ["台", "所"]
+  "kanjis_composants": ["台", "所"],
+  "frequence": 1250
 }
 \`\`\`
 
@@ -71,13 +72,15 @@ Pour chaque fiche KANJI :
   "exemples": [
     { "mot": "水道", "hiragana": "すいどう", "romaji": "suidou", "sens": "eau courante" },
     { "mot": "水", "hiragana": "みず", "romaji": "mizu", "sens": "eau" }
-  ]
+  ],
+  "frequence": 42
 }
 \`\`\`
 
 **Règles**
 - Maximum 5 traductions par fiche vocab, en français uniquement
 - Maximum 3 lectures on et 3 lectures kun par kanji (les plus fréquentes)
+- "frequence" est optionnel : entier ≥ 1 indiquant le rang de fréquence (1 = mot le plus fréquent). Omets-le si inconnu.
 - Retourne un tableau JSON, sans texte autour
  - Produis le résultat sous forme d'un fichier JSON à télécharger, nommé import_[nom_de_la_liste].json. N'affiche pas le contenu du JSON dans le chat.`;
 

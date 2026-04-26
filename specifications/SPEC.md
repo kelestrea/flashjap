@@ -87,6 +87,7 @@ Bouton audio : triangle play plein dans un rond.
   "traductions": ["cuisine"],
   "listes": ["JLPT N5"],
   "kanjis_composants": ["台", "所"],
+  "frequence": null,
   "score_lecture": null,
   "score_jpfr": null,
   "score_frjp": null,
@@ -117,6 +118,7 @@ Bouton audio : triangle play plein dans un rond.
   "exemples": [
     { "mot": "水道", "hiragana": "すいどう", "romaji": "suidou", "sens": "eau courante" }
   ],
+  "frequence": null,
   "score_comprehension_jpfr": null,
   "score_comprehension_frjp": null,
   "score_lecture_on": null,
@@ -258,6 +260,25 @@ La correspondance sens → clé de timestamp (`derniere_vue`) suit la même logi
 
 Après sélection des N cartes selon le critère, **toujours mélanger aléatoirement** avant de lancer le quiz.
 
+### Fréquence
+
+- Champ `frequence` : entier ≥ 1, `null` par défaut — rang de fréquence du mot (1 = le plus fréquent)
+- Optionnel sur les deux types (vocab et kanji) ; les données existantes sans ce champ sont compatibles (absent = null)
+- **Normalisation à l'import** (dans `saveEntry`) : toute valeur non entière ou < 1 est silencieusement remplacée par `null`
+- **Fusion sur doublon** : si la nouvelle valeur est valide (entier ≥ 1), elle écrase l'existante ; sinon l'existante est conservée
+
+**Classification calculée à la volée** via `getFreqLabel(frequence, type)` dans `db.js` :
+
+| Label | Vocab | Kanji |
+|-------|-------|-------|
+| Essentiel | 1 – 1 000 | 1 – 100 |
+| Très courant | 1 001 – 5 000 | 101 – 500 |
+| Courant | 5 001 – 10 000 | 501 – 1 000 |
+| Rare | 10 001 – 20 000 | 1 001 – 2 000 |
+| Inusité | > 20 000 | > 2 000 |
+
+Retourne `null` si `frequence` est null/undefined. Aucune migration de schéma requise.
+
 ### Listes
 
 - Les listes sont des tags libres affectés à chaque entrée
@@ -300,13 +321,17 @@ Après sélection des N cartes selon le critère, **toujours mélanger aléatoir
 #### Mémoire des paramètres (via `lists-state.js`)
 - Listes cochées persistées via **localStorage** (clé: `selectedListes`) — module `lists-state.js`
 - Valeur du slider persistée via **localStorage** (clé: `quizSliderValue`, défaut: 20)
+- Mode de filtre actif persisté via **localStorage** (clé: `quizFilterMode`, défaut: `'listes'`)
+- Labels fréquence sélectionnés persistés via **localStorage** (clé: `quizFreqLabels`, défaut: `['Essentiel']`)
 - État "ouvert/fermé" des catégories : session uniquement (non persisté)
-- Validation : minimum 1 liste sélectionnée obligatoire
+- Validation : minimum 1 liste sélectionnée obligatoire (mode Listes) ; au moins 1 label requis pour lancer (mode Fréquence)
 
 #### Affichage sur quiz-params
-- Affiche uniquement listes sélectionnées (liste texte simple, groupées par catégorie, séparées par `·`)
-- Bouton "choisir les listes" positionné en bas de la section Listes
-- Navigation vers `screen-list-selection` au clic
+- Toggle **Listes / Fréquence** en en-tête de section (même style `.toggle` / `.toggle-btn` que les autres toggles)
+- **Mode Listes** : affiche les listes sélectionnées (groupées par catégorie, séparées par `·`) + bouton "choisir les listes"
+- **Mode Fréquence** : 5 chips (Essentiel / Très courant / Courant / Rare / Inusité) — sélection multiple, `border-radius: 20px`, actif fond `--blue` texte blanc, inactif fond `--bg2` bordure `--border` texte `--blue`
+- Les deux modes conservent leur sélection en mémoire indépendamment ; la bascule ne réinitialise rien
+- Bouton Lancer grisé (`disabled`) uniquement en mode Fréquence si 0 labels sélectionnés ou 0 cartes disponibles
 - Slider : min=1, max=nombre de cartes disponibles, valeur restaurée depuis localStorage
 
 #### Écran screen-list-selection (`js/screens/list-selection.js`)
@@ -511,7 +536,8 @@ Aucun store centralisé. État distribué :
 - Crud vocab/kanji : `getAllVocab()`, `getVocab()`, `putVocab()`, `getAllKanji()`, `getKanji()`, `putKanji()`
 - Scoring : `updateScore()`, `updateKanjiLectureScores()`
 - Listes : `getListes()`, `getAllListes()`
-- Quiz : `getCardsForQuiz()`
+- Fréquence : `getFreqLabel(frequence, type)` → label string ou null
+- Quiz : `getCardsForQuiz({ type, listes, critere, sens, count, filterMode?, freqLabels? })`
 - Import/Export : `exportAll()`, `importAll()`, `saveEntry()` → `{ status: 'ok'|'doublon', entry }`, `validateEntry()`
 - Recherche : `buildSearchIndex()`, `search()`
 - Vidage : `clearAllData()` — vide stores vocab et kanji, invalide `_searchIndex`
@@ -531,6 +557,8 @@ Aucun store centralisé. État distribué :
 #### `lists-state.js`
 - Listes : `getSelectedListes()`, `setSelectedListes(listes)`, `initializeSelectedListes(allListes)`, `resetSelectedListes()`
 - Slider : `getSliderValue()`, `setSliderValue(value)`
+- Mode filtre : `getFilterMode()`, `setFilterMode(mode)` — `'listes'` ou `'frequence'`
+- Labels fréquence : `getFreqLabels()`, `setFreqLabels(labels)`
 
 #### `type-state.js`
 - État global : `getSelectedType()`, `setSelectedType(type)`
@@ -621,6 +649,8 @@ Aucun store centralisé. État distribué :
 - Listes sélectionnées : localStorage clé `selectedListes` (via `lists-state.js`)
 - Valeur slider quiz : localStorage clé `quizSliderValue` (via `lists-state.js`)
 - Mode autoplay : localStorage clé `quizAutoplay` (via `lists-state.js`)
+- Mode de filtre quiz : localStorage clé `quizFilterMode` (via `lists-state.js`), défaut `'listes'`
+- Labels fréquence sélectionnés : localStorage clé `quizFreqLabels` (via `lists-state.js`), défaut `['Essentiel']`
 - Toutes les préférences sont restaurées au boot, pas de synchronisation cross-tab
 
 ### Clavier dynamique du quiz
