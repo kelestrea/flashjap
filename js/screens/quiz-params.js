@@ -110,7 +110,7 @@ function esc(str) {
 }
 
 async function refreshSlider() {
-  const type    = getSelectedCategory();
+  const type    = getSelectedType();
   const critere = document.querySelector('[name="qp-critere"]:checked')?.value || 'tous';
   const sensType = document.querySelector('[name="qp-type"]:checked')?.value || 'lecture';
   const sens    = sensType === 'lecture' ? 'lecture' : (document.querySelector('[name="qp-sens"]:checked')?.value || 'jpfr');
@@ -134,7 +134,7 @@ function toggleSens() {
 }
 
 async function startQuiz() {
-  const cat     = getSelectedCategory();
+  const cat     = getSelectedType();
   const type    = document.querySelector('[name="qp-type"]:checked')?.value || 'lecture';
   const sens    = type === 'lecture' ? 'lecture' : (document.querySelector('[name="qp-sens"]:checked')?.value || 'jpfr');
   const critere = document.querySelector('[name="qp-critere"]:checked')?.value || 'tous';
