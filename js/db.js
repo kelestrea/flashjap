@@ -129,12 +129,14 @@ export async function saveEntry(entry) {
   const existing = await get(store, key);
   if (existing) {
     const merged = [...new Set([...existing.listes, ...(entry.listes || [])])];
-    await put(store, { ...existing, listes: cleanListes(merged) });
-    return 'doublon';
+    const mergedEntry = { ...existing, listes: cleanListes(merged) };
+    await put(store, mergedEntry);
+    return { status: 'doublon', entry: mergedEntry };
   }
   const listes = cleanListes(entry.listes || []);
+  let savedEntry;
   if (entry.type === 'kanji') {
-    await put(store, {
+    savedEntry = {
       ...entry, listes,
       score_comprehension_jpfr: null, score_comprehension_frjp: null,
       score_lecture_on: null, score_lecture_kun: null,
@@ -144,18 +146,19 @@ export async function saveEntry(entry) {
       err_consec_lecture_on: 0, err_consec_lecture_kun: 0,
       derniere_vue_jpfr: null, derniere_vue_frjp: null,
       created_at: Date.now(),
-    });
+    };
   } else {
-    await put(store, {
+    savedEntry = {
       ...entry, listes,
       score_lecture: null, score_jpfr: null, score_frjp: null,
       consec_lecture: 0, consec_jpfr: 0, consec_frjp: 0,
       err_consec_lecture: 0, err_consec_jpfr: 0, err_consec_frjp: 0,
       derniere_vue_lecture: null, derniere_vue_jpfr: null, derniere_vue_frjp: null,
       created_at: Date.now(),
-    });
+    };
   }
-  return 'ok';
+  await put(store, savedEntry);
+  return { status: 'ok', entry: savedEntry };
 }
 
 // sens pour vocab : 'lecture' | 'jpfr' | 'frjp'

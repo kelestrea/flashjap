@@ -72,6 +72,14 @@ screen-home  [point d'entrée, pile vidée]
 └─ #home-data-btn ──────────────────→ screen-data
                                           │
          #data-import ───────────────────→ screen-import
+                                          │     │
+                                          │     ├─ clic case (importés/doublons/échecs/total)
+                                          │     │       └──────────────→ screen-search (review)
+                                          │     │                              │
+                                          │     │             clic item ───────→ screen-fiche
+                                          │     │                              │   └─ goBack → screen-search
+                                          │     │             goBack ──────────→ screen-import (résumé préservé)
+                                          │     │
                                           │     └─ #import-done → screen-home
          #data-restore ──────────────────→ screen-restore
                                                 └─ (après restauration) → screen-home
@@ -190,18 +198,26 @@ Accessible uniquement depuis `screen-quiz-params`. Retour sans valider annule le
 
 **Header global :** Barre avec toggles vocab/kanji (gauche) et bouton Accueil (droite)
 
-**Contenu :**
+**Contenu (mode normal) :**
 - Champ de recherche (debounce 200ms)
 - Toggle inclure/exclure liste "automatique"
 - Résultats paginés (50 par page)
 
-**Format d'affichage des résultats :**
+**Contenu (mode review post-import) :** activé si `state.importReviewItems` est présent
+- Champ de recherche désactivé (readonly, grisé)
+- Toggle auto masqué
+- Items affichés directement depuis `importReviewItems`, sans requête à l'index de recherche
+- Retour via `goBack()` → screen-import avec résumé préservé
+
+**Format d'affichage des résultats (commun aux deux modes) :**
 - **Vocab** : `[mot] [hiragana]` sur une seule ligne, lectures en couleur `--gray`
 - **Kanji** : `[kanji] [kun · on]` sur une seule ligne (ex. `水 みず · スイ`), lectures en couleur `--gray`
   - Si kun absent : affiche seulement on
   - Si on absent : affiche seulement kun
 
-**State reçu :** `{ type: 'vocab' | 'kanji' }` (optionnel)
+**State reçu :**
+- Mode normal : `{ type: 'vocab' | 'kanji' }` (optionnel)
+- Mode review : `{ importReviewItems: Entry[], importReviewType: 'imported'|'duplicates'|'errors'|'total' }`
 
 **State passé à fiche :** `{ key: mot | kanji, ktype: 'vocab' | 'kanji' }`
 
@@ -244,9 +260,13 @@ Affiche le détail complet d'une entrée. Accessible depuis `screen-search` (pus
 **Contenu :**
 - Zone upload fichier JSON
 - Prompt Claude (constante `PROMPT_FULL`) pour aider à structurer les données
-- Résumé post-import : importés / doublons / échecs
+- Résumé post-import : 4 cases cliquables (Importés / Doublons ignorés / Échecs / Total fichier)
+  - Case non vide → `.stat-card--clickable`, clic → `navigate('screen-search', { importReviewItems, importReviewType })`
+  - Case vide → `.stat-card--disabled` (grisée, non-cliquable)
+- Liste des lignes en échec (si erreurs de validation)
+- Bouton "Terminé" → `navigate('screen-home')` (pile vidée)
 
-Retour : navigue vers `screen-home` (pile vidée).
+**Comportement `enter(state, isBack)` :** Si `isBack=true` (retour depuis screen-search review), le résumé reste affiché sans réinitialisation.
 
 ---
 
@@ -338,6 +358,7 @@ Barre persistante (sticky) présente sur **tous les écrans sauf overlays**. Res
 | `screen-fiche` | `screen-edit-listes` | Stack | `#fiche-edit-listes` | `{ key, ktype }` |
 | `screen-edit-listes` | *(précédent)* | Stack | Sauvegarder | — (goBack) |
 | `screen-data` | `screen-import` | Stack | `#data-import` | — |
+| `screen-import` | `screen-search` | Stack | clic case résumé (non vide) | `{ importReviewItems, importReviewType }` |
 | `screen-import` | `screen-home` | Stack | `#import-done` | — (pile vidée) |
 | `screen-data` | `screen-restore` | Stack | `#data-restore` | — |
 | `screen-restore` | `screen-home` | Stack | après restauration | — (pile vidée) |
@@ -408,7 +429,8 @@ registerScreen('screen-quiz', {
 | `screen-quiz-params` | Charge les listes disponibles, applique le type, rafraîchit le slider |
 | `screen-quiz` | Initialise `_state`, affiche la première carte |
 | `screen-results` | Rendu donut, liste erreurs, génère boutons dynamiques |
-| `screen-search` | Reconstruit l'index si besoin, relance la recherche courante |
+| `screen-search` | Mode normal : reconstruit l'index, relance la recherche. Mode review (`importReviewItems`) : charge les items directement, désactive le champ de recherche et le toggle auto |
+| `screen-import` | Si `isBack=false` : réinitialise le formulaire et masque le résumé. Si `isBack=true` : ne fait rien (préserve le résumé pour retour depuis screen-search review) |
 | `screen-fiche` | Fetch l'entrée en DB, render le contenu |
 | `screen-list-selection` | Charge les listes, applique l'état coché depuis `lists-state.js` |
 | `screen-edit-listes` | Charge les listes, pré-coche celles de l'entrée |
@@ -436,7 +458,7 @@ Le state est un objet libre passé à `navigate(id, state)` et récupéré dans 
 | `screen-quiz-params` | `type` |
 | `screen-quiz` | `cards`, `cards_initial`, `type`, `sens`, `cat`, `critere`, `listes`, `autoplay` |
 | `screen-results` | `cards`, `cards_initial`, `errors`, `params` |
-| `screen-search` | `type` |
+| `screen-search` | `type` (mode normal) ou `importReviewItems`, `importReviewType` (mode review) |
 | `screen-fiche` | `key`, `ktype` |
 | `screen-edit-listes` | `key`, `ktype` |
 

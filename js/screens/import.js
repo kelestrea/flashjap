@@ -91,10 +91,12 @@ export function initImport() {
   document.getElementById('import-done-btn').onclick = () => navigate('screen-home');
 }
 
-function enterImport() {
-  clearFile();
-  document.getElementById('import-summary').style.display = 'none';
-  document.getElementById('import-done').style.display = 'none';
+function enterImport(state, isBack) {
+  if (!isBack) {
+    clearFile();
+    document.getElementById('import-summary').style.display = 'none';
+    document.getElementById('import-done').style.display = 'none';
+  }
 }
 
 async function copyPrompt() {
@@ -130,51 +132,67 @@ async function doImport() {
   try {
     text = await _file.text();
   } catch (err) {
-    showSummary(0, 0, [{ label: 'Erreur de lecture', msg: String(err) }], 0);
+    showSummary([], [], [{ _label: 'Erreur de lecture', _msg: String(err) }]);
     btn.disabled = false; btn.textContent = 'Importer'; return;
   }
   try { data = JSON.parse(text); } catch {
-    showSummary(0, 0, [{ label: 'Fichier invalide', msg: 'JSON malformé — vérifie le contenu du fichier' }], 0);
+    showSummary([], [], [{ _label: 'Fichier invalide', _msg: 'JSON malformé — vérifie le contenu du fichier' }]);
     btn.disabled = false; btn.textContent = 'Importer'; return;
   }
 
   const entries = Array.isArray(data) ? data : (data.vocab || []).concat(data.kanji || []);
-  let imported = 0, doublons = 0;
-  const failures = [];
+  const importedItems = [];
+  const duplicateItems = [];
+  const errorEntries = [];
 
   for (let i = 0; i < entries.length; i++) {
     const e = entries[i];
     const errors = validateEntry(e);
     if (errors.length) {
-      failures.push({ label: `Entrée ${i+1} — ${e.mot || e.kanji || '?'}`, msg: errors.join(', ') });
+      errorEntries.push({ ...e, _label: `Entrée ${i+1} — ${e.mot || e.kanji || '?'}`, _msg: errors.join(', ') });
       continue;
     }
-    const result = await saveEntry(e);
-    if (result === 'doublon') doublons++;
-    else imported++;
+    const { status, entry } = await saveEntry(e);
+    if (status === 'doublon') duplicateItems.push(entry);
+    else importedItems.push(entry);
   }
 
-  showSummary(imported, doublons, failures, entries.length);
+  showSummary(importedItems, duplicateItems, errorEntries);
   clearFile();
 }
 
-function showSummary(imported, doublons, failures, total) {
+function showSummary(importedItems, duplicateItems, errorEntries) {
+  const seen = new Set();
+  const totalItems = [];
+  for (const items of [importedItems, duplicateItems, errorEntries]) {
+    for (const e of items) {
+      const k = `${e.type || 'vocab'}:${e.mot || e.kanji || ''}`;
+      if (!seen.has(k)) { seen.add(k); totalItems.push(e); }
+    }
+  }
+
   const s = document.getElementById('import-summary');
   s.style.display = 'block';
-  document.getElementById('imp-count').textContent   = imported;
-  document.getElementById('imp-doublons').textContent= doublons;
-  document.getElementById('imp-echecs').textContent  = failures.length;
-  document.getElementById('imp-total').textContent   = total;
+  document.getElementById('imp-count').textContent    = importedItems.length;
+  document.getElementById('imp-doublons').textContent = duplicateItems.length;
+  document.getElementById('imp-echecs').textContent   = errorEntries.length;
+  document.getElementById('imp-total').textContent    = totalItems.length;
+
+  wireCard('imp-card-imported', importedItems, 'imported');
+  wireCard('imp-card-doublons', duplicateItems, 'duplicates');
+  wireCard('imp-card-echecs',   errorEntries,   'errors');
+  wireCard('imp-card-total',    totalItems,      'total');
 
   const errList = document.getElementById('imp-errors');
-  if (!failures.length) {
-    errList.parentElement.style.display = 'none';
+  const errSection = document.getElementById('imp-errors-section');
+  if (!errorEntries.length) {
+    errSection.style.display = 'none';
   } else {
-    errList.parentElement.style.display = 'block';
-    errList.innerHTML = failures.map(f => `
+    errSection.style.display = 'block';
+    errList.innerHTML = errorEntries.map(f => `
       <div class="error-item" style="margin-bottom:8px;">
-        <div class="e-title">${f.label}</div>
-        <div class="e-msg">${f.msg}</div>
+        <div class="e-title">${f._label || ''}</div>
+        <div class="e-msg">${f._msg || ''}</div>
       </div>
     `).join('');
   }
@@ -182,4 +200,22 @@ function showSummary(imported, doublons, failures, total) {
   document.getElementById('import-go').disabled = false;
   document.getElementById('import-go').textContent = 'Importer';
   s.scrollIntoView({ behavior: 'smooth' });
+}
+
+function wireCard(cardId, items, type) {
+  const card = document.getElementById(cardId);
+  if (!card) return;
+  card.classList.remove('stat-card--clickable', 'stat-card--disabled');
+  if (!items.length) {
+    card.classList.add('stat-card--disabled');
+    card.onclick = null;
+    card.removeAttribute('tabindex');
+    card.removeAttribute('role');
+  } else {
+    card.classList.add('stat-card--clickable');
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'button');
+    card.onclick = () => navigate('screen-search', { importReviewItems: items, importReviewType: type });
+    card.onkeydown = (ev) => { if (ev.key === 'Enter' || ev.key === ' ') card.onclick(); };
+  }
 }
