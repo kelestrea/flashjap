@@ -1,5 +1,5 @@
 // screens/fiche.js — écran plein (push depuis recherche)
-import { getVocab, getKanji, getStatut, getStatutGlobal, STATUT_COLOR, esc, deleteVocab, deleteKanji } from '../db.js';
+import { getVocab, getKanji, getStatut, getStatutGlobal, STATUT_COLOR, esc, deleteVocab, deleteKanji, getFreqLabel } from '../db.js';
 import { goBack, navigate, registerScreen, showPopup } from '../router.js';
 import { speak, speakKanji } from '../audio.js';
 import { buildKanjiContent } from '../components/card-vocab.js';
@@ -71,9 +71,12 @@ async function enterFiche({ key, ktype }) {
         </div>
       </div>` : ''}
       <div class="section">
-        <a class="jisho-link" href="https://jisho.org/word/${encodeURIComponent(entry.mot)}" target="_blank" rel="noopener">
-          ${ICONS.jisho}<span>Voir sur Jisho</span>${ICONS.linkOut}
-        </a>
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-size:13px;color:var(--gray);">${getFreqLabel(entry.frequence, 'vocab') ?? '-'}</span>
+          <a class="jisho-link" href="https://jisho.org/word/${encodeURIComponent(entry.mot)}" target="_blank" rel="noopener">
+            ${ICONS.jisho}<span>Voir sur Jisho</span>${ICONS.linkOut}
+          </a>
+        </div>
       </div>
       ${buildVocabStats(entry)}
       <div style="padding:16px 20px 32px;border-top:0.5px solid var(--border);">

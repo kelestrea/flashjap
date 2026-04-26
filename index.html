@@ -121,9 +121,20 @@
   </div>
 
   <div class="section">
-    <div class="section-label">LISTES</div>
-    <div class="check-group" id="qp-listes" style="margin-bottom:12px;"></div>
-    <button class="btn btn-ghost" id="qp-manage-listes" style="font-size:13px;padding:11px;">choisir les listes</button>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+      <div class="section-label" style="margin:0;">FILTRE</div>
+      <div class="toggle">
+        <button class="toggle-btn active" id="qp-filter-listes">Listes</button>
+        <button class="toggle-btn" id="qp-filter-freq">Fréquence</button>
+      </div>
+    </div>
+    <div id="qp-listes-mode">
+      <div class="check-group" id="qp-listes" style="margin-bottom:12px;"></div>
+      <button class="btn btn-ghost" id="qp-manage-listes" style="font-size:13px;padding:11px;">choisir les listes</button>
+    </div>
+    <div id="qp-freq-mode" style="display:none;">
+      <div id="qp-freq-chips" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+    </div>
   </div>
 
   <div class="section">

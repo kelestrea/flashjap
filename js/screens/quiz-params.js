@@ -4,6 +4,8 @@ import { navigate, goBack, registerScreen } from '../router.js';
 import { getSelectedType } from '../type-state.js';
 import * as listsState from '../lists-state.js';
 
+const FREQ_LABELS_ALL = ['Essentiel', 'Très courant', 'Courant', 'Rare', 'Inusité'];
+
 export function initQuizParams() {
   registerScreen('screen-quiz-params', { enter: enterParams });
   document.getElementById('qp-back').onclick  = () => goBack();
@@ -43,16 +45,75 @@ export function initQuizParams() {
     });
   }
 
+  document.getElementById('qp-filter-listes').addEventListener('click', () => applyFilterMode('listes'));
+  document.getElementById('qp-filter-freq').addEventListener('click', () => applyFilterMode('frequence'));
+
+  document.getElementById('qp-freq-chips').addEventListener('click', e => {
+    const chip = e.target.closest('.freq-chip');
+    if (!chip) return;
+    const label = chip.dataset.label;
+    const labels = listsState.getFreqLabels();
+    const idx = labels.indexOf(label);
+    if (idx >= 0) labels.splice(idx, 1);
+    else labels.push(label);
+    listsState.setFreqLabels(labels);
+    renderChips(labels);
+    refreshSlider();
+  });
+
   // Reload listes when category changes via global toggle
   window.addEventListener('type-changed', () => {
     if (document.getElementById('screen-quiz-params').classList.contains('active')) loadListes();
   });
 }
 
+function applyFilterMode(mode) {
+  listsState.setFilterMode(mode);
+  const isFreq = mode === 'frequence';
+  document.getElementById('qp-filter-listes').classList.toggle('active', !isFreq);
+  document.getElementById('qp-filter-freq').classList.toggle('active', isFreq);
+  document.getElementById('qp-listes-mode').style.display = isFreq ? 'none' : 'block';
+  document.getElementById('qp-freq-mode').style.display = isFreq ? 'block' : 'none';
+  refreshSlider();
+}
+
+function renderChips(selectedLabels) {
+  const container = document.getElementById('qp-freq-chips');
+  container.innerHTML = FREQ_LABELS_ALL.map(label => {
+    const active = selectedLabels.includes(label);
+    return `<button class="freq-chip${active ? ' active' : ''}" data-label="${label}"
+      style="padding:6px 12px;border-radius:20px;font-size:13px;cursor:pointer;
+      border:1px solid var(--border);
+      background:${active ? 'var(--blue)' : 'var(--bg2)'};
+      color:${active ? '#fff' : 'var(--blue)'}">${label}</button>`;
+  }).join('');
+}
+
+function updateStartBtn() {
+  const startBtn = document.getElementById('qp-start');
+  if (listsState.getFilterMode() !== 'frequence') {
+    startBtn.disabled = false;
+    return;
+  }
+  const labels = listsState.getFreqLabels();
+  const available = parseInt(document.getElementById('qp-slider').max) || 0;
+  startBtn.disabled = labels.length === 0 || available === 0;
+}
+
 async function enterParams() {
   const type = getSelectedType();
   const allListes = await getListes(type);
   listsState.initializeSelectedListes(allListes);
+
+  // Restore filter mode UI before loadListes calls refreshSlider
+  const filterMode = listsState.getFilterMode();
+  const isFreq = filterMode === 'frequence';
+  document.getElementById('qp-filter-listes').classList.toggle('active', !isFreq);
+  document.getElementById('qp-filter-freq').classList.toggle('active', isFreq);
+  document.getElementById('qp-listes-mode').style.display = isFreq ? 'none' : 'block';
+  document.getElementById('qp-freq-mode').style.display = isFreq ? 'block' : 'none';
+  renderChips(listsState.getFreqLabels());
+
   await loadListes();
   toggleSens();
 
@@ -110,18 +171,28 @@ function esc(str) {
 }
 
 async function refreshSlider() {
-  const type    = getSelectedType();
-  const critere = document.querySelector('[name="qp-critere"]:checked')?.value || 'tous';
+  const type     = getSelectedType();
+  const critere  = document.querySelector('[name="qp-critere"]:checked')?.value || 'tous';
   const sensType = document.querySelector('[name="qp-type"]:checked')?.value || 'lecture';
-  const sens    = sensType === 'lecture' ? 'lecture' : (document.querySelector('[name="qp-sens"]:checked')?.value || 'jpfr');
-  const listes  = listsState.getSelectedListes();
-  const cards   = await getCardsForQuiz({ type, listes, critere, sens, count: 0 });
-  const slider  = document.getElementById('qp-slider');
-  const prev    = listsState.getSliderValue();
-  slider.max    = cards.length;
-  slider.value  = Math.min(prev, cards.length);
+  const sens     = sensType === 'lecture' ? 'lecture' : (document.querySelector('[name="qp-sens"]:checked')?.value || 'jpfr');
+
+  const filterMode = listsState.getFilterMode();
+  let cards;
+  if (filterMode === 'frequence') {
+    const freqLabels = listsState.getFreqLabels();
+    cards = await getCardsForQuiz({ type, critere, sens, count: 0, filterMode: 'frequence', freqLabels });
+  } else {
+    const listes = listsState.getSelectedListes();
+    cards = await getCardsForQuiz({ type, listes, critere, sens, count: 0 });
+  }
+
+  const slider = document.getElementById('qp-slider');
+  const prev   = listsState.getSliderValue();
+  slider.max   = cards.length;
+  slider.value = Math.min(prev, cards.length);
   document.getElementById('qp-slider-val').textContent = slider.value;
   document.getElementById('qp-slider-max').textContent = `${cards.length} disponibles`;
+  updateStartBtn();
 }
 
 function toggleSens() {
@@ -139,11 +210,21 @@ async function startQuiz() {
   const sens    = type === 'lecture' ? 'lecture' : (document.querySelector('[name="qp-sens"]:checked')?.value || 'jpfr');
   const critere = document.querySelector('[name="qp-critere"]:checked')?.value || 'tous';
   const count   = parseInt(document.getElementById('qp-slider').value) || 0;
-  const listes  = listsState.getSelectedListes();
   const autoplay = (type === 'comprehension' && sens === 'jpfr')
     ? (document.querySelector('[name="qp-autoplay"]:checked')?.value || 'silence')
     : 'silence';
-  const cards   = await getCardsForQuiz({ type: cat, listes, critere, sens, count });
-  if (!cards.length) { alert('Aucune carte disponible avec ces critères.'); return; }
-  navigate('screen-quiz', { cards, cards_initial: cards, type, sens, cat, critere, listes, autoplay });
+
+  const filterMode = listsState.getFilterMode();
+  let cards;
+  if (filterMode === 'frequence') {
+    const freqLabels = listsState.getFreqLabels();
+    cards = await getCardsForQuiz({ type: cat, critere, sens, count, filterMode: 'frequence', freqLabels });
+    if (!cards.length) return;
+  } else {
+    const listes = listsState.getSelectedListes();
+    cards = await getCardsForQuiz({ type: cat, listes, critere, sens, count });
+    if (!cards.length) { alert('Aucune carte disponible avec ces critères.'); return; }
+  }
+
+  navigate('screen-quiz', { cards, cards_initial: cards, type, sens, cat, critere, listes: listsState.getSelectedListes(), autoplay });
 }

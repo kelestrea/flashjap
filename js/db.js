@@ -130,12 +130,16 @@ function cleanListes(listes) {
 }
 
 export async function saveEntry(entry) {
+  const freqRaw = entry.frequence;
+  const freqValid = Number.isInteger(freqRaw) && freqRaw >= 1 ? freqRaw : null;
+
   const store = entry.type === 'kanji' ? 'kanji' : 'vocab';
   const key   = entry.type === 'kanji' ? entry.kanji : entry.mot;
   const existing = await get(store, key);
   if (existing) {
     const merged = [...new Set([...existing.listes, ...(entry.listes || [])])];
-    const mergedEntry = { ...existing, listes: cleanListes(merged) };
+    const mergedFreq = freqValid !== null ? freqValid : (existing.frequence ?? null);
+    const mergedEntry = { ...existing, listes: cleanListes(merged), frequence: mergedFreq };
     await put(store, mergedEntry);
     return { status: 'doublon', entry: mergedEntry };
   }
@@ -144,6 +148,7 @@ export async function saveEntry(entry) {
   if (entry.type === 'kanji') {
     savedEntry = {
       ...entry, listes,
+      frequence: freqValid,
       score_comprehension_jpfr: null, score_comprehension_frjp: null,
       score_lecture_on: null, score_lecture_kun: null,
       consec_comprehension_jpfr: 0, consec_comprehension_frjp: 0,
@@ -156,6 +161,7 @@ export async function saveEntry(entry) {
   } else {
     savedEntry = {
       ...entry, listes,
+      frequence: freqValid,
       score_lecture: null, score_jpfr: null, score_frjp: null,
       consec_lecture: 0, consec_jpfr: 0, consec_frjp: 0,
       err_consec_lecture: 0, err_consec_jpfr: 0, err_consec_frjp: 0,
@@ -255,6 +261,23 @@ export async function getAllListes() {
   return [...set].sort();
 }
 
+// ── FRÉQUENCE ───────────────────────────────────────────────────────────
+export function getFreqLabel(frequence, type) {
+  if (frequence === null || frequence === undefined) return null;
+  if (type === 'kanji') {
+    if (frequence <= 100)  return 'Essentiel';
+    if (frequence <= 500)  return 'Très courant';
+    if (frequence <= 1000) return 'Courant';
+    if (frequence <= 2000) return 'Rare';
+    return 'Inusité';
+  }
+  if (frequence <= 1000)  return 'Essentiel';
+  if (frequence <= 5000)  return 'Très courant';
+  if (frequence <= 10000) return 'Courant';
+  if (frequence <= 20000) return 'Rare';
+  return 'Inusité';
+}
+
 // ── SÉLECTION DE CARTES POUR QUIZ ──────────────────────────────────────
 function getScoreKeysForSens(entry, sens) {
   if (entry.type === 'kanji') {
@@ -264,12 +287,18 @@ function getScoreKeysForSens(entry, sens) {
   return [`score_${sens}`];
 }
 
-export async function getCardsForQuiz({ type, listes, critere, sens, count }) {
+export async function getCardsForQuiz({ type, listes, critere, sens, count, filterMode, freqLabels }) {
   let entries = [];
   if (type === 'vocab' || type === 'les2') entries.push(...await getAllVocab());
   if (type === 'kanji' || type === 'les2') entries.push(...await getAllKanji());
 
-  if (listes && listes.length) {
+  if (filterMode === 'frequence') {
+    entries = entries.filter(e => {
+      if (e.frequence === null || e.frequence === undefined) return false;
+      const label = getFreqLabel(e.frequence, e.type);
+      return freqLabels && freqLabels.includes(label);
+    });
+  } else if (listes && listes.length) {
     entries = entries.filter(e => listes.some(l => (e.listes || []).includes(l)));
   }
   if (sens === 'lecture') {

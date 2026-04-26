@@ -1,5 +1,5 @@
 // components/card-vocab.js
-import { getKanji, getStatut, getStatutGlobal, STATUT_COLOR, esc, getAllListes, putVocab, putKanji, deleteVocab, deleteKanji } from '../db.js';
+import { getKanji, getStatut, getStatutGlobal, STATUT_COLOR, esc, getAllListes, putVocab, putKanji, deleteVocab, deleteKanji, getFreqLabel } from '../db.js';
 import { speak, speakKanji } from '../audio.js';
 import { ICONS } from '../icons.js';
 import { openOverlay, closeOverlay, showPopup } from '../router.js';
@@ -165,9 +165,12 @@ export async function renderVocabCard(entry, returnCb) {
       </div>
     </div>` : ''}
     <div class="section">
-      <a class="jisho-link" href="https://jisho.org/word/${encodeURIComponent(entry.mot)}" target="_blank" rel="noopener">
-        ${ICONS.jisho}<span>Voir sur Jisho</span>${ICONS.linkOut}
-      </a>
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <span style="font-size:13px;color:var(--gray);">${getFreqLabel(entry.frequence, 'vocab') ?? '-'}</span>
+        <a class="jisho-link" href="https://jisho.org/word/${encodeURIComponent(entry.mot)}" target="_blank" rel="noopener">
+          ${ICONS.jisho}<span>Voir sur Jisho</span>${ICONS.linkOut}
+        </a>
+      </div>
     </div>
     ${buildVocabStats(entry)}
     <div style="padding:16px 20px 32px;border-top:0.5px solid var(--border);">
@@ -257,9 +260,12 @@ export async function buildKanjiContent(entry, isPush = false, isScreen = false)
         </div>`).join('')}
     </div>` : ''}
     <div class="section">
-      <a class="jisho-link" href="https://jisho.org/search/${encodeURIComponent(entry.kanji)}%20%23kanji" target="_blank" rel="noopener">
-        ${ICONS.jisho}<span>Voir sur Jisho</span>${ICONS.linkOut}
-      </a>
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <span style="font-size:13px;color:var(--gray);">${getFreqLabel(entry.frequence, 'kanji') ?? '-'}</span>
+        <a class="jisho-link" href="https://jisho.org/search/${encodeURIComponent(entry.kanji)}%20%23kanji" target="_blank" rel="noopener">
+          ${ICONS.jisho}<span>Voir sur Jisho</span>${ICONS.linkOut}
+        </a>
+      </div>
     </div>
     ${buildKanjiStats(entry)}
     ${!isPush ? `
