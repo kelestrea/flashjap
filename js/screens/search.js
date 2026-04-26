@@ -57,9 +57,27 @@ async function enterSearch(state) {
   }
 }
 
+const JLPT_ORDER = ['noncommence', 'etudie', 'encours', 'maitrise'];
+
+function getJlptLevel(entry) {
+  for (const l of (entry.listes || [])) {
+    const m = l.match(/^JLPT N(\d)$/);
+    if (m) return parseInt(m[1], 10);
+  }
+  return 0;
+}
+
 function doSearch() {
   const q = document.getElementById('search-input').value;
   _allResults = search(q, getSelectedType(), _excludeAuto);
+  _allResults.sort((a, b) => {
+    const jlptDiff = getJlptLevel(b) - getJlptLevel(a);
+    if (jlptDiff !== 0) return jlptDiff;
+    const freqA = a.frequence ?? Infinity;
+    const freqB = b.frequence ?? Infinity;
+    if (freqA !== freqB) return freqA - freqB;
+    return JLPT_ORDER.indexOf(getStatutGlobal(b)) - JLPT_ORDER.indexOf(getStatutGlobal(a));
+  });
   _page = 0;
   renderPage(0);
 }
