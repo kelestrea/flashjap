@@ -15,9 +15,11 @@ export function initQuiz() {
   document.getElementById('quiz-validate').onclick  = () => validate();
   document.getElementById('quiz-dontknow').onclick  = () => validateForced(false);
   document.getElementById('quiz-know').onclick      = () => validateForced(true);
-  document.getElementById('quiz-next').onclick      = () => nextCard();
-  document.getElementById('quiz-fiche').onclick    = () => openFiche();
-  document.getElementById('quiz-toggle').onclick   = () => toggleCorrection();
+  document.getElementById('quiz-next').onclick        = () => nextCard();
+  document.getElementById('quiz-fiche').onclick      = () => openFiche();
+  document.getElementById('quiz-toggle').onclick     = () => toggleCorrection();
+  document.getElementById('quiz-kun-toggle').onclick = () => toggleKunOn('kun');
+  document.getElementById('quiz-on-toggle').onclick  = () => toggleKunOn('on');
   document.getElementById('quiz-eye').onclick       = () => toggleReading();
   document.getElementById('quiz-input').addEventListener('keydown', e => {
     if (e.key === 'Enter') {
@@ -200,6 +202,8 @@ async function applyResult(result, card) {
   _state.lastResult      = result.correct;
   _state.lastCheckResult = result;
   _state.preValidateCard = { ...card };
+  _state.kunCorrect      = result.correctKun ?? null;
+  _state.onCorrect       = result.correctOn  ?? null;
 
   if (_state.type === 'lecture' && card.type === 'kanji') {
     await updateKanjiLectureScores(card.kanji, result.correctKun ?? null, result.correctOn ?? null);
@@ -248,17 +252,89 @@ function showFeedback(correct, card, result) {
 
   const btnFiche  = document.getElementById('quiz-fiche');
   const btnToggle = document.getElementById('quiz-toggle');
+  const btnKun    = document.getElementById('quiz-kun-toggle');
+  const btnOn     = document.getElementById('quiz-on-toggle');
   const btnNext   = document.getElementById('quiz-next');
-  btnToggle.textContent = correct ? 'Incorrect' : 'Correct';
   _state.forcedResult = null;
 
+  const isKanjiLecture = _state.type === 'lecture' && card.type === 'kanji';
+  if (isKanjiLecture) {
+    btnToggle.style.display = 'none';
+    const hasKun = (card.lectures_kun || []).length > 0 || (card.romaji_kun || []).length > 0;
+    const hasOn  = (card.lectures_on  || []).length > 0 || (card.romaji_on  || []).length > 0;
+    btnKun.style.display = hasKun ? '' : 'none';
+    btnOn.style.display  = hasOn  ? '' : 'none';
+    _updateKunOnButtons(_state.kunCorrect, _state.onCorrect);
+  } else {
+    btnToggle.style.display = '';
+    btnKun.style.display = 'none';
+    btnOn.style.display  = 'none';
+    btnToggle.textContent = correct ? 'Incorrect' : 'Correct';
+  }
+
   if (correct) {
-    btnNext.classList.add('btn-primary');    btnNext.classList.remove('btn-ghost');
+    btnNext.classList.add('btn-primary');     btnNext.classList.remove('btn-ghost');
     btnFiche.classList.remove('btn-primary'); btnFiche.classList.add('btn-ghost');
   } else {
-    btnFiche.classList.add('btn-primary');   btnFiche.classList.remove('btn-ghost');
-    btnNext.classList.remove('btn-primary'); btnNext.classList.add('btn-ghost');
+    btnFiche.classList.add('btn-primary');    btnFiche.classList.remove('btn-ghost');
+    btnNext.classList.remove('btn-primary');  btnNext.classList.add('btn-ghost');
   }
+}
+
+function _updateKunOnButtons(kunCorrect, onCorrect) {
+  const btnKun = document.getElementById('quiz-kun-toggle');
+  const btnOn  = document.getElementById('quiz-on-toggle');
+
+  if (btnKun.style.display !== 'none') {
+    btnKun.textContent = kunCorrect ? 'kun incorrect' : 'kun correct';
+    btnKun.className   = `btn btn-sm ${kunCorrect ? 'btn-danger' : 'btn-success'}`;
+    btnKun.style.flex  = '1';
+  }
+  if (btnOn.style.display !== 'none') {
+    btnOn.textContent = onCorrect ? 'on incorrect' : 'on correct';
+    btnOn.className   = `btn btn-sm ${onCorrect ? 'btn-danger' : 'btn-success'}`;
+    btnOn.style.flex  = '1';
+  }
+
+  const row = document.getElementById('quiz-feedback-actions');
+  if (row.scrollWidth > row.clientWidth) {
+    if (btnKun.style.display !== 'none') btnKun.textContent = kunCorrect ? 'kun ✗' : 'kun ✓';
+    if (btnOn.style.display  !== 'none') btnOn.textContent  = onCorrect  ? 'on ✗'  : 'on ✓';
+  }
+}
+
+async function toggleKunOn(kind) {
+  if (!_state.answered) return;
+  const card = _state.cards[_state.idx];
+
+  if (kind === 'kun') _state.kunCorrect = !_state.kunCorrect;
+  else                _state.onCorrect  = !_state.onCorrect;
+
+  const isError      = (_state.kunCorrect === false) || (_state.onCorrect === false);
+  const globalCorrect = !isError;
+
+  await reapplyKanjiLectureScores(card.kanji, _state.kunCorrect, _state.onCorrect, _state.preValidateCard);
+
+  if (globalCorrect) {
+    _state.errors = _state.errors.filter(e => e.kanji !== card.kanji);
+  } else {
+    if (!_state.errors.find(e => e.kanji === card.kanji)) _state.errors.push(card);
+  }
+
+  setFeedbackUI(globalCorrect, card, { correctKun: _state.kunCorrect, correctOn: _state.onCorrect });
+  _updateKunOnButtons(_state.kunCorrect, _state.onCorrect);
+
+  const btnFiche = document.getElementById('quiz-fiche');
+  const btnNext  = document.getElementById('quiz-next');
+  if (globalCorrect) {
+    btnNext.classList.add('btn-primary');     btnNext.classList.remove('btn-ghost');
+    btnFiche.classList.remove('btn-primary'); btnFiche.classList.add('btn-ghost');
+  } else {
+    btnFiche.classList.add('btn-primary');    btnFiche.classList.remove('btn-ghost');
+    btnNext.classList.remove('btn-primary');  btnNext.classList.add('btn-ghost');
+  }
+
+  await showScores(card);
 }
 
 function setFeedbackUI(correct, card, result) {

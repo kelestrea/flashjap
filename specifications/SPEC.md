@@ -184,6 +184,20 @@ Bouton audio : triangle play plein dans un rond.
 
 **Mode Lecture — kanji** : format `kun on` séparés par un espace. Les deux doivent être corrects pour valider. `score_lecture_kun` et `score_lecture_on` sont incrémentés séparément. Si kun absent → seulement on attendu, et vice-versa. Romaji accepté en alternative.
 
+**Boutons de correction après validation — mode Lecture kanji** : deux boutons indépendants remplacent le bouton unique correct/incorrect.
+
+- Disposition : `[Fiche] [kun correct/incorrect] [on correct/incorrect] [Suivant]` sur une seule ligne ; flex avec shrink autorisé
+- Bouton kun masqué si le kanji n'a pas de lecture kun ; idem pour on
+- État initial des boutons :
+  - Validation correcte ou "Je sais" → `[kun incorrect]` (rouge) + `[on incorrect]` (rouge) — action disponible : marquer comme incorrect
+  - Validation incorrecte ou "Je ne sais pas" → `[kun correct]` (vert) + `[on correct]` (vert) — action disponible : marquer comme correct
+- Clic sur un bouton : bascule le score de cette lecture depuis l'état pré-validation (`reapplyKanjiLectureScores` avec les deux états courants en un seul `put`), met à jour la zone de feedback et les styles des boutons Fiche/Suivant
+- La carte est comptée en erreur de session si kun OU on est en état incorrect au moment de "Suivant"
+- Labels complets ("kun correct" / "kun incorrect") ; fallback automatique vers icônes "kun ✓" / "kun ✗" si la ligne déborde
+- `✓` / libellé "correct" → `btn-success` (--green) ; `✗` / libellé "incorrect" → `btn-danger` (--red)
+
+Dans les autres modes (vocab lecture, compréhension JP→FR/FR→JP), le bouton unique correct/incorrect (`quiz-toggle`) reste inchangé.
+
 **Mode Compréhension JP→FR** : saisir la traduction française.
 
 **Mode Compréhension FR→JP** : saisir hiragana ou romaji.

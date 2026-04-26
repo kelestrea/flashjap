@@ -146,6 +146,9 @@ Accessible uniquement depuis `screen-quiz-params`. Retour sans valider annule le
 - Champ de saisie réponse + bouton Valider
 - Boutons "Je ne sais pas" / "Je sais" (avant validation)
 - Feedback correction (après validation)
+- Boutons de correction après validation :
+  - **Autres modes** : `[Fiche] [correct/incorrect] [Suivant]` — bouton unique bascule les deux scores ensemble
+  - **Mode Lecture kanji** : `[Fiche] [kun correct/incorrect] [on correct/incorrect] [Suivant]` — deux boutons indépendants, un par lecture ; bouton masqué si la lecture est absente du kanji
 - Bouton Suivant
 - Compteur de progression
 - Bouton ← avec popup de confirmation
