@@ -79,7 +79,6 @@ async function enterParams() {
     kanjiBtn.classList.remove('active');
   }
 
-  const type = getSelectedCategory();
   const allListes = await getListes(type);
   listsState.initializeSelectedListes(allListes);
   await loadListes();
