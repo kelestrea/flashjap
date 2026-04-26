@@ -494,6 +494,8 @@ Aucun store centralisé. État distribué :
 
 #### `type-state.js`
 - État global : `getSelectedType()`, `setSelectedType(type)`
+- Persistance : localStorage (clé : `selectedCategory`, défaut : `'vocab'`)
+- Synchronisation : `type-changed` event dispatché à chaque changement pour synchroniser UI globale
 
 #### `global-header.js`
 - Initialisation : `initGlobalHeader()`
@@ -573,6 +575,13 @@ Aucun store centralisé. État distribué :
 - `validateEntry()` dans db.js (obligatoires listés)
 - Validation UI dans écrans (ex: longueur réponse)
 - Validation scores dans `updateScore()` (min 0, max 5)
+
+### Persistance des préférences utilisateur
+- Catégorie vocab/kanji : localStorage clé `selectedCategory` (via `type-state.js`), défaut `'vocab'`
+- Listes sélectionnées : localStorage clé `selectedListes` (via `lists-state.js`)
+- Valeur slider quiz : localStorage clé `quizSliderValue` (via `lists-state.js`)
+- Mode autoplay : localStorage clé `quizAutoplay` (via `lists-state.js`)
+- Toutes les préférences sont restaurées au boot, pas de synchronisation cross-tab
 
 ### Clavier dynamique du quiz
 - L'input du quiz (`#quiz-input`) reçoit l'attribut `lang` ajusté **à chaque nouvelle carte** selon le type de quiz

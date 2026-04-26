@@ -106,7 +106,7 @@ Point d'entrée de l'application. Naviguez vers `screen-home` vide la pile compl
 **Header global :** Barre avec toggles vocab/kanji (gauche) et bouton Accueil (droite)
 
 **Contenu :**
-- Catégorie : vocab / kanji
+- Catégorie vocab/kanji sélectionnée via **barre globale** sous la topbar
 - Listes sélectionnées (depuis `lists-state.js`, persisté localStorage)
 - Critère : tous / moins maîtrisés / vus il y a longtemps / jamais étudié
 - Type : lecture / compréhension
@@ -139,7 +139,7 @@ Accessible uniquement depuis `screen-quiz-params`. Retour sans valider annule le
 
 **Fichier :** `js/screens/quiz.js`
 
-**Header global :** Barre avec toggles vocab/kanji (gauche) et bouton Accueil (droite)
+**Header global :** Bouton Accueil (topbar) uniquement — barre de toggles exclue (catégorie fixée pour la durée du quiz)
 
 **Contenu :**
 - Carte courante (mot/kanji selon type)
@@ -188,7 +188,6 @@ Accessible uniquement depuis `screen-quiz-params`. Retour sans valider annule le
 **Header global :** Barre avec toggles vocab/kanji (gauche) et bouton Accueil (droite)
 
 **Contenu :**
-- Toggle vocab / kanji
 - Champ de recherche (debounce 200ms)
 - Toggle inclure/exclure liste "automatique"
 - Résultats paginés (50 par page)
