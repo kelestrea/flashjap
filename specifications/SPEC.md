@@ -308,6 +308,7 @@ Retourne `null` si `frequence` est null/undefined. Aucune migration de schéma r
 - Toggle pour exclure/inclure les entrées de la liste "automatique" (exclus par défaut)
 - Pagination : 50 résultats par page
 - Debounce 200ms sur la saisie
+- **Tri des résultats** (mode normal) : 1) niveau JLPT décroissant (N5 en premier, sans JLPT en dernier) — extrait du champ `listes` via regex `JLPT N(\d)` ; 2) fréquence croissante (plus fréquent en premier, `null` en dernier) ; 3) maîtrise décroissante (`maitrise` → `encours` → `etudie` → `noncommence`)
 
 **Mode review (post-import) :** Si `screen-search` est appelé avec `importReviewItems` dans le state, le mode review est activé :
 - `_allResults` chargé directement depuis `importReviewItems` (pas de requête à l'index)
