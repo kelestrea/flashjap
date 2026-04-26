@@ -10,6 +10,7 @@ export function initGlobalHeader() {
 
     const isHome = screen.id === 'screen-home';
     const isQuiz = screen.id === 'screen-quiz';
+    const isFiche = screen.id === 'screen-fiche';
     const isListSelection = screen.id === 'screen-list-selection';
 
     // Add home button to topbar on all screens except list-selection (inert on screen-home)
@@ -21,8 +22,8 @@ export function initGlobalHeader() {
       topbar.appendChild(homeBtn);
     }
 
-    // Add full-width toggle bar below topbar (not on screen-quiz)
-    if (!isQuiz) {
+    // Add full-width toggle bar below topbar (not on screen-quiz nor screen-fiche)
+    if (!isQuiz && !isFiche) {
       const bar = createToggleBar();
       topbar.insertAdjacentElement('afterend', bar);
       attachToggleEvents(bar);

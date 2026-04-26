@@ -227,7 +227,7 @@ Accessible uniquement depuis `screen-quiz-params`. Retour sans valider annule le
 
 **Fichier :** `js/screens/fiche.js`
 
-**Header global :** Barre avec toggles vocab/kanji (gauche) et bouton Accueil (droite)
+**Header global :** Bouton Accueil (topbar) uniquement — barre de toggles exclue (la fiche affiche un type fixé reçu via state)
 
 Affiche le détail complet d'une entrée. Accessible depuis `screen-search` (push classique) et depuis overlays quiz/résultats (overlay).
 
@@ -306,7 +306,7 @@ Retour : `goBack()` vers l'écran précédent (fiche ou overlay).
 
 **Fichier :** `js/global-header.js`
 
-Barre persistante (sticky) présente sur **tous les écrans sauf overlays**. Reste visible lors du scroll du contenu.
+Barre persistante (sticky) présente sur **tous les écrans sauf screen-quiz, screen-fiche et overlays**. Reste visible lors du scroll du contenu.
 
 **Composition :**
 - **Gauche** : toggles vocab/kanji (deux boutons/tabs, largeur égale)
@@ -326,6 +326,7 @@ Barre persistante (sticky) présente sur **tous les écrans sauf overlays**. Res
 - Sur screen-home, le bouton "Accueil" est présent mais inerte (utilisateur est déjà à l'accueil)
 
 **Exclusions :**
+- screen-quiz et screen-fiche : barre de toggles exclue (catégorie fixée par le contexte)
 - Overlays (bottom sheets) : `overlay-sheet`, `push-sheet` — header global ne s'affiche pas au-dessus
 - Popups de confirmation : header global reste sous le fond semi-transparent
 
