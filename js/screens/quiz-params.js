@@ -4,7 +4,7 @@ import { navigate, goBack, registerScreen } from '../router.js';
 import { getSelectedType } from '../type-state.js';
 import * as listsState from '../lists-state.js';
 
-const FREQ_LABELS_ALL = ['Essentiel', 'Très courant', 'Courant', 'Rare', 'Inusité'];
+const FREQ_LABELS_ALL = ['essentiel', 'très courant', 'courant', 'rare', 'inusité'];
 
 export function initQuizParams() {
   registerScreen('screen-quiz-params', { enter: enterParams });

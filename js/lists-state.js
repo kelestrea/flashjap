@@ -56,7 +56,7 @@ export function setFilterMode(mode) {
 
 export function getFreqLabels() {
   const stored = localStorage.getItem(FREQ_LABELS_KEY);
-  return stored ? JSON.parse(stored) : ['Essentiel'];
+  return stored ? JSON.parse(stored) : ['essentiel'];
 }
 
 export function setFreqLabels(labels) {
