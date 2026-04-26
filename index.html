@@ -236,10 +236,12 @@
 
   <div id="quiz-feedback-section" style="display:none;">
     <div class="feedback" id="quiz-feedback"></div>
-    <div style="padding:0 20px 20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
-      <button class="btn btn-ghost btn-sm" id="quiz-fiche">Fiche</button>
-      <button class="btn btn-ghost btn-sm" id="quiz-toggle">Correct</button>
-      <button class="btn btn-ghost btn-sm" id="quiz-next">Suivant</button>
+    <div id="quiz-feedback-actions" style="padding:0 20px 20px;display:flex;gap:6px;">
+      <button class="btn btn-ghost btn-sm" id="quiz-fiche" style="flex:1">Fiche</button>
+      <button class="btn btn-ghost btn-sm" id="quiz-toggle" style="flex:1">Correct</button>
+      <button class="btn btn-danger btn-sm" id="quiz-kun-toggle" style="flex:1;display:none">kun incorrect</button>
+      <button class="btn btn-danger btn-sm" id="quiz-on-toggle" style="flex:1;display:none">on incorrect</button>
+      <button class="btn btn-ghost btn-sm" id="quiz-next" style="flex:1">Suivant</button>
     </div>
   </div>
 
