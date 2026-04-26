@@ -280,6 +280,13 @@ Après sélection des N cartes selon le critère, **toujours mélanger aléatoir
 - Pagination : 50 résultats par page
 - Debounce 200ms sur la saisie
 
+**Mode review (post-import) :** Si `screen-search` est appelé avec `importReviewItems` dans le state, le mode review est activé :
+- `_allResults` chargé directement depuis `importReviewItems` (pas de requête à l'index)
+- Champ de recherche désactivé (`readonly`, opacité réduite)
+- Toggle auto masqué
+- Flag `_reviewMode = true` empêche `type-changed` de réinitialiser la liste
+- Retour via `goBack()` → screen-import (résumé préservé car `enterImport(state, isBack=true)` ne réinitialise pas)
+
 ### Sélection des Listes
 
 #### Mémoire des paramètres (via `lists-state.js`)
@@ -359,6 +366,16 @@ Le prompt complet est stocké dans `js/screens/import.js` dans la constante `PRO
 **Règles de validation à l'import (`validateEntry` dans db.js) :**
 - Vocab : `mot`, `hiragana`, `traductions`, `listes` obligatoires
 - Kanji : `kanji`, `listes`, `sens` obligatoires
+
+**Vérification post-import :** Après un import terminé, 4 cases cliquables apparaissent dans le résumé :
+- **Importés** : fiches créées ou mises à jour avec succès
+- **Doublons ignorés** : fiches fusionnées (scores préservés, listes fusionnées)
+- **Échecs** : fiches en erreur de validation
+- **Total fichier** : union dédupliquée des trois catégories (par type + clé)
+
+Cases vides → grisées et non-cliquables (`.stat-card--disabled`). Clic → `navigate('screen-search', { importReviewItems: [...], importReviewType: 'imported'|'duplicates'|'errors'|'total' })`.
+
+`enterImport(state, isBack)` préserve l'affichage du résumé si `isBack=true` (retour depuis screen-search review).
 
 ---
 
@@ -487,7 +504,7 @@ Aucun store centralisé. État distribué :
 - Scoring : `updateScore()`, `updateKanjiLectureScores()`
 - Listes : `getListes()`, `getAllListes()`
 - Quiz : `getCardsForQuiz()`
-- Import/Export : `exportAll()`, `importAll()`, `saveEntry()`, `validateEntry()`
+- Import/Export : `exportAll()`, `importAll()`, `saveEntry()` → `{ status: 'ok'|'doublon', entry }`, `validateEntry()`
 - Recherche : `buildSearchIndex()`, `search()`
 
 #### `router.js`
