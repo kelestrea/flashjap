@@ -9,21 +9,23 @@ export function initGlobalHeader() {
     if (!topbar) return;
 
     const isHome = screen.id === 'screen-home';
+    const isQuiz = screen.id === 'screen-quiz';
 
-    // Add home button to topbar (inert on screen-home)
+    // Add home button to topbar on all screens (inert on screen-home)
     const homeBtn = document.createElement('button');
     homeBtn.className = 'topbar-home-btn' + (isHome ? ' inert' : '');
     homeBtn.textContent = 'Accueil';
     if (!isHome) homeBtn.addEventListener('click', () => navigate('screen-home'));
     topbar.appendChild(homeBtn);
 
-    // Add full-width toggle bar below topbar
-    const bar = createToggleBar();
-    topbar.insertAdjacentElement('afterend', bar);
-    attachToggleEvents(bar);
-
-    const topbarHeight = topbar.offsetHeight;
-    bar.style.setProperty('--global-header-top', topbarHeight + 'px');
+    // Add full-width toggle bar below topbar (not on screen-quiz)
+    if (!isQuiz) {
+      const bar = createToggleBar();
+      topbar.insertAdjacentElement('afterend', bar);
+      attachToggleEvents(bar);
+      const topbarHeight = topbar.offsetHeight;
+      bar.style.setProperty('--global-header-top', topbarHeight + 'px');
+    }
   });
 
   window.addEventListener('type-changed', updateAllToggles);
