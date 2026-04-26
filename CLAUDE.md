@@ -43,15 +43,17 @@ Si la version est x.y (sans segment patch), considérer z = 0 → mettre à jour
 Ne pas effectuer cette étape si tu as toi-même indiqué un numéro de version durant la session ou si la PR ne contient que des modifications des fichiers de spécifications.
 
 
-## Directive : Validation des specs avant merge
+## Directive : Mise à jour systématique des specs
 
-**Quand tu me demandes de merger une PR**, voici le workflow :
+**Immédiatement après créer une PR qui contient des changements de code** (architecture, navigation, comportement, patterns), **tu dois** :
 
-1. **J'analyse** les changements de code dans la PR
-2. **Je te propose** un plan détaillé des sections à mettre à jour dans `specifications/SPEC.md` et/ou `specifications/SCREENS.md`
-3. **Tu valides** le plan (tu peux l'accepter, le modifier, ou rejeter certaines sections)
-4. **Je fais** les changements et je les commite dans la PR
-5. **On merge** la PR avec la documentation à jour
+1. **Analyser** les changements de code dans la PR
+2. **Proposer** un plan détaillé des sections à mettre à jour dans `specifications/SPEC.md` et/ou `specifications/SCREENS.md`
+3. **Attendre la validation** du user (il peut accepter, modifier, ou rejeter certaines sections)
+4. **Faire les changements** et les commiter dans la PR avant le merge
+5. **Le merge** se fait avec la documentation à jour
+
+Cette étape est **systématique et obligatoire** pour toute PR modifiant le code (sauf si la PR contient uniquement des changements des fichiers de specs eux-mêmes).
 
 Cela garantit que la documentation reste à jour et cohérente avec le code.
 
@@ -63,12 +65,14 @@ Cela garantit que la documentation reste à jour et cohérente avec le code.
 - **Règles fonctionnelles** : Si comportement utilisateur change
 - **Patterns de code** : Si conventions de code changent
 - **Points d'attention** : Si considérations de sécurité/compatibilité émergent
+- **Exports par module** : Si nouveaux exports ou changements d'API
 
 **Dans `specifications/SCREENS.md` :**
 - **Inventaire des écrans** : Si un écran est ajouté, supprimé ou renommé
 - **Arborescence de navigation** : Si un flux de navigation change
 - **Matrice des transitions** : Si des boutons ou actions de navigation changent
 - **Patterns de navigation** : Si le système de routing évolue
+- **Cycle de vie des écrans** : Si hooks `enter()` ou `leave()` changent
 
 ## Directive : Vérifier avant d'expliquer
 
