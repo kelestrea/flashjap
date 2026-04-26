@@ -1,0 +1,13 @@
+{
+  "name": "flashjap",
+  "version": "3.2.11",
+  "description": "Japanese flashcard PWA — vocabulary & kanji revision",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint js/ sw.js",
+    "lint:fix": "eslint js/ sw.js --fix"
+  },
+  "devDependencies": {
+    "eslint": "^9.0.0"
+  }
+}

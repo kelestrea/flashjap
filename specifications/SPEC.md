@@ -649,6 +649,32 @@ req.onsuccess = e => {
   - Quiz multi-sens (kanji + vocab)
   - Transitions overlays (ordre push/pop)
 
+### Linting avec ESLint
+
+**Configuration:**
+- `eslint.config.js` — ESLint 9 flat config format
+- **Règle clé** : `no-undef: error` — attrape les variables non définies (prévient les `ReferenceError`)
+- Autres erreurs : `no-redeclare`, `no-func-assign`, `no-const-assign`
+- Warnings (non-bloquants) : `no-unused-vars`, `no-var`, `semi`, `eqeqeq`
+- Globals déclarés : toutes les APIs browser (document, fetch, localStorage, etc.) + Service Worker (self, caches)
+
+**Utilisation locale:**
+```bash
+npm install           # Installation des dépendances (ESLint 9)
+npm run lint          # Lancer ESLint (affiche erreurs + warnings)
+npm run lint:fix      # Auto-corriger les issues fixables
+```
+
+**CI/CD:**
+- GitHub Actions exécute `npm run lint` sur chaque push vers main/test
+- Lint doit passer avant déploiement (bloque si erreurs `no-undef`)
+- Warnings ne bloquent pas (encouragement plutôt que contrainte)
+
+**Bonnes pratiques:**
+- Toujours vérifier `npm run lint` avant de commiter
+- Les PRs échouent si variables non définies détectées
+- Cela prévient des bugs comme `getSelectedCategory()` de sliper en production
+
 ---
 
 ## Points d'attention
