@@ -20,6 +20,10 @@ export function initializeSelectedListes(allListes) {
   }
 }
 
+export function resetSelectedListes() {
+  localStorage.removeItem(STORAGE_KEY);
+}
+
 export function getSliderValue() {
   const stored = localStorage.getItem(SLIDER_VALUE_KEY);
   return stored ? parseInt(stored) : 20;
