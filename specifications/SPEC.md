@@ -271,11 +271,11 @@ Après sélection des N cartes selon le critère, **toujours mélanger aléatoir
 
 | Label | Vocab | Kanji |
 |-------|-------|-------|
-| Essentiel | 1 – 1 000 | 1 – 100 |
-| Très courant | 1 001 – 5 000 | 101 – 500 |
-| Courant | 5 001 – 10 000 | 501 – 1 000 |
-| Rare | 10 001 – 20 000 | 1 001 – 2 000 |
-| Inusité | > 20 000 | > 2 000 |
+| essentiel | 1 – 1 000 | 1 – 100 |
+| très courant | 1 001 – 5 000 | 101 – 500 |
+| courant | 5 001 – 10 000 | 501 – 1 000 |
+| rare | 10 001 – 20 000 | 1 001 – 2 000 |
+| inusité | > 20 000 | > 2 000 |
 
 Retourne `null` si `frequence` est null/undefined. Aucune migration de schéma requise.
 
@@ -322,14 +322,14 @@ Retourne `null` si `frequence` est null/undefined. Aucune migration de schéma r
 - Listes cochées persistées via **localStorage** (clé: `selectedListes`) — module `lists-state.js`
 - Valeur du slider persistée via **localStorage** (clé: `quizSliderValue`, défaut: 20)
 - Mode de filtre actif persisté via **localStorage** (clé: `quizFilterMode`, défaut: `'listes'`)
-- Labels fréquence sélectionnés persistés via **localStorage** (clé: `quizFreqLabels`, défaut: `['Essentiel']`)
+- Labels fréquence sélectionnés persistés via **localStorage** (clé: `quizFreqLabels`, défaut: `['essentiel']`)
 - État "ouvert/fermé" des catégories : session uniquement (non persisté)
 - Validation : minimum 1 liste sélectionnée obligatoire (mode Listes) ; au moins 1 label requis pour lancer (mode Fréquence)
 
 #### Affichage sur quiz-params
 - Toggle **Listes / Fréquence** en en-tête de section (même style `.toggle` / `.toggle-btn` que les autres toggles)
 - **Mode Listes** : affiche les listes sélectionnées (groupées par catégorie, séparées par `·`) + bouton "choisir les listes"
-- **Mode Fréquence** : 5 chips (Essentiel / Très courant / Courant / Rare / Inusité) — sélection multiple, `border-radius: 20px`, actif fond `--blue` texte blanc, inactif fond `--bg2` bordure `--border` texte `--blue`
+- **Mode Fréquence** : 5 chips (essentiel / très courant / courant / rare / inusité) — sélection multiple, `border-radius: 20px`, actif fond `--blue` texte blanc, inactif fond `--bg2` bordure `--border` texte `--blue`
 - Les deux modes conservent leur sélection en mémoire indépendamment ; la bascule ne réinitialise rien
 - Bouton Lancer grisé (`disabled`) uniquement en mode Fréquence si 0 labels sélectionnés ou 0 cartes disponibles
 - Slider : min=1, max=nombre de cartes disponibles, valeur restaurée depuis localStorage
@@ -650,7 +650,7 @@ Aucun store centralisé. État distribué :
 - Valeur slider quiz : localStorage clé `quizSliderValue` (via `lists-state.js`)
 - Mode autoplay : localStorage clé `quizAutoplay` (via `lists-state.js`)
 - Mode de filtre quiz : localStorage clé `quizFilterMode` (via `lists-state.js`), défaut `'listes'`
-- Labels fréquence sélectionnés : localStorage clé `quizFreqLabels` (via `lists-state.js`), défaut `['Essentiel']`
+- Labels fréquence sélectionnés : localStorage clé `quizFreqLabels` (via `lists-state.js`), défaut `['essentiel']`
 - Toutes les préférences sont restaurées au boot, pas de synchronisation cross-tab
 
 ### Clavier dynamique du quiz

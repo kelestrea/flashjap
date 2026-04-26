@@ -117,7 +117,7 @@ Point d'entrée de l'application. Naviguez vers `screen-home` vide la pile compl
 - Catégorie vocab/kanji sélectionnée via **barre globale** sous la topbar
 - **Section filtre** avec toggle **Listes / Fréquence** en en-tête :
   - *Mode Listes* : listes sélectionnées affichées (groupées par catégorie, séparées par `·`) + bouton "choisir les listes" → `screen-list-selection`
-  - *Mode Fréquence* : 5 chips (Essentiel / Très courant / Courant / Rare / Inusité), sélection multiple, persistée dans localStorage
+  - *Mode Fréquence* : 5 chips (essentiel / très courant / courant / rare / inusité), sélection multiple, persistée dans localStorage
 - Critère : tous / moins maîtrisés / vus il y a longtemps / jamais étudié
 - Type : lecture / compréhension
 - Sens : JP→FR / FR→JP
