@@ -87,8 +87,10 @@ screen-home  [point d'entrée, pile vidée]
 
 Point d'entrée de l'application. Naviguez vers `screen-home` vide la pile complète.
 
+**Header global :** Barre avec toggles vocab/kanji (gauche) et bouton Accueil inerte (droite)
+
 **Contenu :**
-- Toggle vocab / kanji (mémorisé dans state)
+- Toggle vocab / kanji (mémorisé dans state global `type-state.js`)
 - Donut chart global (maîtrisé / en cours / étudié / non commencé)
 - Grille 2×2 de sous-camemberts par type de quiz
 - Chiffres clés : total de fiches, à réviser aujourd'hui
@@ -100,6 +102,8 @@ Point d'entrée de l'application. Naviguez vers `screen-home` vide la pile compl
 ### `screen-quiz-params` — Paramètres quiz
 
 **Fichier :** `js/screens/quiz-params.js`
+
+**Header global :** Barre avec toggles vocab/kanji (gauche) et bouton Accueil (droite)
 
 **Contenu :**
 - Catégorie : vocab / kanji
@@ -120,6 +124,8 @@ Point d'entrée de l'application. Naviguez vers `screen-home` vide la pile compl
 
 **Fichier :** `js/screens/list-selection.js`
 
+**Header global :** Barre avec toggles vocab/kanji (gauche) et bouton Accueil (droite)
+
 Accessible uniquement depuis `screen-quiz-params`. Retour sans valider annule les changements.
 
 **Contenu :**
@@ -132,6 +138,8 @@ Accessible uniquement depuis `screen-quiz-params`. Retour sans valider annule le
 ### `screen-quiz` — Quiz
 
 **Fichier :** `js/screens/quiz.js`
+
+**Header global :** Barre avec toggles vocab/kanji (gauche) et bouton Accueil (droite)
 
 **Contenu :**
 - Carte courante (mot/kanji selon type)
@@ -160,6 +168,8 @@ Accessible uniquement depuis `screen-quiz-params`. Retour sans valider annule le
 
 **Fichier :** `js/screens/results.js`
 
+**Header global :** Barre avec toggles vocab/kanji (gauche) et bouton Accueil (droite)
+
 **Contenu :**
 - Donut chart session (correct / incorrect)
 - Liste des entrées mal répondues (cliquables → overlay fiche)
@@ -174,6 +184,8 @@ Accessible uniquement depuis `screen-quiz-params`. Retour sans valider annule le
 ### `screen-search` — Recherche
 
 **Fichier :** `js/screens/search.js`
+
+**Header global :** Barre avec toggles vocab/kanji (gauche) et bouton Accueil (droite)
 
 **Contenu :**
 - Toggle vocab / kanji
@@ -197,6 +209,8 @@ Accessible uniquement depuis `screen-quiz-params`. Retour sans valider annule le
 
 **Fichier :** `js/screens/fiche.js`
 
+**Header global :** Barre avec toggles vocab/kanji (gauche) et bouton Accueil (droite)
+
 Affiche le détail complet d'une entrée. Accessible depuis `screen-search` (push classique) et depuis overlays quiz/résultats (overlay).
 
 **Contenu vocab :** lectures, traductions, kanjis composants, scores par sens, lien Jisho, boutons éditer listes / supprimer
@@ -211,6 +225,8 @@ Affiche le détail complet d'une entrée. Accessible depuis `screen-search` (pus
 
 **Fichier :** `js/screens/data.js`
 
+**Header global :** Barre avec toggles vocab/kanji (gauche) et bouton Accueil (droite)
+
 **Contenu :**
 - Boutons Import / Export / Restaurer
 - Configuration TTS : saisie clé Google Cloud, sélection voix
@@ -220,6 +236,8 @@ Affiche le détail complet d'une entrée. Accessible depuis `screen-search` (pus
 ### `screen-import` — Import
 
 **Fichier :** `js/screens/import.js`
+
+**Header global :** Barre avec toggles vocab/kanji (gauche) et bouton Accueil (droite)
 
 **Contenu :**
 - Zone upload fichier JSON
@@ -234,6 +252,8 @@ Retour : navigue vers `screen-home` (pile vidée).
 
 **Fichier :** `js/screens/restore.js`
 
+**Header global :** Barre avec toggles vocab/kanji (gauche) et bouton Accueil (droite)
+
 **Contenu :**
 - Upload fichier de sauvegarde JSON
 - Option : conserver ou réinitialiser les scores
@@ -245,6 +265,8 @@ Retour : navigue vers `screen-home` (pile vidée).
 ### `screen-edit-listes` — Édition des listes
 
 **Fichier :** `js/screens/edit-listes.js`
+
+**Header global :** Barre avec toggles vocab/kanji (gauche) et bouton Accueil (droite)
 
 Accessible depuis `screen-fiche` et depuis les overlays (via fiche vocab/kanji).
 
@@ -258,7 +280,44 @@ Retour : `goBack()` vers l'écran précédent (fiche ou overlay).
 
 ---
 
+## Header global
+
+**Fichier :** `js/global-header.js`
+
+Barre persistante (sticky) présente sur **tous les écrans sauf overlays**. Reste visible lors du scroll du contenu.
+
+**Composition :**
+- **Gauche** : toggles vocab/kanji (deux boutons/tabs, largeur égale)
+- **Droite** : bouton "Accueil" (texte, sera remplacé par icône ultérieurement)
+
+**Positionnement :**
+- Position : sticky
+- Top : calculé dynamiquement en fonction de la hauteur de la topbar
+- Z-index : 9 (sous topbar z-index 10)
+- Reste visible au scroll du contenu
+
+**Comportement :**
+- Type sélectionné (vocab/kanji) est synchronisé globalement via `type-state.js`
+- Clics sur les toggles dispatch un événement `type-changed` pour synchronisation UI
+- Bouton "Accueil" navigue vers `screen-home` avec pile vidée (`navigate('screen-home')`)
+- État persiste entre les écrans : si utilisateur sélectionne "Kanji" sur search, retour à home affiche "Kanji" sélectionné
+- Sur screen-home, le bouton "Accueil" est présent mais inerte (utilisateur est déjà à l'accueil)
+
+**Exclusions :**
+- Overlays (bottom sheets) : `overlay-sheet`, `push-sheet` — header global ne s'affiche pas au-dessus
+- Popups de confirmation : header global reste sous le fond semi-transparent
+
+**Style :**
+- Fond : `var(--bg)`
+- Border-bottom : 0.5px solid `var(--border)`
+- Padding : 10px 20px
+- Border-radius des toggles : 6px (identique à barre existante dans screen-search)
+
+---
+
 ## Matrice des transitions
+
+**Note :** Le bouton "Accueil" (barre globale, droite) depuis **tous les écrans** sauf overlays navigate vers `screen-home` avec pile vidée (équivalent à `navigate('screen-home')`).
 
 | De | Vers | Type | Déclencheur | State transmis |
 |----|------|------|------------|----------------|
