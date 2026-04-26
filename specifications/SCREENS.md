@@ -246,8 +246,9 @@ Affiche le détail complet d'une entrée. Accessible depuis `screen-search` (pus
 **Header global :** Barre avec toggles vocab/kanji (gauche) et bouton Accueil (droite)
 
 **Contenu :**
-- Boutons Import / Export / Restaurer
+- Boutons Import / Export / Restaurer (amber) — hiérarchie : amber = réversible avec sauvegarde
 - Configuration TTS : saisie clé Google Cloud, sélection voix
+- Bouton "Vider la base" (rouge, pleine largeur) en bas de l'écran, isolé par un séparateur — action irréversible avec popup de confirmation
 
 ---
 
@@ -443,10 +444,10 @@ registerScreen('screen-quiz', {
 **Fichier :** `js/router.js`
 
 ```javascript
-showPopup(message, onConfirm, onCancel)
+showPopup(message, onConfirm, onCancel, confirmLabel = 'Confirmer')
 ```
 
-Utilisé pour les actions destructives : quitter le quiz en cours, supprimer une fiche, restaurer la base.
+Utilisé pour les actions destructives : quitter le quiz en cours, supprimer une fiche, restaurer la base, vider la base. Le paramètre `confirmLabel` permet de personnaliser le libellé du bouton de confirmation (ex. `'Vider'`).
 
 ---
 
