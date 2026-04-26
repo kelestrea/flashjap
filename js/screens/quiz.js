@@ -73,8 +73,16 @@ function showCard() {
   }
   document.getElementById('quiz-input').placeholder = placeholder;
 
+  // Set keyboard language based on quiz type
+  const input = document.getElementById('quiz-input');
+  if (type === 'lecture') {
+    input.lang = 'ja';
+  } else if (type === 'comprehension') {
+    input.lang = sens === 'jpfr' ? 'fr' : 'ja';
+  }
+
   // Reset UI
-  document.getElementById('quiz-input').value = '';
+  input.value = '';
   document.getElementById('quiz-input-section').style.display = 'flex';
   document.getElementById('quiz-feedback-section').style.display = 'none';
   document.getElementById('quiz-scores-section').style.display = 'none';
