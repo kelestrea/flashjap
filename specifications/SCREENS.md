@@ -182,6 +182,7 @@ Accessible uniquement depuis `screen-quiz-params`. Retour sans valider annule le
 **Header global :** Barre avec toggles vocab/kanji (gauche) et bouton Accueil (droite)
 
 **Contenu :**
+- Badge dynamique `#results-badge` (juste sous la topbar, dans le contenu) : type de quiz + nombre de cartes, ex. "Lecture · 20 cartes"
 - Donut chart session (correct / incorrect)
 - Liste des entrées mal répondues (cliquables → overlay fiche)
 - Boutons dynamiques :
@@ -300,6 +301,35 @@ Accessible depuis `screen-fiche` et depuis les overlays (via fiche vocab/kanji).
 Retour : `goBack()` vers l'écran précédent (fiche ou overlay).
 
 **State reçu :** `{ key: string, ktype: 'vocab' | 'kanji' }`
+
+---
+
+## Topbar — structure commune
+
+Chaque écran possède sa propre `div.topbar` (sticky, z-index 10). Tous les écrans affichent systématiquement un sous-titre "日本語クイズ" (`div.topbar-sub`, 11px, couleur `--gray`) au-dessus du titre principal (`div.topbar-title`, 18px).
+
+**Pattern type avec bouton retour :**
+```html
+<div class="topbar">
+  <button class="back-btn">…</button>
+  <div style="flex:1;margin-left:10px;">
+    <div class="topbar-sub">日本語クイズ</div>
+    <div class="topbar-title">Titre de l'écran</div>
+  </div>
+</div>
+```
+
+**Pattern sans bouton retour (screen-home, screen-results) :**
+```html
+<div class="topbar">
+  <div>
+    <div class="topbar-sub">日本語クイズ</div>
+    <div class="topbar-title">Titre</div>
+  </div>
+</div>
+```
+
+Les IDs dynamiques portés par `topbar-title` : `quiz-badge` (screen-quiz), `fiche-title` (screen-fiche).
 
 ---
 
