@@ -206,6 +206,7 @@ Accessible uniquement depuis `screen-quiz-params`. Retour sans valider annule le
 - Champ de recherche (debounce 200ms)
 - Toggle inclure/exclure liste "automatique"
 - Résultats paginés (50 par page)
+- Résultats triés : JLPT décroissant (N5 en premier, sans JLPT en dernier), puis fréquence croissante, puis maîtrise décroissante
 
 **Contenu (mode review post-import) :** activé si `state.importReviewItems` est présent
 - Champ de recherche désactivé (readonly, grisé)
