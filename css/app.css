@@ -252,6 +252,10 @@ input[type=range] { width: 100%; accent-color: var(--blue); }
 .stat-card { background: var(--bg2); border-radius: var(--rs); padding: 10px 12px; }
 .stat-card .label { font-size: 11px; color: var(--gray); margin-bottom: 2px; }
 .stat-card .value { font-size: 22px; font-weight: 500; }
+.stat-card--clickable { cursor: pointer; transition: opacity 0.15s; }
+.stat-card--clickable:hover { opacity: 0.75; }
+.stat-card--clickable:active { opacity: 0.55; }
+.stat-card--disabled { opacity: 0.45; pointer-events: none; }
 
 /* ── LISTE RÉSULTATS ── */
 .list-item {

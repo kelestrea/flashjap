@@ -5,10 +5,11 @@ import { getSelectedType } from '../type-state.js';
 import { ICONS } from '../icons.js';
 
 let _excludeAuto = true;
-let _debounce   = null;
-const PAGE_SIZE = 50;
-let _allResults = [];
-let _page       = 0;
+let _debounce    = null;
+let _reviewMode  = false;
+const PAGE_SIZE  = 50;
+let _allResults  = [];
+let _page        = 0;
 
 export function initSearch() {
   registerScreen('screen-search', { enter: enterSearch });
@@ -27,13 +28,33 @@ export function initSearch() {
   };
   document.getElementById('search-more').onclick = () => { _page++; renderPage(_page); };
   window.addEventListener('type-changed', () => {
+    if (_reviewMode) return;
     if (document.getElementById('screen-search').classList.contains('active')) doSearch();
   });
 }
 
-async function enterSearch(state, isBack) {
-  await buildSearchIndex();
-  doSearch();
+async function enterSearch(state) {
+  const reviewItems = state && state.importReviewItems;
+  const input = document.getElementById('search-input');
+  const autoToggle = document.getElementById('search-auto-toggle');
+
+  if (reviewItems) {
+    _reviewMode = true;
+    input.setAttribute('readonly', '');
+    input.value = '';
+    input.style.opacity = '0.4';
+    autoToggle.style.display = 'none';
+    _allResults = reviewItems;
+    _page = 0;
+    renderPage(0);
+  } else {
+    _reviewMode = false;
+    input.removeAttribute('readonly');
+    input.style.opacity = '';
+    autoToggle.style.display = '';
+    await buildSearchIndex();
+    doSearch();
+  }
 }
 
 function doSearch() {
