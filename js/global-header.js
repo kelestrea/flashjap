@@ -3,29 +3,33 @@ import { navigate } from './router.js';
 import { getSelectedType, setSelectedType } from './type-state.js';
 
 export function initGlobalHeader() {
-  // Create header bar
-  const headerBar = createHeaderBar();
-
-  // Add to all screens (except overlays)
   const screens = document.querySelectorAll('.screen');
   screens.forEach(screen => {
     const topbar = screen.querySelector('.topbar');
-    if (topbar) {
-      const bar = headerBar.cloneNode(true);
-      topbar.insertAdjacentElement('afterend', bar);
-      attachHeaderEvents(bar);
+    if (!topbar) return;
 
-      // Set CSS variable for sticky positioning
-      const topbarHeight = topbar.offsetHeight;
-      bar.style.setProperty('--global-header-top', topbarHeight + 'px');
-    }
+    const isHome = screen.id === 'screen-home';
+
+    // Add home button to topbar (inert on screen-home)
+    const homeBtn = document.createElement('button');
+    homeBtn.className = 'topbar-home-btn' + (isHome ? ' inert' : '');
+    homeBtn.textContent = 'Accueil';
+    if (!isHome) homeBtn.addEventListener('click', () => navigate('screen-home'));
+    topbar.appendChild(homeBtn);
+
+    // Add full-width toggle bar below topbar
+    const bar = createToggleBar();
+    topbar.insertAdjacentElement('afterend', bar);
+    attachToggleEvents(bar);
+
+    const topbarHeight = topbar.offsetHeight;
+    bar.style.setProperty('--global-header-top', topbarHeight + 'px');
   });
 
-  // Update toggles on type change
   window.addEventListener('type-changed', updateAllToggles);
 }
 
-function createHeaderBar() {
+function createToggleBar() {
   const bar = document.createElement('div');
   bar.className = 'global-header';
   bar.innerHTML = `
@@ -33,27 +37,17 @@ function createHeaderBar() {
       <button class="toggle-btn active" data-type="vocab">Vocab</button>
       <button class="toggle-btn" data-type="kanji">Kanjis</button>
     </div>
-    <button class="home-btn">Accueil</button>
   `;
   return bar;
 }
 
-function attachHeaderEvents(bar) {
-  // Toggle buttons
-  const toggleBtns = bar.querySelectorAll('[data-type]');
-  toggleBtns.forEach(btn => {
+function attachToggleEvents(bar) {
+  bar.querySelectorAll('[data-type]').forEach(btn => {
     btn.addEventListener('click', (e) => {
-      const type = e.target.dataset.type;
-      setSelectedType(type);
+      setSelectedType(e.target.dataset.type);
       updateAllToggles();
       window.dispatchEvent(new Event('type-changed'));
     });
-  });
-
-  // Home button
-  const homeBtn = bar.querySelector('.home-btn');
-  homeBtn.addEventListener('click', () => {
-    navigate('screen-home');
   });
 }
 

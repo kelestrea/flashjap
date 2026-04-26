@@ -191,9 +191,6 @@ html, body {
 
 /* ── GLOBAL HEADER ── */
 .global-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   padding: 10px 20px;
   border-bottom: 0.5px solid var(--border);
   position: sticky;
@@ -201,8 +198,11 @@ html, body {
   background: var(--bg);
   z-index: 9;
 }
+.global-header .toggle {
+  width: 100%;
+}
 
-.home-btn {
+.topbar-home-btn {
   background: transparent;
   border: none;
   color: var(--blue);
@@ -211,9 +211,11 @@ html, body {
   cursor: pointer;
   padding: 5px 12px;
   border-radius: 4px;
-  transition: background 0.15s, opacity 0.15s;
+  transition: opacity 0.15s;
+  flex-shrink: 0;
 }
-.home-btn:active { opacity: 0.6; }
+.topbar-home-btn:active { opacity: 0.6; }
+.topbar-home-btn.inert { opacity: 0.3; cursor: default; pointer-events: none; }
 
 /* ── RADIO / CHECKBOX ── */
 .radio-group, .check-group { display: flex; flex-direction: column; gap: 6px; }
