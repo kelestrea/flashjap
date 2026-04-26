@@ -273,6 +273,14 @@ Après sélection des N cartes selon le critère, **toujours mélanger aléatoir
 - Fonctions dans `db.js` : `deleteVocab(mot)`, `deleteKanji(kanji)`
 - Invalide l'index de recherche en mémoire (`_searchIndex = null`) après suppression
 
+### Vidage de la base
+
+- Disponible depuis screen-data via le bouton "Vider la base" (rouge, pleine largeur, bas de l'écran)
+- Déclenche une popup de confirmation (message irréversible, bouton "Vider")
+- Si confirmé : `clearAllData()` dans `db.js` vide les stores vocab et kanji et invalide `_searchIndex` ; `resetSelectedListes()` dans `lists-state.js` supprime la clé `selectedListes` du localStorage
+- Ne touche pas aux autres préférences : slider, autoplay, type vocab/kanji, clé TTS
+- L'utilisateur reste sur screen-data après l'action
+
 ### Recherche
 
 - Champs indexés : kanji/mot, hiragana, romaji, traductions/sens, listes
@@ -506,11 +514,12 @@ Aucun store centralisé. État distribué :
 - Quiz : `getCardsForQuiz()`
 - Import/Export : `exportAll()`, `importAll()`, `saveEntry()` → `{ status: 'ok'|'doublon', entry }`, `validateEntry()`
 - Recherche : `buildSearchIndex()`, `search()`
+- Vidage : `clearAllData()` — vide stores vocab et kanji, invalide `_searchIndex`
 
 #### `router.js`
 - Navigation : `navigate()`, `goBack()`, `currentState()`, `replaceState()`
 - Overlays : `openOverlay()`, `closeOverlay()`
-- Popups : `showPopup()`
+- Popups : `showPopup(msg, onConfirm, onCancel, confirmLabel = 'Confirmer')`
 - Inscription : `registerScreen()`
 
 #### `audio.js`
@@ -520,7 +529,7 @@ Aucun store centralisé. État distribué :
 - État : `isAvailable()`
 
 #### `lists-state.js`
-- Listes : `getSelectedListes()`, `setSelectedListes(listes)`, `initializeSelectedListes(allListes)`
+- Listes : `getSelectedListes()`, `setSelectedListes(listes)`, `initializeSelectedListes(allListes)`, `resetSelectedListes()`
 - Slider : `getSliderValue()`, `setSliderValue(value)`
 
 #### `type-state.js`

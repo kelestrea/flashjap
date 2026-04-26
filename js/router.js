@@ -81,12 +81,13 @@ export function closeOverlay() {
 }
 
 // ── POPUP CONFIRMATION ───────────────────────────────────────────────────
-export function showPopup(msg, onConfirm, onCancel) {
+export function showPopup(msg, onConfirm, onCancel, confirmLabel = 'Confirmer') {
   const popup  = document.getElementById('popup');
   const pmsg   = document.getElementById('popup-msg');
   const pok    = document.getElementById('popup-ok');
   const pcancel= document.getElementById('popup-cancel');
   pmsg.textContent = msg;
+  pok.textContent  = confirmLabel;
   popup.classList.add('visible');
   pok.onclick = () => { popup.classList.remove('visible'); onConfirm(); };
   pcancel.onclick = () => { popup.classList.remove('visible'); onCancel?.(); };

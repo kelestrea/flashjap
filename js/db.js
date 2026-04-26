@@ -118,6 +118,12 @@ function del(store, key) {
 export async function deleteVocab(mot)   { _searchIndex = null; return del('vocab', mot); }
 export async function deleteKanji(kanji) { _searchIndex = null; return del('kanji', kanji); }
 
+export async function clearAllData() {
+  await clear('vocab');
+  await clear('kanji');
+  _searchIndex = null;
+}
+
 function cleanListes(listes) {
   const autres = listes.filter(l => l !== 'automatique');
   return autres.length > 0 ? autres : listes;

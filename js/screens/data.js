@@ -1,7 +1,8 @@
 // screens/data.js
-import { navigate, goBack, registerScreen } from '../router.js';
-import { exportAll } from '../db.js';
+import { navigate, goBack, registerScreen, showPopup } from '../router.js';
+import { exportAll, clearAllData } from '../db.js';
 import { setCloudKey, getCloudConfig } from '../audio.js';
+import { resetSelectedListes } from '../lists-state.js';
 
 export function initData() {
   registerScreen('screen-data', { enter: () => {
@@ -20,6 +21,18 @@ export function initData() {
     const voice = document.getElementById('tts-voice').value;
     setCloudKey(key, voice);
     document.getElementById('tts-status').textContent = key ? '✓ Enregistrée' : 'Clé effacée';
+  };
+
+  document.getElementById('data-clear-db').onclick = () => {
+    showPopup(
+      'Supprimer toutes les fiches vocab et kanji ? Cette action est irréversible.',
+      async () => {
+        await clearAllData();
+        resetSelectedListes();
+      },
+      null,
+      'Vider'
+    );
   };
 }
 
