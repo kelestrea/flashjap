@@ -7,27 +7,15 @@ export function getHomeType() { return getSelectedType(); }
 
 export function initHome() {
   registerScreen('screen-home', { enter: enterHome });
-  document.getElementById('home-quiz-btn').onclick    = () => navigate('screen-quiz-params');
-  document.getElementById('home-data-btn').onclick    = () => navigate('screen-data');
-  document.getElementById('home-search-btn').onclick  = () => navigate('screen-search');
-  document.getElementById('home-toggle-vocab').onclick = () => setType('vocab');
-  document.getElementById('home-toggle-kanji').onclick = () => setType('kanji');
+  document.getElementById('home-quiz-btn').onclick   = () => navigate('screen-quiz-params');
+  document.getElementById('home-data-btn').onclick   = () => navigate('screen-data');
+  document.getElementById('home-search-btn').onclick = () => navigate('screen-search');
+  window.addEventListener('type-changed', () => { if (document.getElementById('screen-home').classList.contains('active')) renderStats(); });
 }
 
 async function enterHome(state, isBack) {
   await buildSearchIndex();
-  const t = getSelectedType();
-  document.getElementById('home-toggle-vocab').classList.toggle('active', t === 'vocab');
-  document.getElementById('home-toggle-kanji').classList.toggle('active', t === 'kanji');
   await renderStats();
-}
-
-function setType(t) {
-  setSelectedType(t);
-  document.getElementById('home-toggle-vocab').classList.toggle('active', t === 'vocab');
-  document.getElementById('home-toggle-kanji').classList.toggle('active', t === 'kanji');
-  renderStats();
-  window.dispatchEvent(new Event('type-changed'));
 }
 
 function makeDonut(svgId, segments, r = 36, sw = 12, size = 90) {
