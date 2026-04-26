@@ -42,12 +42,14 @@ Incrémenter z de 1
 Si la version est x.y (sans segment patch), considérer z = 0 → mettre à jour en x.y.1
 Ne pas effectuer cette étape si tu as toi-même indiqué un numéro de version durant la session ou si la PR ne contient que des modifications des fichiers de spécifications.
 
+Passe ensuite à la mise à jour des specs.
+
 
 ## Directive : Mise à jour systématique des specs
 
-**Immédiatement après créer une PR qui contient des changements de code** (architecture, navigation, comportement, patterns), **tu dois** :
+Avant de pousser une PR et après avoir changé le numéro de version, tu dois :
 
-1. **Analyser** les changements de code dans la PR
+1. **Analyser** les changements de code dans la PR (architecture, navigation, comportement, patterns, UX/UI)
 2. **Proposer** un plan détaillé des sections à mettre à jour dans `specifications/SPEC.md` et/ou `specifications/SCREENS.md`
 3. **Attendre la validation** du user (il peut accepter, modifier, ou rejeter certaines sections)
 4. **Faire les changements** et les commiter dans la PR avant le merge
