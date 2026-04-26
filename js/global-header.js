@@ -10,13 +10,16 @@ export function initGlobalHeader() {
 
     const isHome = screen.id === 'screen-home';
     const isQuiz = screen.id === 'screen-quiz';
+    const isListSelection = screen.id === 'screen-list-selection';
 
-    // Add home button to topbar on all screens (inert on screen-home)
-    const homeBtn = document.createElement('button');
-    homeBtn.className = 'topbar-home-btn' + (isHome ? ' inert' : '');
-    homeBtn.textContent = 'Accueil';
-    if (!isHome) homeBtn.addEventListener('click', () => navigate('screen-home'));
-    topbar.appendChild(homeBtn);
+    // Add home button to topbar on all screens except list-selection (inert on screen-home)
+    if (!isListSelection) {
+      const homeBtn = document.createElement('button');
+      homeBtn.className = 'topbar-home-btn' + (isHome ? ' inert' : '');
+      homeBtn.textContent = 'Accueil';
+      if (!isHome) homeBtn.addEventListener('click', () => navigate('screen-home'));
+      topbar.appendChild(homeBtn);
+    }
 
     // Add full-width toggle bar below topbar (not on screen-quiz)
     if (!isQuiz) {
