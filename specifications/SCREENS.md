@@ -252,29 +252,29 @@ Retour : `goBack()` vers l'écran précédent (fiche ou overlay).
 
 ## Matrice des transitions
 
-| De | Vers | Déclencheur | State transmis |
-|----|------|------------|----------------|
-| `screen-home` | `screen-quiz-params` | `#home-quiz-btn` | `{ type }` |
-| `screen-home` | `screen-search` | `#home-search-btn` | `{ type }` |
-| `screen-home` | `screen-data` | `#home-data-btn` | — |
-| `screen-quiz-params` | `screen-list-selection` | `#qp-manage-listes` | — |
-| `screen-list-selection` | `screen-quiz-params` | `#ls-validate` (goBack) | — |
-| `screen-quiz-params` | `screen-quiz` | `#qp-start` | `{ cards, cards_initial, type, sens, cat, critere, listes, autoplay }` |
-| `screen-quiz` | `screen-quiz-params` | ← + confirmation | — (goBack) |
-| `screen-quiz` | `screen-results` | fin session + Suivant | `{ cards, cards_initial, errors, params }` |
-| `screen-results` | `screen-quiz` | `#results-restart` | `{ cards: shuffle(cards_initial), cards_initial, ... }` |
-| `screen-results` | `screen-quiz` | `#results-retry` | `{ cards: errors, cards_initial, ... }` |
-| `screen-results` | `screen-home` | `#results-home` | — (pile vidée) |
-| `screen-search` | `screen-fiche` | clic sur un résultat | `{ key, ktype }` |
-| `screen-fiche` | `screen-edit-listes` | `#fiche-edit-listes` | `{ key, ktype }` |
-| `screen-edit-listes` | *(précédent)* | Sauvegarder | — (goBack) |
-| `screen-data` | `screen-import` | `#data-import` | — |
-| `screen-import` | `screen-home` | `#import-done` | — (pile vidée) |
-| `screen-data` | `screen-restore` | `#data-restore` | — |
-| `screen-restore` | `screen-home` | après restauration | — (pile vidée) |
-| Quiz ou Résultats | `[overlay-sheet]` | clic sur une entrée | — (openOverlay) |
-| `[overlay-sheet]` vocab | `[push-sheet]` kanji | clic kanji composant | — (push interne) |
-| `[overlay-sheet]` | `screen-edit-listes` | `#edit-listes-btn` | `{ key, ktype }` |
+| De | Vers | Type | Déclencheur | State transmis |
+|----|------|------|------------|----------------|
+| `screen-home` | `screen-quiz-params` | Stack | `#home-quiz-btn` | `{ type }` |
+| `screen-home` | `screen-search` | Stack | `#home-search-btn` | `{ type }` |
+| `screen-home` | `screen-data` | Stack | `#home-data-btn` | — |
+| `screen-quiz-params` | `screen-list-selection` | Stack | `#qp-manage-listes` | — |
+| `screen-list-selection` | `screen-quiz-params` | Stack | `#ls-validate` (goBack) | — |
+| `screen-quiz-params` | `screen-quiz` | Stack | `#qp-start` | `{ cards, cards_initial, type, sens, cat, critere, listes, autoplay }` |
+| `screen-quiz` | `screen-quiz-params` | Stack | ← + confirmation | — (goBack) |
+| `screen-quiz` | `screen-results` | Stack | fin session + Suivant | `{ cards, cards_initial, errors, params }` |
+| `screen-results` | `screen-quiz` | Stack | `#results-restart` | `{ cards: shuffle(cards_initial), cards_initial, ... }` |
+| `screen-results` | `screen-quiz` | Stack | `#results-retry` | `{ cards: errors, cards_initial, ... }` |
+| `screen-results` | `screen-home` | Stack | `#results-home` | — (pile vidée) |
+| `screen-search` | `screen-fiche` | Stack | clic sur un résultat | `{ key, ktype }` |
+| `screen-fiche` | `screen-edit-listes` | Stack | `#fiche-edit-listes` | `{ key, ktype }` |
+| `screen-edit-listes` | *(précédent)* | Stack | Sauvegarder | — (goBack) |
+| `screen-data` | `screen-import` | Stack | `#data-import` | — |
+| `screen-import` | `screen-home` | Stack | `#import-done` | — (pile vidée) |
+| `screen-data` | `screen-restore` | Stack | `#data-restore` | — |
+| `screen-restore` | `screen-home` | Stack | après restauration | — (pile vidée) |
+| Quiz ou Résultats | `[overlay-sheet]` | Overlay | clic sur une entrée | — (openOverlay) |
+| `[overlay-sheet]` vocab | `[push-sheet]` kanji | Push interne | clic kanji composant | — (push interne) |
+| `[overlay-sheet]` | `screen-edit-listes` | Stack | `#edit-listes-btn` | `{ key, ktype }` |
 
 ---
 
