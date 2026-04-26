@@ -1,7 +1,7 @@
 // screens/quiz-params.js
 import { getListes, getCardsForQuiz } from '../db.js';
 import { navigate, goBack, registerScreen } from '../router.js';
-import { getHomeType } from './home.js';
+import { getSelectedType, setSelectedType } from '../type-state.js';
 import * as listsState from '../lists-state.js';
 
 export function initQuizParams() {
@@ -10,15 +10,19 @@ export function initQuizParams() {
   document.getElementById('qp-start').onclick = () => startQuiz();
 
   document.getElementById('qp-toggle-vocab').addEventListener('click', () => {
+    setSelectedType('vocab');
     document.getElementById('qp-toggle-vocab').classList.add('active');
     document.getElementById('qp-toggle-kanji').classList.remove('active');
     loadListes();
+    window.dispatchEvent(new Event('type-changed'));
   });
 
   document.getElementById('qp-toggle-kanji').addEventListener('click', () => {
+    setSelectedType('kanji');
     document.getElementById('qp-toggle-kanji').classList.add('active');
     document.getElementById('qp-toggle-vocab').classList.remove('active');
     loadListes();
+    window.dispatchEvent(new Event('type-changed'));
   });
 
   document.querySelectorAll('[name="qp-type"]').forEach(r =>
@@ -62,12 +66,12 @@ function getSelectedCategory() {
 }
 
 async function enterParams() {
-  // Pré-cocher selon toggle accueil
-  const homeType = getHomeType();
+  // Pré-cocher selon toggle global
+  const type = getSelectedType();
   const vocabBtn = document.getElementById('qp-toggle-vocab');
   const kanjiBtn = document.getElementById('qp-toggle-kanji');
 
-  if (homeType === 'kanji') {
+  if (type === 'kanji') {
     vocabBtn.classList.remove('active');
     kanjiBtn.classList.add('active');
   } else {

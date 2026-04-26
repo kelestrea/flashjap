@@ -1,9 +1,9 @@
 // screens/home.js
 import { getAllVocab, getAllKanji, getStatutGlobal, getStatut, STATUT_COLOR, buildSearchIndex } from '../db.js';
 import { navigate, registerScreen } from '../router.js';
+import { getSelectedType, setSelectedType } from '../type-state.js';
 
-let _type = 'vocab';
-export function getHomeType() { return _type; }
+export function getHomeType() { return getSelectedType(); }
 
 export function initHome() {
   registerScreen('screen-home', { enter: enterHome });
@@ -16,14 +16,18 @@ export function initHome() {
 
 async function enterHome(state, isBack) {
   await buildSearchIndex();
+  const t = getSelectedType();
+  document.getElementById('home-toggle-vocab').classList.toggle('active', t === 'vocab');
+  document.getElementById('home-toggle-kanji').classList.toggle('active', t === 'kanji');
   await renderStats();
 }
 
 function setType(t) {
-  _type = t;
+  setSelectedType(t);
   document.getElementById('home-toggle-vocab').classList.toggle('active', t === 'vocab');
   document.getElementById('home-toggle-kanji').classList.toggle('active', t === 'kanji');
   renderStats();
+  window.dispatchEvent(new Event('type-changed'));
 }
 
 function makeDonut(svgId, segments, r = 36, sw = 12, size = 90) {
@@ -89,7 +93,8 @@ function countByStatut(entries, scoreKey) {
 }
 
 async function renderStats() {
-  const entries = _type === 'vocab' ? await getAllVocab() : await getAllKanji();
+  const t = getSelectedType();
+  const entries = t === 'vocab' ? await getAllVocab() : await getAllKanji();
   let maitrise = 0, encours = 0, etudie = 0, noncommence = 0, areviser = 0;
   const THREE_WEEKS = 21 * 24 * 3600 * 1000;
   const now = Date.now();
@@ -123,7 +128,7 @@ async function renderStats() {
   document.getElementById('home-total').textContent     = total;
 
   // Sous-camemberts
-  if (_type === 'vocab') {
+  if (t === 'vocab') {
     subDonut('home-sub-0', null, countByStatut(entries, 'score_lecture'), 'Lecture');
     subDonut('home-sub-1', null, countByStatut(entries, 'score_jpfr'),    'JP→FR');
     subDonut('home-sub-2', null, countByStatut(entries, 'score_frjp'),    'FR→JP');

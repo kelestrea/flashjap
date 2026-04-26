@@ -3,6 +3,7 @@ import { APP_VERSION } from './version.js';
 import { openDB, loadDefaultDatabase, getAllVocab, getAllKanji } from './db.js';
 import { initAudio } from './audio.js';
 import { navigate, showPopup } from './router.js';
+import { initGlobalHeader } from './global-header.js';
 import { initHome }       from './screens/home.js';
 import { initQuizParams } from './screens/quiz-params.js';
 import { initQuiz }       from './screens/quiz.js';
@@ -42,6 +43,8 @@ async function boot() {
   initRestore();
   initEditListes();
   listSelection.init();
+
+  initGlobalHeader();
 
   navigate('screen-home');
 
