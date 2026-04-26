@@ -1,29 +1,13 @@
 // screens/quiz-params.js
 import { getListes, getCardsForQuiz } from '../db.js';
 import { navigate, goBack, registerScreen } from '../router.js';
-import { getSelectedType, setSelectedType } from '../type-state.js';
+import { getSelectedType } from '../type-state.js';
 import * as listsState from '../lists-state.js';
 
 export function initQuizParams() {
   registerScreen('screen-quiz-params', { enter: enterParams });
   document.getElementById('qp-back').onclick  = () => goBack();
   document.getElementById('qp-start').onclick = () => startQuiz();
-
-  document.getElementById('qp-toggle-vocab').addEventListener('click', () => {
-    setSelectedType('vocab');
-    document.getElementById('qp-toggle-vocab').classList.add('active');
-    document.getElementById('qp-toggle-kanji').classList.remove('active');
-    loadListes();
-    window.dispatchEvent(new Event('type-changed'));
-  });
-
-  document.getElementById('qp-toggle-kanji').addEventListener('click', () => {
-    setSelectedType('kanji');
-    document.getElementById('qp-toggle-kanji').classList.add('active');
-    document.getElementById('qp-toggle-vocab').classList.remove('active');
-    loadListes();
-    window.dispatchEvent(new Event('type-changed'));
-  });
 
   document.querySelectorAll('[name="qp-type"]').forEach(r =>
     r.addEventListener('change', () => toggleSens()));
@@ -55,30 +39,18 @@ export function initQuizParams() {
   const manageBtn = document.getElementById('qp-manage-listes');
   if (manageBtn) {
     manageBtn.addEventListener('click', () => {
-      const type = getSelectedCategory();
-      navigate('screen-list-selection', { type });
+      navigate('screen-list-selection', { type: getSelectedType() });
     });
   }
-}
 
-function getSelectedCategory() {
-  return document.getElementById('qp-toggle-vocab').classList.contains('active') ? 'vocab' : 'kanji';
+  // Reload listes when category changes via global toggle
+  window.addEventListener('type-changed', () => {
+    if (document.getElementById('screen-quiz-params').classList.contains('active')) loadListes();
+  });
 }
 
 async function enterParams() {
-  // Pré-cocher selon toggle global
   const type = getSelectedType();
-  const vocabBtn = document.getElementById('qp-toggle-vocab');
-  const kanjiBtn = document.getElementById('qp-toggle-kanji');
-
-  if (type === 'kanji') {
-    vocabBtn.classList.remove('active');
-    kanjiBtn.classList.add('active');
-  } else {
-    vocabBtn.classList.add('active');
-    kanjiBtn.classList.remove('active');
-  }
-
   const allListes = await getListes(type);
   listsState.initializeSelectedListes(allListes);
   await loadListes();

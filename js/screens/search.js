@@ -1,10 +1,9 @@
 // screens/search.js
 import { search, getStatutGlobal, STATUT_COLOR, buildSearchIndex, esc } from '../db.js';
 import { navigate, goBack, registerScreen } from '../router.js';
-import { getSelectedType, setSelectedType } from '../type-state.js';
+import { getSelectedType } from '../type-state.js';
 import { ICONS } from '../icons.js';
 
-let _type       = 'vocab';
 let _excludeAuto = true;
 let _debounce   = null;
 const PAGE_SIZE = 50;
@@ -14,8 +13,6 @@ let _page       = 0;
 export function initSearch() {
   registerScreen('screen-search', { enter: enterSearch });
   document.getElementById('search-back').onclick = () => goBack();
-  document.getElementById('search-toggle-vocab').onclick = () => setType('vocab');
-  document.getElementById('search-toggle-kanji').onclick = () => setType('kanji');
   document.getElementById('search-input').oninput = () => {
     clearTimeout(_debounce);
     _debounce = setTimeout(doSearch, 200);
@@ -29,30 +26,19 @@ export function initSearch() {
     doSearch();
   };
   document.getElementById('search-more').onclick = () => { _page++; renderPage(_page); };
+  window.addEventListener('type-changed', () => {
+    if (document.getElementById('screen-search').classList.contains('active')) doSearch();
+  });
 }
 
 async function enterSearch(state, isBack) {
   await buildSearchIndex();
-  if (!isBack) {
-    _type = getSelectedType();
-    document.getElementById('search-toggle-vocab').classList.toggle('active', _type === 'vocab');
-    document.getElementById('search-toggle-kanji').classList.toggle('active', _type === 'kanji');
-  }
   doSearch();
-}
-
-function setType(t) {
-  _type = t;
-  setSelectedType(t);
-  document.getElementById('search-toggle-vocab').classList.toggle('active', t === 'vocab');
-  document.getElementById('search-toggle-kanji').classList.toggle('active', t === 'kanji');
-  doSearch();
-  window.dispatchEvent(new Event('type-changed'));
 }
 
 function doSearch() {
   const q = document.getElementById('search-input').value;
-  _allResults = search(q, _type, _excludeAuto);
+  _allResults = search(q, getSelectedType(), _excludeAuto);
   _page = 0;
   renderPage(0);
 }
