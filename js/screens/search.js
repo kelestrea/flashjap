@@ -1,7 +1,7 @@
 // screens/search.js
 import { search, getStatutGlobal, STATUT_COLOR, buildSearchIndex, esc } from '../db.js';
 import { navigate, goBack, registerScreen } from '../router.js';
-import { getHomeType } from './home.js';
+import { getSelectedType, setSelectedType } from '../type-state.js';
 import { ICONS } from '../icons.js';
 
 let _type       = 'vocab';
@@ -34,7 +34,7 @@ export function initSearch() {
 async function enterSearch(state, isBack) {
   await buildSearchIndex();
   if (!isBack) {
-    _type = getHomeType();
+    _type = getSelectedType();
     document.getElementById('search-toggle-vocab').classList.toggle('active', _type === 'vocab');
     document.getElementById('search-toggle-kanji').classList.toggle('active', _type === 'kanji');
   }
@@ -43,9 +43,11 @@ async function enterSearch(state, isBack) {
 
 function setType(t) {
   _type = t;
+  setSelectedType(t);
   document.getElementById('search-toggle-vocab').classList.toggle('active', t === 'vocab');
   document.getElementById('search-toggle-kanji').classList.toggle('active', t === 'kanji');
   doSearch();
+  window.dispatchEvent(new Event('type-changed'));
 }
 
 function doSearch() {

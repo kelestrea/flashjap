@@ -316,6 +316,12 @@ SPA avec pile d'état dans `router.js`. Pas de rechargement de page.
 - Bouton ← depuis quiz → retour aux paramètres (avec confirmation)
 - Depuis fiche → retour à l'écran précédent systématique
 - Navigate vers `screen-home` vide la pile
+- Bouton "Accueil" (barre globale) → vide la pile et navigue vers `screen-home` depuis n'importe quel écran
+
+**État global :**
+- Type vocab/kanji sélectionné persiste entre tous les écrans via `type-state.js`
+- Quand on retourne à un écran précédent, le type garde sa dernière valeur
+- Synchronisation globale via événement `type-changed` dispatché par tous les toggles
 
 **Documentation détaillée :** voir [SCREENS.md](./SCREENS.md) pour l'inventaire complet des écrans, l'arborescence de navigation, la matrice des transitions, et les patterns de navigation.
 
@@ -444,6 +450,8 @@ Composants (components/*)
 | `screens/quiz-params.js` | 140 | Sélection paramètres quiz |
 | `screens/list-selection.js` | 178 | Sélection des listes (catégories collapsibles) |
 | `lists-state.js` | 31 | Persistance localStorage (listes, slider) |
+| `type-state.js` | ~12 | Gestion centralisée du type vocab/kanji, persiste entre écrans |
+| `global-header.js` | ~60 | Barre d'en-tête globale sticky avec toggles et bouton Accueil |
 | `icons.js` | 25 | SVG inline réutilisables |
 
 ### État global et partagé
@@ -483,6 +491,13 @@ Aucun store centralisé. État distribué :
 #### `lists-state.js`
 - Listes : `getSelectedListes()`, `setSelectedListes(listes)`, `initializeSelectedListes(allListes)`
 - Slider : `getSliderValue()`, `setSliderValue(value)`
+
+#### `type-state.js`
+- État global : `getSelectedType()`, `setSelectedType(type)`
+
+#### `global-header.js`
+- Initialisation : `initGlobalHeader()`
+- (Gère automatiquement les événements de toggles et synchronisation globale)
 
 #### `screens/*`
 - Chaque écran exporte `init*()` appelé au boot
@@ -552,6 +567,7 @@ Aucun store centralisé. État distribué :
 - `registerScreen()` → callbacks `enter(state)` et `leave()`
 - `addEventListener('change')`, `addEventListener('click')` directs sur éléments
 - Pas de delegation systématique (petit projet)
+- **`type-changed`** — Événement custom dispatché par les toggles vocab/kanji pour synchroniser l'UI globale via `global-header.js`
 
 ### Validation
 - `validateEntry()` dans db.js (obligatoires listés)
