@@ -2,9 +2,16 @@
 let _voice     = null;
 let _available = false;
 
-let _cloudKey   = localStorage.getItem('gcloudTtsKey') ?? '';
-let _cloudVoice = localStorage.getItem('gcloudTtsVoice') ?? 'ja-JP-Neural2-B';
-const _cache    = new Map();
+let _cloudKey     = localStorage.getItem('gcloudTtsKey') ?? '';
+let _cloudQuality = localStorage.getItem('gcloudTtsQuality') ?? 'neural';
+localStorage.removeItem('gcloudTtsVoice');
+const _cache = new Map();
+
+function getVoiceNames() {
+  return _cloudQuality === 'standard'
+    ? ['ja-JP-Wavenet-D', 'ja-JP-Wavenet-A']
+    : ['ja-JP-Neural2-C', 'ja-JP-Neural2-B']; // [kun, on]
+}
 
 function pickBestVoice() {
   return speechSynthesis.getVoices().find(v => v.lang.startsWith('ja')) ?? null;
@@ -52,8 +59,9 @@ function utterance(text) {
   return utt;
 }
 
-async function fetchCloudAudio(text) {
-  if (_cache.has(text)) return _cache.get(text);
+async function fetchCloudAudio(text, voiceName) {
+  const cacheKey = text + '|' + voiceName;
+  if (_cache.has(cacheKey)) return _cache.get(cacheKey);
   const res = await fetch(
     `https://texttospeech.googleapis.com/v1/text:synthesize?key=${_cloudKey}`,
     {
@@ -61,7 +69,7 @@ async function fetchCloudAudio(text) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         input: { text },
-        voice: { languageCode: 'ja-JP', name: _cloudVoice },
+        voice: { languageCode: 'ja-JP', name: voiceName },
         audioConfig: { audioEncoding: 'MP3' }
       })
     }
@@ -69,7 +77,7 @@ async function fetchCloudAudio(text) {
   if (!res.ok) throw new Error('Cloud TTS ' + res.status);
   const { audioContent } = await res.json();
   const uri = 'data:audio/mp3;base64,' + audioContent;
-  _cache.set(text, uri);
+  _cache.set(cacheKey, uri);
   return uri;
 }
 
@@ -85,8 +93,11 @@ function playAudio(uri) {
 export async function speak(text) {
   if (!text) return;
   if (_cloudKey) {
-    try { await playAudio(await fetchCloudAudio(text)); return; }
-    catch (e) { console.warn('Cloud TTS fallback:', e); }
+    try {
+      const [, onVoice] = getVoiceNames();
+      await playAudio(await fetchCloudAudio(text, onVoice));
+      return;
+    } catch (e) { console.warn('Cloud TTS fallback:', e); }
   }
   if (!_voice) _voice = pickBestVoice();
   if (!_voice) return;
@@ -114,36 +125,51 @@ export async function speakKanji(entry) {
   if (!kuns.length && !ons.length) return;
 
   if (_cloudKey) {
-    try {
-      const items = [];
-      kuns.forEach((k, i) => items.push({ text: k, delay: i < kuns.length - 1 ? 500 : 1000 }));
-      ons.forEach(o => items.push({ text: o, delay: 500 }));
-      for (const { text, delay } of items) {
-        await playAudio(await fetchCloudAudio(text));
-        await new Promise(r => setTimeout(r, delay));
+    const [kunVoice, onVoice] = getVoiceNames();
+    const items = [];
+    kuns.forEach((k, i) => items.push({
+      text: k, voice: kunVoice,
+      delay: i < kuns.length - 1 ? 350 : (ons.length ? 500 : 350)
+    }));
+    ons.forEach(o => items.push({ text: o, voice: onVoice, delay: 350 }));
+    for (const { text, voice, delay } of items) {
+      try {
+        await playAudio(await fetchCloudAudio(text, voice));
+      } catch (e) {
+        console.warn('Cloud TTS fallback:', e);
+        if (_voice) await new Promise(resolve => {
+          const utt = utterance(text);
+          utt.onend = resolve;
+          speechSynthesis.speak(utt);
+        });
       }
-      return;
-    } catch (e) { console.warn('Cloud TTS fallback:', e); }
+      await new Promise(r => setTimeout(r, delay));
+    }
+    return;
   }
   if (!_voice) return;
   speechSynthesis.cancel();
   const items = [];
-  kuns.forEach((k, i) => items.push({ text: k, delayAfter: i < kuns.length - 1 ? 500 : 1000 }));
-  ons.forEach((o, i)  => items.push({ text: o, delayAfter: 500 }));
+  kuns.forEach((k, i) => items.push({ text: k, delayAfter: i < kuns.length - 1 ? 350 : (ons.length ? 500 : 350) }));
+  ons.forEach(o => items.push({ text: o, delayAfter: 350 }));
   speakSequence(items);
 }
 
-export function setCloudKey(key, voice) {
-  _cloudKey   = key;
-  _cloudVoice = voice;
+export function setCloudKey(key) {
+  _cloudKey = key;
   localStorage.setItem('gcloudTtsKey', key);
-  localStorage.setItem('gcloudTtsVoice', voice);
   _cache.clear();
   updateBtns();
 }
 
+export function setCloudQuality(quality) {
+  _cloudQuality = quality;
+  localStorage.setItem('gcloudTtsQuality', quality);
+  _cache.clear();
+}
+
 export function getCloudConfig() {
-  return { key: _cloudKey, voice: _cloudVoice };
+  return { key: _cloudKey, quality: _cloudQuality };
 }
 
 export function isAvailable() { return _available || !!_cloudKey; }

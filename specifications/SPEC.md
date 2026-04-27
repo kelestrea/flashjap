@@ -419,24 +419,29 @@ Cases vides → grisées et non-cliquables (`.stat-card--disabled`). Clic → `n
 
 **Google Cloud TTS** : moteur principal si une clé API est configurée.
 - Clé stockée dans `localStorage` (`gcloudTtsKey`) — jamais committée, saisie dans l'écran Données
-- Voix stockée dans `localStorage` (`gcloudTtsVoice`, défaut : `ja-JP-Neural2-B`)
-- Cache en RAM (`Map`) : un texte déjà lu n'entraîne pas de nouvel appel réseau dans la session
+- Qualité stockée dans `localStorage` (`gcloudTtsQuality`, valeurs : `neural` / `standard`, défaut : `neural`)
+- Cache en RAM (`Map`) : clé de cache = `text + '|' + voiceName` (distingue les entrées par voix)
 - Endpoint : `POST https://texttospeech.googleapis.com/v1/text:synthesize`
 - Réponse MP3 base64 lue via `new Audio('data:audio/mp3;base64,...')`
-- Si appel échoue → fallback silencieux vers Web Speech API
+- En cas d'échec d'un appel individuel → fallback silencieux vers Web Speech pour cette lecture uniquement
 
-**Voix disponibles** (configurables dans l'écran Données) :
-- `ja-JP-Neural2-B` — femme, très naturel
-- `ja-JP-Neural2-C` — homme, très naturel
-- `ja-JP-Wavenet-D` — homme, naturel (moins cher)
-- `ja-JP-Wavenet-A` — femme, naturel (moins cher)
+**Voix Cloud TTS** (sélectionnées automatiquement selon la qualité) :
+
+| Qualité | Voix kun (homme) | Voix on (femme) |
+|---------|------------------|-----------------|
+| `neural` | `ja-JP-Neural2-C` | `ja-JP-Neural2-B` |
+| `standard` | `ja-JP-Wavenet-D` | `ja-JP-Wavenet-A` |
 
 **Web Speech API (fallback)** : utilisée si aucune clé Cloud TTS n'est configurée.
 - Sélection de la première voix `lang.startsWith('ja')` au boot
 - Polling robuste iOS : `setInterval` 100ms, max 30 tentatives
 - Fallback `onvoiceschanged` si polling échoue
+- Voix unique, sans distinction homme/femme
 
-**Lectures kanji** : `speakKanji(entry)` lit kun puis on (avec délais).
+**Lectures kanji** : `speakKanji(entry)` lit kun (voix homme) puis on (voix femme), avec délais.
+- Les lectures kun utilisent la voix homme, les lectures on utilisent la voix femme (Cloud TTS uniquement)
+- Si kun absent : seul l'appel voix femme est effectué. Si on absent : seul l'appel voix homme.
+- Délais : 350ms entre lectures d'un même groupe (kun-kun ou on-on) ; 500ms entre dernier kun et premier on
 - Les lectures kanji peuvent contenir des points (ex. `みじか.い`) qui indiquent la limite morphologique du kanji
 - Les points sont supprimés avant synthèse vocale via `cleanKanjiReading()` pour lisibilité TTS
 - Exemple : `みじか.い` → `みじかい` (le point est supprimé, le contenu complet est prononcé naturellement)
@@ -551,8 +556,8 @@ Aucun store centralisé. État distribué :
 
 #### `audio.js`
 - Initialisation : `initAudio()`
-- Playback : `speak()`, `speakKanji()`
-- Config Cloud TTS : `setCloudKey(key, voice)`, `getCloudConfig()`
+- Playback : `speak(text)`, `speakKanji(entry)`
+- Config Cloud TTS : `setCloudKey(key)`, `setCloudQuality(quality)`, `getCloudConfig()` → `{ key, quality }`
 - État : `isAvailable()`
 
 #### `lists-state.js`
@@ -762,10 +767,12 @@ npm run lint:fix      # Auto-corriger les issues fixables
 - **Desktop** : Chrome/Firefox/Safari (desktop) testé moins régulièrement
 
 ### Clé API Google Cloud TTS
-- Stockée en `localStorage` (jamais committée)
+- Clé stockée en `localStorage` (`gcloudTtsKey`, jamais committée)
+- Qualité TTS stockée en `localStorage` (`gcloudTtsQuality` : `neural` ou `standard`, défaut `neural`)
+- L'ancienne clé `gcloudTtsVoice` est silencieusement supprimée au démarrage (`localStorage.removeItem`)
 - Restreindre aux referrers `https://kelestrea.github.io/*` dans Google Cloud Console
 - Fixer un quota journalier pour éviter les abus
-- Le fallback Web Speech API est transparent si la clé est absente ou si l'appel échoue
+- Le fallback Web Speech API est transparent si la clé est absente ou si un appel individuel échoue
 
 ### Maintenance
 - **Pas de build** : pas npm, pas webpack — ES modules natifs uniquement

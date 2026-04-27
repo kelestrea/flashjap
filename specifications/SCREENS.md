@@ -254,7 +254,9 @@ Affiche le détail complet d'une entrée. Accessible depuis `screen-search` (pus
 
 **Contenu :**
 - Boutons Import / Export / Restaurer (amber) — hiérarchie : amber = réversible avec sauvegarde
-- Configuration TTS : saisie clé Google Cloud, sélection voix
+- Configuration TTS :
+  - Saisie clé API Google Cloud (champ password, bouton Enregistrer)
+  - Toggle **Neural / Standard** (deux boutons côte à côte, classes `.toggle` / `.toggle-btn`) — persistance immédiate en `localStorage` au clic, sans bouton Sauvegarder
 - Bouton "Vider la base" (rouge, pleine largeur) en bas de l'écran, isolé par un séparateur — action irréversible avec popup de confirmation
 
 ---

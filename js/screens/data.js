@@ -1,14 +1,16 @@
 // screens/data.js
 import { navigate, goBack, registerScreen, showPopup } from '../router.js';
 import { exportAll, clearAllData } from '../db.js';
-import { setCloudKey, getCloudConfig } from '../audio.js';
+import { setCloudKey, setCloudQuality, getCloudConfig } from '../audio.js';
 import { resetSelectedListes } from '../lists-state.js';
 
 export function initData() {
   registerScreen('screen-data', { enter: () => {
     const cfg = getCloudConfig();
-    document.getElementById('tts-key').value   = cfg.key;
-    document.getElementById('tts-voice').value = cfg.voice;
+    document.getElementById('tts-key').value = cfg.key;
+    document.querySelectorAll('.tts-quality-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.quality === cfg.quality);
+    });
     document.getElementById('tts-status').textContent = '';
   }});
   document.getElementById('data-back').onclick    = () => goBack();
@@ -16,10 +18,18 @@ export function initData() {
   document.getElementById('data-export').onclick  = () => doExport();
   document.getElementById('data-restore').onclick = () => navigate('screen-restore');
 
+  document.querySelectorAll('.tts-quality-btn').forEach(btn => {
+    btn.onclick = () => {
+      setCloudQuality(btn.dataset.quality);
+      document.querySelectorAll('.tts-quality-btn').forEach(b =>
+        b.classList.toggle('active', b === btn)
+      );
+    };
+  });
+
   document.getElementById('tts-save').onclick = () => {
-    const key   = document.getElementById('tts-key').value.trim();
-    const voice = document.getElementById('tts-voice').value;
-    setCloudKey(key, voice);
+    const key = document.getElementById('tts-key').value.trim();
+    setCloudKey(key);
     document.getElementById('tts-status').textContent = key ? '✓ Enregistrée' : 'Clé effacée';
   };
 
