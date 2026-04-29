@@ -125,6 +125,8 @@ Point d'entrée de l'application. Naviguez vers `screen-home` vide la pile compl
 - Slider nombre de cartes (persisté localStorage)
 - Bouton Lancer grisé (`disabled`) en mode Fréquence uniquement si 0 labels sélectionnés ou 0 cartes disponibles
 
+**Mémoire des paramètres :** tous les paramètres (listes, slider, filtre, fréquence, autoplay, type, sens, critère) sont persistés **séparément pour vocab et kanji**. Changer de type via le toggle global recharge immédiatement l'ensemble des paramètres du nouveau type (`enterParams()` rappelé via `type-changed`).
+
 **State reçu :** `{ type: 'vocab' | 'kanji' }`
 
 **State passé à quiz :** `{ cards, cards_initial, type, sens, cat, critere, listes, autoplay }`

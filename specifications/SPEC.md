@@ -320,10 +320,20 @@ Retourne `null` si `frequence` est null/undefined. Aucune migration de schéma r
 ### Sélection des Listes
 
 #### Mémoire des paramètres (via `lists-state.js`)
-- Listes cochées persistées via **localStorage** (clé: `selectedListes`) — module `lists-state.js`
-- Valeur du slider persistée via **localStorage** (clé: `quizSliderValue`, défaut: 20)
-- Mode de filtre actif persisté via **localStorage** (clé: `quizFilterMode`, défaut: `'listes'`)
-- Labels fréquence sélectionnés persistés via **localStorage** (clé: `quizFreqLabels`, défaut: `['essentiel']`)
+
+Tous les paramètres quiz sont persistés **séparément pour vocab et kanji** via des clés préfixées (`vocab_*` / `kanji_*`). Changer de type sur l'écran quiz-params recharge immédiatement les paramètres du nouveau type.
+
+| Paramètre | Clé localStorage | Défaut |
+|---|---|---|
+| Listes cochées | `{type}_selectedListes` | toutes les listes du type |
+| Valeur du slider | `{type}_quizSliderValue` | 20 |
+| Mode de filtre | `{type}_quizFilterMode` | `'listes'` |
+| Labels fréquence | `{type}_quizFreqLabels` | `['essentiel']` |
+| Autoplay | `{type}_quizAutoplay` | `'silence'` |
+| Type de quiz | `{type}_quizType` | `'lecture'` |
+| Sens | `{type}_quizSens` | `'jpfr'` |
+| Critère | `{type}_quizCritere` | `'tous'` |
+
 - État "ouvert/fermé" des catégories : session uniquement (non persisté)
 - Validation : minimum 1 liste sélectionnée obligatoire (mode Listes) ; au moins 1 label requis pour lancer (mode Fréquence)
 
@@ -561,10 +571,16 @@ Aucun store centralisé. État distribué :
 - État : `isAvailable()`
 
 #### `lists-state.js`
-- Listes : `getSelectedListes()`, `setSelectedListes(listes)`, `initializeSelectedListes(allListes)`, `resetSelectedListes()`
-- Slider : `getSliderValue()`, `setSliderValue(value)`
-- Mode filtre : `getFilterMode()`, `setFilterMode(mode)` — `'listes'` ou `'frequence'`
-- Labels fréquence : `getFreqLabels()`, `setFreqLabels(labels)`
+Importe `getSelectedType` depuis `type-state.js`. Toutes les fonctions acceptent un paramètre `type` optionnel (défaut : `getSelectedType()`). Les clés localStorage sont préfixées dynamiquement : `{type}_{base}`.
+
+- Listes : `getSelectedListes(type?)`, `setSelectedListes(listes, type?)`, `initializeSelectedListes(allListes, type?)`, `resetSelectedListes()` — reset les deux namespaces vocab et kanji
+- Slider : `getSliderValue(type?)`, `setSliderValue(value, type?)`
+- Mode filtre : `getFilterMode(type?)`, `setFilterMode(mode, type?)` — `'listes'` ou `'frequence'`
+- Labels fréquence : `getFreqLabels(type?)`, `setFreqLabels(labels, type?)`
+- Autoplay : `getAutoplayMode(type?)`, `setAutoplayMode(mode, type?)`
+- Type de quiz : `getQuizType(type?)`, `setQuizType(value, type?)`
+- Sens : `getQuizSens(type?)`, `setQuizSens(value, type?)`
+- Critère : `getQuizCritere(type?)`, `setQuizCritere(value, type?)`
 
 #### `type-state.js`
 - État global : `getSelectedType()`, `setSelectedType(type)`
@@ -652,11 +668,9 @@ Aucun store centralisé. État distribué :
 
 ### Persistance des préférences utilisateur
 - Catégorie vocab/kanji : localStorage clé `selectedCategory` (via `type-state.js`), défaut `'vocab'`
-- Listes sélectionnées : localStorage clé `selectedListes` (via `lists-state.js`)
-- Valeur slider quiz : localStorage clé `quizSliderValue` (via `lists-state.js`)
-- Mode autoplay : localStorage clé `quizAutoplay` (via `lists-state.js`)
-- Mode de filtre quiz : localStorage clé `quizFilterMode` (via `lists-state.js`), défaut `'listes'`
-- Labels fréquence sélectionnés : localStorage clé `quizFreqLabels` (via `lists-state.js`), défaut `['essentiel']`
+- Paramètres quiz : clés préfixées par type `vocab_*` / `kanji_*` (via `lists-state.js`) — voir tableau section "Mémoire des paramètres" ci-dessus
+  - `{type}_selectedListes`, `{type}_quizSliderValue`, `{type}_quizFilterMode`, `{type}_quizFreqLabels`
+  - `{type}_quizAutoplay`, `{type}_quizType`, `{type}_quizSens`, `{type}_quizCritere`
 - Toutes les préférences sont restaurées au boot, pas de synchronisation cross-tab
 
 ### Clavier dynamique du quiz
