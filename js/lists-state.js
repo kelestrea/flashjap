@@ -1,64 +1,88 @@
-const STORAGE_KEY = 'selectedListes';
-const SLIDER_VALUE_KEY = 'quizSliderValue';
+import { getSelectedType } from './type-state.js';
 
-export function getSelectedListes() {
-  const stored = localStorage.getItem(STORAGE_KEY);
+function t(type) { return type || getSelectedType(); }
+function k(base, type) { return `${t(type)}_${base}`; }
+
+export function getSelectedListes(type) {
+  const stored = localStorage.getItem(k('selectedListes', type));
   return stored ? JSON.parse(stored) : [];
 }
 
-export function setSelectedListes(listes) {
-  if (!listes || listes.length === 0) {
-    return false;
-  }
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(listes));
+export function setSelectedListes(listes, type) {
+  if (!listes || listes.length === 0) return false;
+  localStorage.setItem(k('selectedListes', type), JSON.stringify(listes));
   return true;
 }
 
-export function initializeSelectedListes(allListes) {
-  if (!getSelectedListes().length) {
-    setSelectedListes(allListes);
+export function initializeSelectedListes(allListes, type) {
+  if (!getSelectedListes(type).length) {
+    setSelectedListes(allListes, type);
   }
 }
 
 export function resetSelectedListes() {
-  localStorage.removeItem(STORAGE_KEY);
+  ['vocab', 'kanji'].forEach(tp => {
+    ['selectedListes', 'quizSliderValue', 'quizAutoplay', 'quizFilterMode',
+     'quizFreqLabels', 'quizType', 'quizSens', 'quizCritere'].forEach(base => {
+      localStorage.removeItem(`${tp}_${base}`);
+    });
+  });
 }
 
-export function getSliderValue() {
-  const stored = localStorage.getItem(SLIDER_VALUE_KEY);
+export function getSliderValue(type) {
+  const stored = localStorage.getItem(k('quizSliderValue', type));
   return stored ? parseInt(stored) : 20;
 }
 
-export function setSliderValue(value) {
-  localStorage.setItem(SLIDER_VALUE_KEY, String(value));
+export function setSliderValue(value, type) {
+  localStorage.setItem(k('quizSliderValue', type), String(value));
 }
 
-const AUTOPLAY_KEY = 'quizAutoplay';
-
-export function getAutoplayMode() {
-  return localStorage.getItem(AUTOPLAY_KEY) || 'silence';
+export function getAutoplayMode(type) {
+  return localStorage.getItem(k('quizAutoplay', type)) || 'silence';
 }
 
-export function setAutoplayMode(mode) {
-  localStorage.setItem(AUTOPLAY_KEY, mode);
+export function setAutoplayMode(mode, type) {
+  localStorage.setItem(k('quizAutoplay', type), mode);
 }
 
-const FILTER_MODE_KEY = 'quizFilterMode';
-const FREQ_LABELS_KEY = 'quizFreqLabels';
-
-export function getFilterMode() {
-  return localStorage.getItem(FILTER_MODE_KEY) || 'listes';
+export function getFilterMode(type) {
+  return localStorage.getItem(k('quizFilterMode', type)) || 'listes';
 }
 
-export function setFilterMode(mode) {
-  localStorage.setItem(FILTER_MODE_KEY, mode);
+export function setFilterMode(mode, type) {
+  localStorage.setItem(k('quizFilterMode', type), mode);
 }
 
-export function getFreqLabels() {
-  const stored = localStorage.getItem(FREQ_LABELS_KEY);
+export function getFreqLabels(type) {
+  const stored = localStorage.getItem(k('quizFreqLabels', type));
   return stored ? JSON.parse(stored) : ['essentiel'];
 }
 
-export function setFreqLabels(labels) {
-  localStorage.setItem(FREQ_LABELS_KEY, JSON.stringify(labels));
+export function setFreqLabels(labels, type) {
+  localStorage.setItem(k('quizFreqLabels', type), JSON.stringify(labels));
+}
+
+export function getQuizType(type) {
+  return localStorage.getItem(k('quizType', type)) || 'lecture';
+}
+
+export function setQuizType(value, type) {
+  localStorage.setItem(k('quizType', type), value);
+}
+
+export function getQuizSens(type) {
+  return localStorage.getItem(k('quizSens', type)) || 'jpfr';
+}
+
+export function setQuizSens(value, type) {
+  localStorage.setItem(k('quizSens', type), value);
+}
+
+export function getQuizCritere(type) {
+  return localStorage.getItem(k('quizCritere', type)) || 'tous';
+}
+
+export function setQuizCritere(value, type) {
+  localStorage.setItem(k('quizCritere', type), value);
 }
