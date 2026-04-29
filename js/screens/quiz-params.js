@@ -12,13 +12,22 @@ export function initQuizParams() {
   document.getElementById('qp-back').onclick  = () => goBack();
   document.getElementById('qp-start').onclick = () => startQuiz();
 
-  document.querySelectorAll('[name="qp-type"]').forEach(r =>
-    r.addEventListener('change', () => {
-      listsState.setQuizType(r.value);
-      toggleSens();
-      refreshSlider();
-    })
-  );
+  document.getElementById('qp-type-lecture').addEventListener('click', () => {
+    document.querySelector('[name=qp-type][value=lecture]').checked = true;
+    document.getElementById('qp-type-lecture').classList.add('active');
+    document.getElementById('qp-type-comprehension').classList.remove('active');
+    listsState.setQuizType('lecture');
+    toggleSens();
+    refreshSlider();
+  });
+  document.getElementById('qp-type-comprehension').addEventListener('click', () => {
+    document.querySelector('[name=qp-type][value=comprehension]').checked = true;
+    document.getElementById('qp-type-comprehension').classList.add('active');
+    document.getElementById('qp-type-lecture').classList.remove('active');
+    listsState.setQuizType('comprehension');
+    toggleSens();
+    refreshSlider();
+  });
 
   document.getElementById('qp-sens-jpfr').addEventListener('click', () => {
     document.querySelector('[name=qp-sens][value=jpfr]').checked = true;
@@ -126,9 +135,9 @@ async function enterParams() {
 
   // Restaurer type de quiz (lecture/compréhension) — avant refreshSlider qui lit ce radio
   const quizType = listsState.getQuizType(type);
-  document.querySelectorAll('[name="qp-type"]').forEach(r => {
-    r.checked = r.value === quizType;
-  });
+  document.getElementById('qp-type-lecture').classList.toggle('active', quizType === 'lecture');
+  document.getElementById('qp-type-comprehension').classList.toggle('active', quizType === 'comprehension');
+  document.querySelector(`[name=qp-type][value=${quizType}]`).checked = true;
 
   // Restaurer critère — avant refreshSlider qui lit ce radio
   const critere = listsState.getQuizCritere(type);

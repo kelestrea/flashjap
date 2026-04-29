@@ -301,10 +301,6 @@ export async function getCardsForQuiz({ type, listes, critere, sens, count, filt
   } else if (listes && listes.length) {
     entries = entries.filter(e => listes.some(l => (e.listes || []).includes(l)));
   }
-  if (sens === 'lecture') {
-    entries = entries.filter(e => /[\u4e00-\u9faf\u3400-\u4dbf]/.test(e.mot || e.kanji || ''));
-  }
-
   const now = Date.now();
   const THREE_WEEKS = 21 * 24 * 3600 * 1000;
 

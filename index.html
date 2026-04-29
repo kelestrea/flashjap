@@ -149,16 +149,12 @@
 
   <div class="section">
     <div class="section-label">TYPE DE QUIZ</div>
-    <div class="radio-group">
-      <label class="radio-item">
-        <input type="radio" name="qp-type" value="lecture" checked>
-        <div><span>Lecture</span><div class="radio-sub">On voit le mot/kanji — on saisit la lecture</div></div>
-      </label>
-      <label class="radio-item">
-        <input type="radio" name="qp-type" value="comprehension">
-        <div><span>Compréhension</span><div class="radio-sub">On voit le mot/sens — on saisit la traduction</div></div>
-      </label>
+    <div class="toggle">
+      <button class="toggle-btn active" id="qp-type-lecture">Lecture</button>
+      <button class="toggle-btn" id="qp-type-comprehension">Compréhension</button>
     </div>
+    <input type="radio" name="qp-type" value="lecture" checked style="display:none">
+    <input type="radio" name="qp-type" value="comprehension" style="display:none">
   </div>
 
   <div class="section" id="qp-sens-section" style="display:none;">
