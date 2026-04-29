@@ -12,11 +12,18 @@ export function initQuizParams() {
   document.getElementById('qp-start').onclick = () => startQuiz();
 
   document.querySelectorAll('[name="qp-type"]').forEach(r =>
-    r.addEventListener('change', () => toggleSens()));
+    r.addEventListener('change', () => {
+      listsState.setQuizType(r.value);
+      toggleSens();
+      refreshSlider();
+    })
+  );
+
   document.getElementById('qp-sens-jpfr').addEventListener('click', () => {
     document.querySelector('[name=qp-sens][value=jpfr]').checked = true;
     document.getElementById('qp-sens-jpfr').classList.add('active');
     document.getElementById('qp-sens-frjp').classList.remove('active');
+    listsState.setQuizSens('jpfr');
     toggleSens();
     refreshSlider();
   });
@@ -24,11 +31,18 @@ export function initQuizParams() {
     document.querySelector('[name=qp-sens][value=frjp]').checked = true;
     document.getElementById('qp-sens-frjp').classList.add('active');
     document.getElementById('qp-sens-jpfr').classList.remove('active');
+    listsState.setQuizSens('frjp');
     toggleSens();
     refreshSlider();
   });
+
   document.querySelectorAll('[name="qp-critere"]').forEach(r =>
-    r.addEventListener('change', () => refreshSlider()));
+    r.addEventListener('change', () => {
+      listsState.setQuizCritere(r.value);
+      refreshSlider();
+    })
+  );
+
   document.querySelectorAll('[name="qp-autoplay"]').forEach(r =>
     r.addEventListener('change', () => listsState.setAutoplayMode(r.value)));
 
@@ -61,9 +75,9 @@ export function initQuizParams() {
     refreshSlider();
   });
 
-  // Reload listes when category changes via global toggle
+  // Reload all params when category changes via global toggle
   window.addEventListener('type-changed', () => {
-    if (document.getElementById('screen-quiz-params').classList.contains('active')) loadListes();
+    if (document.getElementById('screen-quiz-params').classList.contains('active')) enterParams();
   });
 }
 
@@ -103,21 +117,40 @@ function updateStartBtn() {
 async function enterParams() {
   const type = getSelectedType();
   const allListes = await getListes(type);
-  listsState.initializeSelectedListes(allListes);
+  listsState.initializeSelectedListes(allListes, type);
 
-  // Restore filter mode UI before loadListes calls refreshSlider
-  const filterMode = listsState.getFilterMode();
+  // Restaurer type de quiz (lecture/compréhension) — avant refreshSlider qui lit ce radio
+  const quizType = listsState.getQuizType(type);
+  document.querySelectorAll('[name="qp-type"]').forEach(r => {
+    r.checked = r.value === quizType;
+  });
+
+  // Restaurer critère — avant refreshSlider qui lit ce radio
+  const critere = listsState.getQuizCritere(type);
+  document.querySelectorAll('[name="qp-critere"]').forEach(r => {
+    r.checked = r.value === critere;
+  });
+
+  // Restaurer filter mode UI before loadListes calls refreshSlider
+  const filterMode = listsState.getFilterMode(type);
   const isFreq = filterMode === 'frequence';
   document.getElementById('qp-filter-listes').classList.toggle('active', !isFreq);
   document.getElementById('qp-filter-freq').classList.toggle('active', isFreq);
   document.getElementById('qp-listes-mode').style.display = isFreq ? 'none' : 'block';
   document.getElementById('qp-freq-mode').style.display = isFreq ? 'block' : 'none';
-  renderChips(listsState.getFreqLabels());
+  renderChips(listsState.getFreqLabels(type));
 
   await loadListes();
+
+  // Restaurer sens — après loadListes, en synchronisant radio caché + boutons toggle
+  const quizSens = listsState.getQuizSens(type);
+  document.querySelector(`[name=qp-sens][value=${quizSens}]`).checked = true;
+  document.getElementById('qp-sens-jpfr').classList.toggle('active', quizSens === 'jpfr');
+  document.getElementById('qp-sens-frjp').classList.toggle('active', quizSens === 'frjp');
+
   toggleSens();
 
-  const autoplayMode = listsState.getAutoplayMode();
+  const autoplayMode = listsState.getAutoplayMode(type);
   const silenceBtn = document.getElementById('qp-autoplay-silence');
   const autoBtn    = document.getElementById('qp-autoplay-auto');
   if (autoplayMode === 'autoplay') {

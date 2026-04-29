@@ -31,7 +31,7 @@ function renderCategories() {
   const container = document.getElementById('ls-categories');
   container.innerHTML = '';
 
-  const selectedListes = listsState.getSelectedListes();
+  const selectedListes = listsState.getSelectedListes(_type);
   const categorized = categorizeListes(_allListes);
 
   let categories = Object.keys(categorized).sort();
@@ -132,10 +132,10 @@ function validateSelection(selected) {
 
 async function enterListSelection(state) {
   _type = state?.type || 'vocab';
-  _tempListes = [...listsState.getSelectedListes()];
+  _tempListes = [...listsState.getSelectedListes(_type)];
 
   _allListes = await getListes(_type);
-  listsState.initializeSelectedListes(_allListes);
+  listsState.initializeSelectedListes(_allListes, _type);
 
   renderCategories();
 
@@ -158,7 +158,7 @@ export function init() {
     validateBtn.addEventListener('click', () => {
       const selected = getSelectedLists();
       if (validateSelection(selected)) {
-        listsState.setSelectedListes(selected);
+        listsState.setSelectedListes(selected, _type);
         goBack();
       }
     });
