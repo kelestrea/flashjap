@@ -1,6 +1,6 @@
 // components/card-vocab.js
 import { getKanji, getStatut, getStatutGlobal, STATUT_COLOR, esc, getAllListes, putVocab, putKanji, deleteVocab, deleteKanji, getFreqLabel } from '../db.js';
-import { speak, speakKanji } from '../audio.js';
+import { speak, speakKanji, speakRandom } from '../audio.js';
 import { ICONS } from '../icons.js';
 import { openOverlay, closeOverlay, showPopup } from '../router.js';
 
@@ -185,7 +185,7 @@ export async function renderVocabCard(entry, returnCb) {
     if (el && kData) el.textContent = (kData.sens||[]).slice(0,2).join(', ');
   });
 
-  document.getElementById('vc-play').onclick  = () => speak(entry.mot);
+  document.getElementById('vc-play').onclick  = () => speakRandom(entry.mot);
   document.getElementById('vc-close').onclick = () => { closeOverlay(); if (returnCb) returnCb(); };
   document.getElementById('vc-delete').onclick = () => {
     showPopup(`Supprimer "${entry.mot}" ?`, async () => {

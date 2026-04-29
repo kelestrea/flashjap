@@ -105,6 +105,22 @@ export async function speak(text) {
   speechSynthesis.speak(utterance(text));
 }
 
+export async function speakRandom(text) {
+  if (!text) return;
+  if (_cloudKey) {
+    try {
+      const voices = getVoiceNames();
+      const voice = voices[Math.random() < 0.5 ? 0 : 1];
+      await playAudio(await fetchCloudAudio(text, voice));
+      return;
+    } catch (e) { console.warn('Cloud TTS fallback:', e); }
+  }
+  if (!_voice) _voice = pickBestVoice();
+  if (!_voice) return;
+  speechSynthesis.cancel();
+  speechSynthesis.speak(utterance(text));
+}
+
 function cleanKanjiReading(reading) {
   return reading.replace(/\./g, '');
 }

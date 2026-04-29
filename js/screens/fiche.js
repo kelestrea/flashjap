@@ -1,7 +1,7 @@
 // screens/fiche.js — écran plein (push depuis recherche)
 import { getVocab, getKanji, getStatut, getStatutGlobal, STATUT_COLOR, esc, deleteVocab, deleteKanji, getFreqLabel } from '../db.js';
 import { goBack, navigate, registerScreen, showPopup } from '../router.js';
-import { speak, speakKanji } from '../audio.js';
+import { speak, speakKanji, speakRandom } from '../audio.js';
 import { buildKanjiContent } from '../components/card-vocab.js';
 import { ICONS } from '../icons.js';
 
@@ -84,7 +84,7 @@ async function enterFiche({ key, ktype }) {
       </div>
     `;
 
-    document.getElementById('f-play').onclick = () => speak(entry.mot);
+    document.getElementById('f-play').onclick = () => speakRandom(entry.mot);
     document.getElementById('f-delete').onclick = () => {
       showPopup(`Supprimer "${entry.mot}" ?`, async () => {
         await deleteVocab(entry.mot);

@@ -1,7 +1,7 @@
 // screens/quiz.js
 import { updateScore, updateKanjiLectureScores, reapplyScore, reapplyKanjiLectureScores, getStatutGlobal, STATUT_COLOR, getVocab, getKanji } from '../db.js';
 import { navigate, goBack, registerScreen } from '../router.js';
-import { speak, speakKanji } from '../audio.js';
+import { speak, speakKanji, speakRandom } from '../audio.js';
 import { renderVocabCard } from '../components/card-vocab.js';
 import { renderKanjiCard }  from '../components/card-kanji.js';
 import { ICONS } from '../icons.js';
@@ -41,7 +41,7 @@ function currentWord() {
 function playCurrentCard() {
   const card = _state.cards[_state.idx];
   if (card.type === 'kanji') speakKanji(card);
-  else speak(currentWord());
+  else speakRandom(currentWord());
 }
 
 async function enterQuiz(state) {

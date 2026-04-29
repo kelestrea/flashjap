@@ -220,9 +220,9 @@ Implémentation : `validateForced(bool)` dans `quiz.js`, partage `applyResult()`
 - Disponible dans les paramètres quiz uniquement quand `type=comprehension` ET `sens=jpfr`
 - Toggle "Silence" (défaut) / "Autoplay" — section `qp-autoplay-section` dans `index.html`
 - Préférence persistée via localStorage (clé `quizAutoplay`) dans `lists-state.js`
-- En mode autoplay : `speak(card.mot || card.kanji)` est appelé dans `showCard()` à chaque nouvelle carte
+- En mode autoplay : `speakRandom(card.mot || card.kanji)` est appelé dans `showCard()` à chaque nouvelle carte (voix aléatoire)
 - Passé dans le state de navigation : `{ ..., autoplay: 'silence' | 'autoplay' }`
-- Si voix japonaise indisponible : `speak()` retourne silencieusement, pas d'erreur
+- Si voix japonaise indisponible : `speakRandom()` retourne silencieusement, pas d'erreur
 
 ### Écran de résultats
 
@@ -457,6 +457,12 @@ Cases vides → grisées et non-cliquables (`.stat-card--disabled`). Clic → `n
 - Les points sont supprimés avant synthèse vocale via `cleanKanjiReading()` pour lisibilité TTS
 - Exemple : `みじか.い` → `みじかい` (le point est supprimé, le contenu complet est prononcé naturellement)
 
+**Lecture des mots vocabulaire** : `speakRandom(text)` — voix aléatoire à chaque lecture.
+- Utilisée pour les mots vocab (fiches, overlays, quiz autoplay et bouton play manuel)
+- À chaque appel, tire au sort entre voix homme et voix femme (Cloud TTS uniquement)
+- Le cache RAM stocke les deux variantes indépendamment (`text|voixHomme` et `text|voixFemme`)
+- Fallback Web Speech : même comportement que `speak()` (voix unique, pas de distinction)
+
 **Sécurité de la clé** : restreindre aux referrers HTTP `https://kelestrea.github.io/*` dans Google Cloud Console + quota journalier pour éviter tout abus.
 
 ---
@@ -567,7 +573,7 @@ Aucun store centralisé. État distribué :
 
 #### `audio.js`
 - Initialisation : `initAudio()`
-- Playback : `speak(text)`, `speakKanji(entry)`
+- Playback : `speak(text)`, `speakRandom(text)`, `speakKanji(entry)`
 - Config Cloud TTS : `setCloudKey(key)`, `setCloudQuality(quality)`, `getCloudConfig()` → `{ key, quality }`
 - État : `isAvailable()`
 
