@@ -1,5 +1,5 @@
 // screens/search.js
-import { search, getStatutGlobal, STATUT_COLOR, buildSearchIndex, esc } from '../db.js';
+import { search, getFreqLabel, getStatutGlobal, STATUT_COLOR, buildSearchIndex, esc } from '../db.js';
 import { navigate, goBack, registerScreen } from '../router.js';
 import { getSelectedType } from '../type-state.js';
 import { ICONS } from '../icons.js';
@@ -58,6 +58,7 @@ async function enterSearch(state) {
 }
 
 const JLPT_ORDER = ['noncommence', 'etudie', 'encours', 'maitrise'];
+const FREQ_LABELS = ['essentiel', 'très courant', 'courant', 'rare', 'inusité'];
 
 function getJlptLevel(entry) {
   for (const l of (entry.listes || [])) {
@@ -68,8 +69,20 @@ function getJlptLevel(entry) {
 }
 
 function doSearch() {
-  const q = document.getElementById('search-input').value;
-  _allResults = search(q, getSelectedType(), _excludeAuto);
+  const raw = document.getElementById('search-input').value;
+  const type = getSelectedType();
+
+  if (raw.trimStart().startsWith('#')) {
+    const label = raw.slice(raw.indexOf('#') + 1).trim().toLowerCase().normalize('NFC');
+    if (FREQ_LABELS.includes(label)) {
+      const all = search('', type, _excludeAuto);
+      _allResults = all.filter(e => getFreqLabel(e.frequence, e.type) === label);
+    } else {
+      _allResults = [];
+    }
+  } else {
+    _allResults = search(raw, type, _excludeAuto);
+  }
   _allResults.sort((a, b) => {
     const jlptDiff = getJlptLevel(b) - getJlptLevel(a);
     if (jlptDiff !== 0) return jlptDiff;
