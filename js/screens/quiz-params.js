@@ -5,6 +5,7 @@ import { getSelectedType } from '../type-state.js';
 import * as listsState from '../lists-state.js';
 
 const FREQ_LABELS_ALL = ['essentiel', 'très courant', 'courant', 'rare', 'inusité'];
+let _enterParamsId = 0;
 
 export function initQuizParams() {
   registerScreen('screen-quiz-params', { enter: enterParams });
@@ -103,20 +104,24 @@ function renderChips(selectedLabels) {
   }).join('');
 }
 
-function updateStartBtn() {
+function updateStartBtn(type) {
+  const t = type || getSelectedType();
   const startBtn = document.getElementById('qp-start');
-  if (listsState.getFilterMode() !== 'frequence') {
+  if (listsState.getFilterMode(t) !== 'frequence') {
     startBtn.disabled = false;
     return;
   }
-  const labels = listsState.getFreqLabels();
+  const labels = listsState.getFreqLabels(t);
   const available = parseInt(document.getElementById('qp-slider').max) || 0;
   startBtn.disabled = labels.length === 0 || available === 0;
 }
 
 async function enterParams() {
+  const id = ++_enterParamsId;
   const type = getSelectedType();
   const allListes = await getListes(type);
+  if (id !== _enterParamsId) return;
+
   listsState.initializeSelectedListes(allListes, type);
 
   // Restaurer type de quiz (lecture/compréhension) — avant refreshSlider qui lit ce radio
@@ -140,7 +145,8 @@ async function enterParams() {
   document.getElementById('qp-freq-mode').style.display = isFreq ? 'block' : 'none';
   renderChips(listsState.getFreqLabels(type));
 
-  await loadListes();
+  await loadListes(type);
+  if (id !== _enterParamsId) return;
 
   // Restaurer sens — après loadListes, en synchronisant radio caché + boutons toggle
   const quizSens = listsState.getQuizSens(type);
@@ -179,8 +185,8 @@ function groupListesByCategory(listes) {
   return groups;
 }
 
-async function loadListes() {
-  const selectedListes = listsState.getSelectedListes();
+async function loadListes(type) {
+  const selectedListes = listsState.getSelectedListes(type);
   const container = document.getElementById('qp-listes');
 
   if (selectedListes.length === 0) {
@@ -194,7 +200,7 @@ async function loadListes() {
     container.innerHTML = `<div style="font-size:14px;color:var(--blue);">${html}</div>`;
   }
 
-  await refreshSlider();
+  await refreshSlider(type);
 }
 
 function esc(str) {
@@ -203,29 +209,29 @@ function esc(str) {
   return div.innerHTML;
 }
 
-async function refreshSlider() {
-  const type     = getSelectedType();
+async function refreshSlider(type) {
+  const t        = type || getSelectedType();
   const critere  = document.querySelector('[name="qp-critere"]:checked')?.value || 'tous';
   const sensType = document.querySelector('[name="qp-type"]:checked')?.value || 'lecture';
   const sens     = sensType === 'lecture' ? 'lecture' : (document.querySelector('[name="qp-sens"]:checked')?.value || 'jpfr');
 
-  const filterMode = listsState.getFilterMode();
+  const filterMode = listsState.getFilterMode(t);
   let cards;
   if (filterMode === 'frequence') {
-    const freqLabels = listsState.getFreqLabels();
-    cards = await getCardsForQuiz({ type, critere, sens, count: 0, filterMode: 'frequence', freqLabels });
+    const freqLabels = listsState.getFreqLabels(t);
+    cards = await getCardsForQuiz({ type: t, critere, sens, count: 0, filterMode: 'frequence', freqLabels });
   } else {
-    const listes = listsState.getSelectedListes();
-    cards = await getCardsForQuiz({ type, listes, critere, sens, count: 0 });
+    const listes = listsState.getSelectedListes(t);
+    cards = await getCardsForQuiz({ type: t, listes, critere, sens, count: 0 });
   }
 
   const slider = document.getElementById('qp-slider');
-  const prev   = listsState.getSliderValue();
+  const prev   = listsState.getSliderValue(t);
   slider.max   = cards.length;
   slider.value = Math.min(prev, cards.length);
   document.getElementById('qp-slider-val').textContent = slider.value;
   document.getElementById('qp-slider-max').textContent = `${cards.length} disponibles`;
-  updateStartBtn();
+  updateStartBtn(t);
 }
 
 function toggleSens() {
