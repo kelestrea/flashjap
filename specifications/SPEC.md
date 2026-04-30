@@ -254,9 +254,11 @@ La correspondance sens → clé de timestamp (`derniere_vue`) suit la même logi
 | Critère | Filtre | Tri avant sélection (pour le slider) |
 |---|---|---|
 | Tous | Aucun | — |
-| Moins maîtrisés | score du sens ≠ 5 (maîtrisé) | Score croissant, puis `derniere_vue` croissant |
-| Revus il y a longtemps | `derniere_vue` du sens ≥ 3 semaines ou null | Du plus ancien au plus récent |
+| Moins maîtrisés | au moins 1 score commencé (tous modes) **et** score du sens ≠ 5 (maîtrisé) | Score croissant, puis `derniere_vue` croissant |
+| Revus il y a longtemps | au moins 1 score commencé (tous modes) **et** `derniere_vue` du sens ≥ 3 semaines ou null | Du plus ancien au plus récent |
 | Jamais étudié | score(s) du sens = null | Du plus récent au plus ancien (`created_at`) |
+
+"Au moins 1 score commencé (tous modes)" signifie qu'au moins l'un des champs de score de la carte (tous quiz types confondus) est non-null. Vérifié par `hasBeenStarted()` dans `db.js`, qui s'appuie sur `getAllScoreKeys()` (retourne tous les champs de score indépendamment du mode de quiz sélectionné).
 
 Après sélection des N cartes selon le critère, **toujours mélanger aléatoirement** avant de lancer le quiz.
 

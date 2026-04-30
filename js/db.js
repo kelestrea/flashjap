@@ -279,6 +279,16 @@ export function getFreqLabel(frequence, type) {
 }
 
 // ── SÉLECTION DE CARTES POUR QUIZ ──────────────────────────────────────
+function getAllScoreKeys(entry) {
+  if (entry.type === 'kanji')
+    return ['score_comprehension_jpfr', 'score_comprehension_frjp', 'score_lecture_on', 'score_lecture_kun'];
+  return ['score_lecture', 'score_jpfr', 'score_frjp'];
+}
+
+function hasBeenStarted(entry) {
+  return getAllScoreKeys(entry).some(k => entry[k] !== null && entry[k] !== undefined);
+}
+
 function getScoreKeysForSens(entry, sens) {
   if (entry.type === 'kanji') {
     if (sens === 'lecture') return ['score_lecture_on', 'score_lecture_kun'];
@@ -306,11 +316,13 @@ export async function getCardsForQuiz({ type, listes, critere, sens, count, filt
 
   if (critere === 'faibles') {
     const order = ['noncommence', 'etudie', 'encours', 'maitrise'];
-    entries = entries.filter(e => {
-      const keys = getScoreKeysForSens(e, sens);
-      const statuts = keys.map(k => getStatut(e[k]) ?? 'noncommence');
-      return order[Math.min(...statuts.map(s => order.indexOf(s)))] !== 'maitrise';
-    });
+    entries = entries
+      .filter(hasBeenStarted)
+      .filter(e => {
+        const keys = getScoreKeysForSens(e, sens);
+        const statuts = keys.map(k => getStatut(e[k]) ?? 'noncommence');
+        return order[Math.min(...statuts.map(s => order.indexOf(s)))] !== 'maitrise';
+      });
     const vueKey = sens === 'lecture' ? 'derniere_vue_lecture'
                  : sens.includes('frjp') ? 'derniere_vue_frjp'
                  : 'derniere_vue_jpfr';
@@ -323,6 +335,7 @@ export async function getCardsForQuiz({ type, listes, critere, sens, count, filt
                  : sens.includes('frjp') ? 'derniere_vue_frjp'
                  : 'derniere_vue_jpfr';
     entries = entries.filter(e => {
+      if (!hasBeenStarted(e)) return false;
       const vue = e[vueKey];
       return !vue || (now - vue) >= THREE_WEEKS;
     });
