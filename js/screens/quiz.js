@@ -112,7 +112,7 @@ function showCard() {
     readingRow.style.display = 'none';
   }
 
-  if (_state.autoplay === 'autoplay') playCurrentCard();
+  if (_state.autoplay === 'autoplay' && _state.type !== 'lecture') playCurrentCard();
 
   setTimeout(() => document.getElementById('quiz-input').focus(), 100);
 }
@@ -283,6 +283,8 @@ function showFeedback(correct, card, result) {
     btnFiche.classList.add('btn-primary');    btnFiche.classList.remove('btn-ghost');
     btnNext.classList.remove('btn-primary');  btnNext.classList.add('btn-ghost');
   }
+
+  if (_state.autoplay === 'autoplay' && _state.type === 'lecture') playCurrentCard();
 }
 
 function _updateKunOnButtons(kunCorrect, onCorrect) {

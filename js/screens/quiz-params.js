@@ -249,7 +249,7 @@ function toggleSens() {
   document.getElementById('qp-sens-section').style.display =
     type === 'comprehension' ? 'block' : 'none';
   document.getElementById('qp-autoplay-section').style.display =
-    (type === 'comprehension' && sens === 'jpfr') ? 'block' : 'none';
+    (type === 'lecture' || (type === 'comprehension' && sens === 'jpfr')) ? 'block' : 'none';
 }
 
 async function startQuiz() {
@@ -258,7 +258,7 @@ async function startQuiz() {
   const sens    = type === 'lecture' ? 'lecture' : (document.querySelector('[name="qp-sens"]:checked')?.value || 'jpfr');
   const critere = document.querySelector('[name="qp-critere"]:checked')?.value || 'tous';
   const count   = parseInt(document.getElementById('qp-slider').value) || 0;
-  const autoplay = (type === 'comprehension' && sens === 'jpfr')
+  const autoplay = (type === 'lecture' || (type === 'comprehension' && sens === 'jpfr'))
     ? (document.querySelector('[name="qp-autoplay"]:checked')?.value || 'silence')
     : 'silence';
 
