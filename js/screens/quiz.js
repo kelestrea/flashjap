@@ -125,7 +125,7 @@ function toggleReading() {
 }
 
 function normalize(s) {
-  return (s || '').toLowerCase().trim();
+  return (s || '').toLowerCase().trim().replace(/\./g, '');
 }
 
 // Retourne { correct, correctOn, correctKun } pour les kanjis en mode lecture
@@ -145,7 +145,11 @@ function checkAnswer(card, input, type, sens) {
     if (hasKun && hasOn) {
       // Deux réponses attendues séparées par espace
       const parts = n.split(/\s+/);
-      if (parts.length < 2) return { correct: false, correctKun: false, correctOn: false };
+      if (parts.length < 2) {
+        const correctKun = [...kuns, ...romKun].includes(n);
+        const correctOn  = [...ons,  ...romOn].includes(n);
+        return { correct: false, correctKun, correctOn };
+      }
       const [p1, p2] = parts;
       const correctKun = [...kuns, ...romKun].includes(p1);
       const correctOn  = [...ons,  ...romOn].includes(p2);
