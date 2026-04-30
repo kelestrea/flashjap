@@ -215,14 +215,17 @@ Comportement identique à une validation normale : la correction est affichée, 
 
 Implémentation : `validateForced(bool)` dans `quiz.js`, partage `applyResult()` avec `validate()`.
 
-### Option Autoplay (compréhension JP→FR uniquement)
+### Option Autoplay
 
-- Disponible dans les paramètres quiz uniquement quand `type=comprehension` ET `sens=jpfr`
+- Disponible dans les paramètres quiz pour deux modes : `type=lecture` OU (`type=comprehension` ET `sens=jpfr`)
 - Toggle "Silence" (défaut) / "Autoplay" — section `qp-autoplay-section` dans `index.html`
-- Préférence persistée via localStorage (clé `quizAutoplay`) dans `lists-state.js`
-- En mode autoplay : `speakRandom(card.mot || card.kanji)` est appelé dans `showCard()` à chaque nouvelle carte (voix aléatoire)
+- Préférence persistée via localStorage (clé `{type}_quizAutoplay`) dans `lists-state.js`
 - Passé dans le state de navigation : `{ ..., autoplay: 'silence' | 'autoplay' }`
 - Si voix japonaise indisponible : `speakRandom()` retourne silencieusement, pas d'erreur
+
+**Comportement selon le mode :**
+- **Compréhension JP→FR** : `playCurrentCard()` appelé dans `showCard()` à chaque nouvelle carte (audio à l'affichage de la question)
+- **Lecture** : `playCurrentCard()` appelé dans `showFeedback()` après validation (audio à l'affichage du résultat, pas de la question — l'utilisateur doit d'abord saisir la lecture)
 
 ### Écran de résultats
 

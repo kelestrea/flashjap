@@ -121,7 +121,7 @@ Point d'entrée de l'application. Naviguez vers `screen-home` vide la pile compl
 - Critère : tous / moins maîtrisés / vus il y a longtemps / jamais étudié
 - Type : toggle **Lecture / Compréhension**
 - Sens : JP→FR / FR→JP
-- Autoplay (visible uniquement si `type=compréhension` ET `sens=jpfr`)
+- Autoplay (visible si `type=lecture`, ou si `type=compréhension` ET `sens=jpfr`)
 - Slider nombre de cartes (persisté localStorage)
 - Bouton Lancer grisé (`disabled`) en mode Fréquence uniquement si 0 labels sélectionnés ou 0 cartes disponibles
 
