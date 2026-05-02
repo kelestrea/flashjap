@@ -292,7 +292,7 @@ function getScoreKeysForSens(entry, sens) {
   return [`score_${sens}`];
 }
 
-export async function getCardsForQuiz({ type, listes, critere, sens, count, filterMode, freqLabels }) {
+export async function getCardsForQuiz({ type, listes, critere, sens, count, filterMode, freqLabels, focusFilter }) {
   let entries = [];
   if (type === 'vocab' || type === 'les2') entries.push(...await getAllVocab());
   if (type === 'kanji' || type === 'les2') entries.push(...await getAllKanji());

@@ -61,12 +61,12 @@ async function doSearch() {
     const label = raw.slice(raw.indexOf('#') + 1).trim().toLowerCase().normalize('NFC');
     if (FREQ_LABELS.includes(label)) {
       const all = search('', type);
-      _allResults = all.filter(e => getFreqLabel(e.frequence, e.type) === label);
+      _allResults = applyFocusFilter(all.filter(e => getFreqLabel(e.frequence, e.type) === label));
     } else {
       _allResults = [];
     }
   } else {
-    _allResults = search(raw, type);
+    _allResults = applyFocusFilter(search(raw, type));
   }
   _allResults.sort((a, b) => (a.frequence ?? Infinity) - (b.frequence ?? Infinity));
   _page = 0;
