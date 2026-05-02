@@ -145,6 +145,24 @@ html, body {
 .btn-ghost   { background: transparent; border: 0.5px solid var(--border); color: var(--blue); }
 .btn-sm { font-size: 12px; padding: 11px 0; }
 
+.search-auto-toggle {
+  flex-shrink: 0;
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 12px;
+  cursor: pointer;
+  border: 0.5px solid var(--border);
+  background: none;
+  color: var(--blue);
+  opacity: 0.5;
+}
+.search-auto-toggle.active {
+  background: var(--blue);
+  color: var(--bg);
+  border-color: var(--blue);
+  opacity: 1;
+}
+
 .icon-btn {
   background: none;
   border: 0.5px solid var(--border);
