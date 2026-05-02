@@ -19,6 +19,7 @@ Ce document détaille tous les écrans de l'application, leur arborescence, et l
 | `screen-import` | `screens/import.js` | Import de données JSON |
 | `screen-restore` | `screens/restore.js` | Restauration d'une sauvegarde |
 | `screen-edit-listes` | `screens/edit-listes.js` | Édition des listes d'un mot/kanji |
+| `screen-focus` | `screens/focus.js` | Configuration de l'objectif Focus |
 
 **Éléments UI superposés (non-écrans) :**
 
@@ -69,6 +70,11 @@ screen-home  [point d'entrée, pile vidée]
 │                                              │     └─ goBack → screen-fiche
 │                    ← goBack ────────────────→ screen-search
 │
+├─ #home-focus-btn ─────────────────→ screen-focus
+│                                         │
+│          #focus-save (Enregistrer) ────→ goBack() → screen-home
+│          ← retour sans Enregistrer ────→ screen-home (globalFilter inchangé)
+│
 └─ #home-data-btn ──────────────────→ screen-data
                                           │
          #data-import ───────────────────→ screen-import
@@ -99,9 +105,10 @@ Point d'entrée de l'application. Naviguez vers `screen-home` vide la pile compl
 
 **Contenu :**
 - Toggle vocab / kanji (mémorisé dans state global `type-state.js`)
-- Donut chart global (maîtrisé / en cours / étudié / non commencé)
-- Grille 2×2 de sous-camemberts par type de quiz
-- Chiffres clés : total de fiches, à réviser aujourd'hui
+- Donut chart global (maîtrisé / en cours / étudié / non commencé) — calculé sur le sous-ensemble Focus si actif
+- Grille 2×2 de sous-camemberts par type de quiz — calculés sur le sous-ensemble Focus si actif
+- Chiffres clés : total de fiches, à réviser aujourd'hui — calculés sur le sous-ensemble Focus si actif
+- 4 boutons d'action dans l'ordre : Quiz (`#home-quiz-btn`) / Recherche (`#home-search-btn`) / Focus (`#home-focus-btn`) / Données (`#home-data-btn`)
 
 **State reçu :** `{ type: 'vocab' | 'kanji' }` (optionnel, défaut `'vocab'`)
 
@@ -316,6 +323,26 @@ Retour : `goBack()` vers l'écran précédent (fiche ou overlay).
 
 ---
 
+### `screen-focus` — Objectif Focus
+
+**Fichier :** `js/screens/focus.js`
+
+**Header global :** Barre avec toggles vocab/kanji + bouton Focus (gauche/centre) et bouton Accueil (droite)
+
+Accessible uniquement depuis `screen-home` (`#home-focus-btn`).
+
+**Contenu :**
+- Section "LISTES" : chips de sélection multiple — toutes les listes disponibles en base (vocab + kanji confondus via `getAllListes()`), groupées si nombreuses. Actif : fond `--blue`, texte blanc. Inactif : fond `--bg2`, bordure `--border`, texte `--blue`
+- Section "FRÉQUENCE" : 5 chips (essentiel / très courant / courant / rare / inusité), même style que chips listes
+- Bouton "Enregistrer" pleine largeur (`btn-primary`) : `setGlobalFilter(_draft)` → nettoyage silencieux des listes quiz (vocab + kanji) → dispatch `focus-changed` → `goBack()`
+- Retour sans Enregistrer (`#focus-back`) : aucune modification de `globalFilter`
+
+**État local :** `_draftFilter = { listes: [], freqLabels: [] }` initialisé depuis `getGlobalFilter()` à chaque `enter()`.
+
+**State reçu :** aucun
+
+---
+
 ## Topbar — structure commune
 
 Chaque écran possède sa propre `div.topbar` (sticky, z-index 10). Tous les écrans affichent systématiquement un sous-titre "日本語クイズ" (`div.topbar-sub`, 11px, couleur `--gray`) au-dessus du titre principal (`div.topbar-title`, 18px).
@@ -352,8 +379,9 @@ Les IDs dynamiques portés par `topbar-title` : `quiz-badge` (screen-quiz), `fic
 Barre persistante (sticky) présente sur **tous les écrans sauf screen-quiz, screen-fiche et overlays**. Reste visible lors du scroll du contenu.
 
 **Composition :**
-- **Gauche** : toggles vocab/kanji (deux boutons/tabs, largeur égale)
-- **Droite** : bouton "Accueil" (texte, sera remplacé par icône ultérieurement)
+- **Gauche** : toggles vocab/kanji (deux boutons/tabs, largeur égale, `flex:1`)
+- **Centre** : bouton "Focus" (`border-radius:20px`, amber si actif, grisé/disabled si `globalFilter` vide)
+- **Droite** : bouton "Accueil" dans la topbar
 
 **Positionnement :**
 - Position : sticky
@@ -364,6 +392,7 @@ Barre persistante (sticky) présente sur **tous les écrans sauf screen-quiz, sc
 **Comportement :**
 - Type sélectionné (vocab/kanji) est synchronisé globalement via `type-state.js`
 - Clics sur les toggles dispatch un événement `type-changed` pour synchronisation UI
+- Bouton Focus : bascule `globalFilterEnabled`, dispatch `focus-changed`. Disabled si `isFocusFilterEmpty()`
 - Bouton "Accueil" navigue vers `screen-home` avec pile vidée (`navigate('screen-home')`)
 - État persiste entre les écrans : si utilisateur sélectionne "Kanji" sur search, retour à home affiche "Kanji" sélectionné
 - Sur screen-home, le bouton "Accueil" est présent mais inerte (utilisateur est déjà à l'accueil)
@@ -389,6 +418,8 @@ Barre persistante (sticky) présente sur **tous les écrans sauf screen-quiz, sc
 |----|------|------|------------|----------------|
 | `screen-home` | `screen-quiz-params` | Stack | `#home-quiz-btn` | `{ type }` |
 | `screen-home` | `screen-search` | Stack | `#home-search-btn` | `{ type }` |
+| `screen-home` | `screen-focus` | Stack | `#home-focus-btn` | — |
+| `screen-focus` | `screen-home` | Stack | `#focus-save` (goBack) | — |
 | `screen-home` | `screen-data` | Stack | `#home-data-btn` | — |
 | `screen-quiz-params` | `screen-list-selection` | Stack | `#qp-manage-listes` | — |
 | `screen-list-selection` | `screen-quiz-params` | Stack | `#ls-validate` (goBack) | — |

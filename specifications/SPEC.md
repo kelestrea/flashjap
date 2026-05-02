@@ -36,6 +36,7 @@ Application PWA de révision de japonais (kanjis + vocabulaire), installable sur
     ├── audio.js        — Google Cloud TTS (Neural2) + Web Speech API fallback
     ├── icons.js        — SVG inline partagés
     ├── lists-state.js  — Persistance localStorage (listes sélectionnées, valeur slider)
+    ├── focus-state.js  — Persistance localStorage du filtre Focus global (globalFilter, globalFilterEnabled)
     ├── screens/
     │   ├── home.js             — Accueil avec camembert global + grille 2x2 sous-camemberts
     │   ├── quiz-params.js      — Paramètres de session
@@ -44,6 +45,7 @@ Application PWA de révision de japonais (kanjis + vocabulaire), installable sur
     │   ├── results.js          — Résultats de session
     │   ├── search.js           — Recherche avec pagination et toggle automatique
     │   ├── fiche.js            — Fiche détail (push depuis recherche)
+    │   ├── focus.js            — Configuration de l'objectif Focus
     │   ├── data.js             — Écran données (import/export/restaurer)
     │   ├── import.js           — Import JSON + prompt Claude
     │   ├── restore.js          — Restauration base
@@ -290,6 +292,34 @@ Retourne `null` si `frequence` est null/undefined. Aucune migration de schéma r
 - À l'import, si un doublon est détecté, les nouvelles listes sont fusionnées (pas d'écrasement des scores)
 
 
+### Filtre Focus
+
+Le filtre Focus permet de restreindre l'application à un sous-ensemble d'entrées défini par une combinaison de listes et/ou labels de fréquence.
+
+**Structure persistée en localStorage :**
+- `globalFilter` : `{ listes: string[], freqLabels: string[] }` — critères du filtre
+- `globalFilterEnabled` : `'true'` | `'false'` — état actif/inactif du filtre
+- État par défaut : `globalFilterEnabled = false`, `globalFilter` vide
+
+**Logique d'union :** Une entrée est incluse si elle appartient à au moins une des listes OU si son `getFreqLabel()` correspond à au moins un des freqLabels sélectionnés.
+
+**Application par écran :**
+- `screen-home` : filtre `getAllVocab()` / `getAllKanji()` avant calcul des stats
+- `screen-search` : filtre les résultats de recherche
+- `screen-quiz-params` : filtre les entrées avant calcul du slider (via param `focusFilter` dans `getCardsForQuiz`)
+
+**Cas limites :**
+- Focus actif + sous-ensemble vide : 0 entrées sur home, slider à 0 et bouton Lancer grisé
+- Focus actif + globalFilter vide : toggle Focus non-cliquable (`disabled`)
+- Entrée sans liste et sans fréquence : exclue du sous-ensemble quand Focus actif
+- Focus inactif : comportement identique à l'existant
+
+**Nettoyage des listes quiz :** Quand Focus est activé ou reconfiguré (enregistrement depuis screen-focus), les listes sélectionnées pour le quiz (vocab ET kanji) qui n'ont aucune entrée dans le sous-ensemble Focus sont silencieusement retirées.
+
+**Synchronisation :** Événement custom `focus-changed` dispatché à chaque changement d'état, sur le même pattern que `type-changed`.
+
+**Module dédié :** `js/focus-state.js` — expose `getGlobalFilter`, `setGlobalFilter`, `isFocusEnabled`, `setFocusEnabled`, `isFocusFilterEmpty`, `resetFocusState`, `applyFocusFilter(entries)`, `matchesFocusFilter(entry, filter)`.
+
 ### Suppression de fiches
 
 - Disponible depuis la fiche détail (vocab et kanji) via le bouton "supprimer la fiche"
@@ -300,7 +330,7 @@ Retourne `null` si `frequence` est null/undefined. Aucune migration de schéma r
 
 - Disponible depuis screen-data via le bouton "Vider la base" (rouge, pleine largeur, bas de l'écran)
 - Déclenche une popup de confirmation (message irréversible, bouton "Vider")
-- Si confirmé : `clearAllData()` dans `db.js` vide les stores vocab et kanji et invalide `_searchIndex` ; `resetSelectedListes()` dans `lists-state.js` supprime la clé `selectedListes` du localStorage
+- Si confirmé : `clearAllData()` dans `db.js` vide les stores vocab et kanji et invalide `_searchIndex` ; `resetSelectedListes()` dans `lists-state.js` supprime la clé `selectedListes` du localStorage ; `resetFocusState()` dans `focus-state.js` remet `globalFilter` et `globalFilterEnabled` à leurs valeurs par défaut
 - Ne touche pas aux autres préférences : slider, autoplay, type vocab/kanji, clé TTS
 - L'utilisateur reste sur screen-data après l'action
 
@@ -613,6 +643,16 @@ Importe `getSelectedType` depuis `type-state.js`. Toutes les fonctions acceptent
 - Sens : `getQuizSens(type?)`, `setQuizSens(value, type?)`
 - Critère : `getQuizCritere(type?)`, `setQuizCritere(value, type?)`
 
+#### `focus-state.js`
+Importe `getFreqLabel` depuis `db.js`. Clés localStorage : `globalFilter`, `globalFilterEnabled`.
+
+- État : `getGlobalFilter()` → `{ listes, freqLabels }`, `setGlobalFilter(filter)`
+- Toggle : `isFocusEnabled()`, `setFocusEnabled(bool)`
+- Utilitaires : `isFocusFilterEmpty()`, `resetFocusState()`
+- Filtrage : `applyFocusFilter(entries)` — retourne entries filtrées si Focus actif, entries inchangées sinon
+- Matching : `matchesFocusFilter(entry, filter)` — teste si une entrée correspond au filtre (union liste OU freqLabel)
+- Synchronisation : `focus-changed` event dispatché à chaque changement de `globalFilterEnabled`
+
 #### `type-state.js`
 - État global : `getSelectedType()`, `setSelectedType(type)`
 - Persistance : localStorage (clé : `selectedCategory`, défaut : `'vocab'`)
@@ -620,7 +660,10 @@ Importe `getSelectedType` depuis `type-state.js`. Toutes les fonctions acceptent
 
 #### `global-header.js`
 - Initialisation : `initGlobalHeader()`
-- (Gère automatiquement les événements de toggles et synchronisation globale)
+- Compose chaque barre globale avec : toggle vocab/kanji (gauche), bouton Focus (centre), bouton Accueil (topbar, droite)
+- Bouton Focus : amber si actif (`focus-btn--active`), disabled si `isFocusFilterEmpty()`
+- Événements : `type-changed` → `updateAllToggles()`, `focus-changed` → `updateAllFocusToggles()`
+- Clic Focus : bascule `globalFilterEnabled`, dispatch `focus-changed`
 
 #### `screens/*`
 - Chaque écran exporte `init*()` appelé au boot
@@ -691,6 +734,7 @@ Importe `getSelectedType` depuis `type-state.js`. Toutes les fonctions acceptent
 - `addEventListener('change')`, `addEventListener('click')` directs sur éléments
 - Pas de delegation systématique (petit projet)
 - **`type-changed`** — Événement custom dispatché par les toggles vocab/kanji pour synchroniser l'UI globale via `global-header.js`
+- **`focus-changed`** — Événement custom dispatché quand `globalFilterEnabled` change ou quand `globalFilter` est reconfiguré (même pattern que `type-changed`)
 
 ### Validation
 - `validateEntry()` dans db.js (obligatoires listés)
@@ -702,6 +746,9 @@ Importe `getSelectedType` depuis `type-state.js`. Toutes les fonctions acceptent
 - Paramètres quiz : clés préfixées par type `vocab_*` / `kanji_*` (via `lists-state.js`) — voir tableau section "Mémoire des paramètres" ci-dessus
   - `{type}_selectedListes`, `{type}_quizSliderValue`, `{type}_quizFilterMode`, `{type}_quizFreqLabels`
   - `{type}_quizAutoplay`, `{type}_quizType`, `{type}_quizSens`, `{type}_quizCritere`
+- Filtre Focus (via `focus-state.js`) :
+  - `globalFilter` : `{ listes: string[], freqLabels: string[] }`, défaut : objet vide
+  - `globalFilterEnabled` : `'true'` | `'false'`, défaut : `'false'`
 - Toutes les préférences sont restaurées au boot, pas de synchronisation cross-tab
 
 ### Clavier dynamique du quiz

@@ -2,6 +2,7 @@
 import { search, getFreqLabel, getStatutGlobal, STATUT_COLOR, buildSearchIndex, isSearchIndexReady, esc } from '../db.js';
 import { navigate, goBack, registerScreen } from '../router.js';
 import { getSelectedType } from '../type-state.js';
+import { applyFocusFilter } from '../focus-state.js';
 import { ICONS } from '../icons.js';
 
 let _excludeAuto = true;
@@ -27,6 +28,10 @@ export function initSearch() {
   };
   document.getElementById('search-more').onclick = () => { _page++; renderPage(_page); };
   window.addEventListener('type-changed', () => {
+    if (_reviewMode) return;
+    if (document.getElementById('screen-search').classList.contains('active')) doSearch();
+  });
+  window.addEventListener('focus-changed', () => {
     if (_reviewMode) return;
     if (document.getElementById('screen-search').classList.contains('active')) doSearch();
   });
@@ -68,12 +73,14 @@ async function doSearch() {
     const label = raw.slice(raw.indexOf('#') + 1).trim().toLowerCase().normalize('NFC');
     if (FREQ_LABELS.includes(label)) {
       const all = search('', type, _excludeAuto);
-      _allResults = all.filter(e => getFreqLabel(e.frequence, e.type) === label);
+      const filtered = all.filter(e => getFreqLabel(e.frequence, e.type) === label);
+      _allResults = applyFocusFilter(filtered);
     } else {
       _allResults = [];
     }
   } else {
-    _allResults = search(raw, type, _excludeAuto);
+    const results = search(raw, type, _excludeAuto);
+    _allResults = applyFocusFilter(results);
   }
   _allResults.sort((a, b) => (a.frequence ?? Infinity) - (b.frequence ?? Infinity));
   _page = 0;

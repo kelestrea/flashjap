@@ -1,6 +1,7 @@
-// global-header.js - Global header bar with toggles + home button
+// global-header.js - Global header bar with toggles + focus button + home button
 import { navigate } from './router.js';
 import { getSelectedType, setSelectedType } from './type-state.js';
+import { isFocusEnabled, setFocusEnabled, isFocusFilterEmpty } from './focus-state.js';
 
 export function initGlobalHeader() {
   const screens = document.querySelectorAll('.screen');
@@ -33,6 +34,8 @@ export function initGlobalHeader() {
   });
 
   window.addEventListener('type-changed', updateAllToggles);
+  window.addEventListener('focus-changed', updateAllFocusToggles);
+  updateAllFocusToggles();
 }
 
 function createToggleBar() {
@@ -43,6 +46,7 @@ function createToggleBar() {
       <button class="toggle-btn active" data-type="vocab">Vocab</button>
       <button class="toggle-btn" data-type="kanji">Kanjis</button>
     </div>
+    <button class="focus-btn" data-focus-toggle>Focus</button>
   `;
   return bar;
 }
@@ -55,6 +59,14 @@ function attachToggleEvents(bar) {
       window.dispatchEvent(new Event('type-changed'));
     });
   });
+
+  const focusBtn = bar.querySelector('[data-focus-toggle]');
+  focusBtn.addEventListener('click', () => {
+    if (isFocusFilterEmpty()) return;
+    setFocusEnabled(!isFocusEnabled());
+    updateAllFocusToggles();
+    window.dispatchEvent(new Event('focus-changed'));
+  });
 }
 
 function updateAllToggles() {
@@ -65,5 +77,14 @@ function updateAllToggles() {
     const kanjiBtn = bar.querySelector('[data-type="kanji"]');
     vocabBtn.classList.toggle('active', type === 'vocab');
     kanjiBtn.classList.toggle('active', type === 'kanji');
+  });
+}
+
+function updateAllFocusToggles() {
+  const enabled = isFocusEnabled();
+  const empty   = isFocusFilterEmpty();
+  document.querySelectorAll('[data-focus-toggle]').forEach(btn => {
+    btn.classList.toggle('focus-btn--active', enabled && !empty);
+    btn.disabled = empty;
   });
 }

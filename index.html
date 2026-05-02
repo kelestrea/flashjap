@@ -84,6 +84,22 @@
       </svg>
       <span>Quiz</span>
     </button>
+    <button class="action-btn" id="home-search-btn">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="color:var(--blue)">
+        <circle cx="10" cy="10" r="6.5" stroke="currentColor" stroke-width="1.2"/>
+        <path d="M15 15.5c.5.3 1 .8 1.5 1.3l2 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        <path d="M8 10c.3-1 1.2-1.8 2.5-1.8" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+      </svg>
+      <span>Recherche</span>
+    </button>
+    <button class="action-btn" id="home-focus-btn">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="color:var(--blue)">
+        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.2"/>
+        <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.2"/>
+        <circle cx="12" cy="12" r="1" fill="currentColor"/>
+      </svg>
+      <span>Focus</span>
+    </button>
     <button class="action-btn" id="home-data-btn">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="color:var(--blue)">
         <path d="M12 20V7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
@@ -92,14 +108,6 @@
         <path d="M17 20h3M4 20h3M10.5 20h3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
       </svg>
       <span>Données</span>
-    </button>
-    <button class="action-btn" id="home-search-btn">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="color:var(--blue)">
-        <circle cx="10" cy="10" r="6.5" stroke="currentColor" stroke-width="1.2"/>
-        <path d="M15 15.5c.5.3 1 .8 1.5 1.3l2 2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-        <path d="M8 10c.3-1 1.2-1.8 2.5-1.8" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-      </svg>
-      <span>Recherche</span>
     </button>
   </div>
 
@@ -576,6 +584,35 @@ de révision de japonais.
       <input type="text" id="edit-listes-new" class="input-field" placeholder="Nouvelle liste…" style="flex:1;font-size:14px;padding:10px 12px;">
       <button id="edit-listes-add" class="btn btn-ghost" style="flex-shrink:0;width:auto;padding:10px 16px;font-size:13px;">Ajouter</button>
     </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     OBJECTIF FOCUS
+══════════════════════════════════════════════════════════ -->
+<div id="screen-focus" class="screen">
+  <div class="topbar">
+    <button class="back-btn" id="focus-back" style="color:var(--blue)">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M13 4l-6 6 6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div style="flex:1;margin-left:10px;">
+      <div class="topbar-sub">日本語クイズ</div>
+      <div class="topbar-title">Objectif Focus</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">LISTES</div>
+    <div id="focus-listes-chips" style="display:flex;flex-wrap:wrap;gap:8px;min-height:24px;"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">FRÉQUENCE</div>
+    <div id="focus-freq-chips" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+  </div>
+
+  <div class="section" style="border:none;">
+    <button class="btn btn-primary" id="focus-save">Enregistrer</button>
   </div>
 </div>
 

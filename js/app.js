@@ -15,6 +15,7 @@ import { initImport }     from './screens/import.js';
 import { initRestore }    from './screens/restore.js';
 import { initEditListes } from './screens/edit-listes.js';
 import * as listSelection from './screens/list-selection.js';
+import { initFocus } from './screens/focus.js';
 
 async function boot() {
   await openDB();
@@ -43,6 +44,7 @@ async function boot() {
   initRestore();
   initEditListes();
   listSelection.init();
+  initFocus();
 
   initGlobalHeader();
 

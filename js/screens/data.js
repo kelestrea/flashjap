@@ -3,6 +3,7 @@ import { navigate, goBack, registerScreen, showPopup } from '../router.js';
 import { exportAll, clearAllData } from '../db.js';
 import { setCloudKey, setCloudQuality, getCloudConfig } from '../audio.js';
 import { resetSelectedListes } from '../lists-state.js';
+import { resetFocusState } from '../focus-state.js';
 
 export function initData() {
   registerScreen('screen-data', { enter: () => {
@@ -39,6 +40,7 @@ export function initData() {
       async () => {
         await clearAllData();
         resetSelectedListes();
+        resetFocusState();
       },
       null,
       'Vider'

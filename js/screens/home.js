@@ -2,6 +2,7 @@
 import { getAllVocab, getAllKanji, getStatutGlobal, getStatut, STATUT_COLOR, buildSearchIndex } from '../db.js';
 import { navigate, registerScreen } from '../router.js';
 import { getSelectedType, setSelectedType } from '../type-state.js';
+import { applyFocusFilter } from '../focus-state.js';
 
 export function getHomeType() { return getSelectedType(); }
 
@@ -10,7 +11,9 @@ export function initHome() {
   document.getElementById('home-quiz-btn').onclick   = () => navigate('screen-quiz-params');
   document.getElementById('home-data-btn').onclick   = () => navigate('screen-data');
   document.getElementById('home-search-btn').onclick = () => navigate('screen-search');
+  document.getElementById('home-focus-btn').onclick  = () => navigate('screen-focus');
   window.addEventListener('type-changed', () => { if (document.getElementById('screen-home').classList.contains('active')) renderStats(); });
+  window.addEventListener('focus-changed', () => { if (document.getElementById('screen-home').classList.contains('active')) renderStats(); });
 }
 
 async function enterHome(state, isBack) {
@@ -82,7 +85,8 @@ function countByStatut(entries, scoreKey) {
 
 async function renderStats() {
   const t = getSelectedType();
-  const entries = t === 'vocab' ? await getAllVocab() : await getAllKanji();
+  const rawEntries = t === 'vocab' ? await getAllVocab() : await getAllKanji();
+  const entries = applyFocusFilter(rawEntries);
   let maitrise = 0, encours = 0, etudie = 0, noncommence = 0, areviser = 0;
   const THREE_WEEKS = 21 * 24 * 3600 * 1000;
   const now = Date.now();
