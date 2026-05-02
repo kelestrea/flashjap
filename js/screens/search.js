@@ -21,7 +21,7 @@ export function initSearch() {
   document.getElementById('search-auto-toggle').onclick = () => {
     _excludeAuto = !_excludeAuto;
     const btn = document.getElementById('search-auto-toggle');
-    btn.classList.toggle('active', _excludeAuto);
+    btn.classList.toggle('active', !_excludeAuto);
     btn.title = _excludeAuto ? 'Automatique exclus' : 'Automatique inclus';
     doSearch();
   };
@@ -51,7 +51,7 @@ async function enterSearch(state) {
     input.removeAttribute('readonly');
     input.style.opacity = '';
     autoToggle.style.display = '';
-    autoToggle.classList.toggle('active', _excludeAuto);
+    autoToggle.classList.toggle('active', !_excludeAuto);
     await buildSearchIndex();
     doSearch();
   }
