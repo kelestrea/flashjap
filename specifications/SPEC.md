@@ -273,11 +273,11 @@ Après sélection des N cartes selon le critère, **toujours mélanger aléatoir
 
 | Label | Vocab | Kanji |
 |-------|-------|-------|
-| essentiel | 1 – 1 000 | 1 – 100 |
-| très courant | 1 001 – 5 000 | 101 – 500 |
-| courant | 5 001 – 10 000 | 501 – 1 000 |
-| rare | 10 001 – 20 000 | 1 001 – 2 000 |
-| inusité | > 20 000 | > 2 000 |
+| essentiel | 1 – 500 | 1 – 100 |
+| très courant | 501 – 2 000 | 101 – 500 |
+| courant | 2 001 – 5 000 | 501 – 1 000 |
+| rare | 5 001 – 15 000 | 1 001 – 2 000 |
+| inusité | > 15 000 | > 2 000 |
 
 Retourne `null` si `frequence` est null/undefined. Aucune migration de schéma requise.
 
