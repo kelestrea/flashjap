@@ -93,8 +93,8 @@ async function renderStats() {
     else if (sg === 'encours') encours++;
     else if (sg === 'etudie')  etudie++;
     else                       noncommence++;
-    const vue = Math.min(e.derniere_vue_jpfr || 0, e.derniere_vue_frjp || 0) || 0;
-    if (sg !== 'maitrise' || (now - vue) >= THREE_WEEKS) areviser++;
+    const vue = Math.max(e.derniere_vue_lecture || 0, e.derniere_vue_jpfr || 0, e.derniere_vue_frjp || 0);
+    if (vue > 0 && (sg !== 'maitrise' || (now - vue) >= THREE_WEEKS)) areviser++;
   });
 
   const total = entries.length;
