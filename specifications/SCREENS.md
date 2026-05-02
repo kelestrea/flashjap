@@ -206,13 +206,11 @@ Accessible uniquement depuis `screen-quiz-params`. Retour sans valider annule le
 
 **Contenu (mode normal) :**
 - Champ de recherche (debounce 200ms)
-- Toggle inclure/exclure liste "automatique"
 - Résultats paginés (50 par page)
 - Résultats triés : JLPT décroissant (N5 en premier, sans JLPT en dernier), puis fréquence croissante, puis maîtrise décroissante
 
 **Contenu (mode review post-import) :** activé si `state.importReviewItems` est présent
 - Champ de recherche désactivé (readonly, grisé)
-- Toggle auto masqué
 - Items affichés directement depuis `importReviewItems`, sans requête à l'index de recherche
 - Retour via `goBack()` → screen-import avec résumé préservé
 

@@ -124,11 +124,6 @@ export async function clearAllData() {
   _searchIndex = null;
 }
 
-function cleanListes(listes) {
-  const autres = listes.filter(l => l !== 'automatique');
-  return autres.length > 0 ? autres : listes;
-}
-
 export async function saveEntry(entry) {
   const freqRaw = entry.frequence;
   const freqValid = Number.isInteger(freqRaw) && freqRaw >= 1 ? freqRaw : null;
@@ -139,11 +134,11 @@ export async function saveEntry(entry) {
   if (existing) {
     const merged = [...new Set([...existing.listes, ...(entry.listes || [])])];
     const mergedFreq = freqValid !== null ? freqValid : (existing.frequence ?? null);
-    const mergedEntry = { ...existing, listes: cleanListes(merged), frequence: mergedFreq };
+    const mergedEntry = { ...existing, listes: merged, frequence: mergedFreq };
     await put(store, mergedEntry);
     return { status: 'doublon', entry: mergedEntry };
   }
-  const listes = cleanListes(entry.listes || []);
+  const listes = entry.listes || [];
   let savedEntry;
   if (entry.type === 'kanji') {
     savedEntry = {
@@ -297,7 +292,7 @@ function getScoreKeysForSens(entry, sens) {
   return [`score_${sens}`];
 }
 
-export async function getCardsForQuiz({ type, listes, critere, sens, count, filterMode, freqLabels, excludeAuto }) {
+export async function getCardsForQuiz({ type, listes, critere, sens, count, filterMode, freqLabels }) {
   let entries = [];
   if (type === 'vocab' || type === 'les2') entries.push(...await getAllVocab());
   if (type === 'kanji' || type === 'les2') entries.push(...await getAllKanji());
@@ -305,7 +300,6 @@ export async function getCardsForQuiz({ type, listes, critere, sens, count, filt
   if (filterMode === 'frequence') {
     entries = entries.filter(e => {
       if (e.frequence === null || e.frequence === undefined) return false;
-      if (excludeAuto && (e.listes || []).every(l => l === 'automatique')) return false;
       const label = getFreqLabel(e.frequence, e.type);
       return freqLabels && freqLabels.includes(label);
     });
@@ -437,7 +431,7 @@ export async function buildSearchIndex() {
   _searchIndex = [...vocab, ...kanji];
 }
 
-export function search(query, type, excludeAuto = true) {
+export function search(query, type) {
   if (!_searchIndex) return [];
   const q = query.toLowerCase().trim().replace(/\s/g, '').normalize('NFC');
 
@@ -446,7 +440,6 @@ export function search(query, type, excludeAuto = true) {
       if (type === 'kanji' && e.type !== 'kanji') return false;
       if (type === 'vocab' && e.type === 'kanji') return false;
     }
-    if (excludeAuto && (e.listes || []).every(l => l === 'automatique')) return false;
     return true;
   });
 

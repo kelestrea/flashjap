@@ -34,11 +34,7 @@ function renderCategories() {
   const selectedListes = listsState.getSelectedListes(_type);
   const categorized = categorizeListes(_allListes);
 
-  let categories = Object.keys(categorized).sort();
-  if (categorized['automatique']) {
-    categories = categories.filter(c => c !== 'automatique');
-    categories.push('automatique');
-  }
+  const categories = Object.keys(categorized).sort();
 
   categories.forEach((category) => {
     const listes = categorized[category];

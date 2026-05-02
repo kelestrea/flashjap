@@ -42,7 +42,7 @@ Application PWA de révision de japonais (kanjis + vocabulaire), installable sur
     │   ├── list-selection.js   — Sélection des listes avec catégories collapsibles
     │   ├── quiz.js             — Logique quiz complet
     │   ├── results.js          — Résultats de session
-    │   ├── search.js           — Recherche avec pagination et toggle automatique
+    │   ├── search.js           — Recherche avec pagination
     │   ├── fiche.js            — Fiche détail (push depuis recherche)
     │   ├── data.js             — Écran données (import/export/restaurer)
     │   ├── import.js           — Import JSON + prompt Claude
@@ -285,8 +285,6 @@ Retourne `null` si `frequence` est null/undefined. Aucune migration de schéma r
 
 - Les listes sont des tags libres affectés à chaque entrée
 - Un mot peut appartenir à plusieurs listes
-- La liste `"automatique"` est attribuée aux kanjis générés automatiquement depuis les composants vocab à l'import
-- **Règle** : si un mot/kanji a au moins une liste autre que `"automatique"`, la liste `"automatique"` est retirée automatiquement
 - À l'import, si un doublon est détecté, les nouvelles listes sont fusionnées (pas d'écrasement des scores)
 
 
@@ -329,7 +327,6 @@ Après restauration : navigation vers screen-home (pile vidée).
 ### Recherche
 
 - Champs indexés : kanji/mot, hiragana, romaji, traductions/sens, listes
-- Toggle pour exclure/inclure les entrées de la liste "automatique" (exclus par défaut)
 - Pagination : 50 résultats par page
 - Debounce 200ms sur la saisie
 - **Tri des résultats** : fréquence croissante (rang 1 en tête, `null` en dernier). S'applique à tous les modes (texte libre, filtre `#label`, vocab et kanji).
@@ -338,7 +335,6 @@ Après restauration : navigation vers screen-home (pile vidée).
 **Mode review (post-import) :** Si `screen-search` est appelé avec `importReviewItems` dans le state, le mode review est activé :
 - `_allResults` chargé directement depuis `importReviewItems` (pas de requête à l'index)
 - Champ de recherche désactivé (`readonly`, opacité réduite)
-- Toggle auto masqué
 - Flag `_reviewMode = true` empêche `type-changed` de réinitialiser la liste
 - Retour via `goBack()` → screen-import (résumé préservé car `enterImport(state, isBack=true)` ne réinitialise pas)
 
@@ -376,7 +372,7 @@ Tous les paramètres quiz sont persistés **séparément pour vocab et kanji** v
 **Affichage catégories:**
 - Extraction: premier mot de chaque nom de liste (premier token non-espace) = catégorie
   - Ex: "leçon 1.1" → "leçon" | "ML 08042026" → "ML" | "JPLT N5" → "JPLT"
-- Tri alphabétique des catégories, sauf `automatique` toujours placée en dernier
+- Tri alphabétique des catégories
 - Catégories ouvertes par défaut (collapsible)
 
 **Interactions:**
@@ -425,7 +421,7 @@ Le prompt complet est stocké dans `js/screens/import.js` dans la constante `PRO
 1. Vérification des paramètres (demander la liste si absente)
 2. Analyse du contenu (texte libre, image OCR, tableau...)
 3. Questions avant production (champs incertains regroupés en un message)
-4. Génération automatique des fiches kanji depuis `kanjis_composants` des fiches vocab → liste `["automatique"]`, dédupliqués
+4. Génération automatique des fiches kanji depuis `kanjis_composants` des fiches vocab → liste `["JLPT n/a"]`, dédupliqués
 5. Production du JSON (fichier à télécharger, pas affiché dans le chat)
 
 **Règles de classification :**
