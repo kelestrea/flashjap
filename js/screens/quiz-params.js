@@ -1,12 +1,13 @@
 // screens/quiz-params.js
-import { getListes, getCardsForQuiz } from '../db.js';
+import { getListes, getCardsForQuiz, getAllVocab, getAllKanji } from '../db.js';
 import { navigate, goBack, registerScreen } from '../router.js';
 import { getSelectedType } from '../type-state.js';
 import * as listsState from '../lists-state.js';
-import { isFocusEnabled, getGlobalFilter } from '../focus-state.js';
+import { isFocusEnabled, getGlobalFilter, applyFocusFilter } from '../focus-state.js';
 
 const FREQ_LABELS_ALL = ['essentiel', 'très courant', 'courant', 'rare', 'inusité'];
 let _enterParamsId = 0;
+let _focusListsInScope = null; // Set des listes ayant des entrées dans le sous-ensemble Focus
 
 export function initQuizParams() {
   registerScreen('screen-quiz-params', { enter: enterParams });
@@ -135,6 +136,23 @@ async function enterParams() {
   const allListes = await getListes(type);
   if (id !== _enterParamsId) return;
 
+  // Calculer les listes visibles dans le sous-ensemble Focus
+  if (isFocusEnabled()) {
+    const focusFilter = getGlobalFilter();
+    if (focusFilter.listes.length > 0 || focusFilter.freqLabels.length > 0) {
+      const all = type === 'vocab' ? await getAllVocab()
+                : type === 'kanji' ? await getAllKanji()
+                : [...await getAllVocab(), ...await getAllKanji()];
+      const focusEntries = applyFocusFilter(all);
+      _focusListsInScope = new Set(focusEntries.flatMap(e => e.listes || []));
+    } else {
+      _focusListsInScope = null;
+    }
+  } else {
+    _focusListsInScope = null;
+  }
+  if (id !== _enterParamsId) return;
+
   listsState.initializeSelectedListes(allListes, type);
 
   // Restaurer type de quiz (lecture/compréhension) — avant refreshSlider qui lit ce radio
@@ -199,7 +217,10 @@ function groupListesByCategory(listes) {
 }
 
 async function loadListes(type) {
-  const selectedListes = listsState.getSelectedListes(type);
+  let selectedListes = listsState.getSelectedListes(type);
+  if (_focusListsInScope) {
+    selectedListes = selectedListes.filter(l => _focusListsInScope.has(l));
+  }
   const container = document.getElementById('qp-listes');
 
   if (selectedListes.length === 0) {
