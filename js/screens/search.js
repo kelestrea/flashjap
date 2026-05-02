@@ -1,5 +1,5 @@
 // screens/search.js
-import { search, getFreqLabel, getStatutGlobal, STATUT_COLOR, buildSearchIndex, esc } from '../db.js';
+import { search, getFreqLabel, getStatutGlobal, STATUT_COLOR, buildSearchIndex, isSearchIndexReady, esc } from '../db.js';
 import { navigate, goBack, registerScreen } from '../router.js';
 import { getSelectedType } from '../type-state.js';
 import { ICONS } from '../icons.js';
@@ -68,7 +68,8 @@ function getJlptLevel(entry) {
   return 0;
 }
 
-function doSearch() {
+async function doSearch() {
+  if (!isSearchIndexReady()) await buildSearchIndex();
   const raw = document.getElementById('search-input').value;
   const type = getSelectedType();
 

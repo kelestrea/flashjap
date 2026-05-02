@@ -429,6 +429,8 @@ export function validateEntry(e) {
 // ── RECHERCHE ───────────────────────────────────────────────────────────
 let _searchIndex = null;
 
+export function isSearchIndexReady() { return _searchIndex !== null; }
+
 export async function buildSearchIndex() {
   const vocab = await getAllVocab();
   const kanji = await getAllKanji();
