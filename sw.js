@@ -1,4 +1,4 @@
-const CACHE = 'flashjap-3.4.0';
+const CACHE = 'flashjap-3.4.1';
 const ASSETS = [
   '/flashjap/',
   '/flashjap/index.html',

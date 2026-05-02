@@ -1,12 +1,14 @@
 // screens/focus.js — Écran de configuration de l'objectif Focus
 import { getAllListes, getAllVocab, getAllKanji } from '../db.js';
 import { goBack, registerScreen } from '../router.js';
-import { getGlobalFilter, setGlobalFilter, isFocusEnabled, applyFocusFilter } from '../focus-state.js';
+import { getGlobalFilter, setGlobalFilter, isFocusEnabled, setFocusEnabled, applyFocusFilter } from '../focus-state.js';
 import { getSelectedListes, setSelectedListes } from '../lists-state.js';
 
 const FREQ_LABELS_ALL = ['essentiel', 'très courant', 'courant', 'rare', 'inusité'];
 
 let _draft = { listes: [], freqLabels: [] };
+let _allListes = [];
+let _collapsedCategories = new Set();
 
 export function initFocus() {
   registerScreen('screen-focus', { enter: enterFocus });
@@ -15,6 +17,10 @@ export function initFocus() {
 
   document.getElementById('focus-save').addEventListener('click', async () => {
     setGlobalFilter(_draft);
+    const hasFilter = _draft.listes.length > 0 || _draft.freqLabels.length > 0;
+    if (hasFilter && !isFocusEnabled()) {
+      setFocusEnabled(true);
+    }
     if (isFocusEnabled()) {
       await cleanQuizListesForFocus();
     }
@@ -23,6 +29,14 @@ export function initFocus() {
   });
 
   document.getElementById('focus-listes-chips').addEventListener('click', e => {
+    const catBtn = e.target.closest('[data-cat-toggle]');
+    if (catBtn) {
+      const cat = catBtn.dataset.catToggle;
+      if (_collapsedCategories.has(cat)) _collapsedCategories.delete(cat);
+      else _collapsedCategories.add(cat);
+      renderListesChips(_draft.listes);
+      return;
+    }
     const chip = e.target.closest('[data-liste]');
     if (!chip) return;
     const liste = chip.dataset.liste;
@@ -46,14 +60,34 @@ export function initFocus() {
 }
 
 async function enterFocus() {
-  // Initialiser le draft depuis globalFilter courant
   const saved = getGlobalFilter();
   _draft = { listes: [...saved.listes], freqLabels: [...saved.freqLabels] };
 
-  // Charger toutes les listes disponibles (vocab + kanji confondus)
-  const allListes = await getAllListes();
-  renderListesChips(_draft.listes, allListes);
+  _allListes = await getAllListes();
+
+  // Catégories avec sélection active → dépliées ; autres → repliées par défaut
+  const groups = groupByCategory(_allListes);
+  _collapsedCategories = new Set(
+    Object.keys(groups).filter(cat => !groups[cat].some(l => _draft.listes.includes(l)))
+  );
+
+  renderListesChips(_draft.listes);
   renderFreqChips(_draft.freqLabels);
+}
+
+function extractCategory(listeName) {
+  const match = listeName.match(/^(\S+)/);
+  return match ? match[1] : listeName;
+}
+
+function groupByCategory(listes) {
+  const groups = {};
+  listes.forEach(l => {
+    const cat = extractCategory(l);
+    if (!groups[cat]) groups[cat] = [];
+    groups[cat].push(l);
+  });
+  return groups;
 }
 
 function chipStyle(active) {
@@ -63,16 +97,38 @@ function chipStyle(active) {
     color:${active ? '#fff' : 'var(--blue)'}"`;
 }
 
-function renderListesChips(selectedListes, allListes) {
+function renderListesChips(selectedListes) {
   const container = document.getElementById('focus-listes-chips');
-  const available = allListes || Array.from(container.querySelectorAll('[data-liste]')).map(c => c.dataset.liste);
-  if (!available.length) {
+  if (!_allListes.length) {
     container.innerHTML = '<span style="font-size:13px;color:var(--gray)">Aucune liste en base</span>';
     return;
   }
-  container.innerHTML = available.map(l => {
-    const active = selectedListes.includes(l);
-    return `<button data-liste="${escAttr(l)}" ${chipStyle(active)}>${escHtml(l)}</button>`;
+
+  const groups = groupByCategory(_allListes);
+  const categories = Object.keys(groups).sort();
+
+  container.innerHTML = categories.map(cat => {
+    const collapsed = _collapsedCategories.has(cat);
+    const listes = groups[cat];
+    const selectedCount = listes.filter(l => selectedListes.includes(l)).length;
+    const countLabel = selectedCount > 0 ? ` · ${selectedCount} sél.` : '';
+
+    const chips = listes.map(l => {
+      const active = selectedListes.includes(l);
+      return `<button data-liste="${escAttr(l)}" ${chipStyle(active)}>${escHtml(l)}</button>`;
+    }).join('');
+
+    return `
+      <div class="focus-cat">
+        <button class="focus-cat-header" data-cat-toggle="${escAttr(cat)}">
+          <span class="focus-cat-name">${escHtml(cat)}</span>
+          <span class="focus-cat-meta">${listes.length} liste${listes.length > 1 ? 's' : ''}${countLabel}</span>
+          <span class="focus-cat-arrow">${collapsed ? '▶' : '▼'}</span>
+        </button>
+        <div class="focus-cat-chips" style="display:${collapsed ? 'none' : 'flex'};flex-wrap:wrap;gap:8px;padding:8px 0 4px;">
+          ${chips}
+        </div>
+      </div>`;
   }).join('');
 }
 
@@ -84,7 +140,6 @@ function renderFreqChips(selectedFreqs) {
   }).join('');
 }
 
-// Met à jour le disabled du bouton Focus dans le header sans déclencher focus-changed
 function updateFocusToggleState() {
   const empty = _draft.listes.length === 0 && _draft.freqLabels.length === 0;
   document.querySelectorAll('[data-focus-toggle]').forEach(btn => {
@@ -92,8 +147,6 @@ function updateFocusToggleState() {
   });
 }
 
-// Nettoyage silencieux des listes quiz sélectionnées pour les deux types,
-// en retirant celles qui n'ont pas d'entrée dans le sous-ensemble Focus courant.
 async function cleanQuizListesForFocus() {
   for (const type of ['vocab', 'kanji']) {
     const allEntries = type === 'vocab' ? await getAllVocab() : await getAllKanji();
