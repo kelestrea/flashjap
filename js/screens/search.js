@@ -2,6 +2,7 @@
 import { search, getFreqLabel, getStatutGlobal, STATUT_COLOR, buildSearchIndex, isSearchIndexReady, esc } from '../db.js';
 import { navigate, goBack, registerScreen } from '../router.js';
 import { getSelectedType } from '../type-state.js';
+import { applyFocusFilter } from '../focus-state.js';
 import { ICONS } from '../icons.js';
 
 let _debounce    = null;
@@ -19,6 +20,10 @@ export function initSearch() {
   };
   document.getElementById('search-more').onclick = () => { _page++; renderPage(_page); };
   window.addEventListener('type-changed', () => {
+    if (_reviewMode) return;
+    if (document.getElementById('screen-search').classList.contains('active')) doSearch();
+  });
+  window.addEventListener('focus-changed', () => {
     if (_reviewMode) return;
     if (document.getElementById('screen-search').classList.contains('active')) doSearch();
   });

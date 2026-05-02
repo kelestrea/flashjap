@@ -297,6 +297,18 @@ export async function getCardsForQuiz({ type, listes, critere, sens, count, filt
   if (type === 'vocab' || type === 'les2') entries.push(...await getAllVocab());
   if (type === 'kanji' || type === 'les2') entries.push(...await getAllKanji());
 
+  // Focus filter appliqué en premier, avant les filtres quiz (union : liste OU freqLabel)
+  if (focusFilter && (focusFilter.listes.length > 0 || focusFilter.freqLabels.length > 0)) {
+    entries = entries.filter(e => {
+      if (focusFilter.listes.some(l => (e.listes || []).includes(l))) return true;
+      if (focusFilter.freqLabels.length > 0) {
+        const label = getFreqLabel(e.frequence, e.type);
+        return label !== null && focusFilter.freqLabels.includes(label);
+      }
+      return false;
+    });
+  }
+
   if (filterMode === 'frequence') {
     entries = entries.filter(e => {
       if (e.frequence === null || e.frequence === undefined) return false;

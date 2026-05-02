@@ -1,4 +1,4 @@
-const CACHE = 'flashjap-3.3.15';
+const CACHE = 'flashjap-3.4.0';
 const ASSETS = [
   '/flashjap/',
   '/flashjap/index.html',
@@ -9,6 +9,7 @@ const ASSETS = [
   '/flashjap/js/icons.js',
   '/flashjap/js/lists-state.js',
   '/flashjap/js/type-state.js',
+  '/flashjap/js/focus-state.js',
   '/flashjap/js/global-header.js',
   '/flashjap/js/version.js',
   '/flashjap/js/app.js',
@@ -20,6 +21,7 @@ const ASSETS = [
   '/flashjap/js/screens/fiche.js',
   '/flashjap/js/screens/edit-listes.js',
   '/flashjap/js/screens/list-selection.js',
+  '/flashjap/js/screens/focus.js',
   '/flashjap/js/screens/data.js',
   '/flashjap/js/screens/import.js',
   '/flashjap/js/screens/restore.js',

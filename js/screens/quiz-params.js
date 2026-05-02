@@ -3,6 +3,7 @@ import { getListes, getCardsForQuiz } from '../db.js';
 import { navigate, goBack, registerScreen } from '../router.js';
 import { getSelectedType } from '../type-state.js';
 import * as listsState from '../lists-state.js';
+import { isFocusEnabled, getGlobalFilter } from '../focus-state.js';
 
 const FREQ_LABELS_ALL = ['essentiel', 'très courant', 'courant', 'rare', 'inusité'];
 let _enterParamsId = 0;
@@ -87,6 +88,9 @@ export function initQuizParams() {
 
   // Reload all params when category changes via global toggle
   window.addEventListener('type-changed', () => {
+    if (document.getElementById('screen-quiz-params').classList.contains('active')) enterParams();
+  });
+  window.addEventListener('focus-changed', () => {
     if (document.getElementById('screen-quiz-params').classList.contains('active')) enterParams();
   });
 }
@@ -224,6 +228,7 @@ async function refreshSlider(type) {
   const sensType = document.querySelector('[name="qp-type"]:checked')?.value || 'lecture';
   const sens     = sensType === 'lecture' ? 'lecture' : (document.querySelector('[name="qp-sens"]:checked')?.value || 'jpfr');
 
+  const focusFilter = isFocusEnabled() ? getGlobalFilter() : null;
   const filterMode = listsState.getFilterMode(t);
   let cards;
   if (filterMode === 'frequence') {
@@ -231,7 +236,7 @@ async function refreshSlider(type) {
     cards = await getCardsForQuiz({ type: t, critere, sens, count: 0, filterMode: 'frequence', freqLabels });
   } else {
     const listes = listsState.getSelectedListes(t);
-    cards = await getCardsForQuiz({ type: t, listes, critere, sens, count: 0 });
+    cards = await getCardsForQuiz({ type: t, listes, critere, sens, count: 0, focusFilter });
   }
 
   const slider = document.getElementById('qp-slider');
@@ -262,6 +267,7 @@ async function startQuiz() {
     ? (document.querySelector('[name="qp-autoplay"]:checked')?.value || 'silence')
     : 'silence';
 
+  const focusFilter = isFocusEnabled() ? getGlobalFilter() : null;
   const filterMode = listsState.getFilterMode();
   let cards;
   if (filterMode === 'frequence') {
@@ -270,7 +276,7 @@ async function startQuiz() {
     if (!cards.length) return;
   } else {
     const listes = listsState.getSelectedListes();
-    cards = await getCardsForQuiz({ type: cat, listes, critere, sens, count });
+    cards = await getCardsForQuiz({ type: cat, listes, critere, sens, count, focusFilter });
     if (!cards.length) { alert('Aucune carte disponible avec ces critères.'); return; }
   }
 

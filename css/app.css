@@ -198,9 +198,12 @@ html, body {
   top: var(--global-header-top, 0);
   background: var(--bg);
   z-index: 9;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 .global-header .toggle {
-  width: 100%;
+  flex: 1;
 }
 
 .topbar-home-btn {
@@ -679,6 +682,31 @@ input[type=range] { width: 100%; accent-color: var(--blue); }
 /* ── RESPONSIVE SAFE AREA iOS ── */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
   .screen { padding-bottom: env(safe-area-inset-bottom); }
+}
+
+/* ── BOUTON FOCUS (global-header) ── */
+.focus-btn {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--bg2);
+  color: var(--gray);
+  min-width: 64px;
+  text-align: center;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s;
+}
+.focus-btn--active {
+  background: var(--amber);
+  color: #fff;
+  border-color: var(--amber);
+}
+.focus-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
 }
 
 /* ── VERSION FOOTER ── */
