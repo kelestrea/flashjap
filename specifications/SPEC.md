@@ -304,6 +304,28 @@ Retourne `null` si `frequence` est null/undefined. Aucune migration de schéma r
 - Ne touche pas aux autres préférences : slider, autoplay, type vocab/kanji, clé TTS
 - L'utilisateur reste sur screen-data après l'action
 
+### Restauration de la base
+
+Disponible depuis screen-data → screen-restore. Fonction `importAll(data, keepScores)` dans `db.js`.
+
+**Option "Tout réinitialiser" (`keepScores = false`) :**
+- Les stores vocab et kanji sont entièrement vidés (`clear`)
+- Les fiches du fichier sont écrites telles quelles (contenu + scores du fichier)
+- Toutes les fiches existantes disparaissent
+
+**Option "Conserver les scores" (`keepScores = true`) :**
+- Aucun vidage préalable : les fiches absentes du fichier restent en base
+- Pour chaque fiche du fichier : le contenu (lectures, traductions, etc.) est remplacé par celui du fichier ; seuls les champs de score sont réappliqués depuis la base si la fiche existait déjà
+- Si la fiche n'existait pas en base, elle est insérée avec les scores du fichier (généralement `null`)
+
+**Champs considérés comme "scores" (préservés depuis la base) :**
+
+Vocab (12 champs) : `score_lecture`, `score_jpfr`, `score_frjp`, `consec_lecture`, `consec_jpfr`, `consec_frjp`, `err_consec_lecture`, `err_consec_jpfr`, `err_consec_frjp`, `derniere_vue_lecture`, `derniere_vue_jpfr`, `derniere_vue_frjp`
+
+Kanji (14 champs) : `score_comprehension_jpfr`, `score_comprehension_frjp`, `score_lecture_on`, `score_lecture_kun`, `consec_comprehension_jpfr`, `consec_comprehension_frjp`, `consec_lecture_on`, `consec_lecture_kun`, `err_consec_comprehension_jpfr`, `err_consec_comprehension_frjp`, `err_consec_lecture_on`, `err_consec_lecture_kun`, `derniere_vue_jpfr`, `derniere_vue_frjp`
+
+Après restauration : navigation vers screen-home (pile vidée).
+
 ### Recherche
 
 - Champs indexés : kanji/mot, hiragana, romaji, traductions/sens, listes
