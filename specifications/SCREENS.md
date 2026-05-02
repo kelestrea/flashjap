@@ -290,7 +290,9 @@ Affiche le détail complet d'une entrée. Accessible depuis `screen-search` (pus
 
 **Contenu :**
 - Upload fichier de sauvegarde JSON
-- Option : conserver ou réinitialiser les scores
+- Option : conserver ou réinitialiser les scores (radio buttons)
+  - "Conserver les scores" (défaut) : le contenu des fiches est remplacé par le fichier, seuls les champs de score sont préservés depuis la base pour les fiches déjà existantes ; les fiches absentes du fichier ne sont pas supprimées
+  - "Tout réinitialiser" : la base est entièrement vidée avant l'écriture, tout le contenu du fichier est écrit tel quel
 
 Retour : navigue vers `screen-home` (pile vidée).
 
