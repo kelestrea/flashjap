@@ -1,6 +1,7 @@
-import { getListes } from '../db.js';
+import { getListes, getAllVocab, getAllKanji } from '../db.js';
 import { navigate, goBack, registerScreen, currentState } from '../router.js';
 import * as listsState from '../lists-state.js';
+import { isFocusEnabled, getGlobalFilter, applyFocusFilter } from '../focus-state.js';
 
 let _tempListes = [];
 let _allListes = [];
@@ -131,6 +132,19 @@ async function enterListSelection(state) {
   _tempListes = [...listsState.getSelectedListes(_type)];
 
   _allListes = await getListes(_type);
+
+  if (isFocusEnabled()) {
+    const focusFilter = getGlobalFilter();
+    if (focusFilter.listes.length > 0 || focusFilter.freqLabels.length > 0) {
+      const allEntries = _type === 'vocab' ? await getAllVocab()
+                       : _type === 'kanji' ? await getAllKanji()
+                       : [...await getAllVocab(), ...await getAllKanji()];
+      const focusEntries = applyFocusFilter(allEntries);
+      const listsInFocus = new Set(focusEntries.flatMap(e => e.listes || []));
+      _allListes = _allListes.filter(l => listsInFocus.has(l));
+    }
+  }
+
   listsState.initializeSelectedListes(_allListes, _type);
 
   renderCategories();
