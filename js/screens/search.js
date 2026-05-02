@@ -21,9 +21,8 @@ export function initSearch() {
   document.getElementById('search-auto-toggle').onclick = () => {
     _excludeAuto = !_excludeAuto;
     const btn = document.getElementById('search-auto-toggle');
-    btn.textContent = _excludeAuto ? 'A' : 'A̶';
+    btn.classList.toggle('active', _excludeAuto);
     btn.title = _excludeAuto ? 'Automatique exclus' : 'Automatique inclus';
-    btn.style.opacity = _excludeAuto ? '0.4' : '1';
     doSearch();
   };
   document.getElementById('search-more').onclick = () => { _page++; renderPage(_page); };
@@ -52,6 +51,7 @@ async function enterSearch(state) {
     input.removeAttribute('readonly');
     input.style.opacity = '';
     autoToggle.style.display = '';
+    autoToggle.classList.toggle('active', _excludeAuto);
     await buildSearchIndex();
     doSearch();
   }
