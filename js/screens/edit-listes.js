@@ -44,11 +44,7 @@ async function renderListes() {
   const extra   = _extraListes.filter(l => !all.includes(l));
   const combined = [...all, ...extra];
   const groups = groupListesByCategory(combined);
-  let categories = Object.keys(groups).sort();
-  if (groups['automatique']) {
-    categories = categories.filter(c => c !== 'automatique');
-    categories.push('automatique');
-  }
+  const categories = Object.keys(groups).sort();
 
   const container = document.getElementById('edit-listes-list');
   container.innerHTML = '';
@@ -130,12 +126,7 @@ async function saveListes() {
   const checked = [...document.querySelectorAll('[name="edit-liste"]:checked')].map(c => c.value);
   if (!checked.length) { goBack(); return; } // rien coché → pas de sauvegarde
 
-  // Retirer "automatique" si d'autres listes présentes
-  const listes = checked.filter(l => l !== 'automatique').length > 0
-    ? checked.filter(l => l !== 'automatique')
-    : checked;
-
-  const updated = { ..._entry, listes };
+  const updated = { ..._entry, listes: checked };
   if (_ktype === 'kanji') await putKanji(updated);
   else await putVocab(updated);
 
