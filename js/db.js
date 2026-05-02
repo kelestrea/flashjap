@@ -271,10 +271,10 @@ export function getFreqLabel(frequence, type) {
     if (frequence <= 2000) return 'rare';
     return 'inusité';
   }
-  if (frequence <= 1000)  return 'essentiel';
-  if (frequence <= 5000)  return 'très courant';
-  if (frequence <= 10000) return 'courant';
-  if (frequence <= 20000) return 'rare';
+  if (frequence <= 500)   return 'essentiel';
+  if (frequence <= 2000)  return 'très courant';
+  if (frequence <= 5000)  return 'courant';
+  if (frequence <= 15000) return 'rare';
   return 'inusité';
 }
 
