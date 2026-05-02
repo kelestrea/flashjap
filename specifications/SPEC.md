@@ -332,7 +332,7 @@ Après restauration : navigation vers screen-home (pile vidée).
 - Toggle pour exclure/inclure les entrées de la liste "automatique" (exclus par défaut)
 - Pagination : 50 résultats par page
 - Debounce 200ms sur la saisie
-- **Tri des résultats** (mode normal) : 1) niveau JLPT décroissant (N5 en premier, sans JLPT en dernier) — extrait du champ `listes` via regex `JLPT N(\d)` ; 2) fréquence croissante (plus fréquent en premier, `null` en dernier) ; 3) maîtrise décroissante (`maitrise` → `encours` → `etudie` → `noncommence`)
+- **Tri des résultats** : fréquence croissante (rang 1 en tête, `null` en dernier). S'applique à tous les modes (texte libre, filtre `#label`, vocab et kanji).
 - **Filtre fréquence par préfixe `#`** : si la requête commence par `#` suivi exactement d'un label de fréquence connu (`essentiel`, `très courant`, `courant`, `rare`, `inusité`), la recherche texte est remplacée par un filtre sur `getFreqLabel(e.frequence, e.type)`. Exemple : `#essentiel` retourne toutes les entrées avec ce label. Requête `#` invalide → 0 résultat. Ce mode est exclusif : aucun mélange avec la recherche texte.
 
 **Mode review (post-import) :** Si `screen-search` est appelé avec `importReviewItems` dans le state, le mode review est activé :
