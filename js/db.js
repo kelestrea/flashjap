@@ -297,7 +297,7 @@ function getScoreKeysForSens(entry, sens) {
   return [`score_${sens}`];
 }
 
-export async function getCardsForQuiz({ type, listes, critere, sens, count, filterMode, freqLabels }) {
+export async function getCardsForQuiz({ type, listes, critere, sens, count, filterMode, freqLabels, excludeAuto }) {
   let entries = [];
   if (type === 'vocab' || type === 'les2') entries.push(...await getAllVocab());
   if (type === 'kanji' || type === 'les2') entries.push(...await getAllKanji());
@@ -305,6 +305,7 @@ export async function getCardsForQuiz({ type, listes, critere, sens, count, filt
   if (filterMode === 'frequence') {
     entries = entries.filter(e => {
       if (e.frequence === null || e.frequence === undefined) return false;
+      if (excludeAuto && (e.listes || []).every(l => l === 'automatique')) return false;
       const label = getFreqLabel(e.frequence, e.type);
       return freqLabels && freqLabels.includes(label);
     });

@@ -85,6 +85,19 @@ export function initQuizParams() {
     refreshSlider();
   });
 
+  document.getElementById('qp-freq-auto-incl').addEventListener('click', () => {
+    listsState.setFreqExcludeAuto(false);
+    document.getElementById('qp-freq-auto-incl').classList.add('active');
+    document.getElementById('qp-freq-auto-excl').classList.remove('active');
+    refreshSlider();
+  });
+  document.getElementById('qp-freq-auto-excl').addEventListener('click', () => {
+    listsState.setFreqExcludeAuto(true);
+    document.getElementById('qp-freq-auto-excl').classList.add('active');
+    document.getElementById('qp-freq-auto-incl').classList.remove('active');
+    refreshSlider();
+  });
+
   // Reload all params when category changes via global toggle
   window.addEventListener('type-changed', () => {
     if (document.getElementById('screen-quiz-params').classList.contains('active')) enterParams();
@@ -153,6 +166,10 @@ async function enterParams() {
   document.getElementById('qp-listes-mode').style.display = isFreq ? 'none' : 'block';
   document.getElementById('qp-freq-mode').style.display = isFreq ? 'block' : 'none';
   renderChips(listsState.getFreqLabels(type));
+
+  const excludeAuto = listsState.getFreqExcludeAuto(type);
+  document.getElementById('qp-freq-auto-excl').classList.toggle('active', excludeAuto);
+  document.getElementById('qp-freq-auto-incl').classList.toggle('active', !excludeAuto);
 
   await loadListes(type);
   if (id !== _enterParamsId) return;
@@ -228,7 +245,8 @@ async function refreshSlider(type) {
   let cards;
   if (filterMode === 'frequence') {
     const freqLabels = listsState.getFreqLabels(t);
-    cards = await getCardsForQuiz({ type: t, critere, sens, count: 0, filterMode: 'frequence', freqLabels });
+    const excludeAuto = listsState.getFreqExcludeAuto(t);
+    cards = await getCardsForQuiz({ type: t, critere, sens, count: 0, filterMode: 'frequence', freqLabels, excludeAuto });
   } else {
     const listes = listsState.getSelectedListes(t);
     cards = await getCardsForQuiz({ type: t, listes, critere, sens, count: 0 });
@@ -266,7 +284,8 @@ async function startQuiz() {
   let cards;
   if (filterMode === 'frequence') {
     const freqLabels = listsState.getFreqLabels();
-    cards = await getCardsForQuiz({ type: cat, critere, sens, count, filterMode: 'frequence', freqLabels });
+    const excludeAuto = listsState.getFreqExcludeAuto();
+    cards = await getCardsForQuiz({ type: cat, critere, sens, count, filterMode: 'frequence', freqLabels, excludeAuto });
     if (!cards.length) return;
   } else {
     const listes = listsState.getSelectedListes();
