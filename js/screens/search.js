@@ -5,7 +5,6 @@ import { getSelectedType } from '../type-state.js';
 import { applyFocusFilter } from '../focus-state.js';
 import { ICONS } from '../icons.js';
 
-let _excludeAuto = true;
 let _debounce    = null;
 let _reviewMode  = false;
 const PAGE_SIZE  = 50;
@@ -18,13 +17,6 @@ export function initSearch() {
   document.getElementById('search-input').oninput = () => {
     clearTimeout(_debounce);
     _debounce = setTimeout(doSearch, 200);
-  };
-  document.getElementById('search-auto-toggle').onclick = () => {
-    _excludeAuto = !_excludeAuto;
-    const btn = document.getElementById('search-auto-toggle');
-    btn.classList.toggle('active', !_excludeAuto);
-    btn.title = _excludeAuto ? 'Automatique exclus' : 'Automatique inclus';
-    doSearch();
   };
   document.getElementById('search-more').onclick = () => { _page++; renderPage(_page); };
   window.addEventListener('type-changed', () => {
@@ -40,14 +32,12 @@ export function initSearch() {
 async function enterSearch(state) {
   const reviewItems = state && state.importReviewItems;
   const input = document.getElementById('search-input');
-  const autoToggle = document.getElementById('search-auto-toggle');
 
   if (reviewItems) {
     _reviewMode = true;
     input.setAttribute('readonly', '');
     input.value = '';
     input.style.opacity = '0.4';
-    autoToggle.style.display = 'none';
     _allResults = reviewItems;
     _page = 0;
     renderPage(0);
@@ -55,8 +45,6 @@ async function enterSearch(state) {
     _reviewMode = false;
     input.removeAttribute('readonly');
     input.style.opacity = '';
-    autoToggle.style.display = '';
-    autoToggle.classList.toggle('active', !_excludeAuto);
     await buildSearchIndex();
     doSearch();
   }
@@ -72,15 +60,13 @@ async function doSearch() {
   if (raw.trimStart().startsWith('#')) {
     const label = raw.slice(raw.indexOf('#') + 1).trim().toLowerCase().normalize('NFC');
     if (FREQ_LABELS.includes(label)) {
-      const all = search('', type, _excludeAuto);
-      const filtered = all.filter(e => getFreqLabel(e.frequence, e.type) === label);
-      _allResults = applyFocusFilter(filtered);
+      const all = search('', type);
+      _allResults = all.filter(e => getFreqLabel(e.frequence, e.type) === label);
     } else {
       _allResults = [];
     }
   } else {
-    const results = search(raw, type, _excludeAuto);
-    _allResults = applyFocusFilter(results);
+    _allResults = search(raw, type);
   }
   _allResults.sort((a, b) => (a.frequence ?? Infinity) - (b.frequence ?? Infinity));
   _page = 0;

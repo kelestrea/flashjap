@@ -23,7 +23,7 @@ export function initializeSelectedListes(allListes, type) {
 export function resetSelectedListes() {
   ['vocab', 'kanji'].forEach(tp => {
     ['selectedListes', 'quizSliderValue', 'quizAutoplay', 'quizFilterMode',
-     'quizFreqLabels', 'quizFreqExcludeAuto', 'quizType', 'quizSens', 'quizCritere'].forEach(base => {
+     'quizFreqLabels', 'quizType', 'quizSens', 'quizCritere'].forEach(base => {
       localStorage.removeItem(`${tp}_${base}`);
     });
   });
@@ -61,15 +61,6 @@ export function getFreqLabels(type) {
 
 export function setFreqLabels(labels, type) {
   localStorage.setItem(k('quizFreqLabels', type), JSON.stringify(labels));
-}
-
-export function getFreqExcludeAuto(type) {
-  const stored = localStorage.getItem(k('quizFreqExcludeAuto', type));
-  return stored === null ? true : stored === 'true';
-}
-
-export function setFreqExcludeAuto(value, type) {
-  localStorage.setItem(k('quizFreqExcludeAuto', type), String(value));
 }
 
 export function getQuizType(type) {

@@ -22,7 +22,7 @@ Pour chaque champ que tu ne peux pas déterminer avec certitude, pose une questi
 Ne produis le JSON qu'après avoir obtenu les réponses.
 
 Étape 4a — Génération de vocabulaire depuis les kanjis manuels
-Pour chaque fiche kanji présente dans le fichier et dont la liste n'est pas uniquement ["automatique"] :
+Pour chaque fiche kanji présente dans le fichier :
 Génère 2 à 3 mots de vocabulaire courants contenant ce kanji ; idéalement composé d'au moins 2 kanji ou d'un kanji + au moins un hiragana
 Choisis des mots qui couvrent les différentes prononciations du kanji (on et kun) — il faut une lecture de chaque sorte à minima
 Ces mots vocab reçoivent les mêmes listes que le kanji source
@@ -33,7 +33,7 @@ Applique le format fiche vocab standard (hiragana, romaji, traductions FR, kanji
 Pour chaque kanji individuel trouvé dans les champs kanjis_composants des fiches vocab générées :
 
 Crée une fiche kanji si elle n'existe pas déjà dans le fichier
-La liste de ces fiches est ["automatique"]
+La liste de ces fiches est ["JLPT n/a"]
 Déduplique : un même kanji ne génère qu'une seule fiche
 Applique le même format que les fiches kanji manuelles (lectures on/kun, romaji, sens, exemples couvrant les différentes lectures)
 
