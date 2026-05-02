@@ -7,7 +7,6 @@ import { isFocusEnabled, getGlobalFilter, applyFocusFilter } from '../focus-stat
 
 const FREQ_LABELS_ALL = ['essentiel', 'très courant', 'courant', 'rare', 'inusité'];
 let _enterParamsId = 0;
-let _focusListsInScope = null; // Set des listes ayant des entrées dans le sous-ensemble Focus
 
 export function initQuizParams() {
   registerScreen('screen-quiz-params', { enter: enterParams });
@@ -136,23 +135,6 @@ async function enterParams() {
   const allListes = await getListes(type);
   if (id !== _enterParamsId) return;
 
-  // Calculer les listes visibles dans le sous-ensemble Focus
-  if (isFocusEnabled()) {
-    const focusFilter = getGlobalFilter();
-    if (focusFilter.listes.length > 0 || focusFilter.freqLabels.length > 0) {
-      const all = type === 'vocab' ? await getAllVocab()
-                : type === 'kanji' ? await getAllKanji()
-                : [...await getAllVocab(), ...await getAllKanji()];
-      const focusEntries = applyFocusFilter(all);
-      _focusListsInScope = new Set(focusEntries.flatMap(e => e.listes || []));
-    } else {
-      _focusListsInScope = null;
-    }
-  } else {
-    _focusListsInScope = null;
-  }
-  if (id !== _enterParamsId) return;
-
   listsState.initializeSelectedListes(allListes, type);
 
   // Restaurer type de quiz (lecture/compréhension) — avant refreshSlider qui lit ce radio
@@ -217,21 +199,38 @@ function groupListesByCategory(listes) {
 }
 
 async function loadListes(type) {
-  let selectedListes = listsState.getSelectedListes(type);
-  if (_focusListsInScope) {
-    selectedListes = selectedListes.filter(l => _focusListsInScope.has(l));
+  const selectedListes = listsState.getSelectedListes(type);
+  let visibleListes = selectedListes;
+
+  if (isFocusEnabled() && selectedListes.length > 0) {
+    const focusFilter = getGlobalFilter();
+    if (focusFilter.listes.length > 0 || focusFilter.freqLabels.length > 0) {
+      const allEntries = type === 'vocab' ? await getAllVocab()
+                       : type === 'kanji' ? await getAllKanji()
+                       : [...await getAllVocab(), ...await getAllKanji()];
+      const focusEntries = applyFocusFilter(allEntries);
+      const listsInFocus = new Set(focusEntries.flatMap(e => e.listes || []));
+      visibleListes = selectedListes.filter(l => listsInFocus.has(l));
+    }
   }
+
   const container = document.getElementById('qp-listes');
 
-  if (selectedListes.length === 0) {
+  if (visibleListes.length === 0) {
     container.innerHTML = '<p style="font-size:13px;color:var(--gray)">Aucune liste sélectionnée</p>';
   } else {
-    const groups = groupListesByCategory(selectedListes);
+    const groups = groupListesByCategory(visibleListes);
     const categories = Object.keys(groups).sort();
-    const html = categories
-      .map(cat => `<div style="margin-bottom:8px;">${esc(groups[cat].join(' · '))}</div>`)
-      .join('');
-    container.innerHTML = `<div style="font-size:14px;color:var(--blue);">${html}</div>`;
+    const html = categories.map(cat => {
+      const listsHtml = groups[cat]
+        .map(l => `<div style="font-size:14px;color:var(--blue);padding:2px 0;">${esc(l)}</div>`)
+        .join('');
+      return `<div style="margin-bottom:10px;">
+        <div style="font-size:11px;color:var(--gray);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px;">${esc(cat)}</div>
+        ${listsHtml}
+      </div>`;
+    }).join('');
+    container.innerHTML = html;
   }
 
   await refreshSlider(type);
