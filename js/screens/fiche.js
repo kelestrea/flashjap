@@ -72,7 +72,7 @@ async function enterFiche({ key, ktype }) {
       </div>` : ''}
       <div class="section">
         <div style="display:flex;align-items:center;justify-content:space-between;">
-          <span style="font-size:13px;color:var(--gray);">${getFreqLabel(entry.frequence, 'vocab') ?? '-'}</span>
+          <span style="font-size:13px;color:var(--gray);">${getFreqLabel(entry.frequence, 'vocab') != null ? `${getFreqLabel(entry.frequence, 'vocab')} (rang ${entry.frequence})` : '-'}</span>
           <a class="jisho-link" href="https://jisho.org/word/${encodeURIComponent(entry.mot)}" target="_blank" rel="noopener">
             ${ICONS.jisho}<span>Voir sur Jisho</span>${ICONS.linkOut}
           </a>

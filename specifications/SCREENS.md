@@ -242,7 +242,7 @@ Affiche le détail complet d'une entrée. Accessible depuis `screen-search` (pus
 
 **Contenu kanji :** lectures on/kun, exemples, scores, ligne Jisho (label fréquence à gauche + lien Jisho à droite), boutons éditer listes / supprimer
 
-**Ligne Jisho** (vocab et kanji) : `<label fréquence | "-"> ... <lien Jisho>` — le label est calculé à la volée via `getFreqLabel()` ; si `frequence` est null, affiche `-`.
+**Ligne Jisho** (vocab et kanji) : `<label fréquence | "-"> ... <lien Jisho>` — le label est calculé à la volée via `getFreqLabel()` ; si `frequence` est défini, affiche `"<classe> (rang <N>)"` (ex : `"courant (rang 342)"`). Si `frequence` est null, affiche `-`.
 
 **State reçu :** `{ key: string, ktype: 'vocab' | 'kanji' }`
 
@@ -452,7 +452,7 @@ closeOverlay()                // Dépile, masque
 
 La transition vocab → kanji dans l'overlay est gérée par `card-vocab.js` : le HTML vocab est sauvegardé dans `_overlayStack[]`, le `push-sheet` est animé par-dessus, puis le retour restaure le HTML vocab.
 
-**Ligne Jisho dans les overlays** (vocab et kanji) : même pattern que `screen-fiche` — label fréquence (ou `-`) à gauche en `--gray`, lien Jisho à droite sur la même ligne.
+**Ligne Jisho dans les overlays** (vocab et kanji) : même pattern que `screen-fiche` — label fréquence avec rang `"<classe> (rang <N>)"` (ou `-`) à gauche en `--gray`, lien Jisho à droite sur la même ligne.
 
 ---
 
